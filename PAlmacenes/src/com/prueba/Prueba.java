@@ -4,17 +4,21 @@
 package com.prueba;
 
 /**
- * @author proynantec04
+ * @author gcorreageek
  *
  */
 public class Prueba {
 
 	/**
+	 * main
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		// TODO HOLA GITHUB
+		for (String string : args) {
+			System.out.println("Hola GitHub!!"+string);
+		}
+		
 	}
 
 }
