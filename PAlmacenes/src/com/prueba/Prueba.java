@@ -1,5 +1,6 @@
 /**
- * 
+ * PAlmacenes
+ * Proyecto para el curso de DAWI
  */
 package com.prueba;
 
