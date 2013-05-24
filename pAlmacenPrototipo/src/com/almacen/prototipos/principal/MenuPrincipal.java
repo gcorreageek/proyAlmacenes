@@ -227,7 +227,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 			jDesktopPane1.setBackground(new java.awt.Color(0,0,255));
 			jDesktopPane1.setFont(new java.awt.Font("Arial",1,28));
 			jDesktopPane1.setForeground(new java.awt.Color(255,255,0));
-			jDesktopPane1.setBorder(BorderFactory.createTitledBorder(null, "Corporacion Electrica Lima", TitledBorder.CENTER, TitledBorder.TOP, new java.awt.Font("Dialog",1,48), new java.awt.Color(255,255,0)));
+			jDesktopPane1.setBorder(BorderFactory.createTitledBorder(null, "Proyecto Almacenes Universidad", TitledBorder.CENTER, TitledBorder.TOP, new java.awt.Font("Dialog",1,48), new java.awt.Color(255,255,0)));
 			jDesktopPane1.setDebugGraphicsOptions(DebugGraphics.BUFFERED_OPTION);
 
 			jToolBar1 = new JToolBar();
