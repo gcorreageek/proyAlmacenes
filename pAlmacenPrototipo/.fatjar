@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Fri May 24 01:15:40 COT 2013
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=pAlmacenPrototipo_fat.jar
+manifest.mergeall=true
+manifest.mainclass=com.almacen.prototipos.principal.Inicio
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=
