@@ -12,8 +12,6 @@ import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DebugGraphics;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -28,8 +26,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import com.almacen.prototipos.mantenimientos.MantMarcas;
+import com.almacen.prototipos.mantenimientos.DetalleProductoListado_JInternalFrame;
+import com.almacen.prototipos.mantenimientos.MarcaListado_JInternalFrame;
+import com.almacen.prototipos.mantenimientos.ProductoListado_JInternalFrame;
+import com.almacen.prototipos.mantenimientos.ProveedorListado_JInternalFrame;
+import com.almacen.prototipos.mantenimientos.UMedidaListado_JDialog;
+import com.almacen.prototipos.mantenimientos.UMedidaListado_JInternalFrame;
 import com.almacen.prototipos.seguridad.Logueo;
+import com.almacen.prototipos.transacciones.RegistrarPedido_JInternalFrame;
 import com.almacen.prototipos.transacciones.TranCotizacion;
 
 
@@ -49,11 +53,16 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	private JMenuBar jMenuBar1;
 	private JMenu jMenu7;
 	public static JDesktopPane jDesktopPane1;
-	private JMenuItem jMenuItem4;
+
 	private JMenu jMenu8;
 	private JMenu jMenu2;
 	private JMenu jMenu1;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
+	private JMenuItem mniRegistroPedido;
+	private JMenu mnuTransaccion;
+	private JMenuItem mniListadoUMedida;
+	private JMenuItem mniNuevoUMedida;
+	private JMenuItem mniNuevoProducto;
 	private JButton btnCotizacionMant;
 	private JButton btnCotizacion;
 	private JButton btnTranProducto;
@@ -71,7 +80,16 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	private JToolBar jToolBar1;
 
 	private UIManager.LookAndFeelInfo apariencias[];//devuleve la kntidad de apariencias q tenga la maquina
-	private JMenuItem mniPublicidad;
+	private JMenuItem mniDetalleProducto;
+	private JMenu mnuUMedida;
+	private JMenuItem mniListadoProducto;
+	private JMenu mnuProducto;
+	private JMenuItem mniNuevoProveedor;
+	private JMenuItem mniListadoProveedor;
+	private JMenu mnuProveedor;
+	private JMenuItem mniListadoMarca;
+	private JMenuItem mniNuevaMarca;
+	private JMenu mnuMarca;
 	private JPanel jPanel1;
 	private JRadioButtonMenuItem rbiapariencia[];
 	String[] nomApariencias;
@@ -94,9 +112,20 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	ImageIcon imagen5 = new ImageIcon("Images/transacciondeproducto.gif");
 	ImageIcon imagen6 = new ImageIcon("Images/cotizacioningreso.jpg");
 	ImageIcon imagen7 = new ImageIcon("Images/cotizacionmatenimiento.jpg");*/
-
-	MantMarcas  objMarca; 
+ 
 	TranCotizacion objTranCotizacion; 
+	
+	
+	
+	
+	UMedidaListado_JInternalFrame umedidaListado;
+	MarcaListado_JInternalFrame marcaListado;
+	ProveedorListado_JInternalFrame proveedorListado;
+	ProductoListado_JInternalFrame productoListado;
+	
+	DetalleProductoListado_JInternalFrame detalleProductoListado;
+	RegistrarPedido_JInternalFrame registroPedido;
+	
  
 	public MenuPrincipal() {
 		try {
@@ -178,12 +207,20 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 			jMenu2.setMnemonic(java.awt.event.KeyEvent.VK_M);
 			jMenu2.setText("Mantenimiento");
 			jMenu2.setBounds(94, 0, 75, 21);
-
+			{
+				mnuTransaccion = new JMenu();
+				jMenuBar1.add(mnuTransaccion);
+				mnuTransaccion.setText("Transaccion");
+				{
+					mniRegistroPedido = new JMenuItem();
+					mnuTransaccion.add(mniRegistroPedido);
+					mniRegistroPedido.setText("Registro Pedido");
+					mniRegistroPedido.addActionListener(this);
+				}
+			}
+			
 			//jMenuItem3.setAccelerator(KeyStroke.getKeyStroke("alt Z"));
 
-			jMenuItem4 = new JMenuItem();
-			jMenu2.add(jMenuItem4);
-			jMenuItem4.setText("Marca");
 			//jMenuItem4.setAccelerator(KeyStroke.getKeyStroke("alt X"));
 
 			//jMenuItem5.setAccelerator(KeyStroke.getKeyStroke("alt C"));
@@ -193,14 +230,82 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 			jMenu2.addSeparator();
 			//mnuAlternativo.addSeparator();
 
-			mniPublicidad = new JMenuItem();
-			jMenu2.add(mniPublicidad);
-			mniPublicidad.setText("Publicidad");
-			mniPublicidad.addActionListener(this);
+			mniDetalleProducto = new JMenuItem();
+			jMenu2.add(mniDetalleProducto);
+			mniDetalleProducto.setText("Detalle Producto");
+			{
+				mnuUMedida = new JMenu();
+				jMenu2.add(mnuUMedida);
+				mnuUMedida.setText("U.Medida");
+				mnuUMedida.setBounds(76, 189, 73, 21);
+				{
+					mniNuevoUMedida = new JMenuItem();
+					mnuUMedida.add(mniNuevoUMedida);
+					mniNuevoUMedida.setText("Nuevo");
+					mniNuevoUMedida.addActionListener(this);
+				}
+				{
+					mniListadoUMedida = new JMenuItem();
+					mnuUMedida.add(mniListadoUMedida);
+					mniListadoUMedida.setText("Listado");
+					mniListadoUMedida.addActionListener(this);
+				}
+			}
+			{
+				mnuProveedor = new JMenu();
+				jMenu2.add(mnuProveedor);
+				mnuProveedor.setText("Proveedor");
+				mnuProveedor.setBounds(68, 147, 86, 21);
+				{
+					mniNuevoProveedor = new JMenuItem();
+					mnuProveedor.add(mniNuevoProveedor);
+					mniNuevoProveedor.setText("Nuevo");
+					mniNuevoProveedor.addActionListener(this);
+				}
+				{
+					mniListadoProveedor = new JMenuItem();
+					mnuProveedor.add(mniListadoProveedor);
+					mniListadoProveedor.setText("Listado");
+					mniListadoProveedor.addActionListener(this);
+				}
+			}
+			{
+				mnuMarca = new JMenu();
+				jMenu2.add(mnuMarca);
+				mnuMarca.setText("Marca");
+				{
+					mniNuevaMarca = new JMenuItem();
+					mnuMarca.add(mniNuevaMarca);
+					mniNuevaMarca.setText("Nueva");
+					mniNuevaMarca.addActionListener(this);
+				}
+				{
+					mniListadoMarca = new JMenuItem();
+					mnuMarca.add(mniListadoMarca);
+					mniListadoMarca.setText("Listado");
+					mniListadoMarca.addActionListener(this);
+				}
+			}
+			{
+				mnuProducto = new JMenu();
+				jMenu2.add(mnuProducto);
+				mnuProducto.setText("Producto");
+				{
+					mniNuevoProducto = new JMenuItem();
+					mnuProducto.add(mniNuevoProducto);
+					mniNuevoProducto.setText("Nuevo");
+					mniNuevoProducto.addActionListener(this);
+				}
+				{
+					mniListadoProducto = new JMenuItem();
+					mnuProducto.add(mniListadoProducto);
+					mniListadoProducto.setText("Listado");
+					mniListadoProducto.addActionListener(this);
+				}
+			}
+			mniDetalleProducto.addActionListener(this);
 
 			//jMenuItem8.setAccelerator(KeyStroke.getKeyStroke("alt F"));
-
-			jMenuItem4.addActionListener(this);
 
 			//KeyStroke ctrlP = KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK);
 
@@ -342,14 +447,52 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 			if(e.getSource()==rbiapariencia[i])
 				rbiPulsado(i);
 		} 
-		if(e.getSource()==jMenuItem4){
-			if(objMarca==null||objMarca.isClosed()){
-				objMarca= new MantMarcas() ;
-				jDesktopPane1.add(objMarca);}
-			try {objMarca.setSelected(true);
+		if(e.getSource()==mniListadoMarca){
+			if(marcaListado==null||marcaListado.isClosed()){
+				marcaListado= new MarcaListado_JInternalFrame();
+				jDesktopPane1.add(marcaListado);}
+			try {marcaListado.setSelected(true);
 				} catch (java.beans.PropertyVetoException e2) {}
-			
 		}
+		if(e.getSource()==mniListadoProveedor){
+			if(proveedorListado==null||proveedorListado.isClosed()){
+				proveedorListado= new ProveedorListado_JInternalFrame();
+				jDesktopPane1.add(proveedorListado);}
+			try {proveedorListado.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
+		}
+		if(e.getSource()==mniListadoProducto){
+			if(productoListado==null||productoListado.isClosed()){
+				productoListado= new ProductoListado_JInternalFrame();
+				jDesktopPane1.add(productoListado);}
+			try {productoListado.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
+		}
+		if(e.getSource()==mniListadoUMedida){
+			if(umedidaListado==null||umedidaListado.isClosed()){
+				umedidaListado= new UMedidaListado_JInternalFrame();
+				jDesktopPane1.add(umedidaListado);}
+			try {umedidaListado.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
+		}
+		if(e.getSource()==mniDetalleProducto){
+			if(detalleProductoListado==null||detalleProductoListado.isClosed()){
+				detalleProductoListado= new DetalleProductoListado_JInternalFrame();
+				jDesktopPane1.add(detalleProductoListado);}
+			try {detalleProductoListado.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
+		}
+		if(e.getSource()==mniRegistroPedido){
+			if(registroPedido==null||registroPedido.isClosed()){
+				registroPedido= new RegistrarPedido_JInternalFrame();
+				jDesktopPane1.add(registroPedido);}
+			try {registroPedido.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
+		}
+//		registroPedido
+		
+		
+	 
 		
 	}
 	

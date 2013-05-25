@@ -272,7 +272,7 @@ public class Logueo extends JFrame implements ActionListener{
 		objMenu=null;
 		objMenu=new MenuPrincipal();
 		objMenu.setIconImage(new ImageIcon(cl.getResource("Images/cel.gif")).getImage());
-		objMenu.setTitle("Corporacion Electrica Lima");
+		objMenu.setTitle("Proyecto Almacen Universidad");
 	}
 	
 	
