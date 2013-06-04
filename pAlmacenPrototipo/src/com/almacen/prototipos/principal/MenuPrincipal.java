@@ -33,6 +33,7 @@ import com.almacen.prototipos.mantenimientos.ProveedorListado_JInternalFrame;
 import com.almacen.prototipos.mantenimientos.UMedidaListado_JDialog;
 import com.almacen.prototipos.mantenimientos.UMedidaListado_JInternalFrame;
 import com.almacen.prototipos.seguridad.Logueo;
+import com.almacen.prototipos.transacciones.EvaluarPedido_JInternalFrame;
 import com.almacen.prototipos.transacciones.RegistrarPedido_JInternalFrame;
 import com.almacen.prototipos.transacciones.TranCotizacion;
 
@@ -58,6 +59,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	private JMenu jMenu2;
 	private JMenu jMenu1;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
+	private JMenuItem mniEvaluarPedido;
 	private JMenuItem mniRegistroPedido;
 	private JMenu mnuTransaccion;
 	private JMenuItem mniListadoUMedida;
@@ -125,6 +127,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	
 	DetalleProductoListado_JInternalFrame detalleProductoListado;
 	RegistrarPedido_JInternalFrame registroPedido;
+	EvaluarPedido_JInternalFrame evaluarPedido;
 	
  
 	public MenuPrincipal() {
@@ -217,6 +220,12 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 					mniRegistroPedido.setText("Registro Pedido");
 					mniRegistroPedido.addActionListener(this);
 				}
+				{
+					mniEvaluarPedido = new JMenuItem();
+					mnuTransaccion.add(mniEvaluarPedido);
+					mniEvaluarPedido.setText("Evaluar Pedido");
+					mniEvaluarPedido.addActionListener(this);
+				}
 			}
 			
 			//jMenuItem3.setAccelerator(KeyStroke.getKeyStroke("alt Z"));
@@ -232,7 +241,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 
 			mniDetalleProducto = new JMenuItem();
 			jMenu2.add(mniDetalleProducto);
-			mniDetalleProducto.setText("Detalle Producto");
+			mniDetalleProducto.setText("Asignar Precio y Proveedor a Producto");
 			{
 				mnuUMedida = new JMenu();
 				jMenu2.add(mnuUMedida);
@@ -338,7 +347,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 			jToolBar1 = new JToolBar();
 			getContentPane().add(jToolBar1, BorderLayout.SOUTH);
 			jToolBar1.setBounds(0, -1, 884, 139);
-			jToolBar1.setPreferredSize(new java.awt.Dimension(882, 103));
+			jToolBar1.setPreferredSize(new java.awt.Dimension(882, 30));
 
 //			btnCliente = new JButton(imagen1);
 //			jToolBar1.add(btnCliente);
@@ -489,7 +498,14 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 			try {registroPedido.setSelected(true);
 				} catch (java.beans.PropertyVetoException e2) {}
 		}
-//		registroPedido
+		if(e.getSource()==mniEvaluarPedido){
+			if(evaluarPedido==null||evaluarPedido.isClosed()){
+				evaluarPedido= new EvaluarPedido_JInternalFrame();
+				jDesktopPane1.add(evaluarPedido);}
+			try {evaluarPedido.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
+		}
+//		evaluarPedido
 		
 		
 	 

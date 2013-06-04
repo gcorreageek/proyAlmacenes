@@ -1,16 +1,14 @@
-package com.almacen.prototipos.mantenimientos;
+package com.almacen.prototipos.busquedas;
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,6 +16,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.almacen.prototipos.mantenimientos.DetalleProductoNuevo_JDialog;
+import com.almacen.prototipos.mantenimientos.ProductoNuevo_JDialog;
+import com.almacen.prototipos.mantenimientos.ProveedorNuevo_JDialog;
 import com.almacen.prototipos.principal.MenuPrincipal;
 
  
@@ -34,18 +35,21 @@ import com.almacen.prototipos.principal.MenuPrincipal;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class DetalleProductoListado_JDialog extends JDialog implements  ActionListener {
+public class BuscarPedidoListado_JDialog extends JDialog implements  ActionListener {
 	MenuPrincipal objMenuP;
-	private JButton btnNuevoDetalleProducto;
-	private JComboBox jComboBox2;
+	private JLabel jLabel5;
+	private JComboBox cboArea;
+	private JTextField jTextField4;
+	private JTextField jTextField3;
+	private JTextField jTextField2;
+	private JTextField jTextField1;
 	private JLabel jLabel3;
+	private JLabel jLabel4;
 	private JLabel jLabel1;
-	private JComboBox cboMarca;
 	ProductoNuevo_JDialog productoNuevo;
 	ProveedorNuevo_JDialog proveedorNuevo;
 	
 	private JPanel pnlPrincipal;
-	private JComboBox jComboBox1;
 	private JLabel jLabel2;
 	private JLabel lblMarca;
 	private JTextField txtMarca;
@@ -54,22 +58,22 @@ public class DetalleProductoListado_JDialog extends JDialog implements  ActionLi
 
 	String cod_mar,nom_mar;
 	private JTable jTable1;
-	String titulo2[]={"COD","PRODUCTO","MARCA","UMEDIDA","PROVEEDOR","PRECIO","[E]","[M]"};
+	String titulo2[]={"NPEDIDO","VERSION","FECHA","RESPONSABLE","AREA","PRIORIDAD","[D]","[S]"};
 //	String titulo2[]={"COD","PRODUCTO","TIPO","NUMERO","RESPONSABLE","TELEFONO","DIRECCION","CORREO","[E]","[M]"};
 //	String titulo2[]={"CODIGO","MARCA","ELIMINAR","MODIFICAR"};
 	 DefaultTableModel modelo2 =new DefaultTableModel(null,titulo2);
-	 public DetalleProductoListado_JDialog(Frame padre) { 
+	 public BuscarPedidoListado_JDialog(Frame padre) { 
 		 super( (Frame)padre, true);
 		 try { 
-			this.setPreferredSize(new java.awt.Dimension(782, 368));
-			this.setBounds(0, 0, 782, 368);
+			this.setPreferredSize(new java.awt.Dimension(778, 335));
+			this.setBounds(0, 0, 778, 335);
 			{
 				pnlPrincipal = new JPanel();
 				getContentPane().add(pnlPrincipal, BorderLayout.CENTER);
 				{
 					scrLista = new JScrollPane();
 					pnlPrincipal.add(scrLista);
-					scrLista.setBounds(6, 138, 758, 186);
+					scrLista.setBounds(0, 101, 758, 186);
 					{
 						jTable1 = new JTable();
 						scrLista.setViewportView(jTable1);
@@ -80,71 +84,78 @@ public class DetalleProductoListado_JDialog extends JDialog implements  ActionLi
 					btnBuscar = new JButton();
 					pnlPrincipal.add(btnBuscar);
 					btnBuscar.setText("Buscar");
-					btnBuscar.setBounds(6, 115, 93, 21);
+					btnBuscar.setBounds(336, 8, 93, 21);
 					btnBuscar.addActionListener(this);
 				}
 				{
 					txtMarca = new JTextField();
 					pnlPrincipal.add(txtMarca);
-					txtMarca.setBounds(84, 6, 329, 23);
+					txtMarca.setBounds(83, 6, 144, 23);
 				}
 				{
 					lblMarca = new JLabel();
 					pnlPrincipal.add(lblMarca);
-					lblMarca.setText("Producto:");
+					lblMarca.setText("N.Pedido:");
 					lblMarca.setBounds(6, 10, 74, 14);
 				}
 				{
 					jLabel2 = new JLabel();
 					pnlPrincipal.add(jLabel2);
-					jLabel2.setText("U.Medida:");
-					jLabel2.setBounds(6, 62, 74, 22);
-				}
-				{
-					ComboBoxModel jComboBox1Model = 
-							new DefaultComboBoxModel(
-									new String[] {  "SELECCIONAR", "UND","CAJA","DOCENA","MILLAR" });
-					jComboBox1 = new JComboBox();
-					pnlPrincipal.add(jComboBox1);
-					jComboBox1.setModel(jComboBox1Model);
-					jComboBox1.setBounds(84, 61, 191, 23);
-				}
-				{
-					ComboBoxModel cboMarcaModel = 
-							new DefaultComboBoxModel(
-									new String[] {"SELECCIONAR", "3M","PEPITO","MICROSOFT"  });
-					cboMarca = new JComboBox();
-					pnlPrincipal.add(cboMarca);
-					cboMarca.setModel(cboMarcaModel);
-					cboMarca.setBounds(84, 32, 191, 23);
+					jLabel2.setText("Responsable:");
+					jLabel2.setBounds(6, 65, 89, 22);
 				}
 				{
 					jLabel1 = new JLabel();
 					pnlPrincipal.add(jLabel1);
-					jLabel1.setText("Marca:");
-					jLabel1.setBounds(6, 37, 74, 18);
+					jLabel1.setText("Fecha Inicio:");
+					jLabel1.setBounds(6, 37, 90, 18);
+				}
+				{
+					jLabel4 = new JLabel();
+					pnlPrincipal.add(jLabel4);
+					jLabel4.setText("Fecha Fin:");
+					jLabel4.setBounds(236, 39, 78, 18);
 				}
 				{
 					jLabel3 = new JLabel();
 					pnlPrincipal.add(jLabel3);
-					jLabel3.setText("Proveedor:");
-					jLabel3.setBounds(6, 90, 74, 22);
+					jLabel3.setText("Version:");
+					jLabel3.setBounds(234, 12, 56, 14);
 				}
 				{
-					ComboBoxModel jComboBox2Model = 
+					jTextField1 = new JTextField();
+					pnlPrincipal.add(jTextField1);
+					jTextField1.setBounds(285, 7, 39, 23);
+				}
+				{
+					jTextField2 = new JTextField();
+					pnlPrincipal.add(jTextField2);
+					jTextField2.setBounds(96, 37, 130, 23);
+				}
+				{
+					jTextField3 = new JTextField();
+					pnlPrincipal.add(jTextField3);
+					jTextField3.setBounds(301, 37, 142, 23);
+				}
+				{
+					jTextField4 = new JTextField();
+					pnlPrincipal.add(jTextField4);
+					jTextField4.setBounds(95, 66, 197, 23);
+				}
+				{
+					jLabel5 = new JLabel();
+					pnlPrincipal.add(jLabel5);
+					jLabel5.setText("Area:");
+					jLabel5.setBounds(297, 69, 39, 22);
+				}
+				{
+					ComboBoxModel cboAreaModel = 
 							new DefaultComboBoxModel(
-									new String[] { "SELECCIONAR", "DELTRON","PCYA" });
-					jComboBox2 = new JComboBox();
-					pnlPrincipal.add(jComboBox2);
-					jComboBox2.setModel(jComboBox2Model);
-					jComboBox2.setBounds(84, 88, 191, 23);
-				}
-				{
-					btnNuevoDetalleProducto = new JButton();
-					pnlPrincipal.add(btnNuevoDetalleProducto);
-					btnNuevoDetalleProducto.setText("Nuevo Detalle Producto");
-					btnNuevoDetalleProducto.setBounds(443, 7, 178, 23);
-					btnNuevoDetalleProducto.addActionListener(this);
+									new String[] { "SELECCIONAR", "RRHH","LOGISTICA" });
+					cboArea = new JComboBox();
+					pnlPrincipal.add(cboArea);
+					cboArea.setModel(cboAreaModel);
+					cboArea.setBounds(333, 69, 109, 23);
 				}
 				pnlPrincipal.setLayout(null);
 				pnlPrincipal.setPreferredSize(new java.awt.Dimension(359, 255));
@@ -158,10 +169,7 @@ public class DetalleProductoListado_JDialog extends JDialog implements  ActionLi
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(btnNuevoDetalleProducto==e.getSource()){
-				DetalleProductoNuevo_JDialog detalleProductoNuevo = new DetalleProductoNuevo_JDialog(objMenuP);
-				detalleProductoNuevo.setVisible(true);
-				detalleProductoNuevo.pack(); 
+			if(btnBuscar==e.getSource()){ 
 			}
 			
 		}

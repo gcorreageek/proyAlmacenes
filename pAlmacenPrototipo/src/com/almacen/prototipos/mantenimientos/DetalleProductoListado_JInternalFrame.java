@@ -59,7 +59,7 @@ public class DetalleProductoListado_JInternalFrame extends JInternalFrame implem
 //	String titulo2[]={"CODIGO","MARCA","ELIMINAR","MODIFICAR"};
 	 DefaultTableModel modelo2 =new DefaultTableModel(null,titulo2);
 	 public DetalleProductoListado_JInternalFrame() { 
-		 super("Listado Detalle Producto", true, true, true, true);
+		 super("Listado Productos con Precio y Proveedor", true, true, true, true);
 		 try { 
 			 this.setVisible(true);
 			this.setPreferredSize(new java.awt.Dimension(782, 368));
@@ -109,7 +109,6 @@ public class DetalleProductoListado_JInternalFrame extends JInternalFrame implem
 					pnlPrincipal.add(jComboBox1);
 					jComboBox1.setModel(jComboBox1Model);
 					jComboBox1.setBounds(84, 61, 191, 23);
-					jComboBox1.setEditable(true);
 				}
 				{
 					ComboBoxModel cboMarcaModel = 
@@ -119,7 +118,6 @@ public class DetalleProductoListado_JInternalFrame extends JInternalFrame implem
 					pnlPrincipal.add(cboMarca);
 					cboMarca.setModel(cboMarcaModel);
 					cboMarca.setBounds(84, 32, 191, 23);
-					cboMarca.setEditable(true);
 				}
 				{
 					jLabel1 = new JLabel();
@@ -141,7 +139,6 @@ public class DetalleProductoListado_JInternalFrame extends JInternalFrame implem
 					pnlPrincipal.add(jComboBox2);
 					jComboBox2.setModel(jComboBox2Model);
 					jComboBox2.setBounds(84, 88, 191, 23);
-					jComboBox2.setEditable(true);
 				}
 				{
 					btnNuevoDetalleProducto = new JButton();

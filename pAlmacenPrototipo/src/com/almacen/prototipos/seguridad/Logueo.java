@@ -264,15 +264,12 @@ public class Logueo extends JFrame implements ActionListener{
 		pnlDatos.setVisible(true);
 		
 	}
-	private void metodoIngresar2(){
-//		pnlLogeo.setVisible(false);
-//		pnlDatos.setVisible(false);
-//		pnlPrincipal.setVisible(false);
+	private void metodoIngresar2(){ 
 		this.setVisible(false); 
 		objMenu=null;
 		objMenu=new MenuPrincipal();
 		objMenu.setIconImage(new ImageIcon(cl.getResource("Images/cel.gif")).getImage());
-		objMenu.setTitle("Proyecto Almacen Universidad");
+		objMenu.setTitle("Proyecto Almacen Universidad v2");
 	}
 	
 	

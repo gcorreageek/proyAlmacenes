@@ -40,20 +40,27 @@ import com.almacen.prototipos.principal.MenuPrincipal;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class RegistrarPedido_JInternalFrame extends JInternalFrame implements  ActionListener {
+public class EvaluarPedido_JInternalFrame extends JInternalFrame implements  ActionListener {
 	MenuPrincipal objMenuP;
-	private JTextArea jTextArea1;
-	private JScrollPane jScrollPane3;
-	private JLabel jLabel7;
-	private JButton btnGuardarEnviar;
 	private JButton btnCancelar;
 	private JButton btnGuardar;
+	private JTextField jTextField6;
+	private JTextField txtPrioridad2;
+	private JButton jButton1;
 	private JTable jTable1;
 	private JScrollPane jScrollPane2;
-	private JButton jButton1;
-	private JTextField txtCantidad;
-	private JLabel lblCantidad;
-	private JTextField jTextField6;
+	private JTable jTable2;
+	private JScrollPane jScrollPane4;
+	private JTextArea jTextArea1;
+	private JScrollPane jScrollPane3;
+	private JLabel lblObservacion;
+	private JLabel lblPrioridad2;
+	private JTextField txtCargo2;
+	private JTextField txtFecha2;
+	private JLabel lblFecha;
+	private JTextField txtVersion;
+	private JLabel lblVersion2;
+	private JLabel jLabel9;
 	private JTextField jTextField5;
 	private JLabel jLabel6;
 	private JLabel jLabel5;
@@ -74,7 +81,6 @@ public class RegistrarPedido_JInternalFrame extends JInternalFrame implements  A
 	private JTextArea txtAObservacionD;
 	private JScrollPane scrObservacionD;
 	private JLabel lblObservacionD;
-	private JButton btnBuscarProductos;
 	private JTextField txtNombre;
 	private JLabel lblNombre;
 	private JPanel pnlProducto;
@@ -86,29 +92,150 @@ public class RegistrarPedido_JInternalFrame extends JInternalFrame implements  A
 
 	String cod_mar,nom_mar;
 	String titulo1[]={"Version","Responsable","Comentario","Eliminar/Seleccionar"};
-	String titulo2[]={"COD","PRODUCTO","MARCA","UMEDIDA","PROVEEDOR","PRECIO","[E]","[M]"};
-	String titulo3[]={"ITEM","COD","PRODUCTO","MARCA","UMEDIDA","CANTIDAD","PRIORIDAD","[E]"};
+	String titulo2[]={"ITEM","COD","PRODUCTO","UND","MARCA","CANTIDAD","PRIORIDAD","STOCK M","STOCK","STOCK T","SALIDA","COTIZAR","PRESTAMO"};
+	String titulo3[]={"ITEM","COD","PRODUCTO","UND","MARCA","CANTIDAD","PRIORIDAD","STOCK M","STOCK","STOCK T","PRESTADO","EVALUACION","ESTADO/ELIMINAR"};
 //	String titulo2[]={"COD","PRODUCTO","TIPO","NUMERO","RESPONSABLE","TELEFONO","DIRECCION","CORREO","[E]","[M]"};
 //	String titulo2[]={"CODIGO","MARCA","ELIMINAR","MODIFICAR"};
-	 DefaultTableModel modelo2 =new DefaultTableModel(null,titulo2);
-	 DefaultTableModel modelo1 =new DefaultTableModel(null,titulo1);
+	 DefaultTableModel modelo2 =new DefaultTableModel(null,titulo1	);
+	 DefaultTableModel modelo1 =new DefaultTableModel(null,titulo2);
 	 DefaultTableModel modelo3 =new DefaultTableModel(null,titulo3);
 	 
-	 public RegistrarPedido_JInternalFrame() { 
-		 super("Registro de Pedido", true, true, true, true);
+	 public EvaluarPedido_JInternalFrame() { 
+		 super("Evaluar Pedido", true, true, true, true);
 		 try { 
 			this.setVisible(true);
-			this.setPreferredSize(new java.awt.Dimension(668, 525));
-			this.setBounds(0, 0, 668, 525);
+			this.setPreferredSize(new java.awt.Dimension(1017, 599));
+			this.setBounds(0, 0, 1017, 599);
 			{
 				pnlPrincipal = new JPanel();
 				getContentPane().add(pnlPrincipal, BorderLayout.CENTER);
 				{
+					pnlProducto = new JPanel();
+					pnlPrincipal.add(pnlProducto);
+					pnlProducto.setBorder(BorderFactory.createTitledBorder("Datos del Pedido"));
+					pnlProducto.setLayout(null);
+					pnlProducto.setBounds(5, 206, 998, 212);
+					{
+						lblNombre = new JLabel();
+						pnlProducto.add(lblNombre);
+						lblNombre.setText("Nro.Pedido:");
+						lblNombre.setBounds(17, 26, 88, 14);
+					}
+					{
+						txtNombre = new JTextField();
+						pnlProducto.add(txtNombre);
+						txtNombre.setBounds(105, 23, 194, 21);
+						txtNombre.setEditable(false);
+						//							txtNombre.addKeyListener(this);
+					}
+					{
+						jLabel5 = new JLabel();
+						pnlProducto.add(jLabel5);
+						jLabel5.setText("Cargo:");
+						jLabel5.setBounds(548, 53, 53, 14);
+					}
+					{
+						jLabel6 = new JLabel();
+						pnlProducto.add(jLabel6);
+						jLabel6.setText("Responsable:");
+						jLabel6.setBounds(134, 53, 84, 14);
+					}
+					{
+						jTextField5 = new JTextField();
+						pnlProducto.add(jTextField5);
+						jTextField5.setBounds(55, 49, 77, 21);
+						jTextField5.setEditable(false);
+					}
+					{
+						jTextField6 = new JTextField();
+						pnlProducto.add(jTextField6);
+						jTextField6.setBounds(218, 50, 324, 21);
+						jTextField6.setEditable(false);
+					}
+					{
+						jLabel9 = new JLabel();
+						pnlProducto.add(jLabel9);
+						jLabel9.setText("Area:");
+						jLabel9.setBounds(17, 52, 44, 14);
+					}
+					{
+						lblVersion2 = new JLabel();
+						pnlProducto.add(lblVersion2);
+						lblVersion2.setText("Version:");
+						lblVersion2.setBounds(306, 28, 52, 16);
+					}
+					{
+						txtVersion = new JTextField();
+						pnlProducto.add(txtVersion);
+						txtVersion.setBounds(354, 25, 36, 23);
+						txtVersion.setEditable(false);
+					}
+					{
+						lblFecha = new JLabel();
+						pnlProducto.add(lblFecha);
+						lblFecha.setText("Fecha:");
+						lblFecha.setBounds(423, 29, 43, 16);
+					}
+					{
+						txtFecha2 = new JTextField();
+						pnlProducto.add(txtFecha2);
+						txtFecha2.setBounds(474, 24, 129, 23);
+						txtFecha2.setEditable(false);
+					}
+					{
+						txtCargo2 = new JTextField();
+						pnlProducto.add(txtCargo2);
+						txtCargo2.setBounds(597, 49, 80, 23);
+						txtCargo2.setEditable(false);
+					}
+					{
+						lblPrioridad2 = new JLabel();
+						pnlProducto.add(lblPrioridad2);
+						lblPrioridad2.setText("Prioridad:");
+						lblPrioridad2.setBounds(17, 78, 71, 16);
+					}
+					{
+						txtPrioridad2 = new JTextField();
+						pnlProducto.add(txtPrioridad2);
+						txtPrioridad2.setBounds(78, 75, 183, 23);
+						txtPrioridad2.setEditable(false);
+					}
+					{
+						lblObservacion = new JLabel();
+						pnlProducto.add(lblObservacion);
+						lblObservacion.setText("Observacion:");
+						lblObservacion.setBounds(17, 100, 88, 16);
+					}
+					{
+						jScrollPane3 = new JScrollPane();
+						pnlProducto.add(jScrollPane3);
+						jScrollPane3.setBounds(97, 102, 573, 32);
+						{
+							jTextArea1 = new JTextArea();
+							jScrollPane3.setViewportView(jTextArea1);
+							jTextArea1.setEditable(false);
+						}
+					}
+					{
+						jScrollPane4 = new JScrollPane();
+						pnlProducto.add(jScrollPane4);
+						jScrollPane4.setBounds(17, 139, 964, 70);
+						{ 
+							jTable2 = new JTable();
+							jScrollPane4.setViewportView(jTable2);
+							jTable2.setModel(modelo1);
+						}
+					}
+
+					//						modelo1
+					
+				}
+				{
 					pnlArriba = new JPanel();
 					pnlPrincipal.add(pnlArriba);
-					pnlArriba.setBorder(BorderFactory.createTitledBorder("Datos del Pedido"));
+					pnlArriba.setBorder(BorderFactory.createTitledBorder("Datos de la Evaluacion"));
 					pnlArriba.setLayout(null);
-					pnlArriba.setBounds(0, 7, 658, 277);
+					pnlArriba.setBounds(0, 7, 710, 193);
 					{
 						lblObservacionD = new JLabel();
 						pnlArriba.add(lblObservacionD);
@@ -118,12 +245,13 @@ public class RegistrarPedido_JInternalFrame extends JInternalFrame implements  A
 					{
 						scrObservacionD = new JScrollPane();
 						pnlArriba.add(scrObservacionD);
-						scrObservacionD.setBounds(114, 70, 527, 45);
+						scrObservacionD.setBounds(114, 70, 568, 45);
 						{
 							txtAObservacionD = new JTextArea();
 							scrObservacionD.setViewportView(txtAObservacionD);
 							txtAObservacionD.setText("");
 							txtAObservacionD.setBounds(155, 76, 408, 45);
+							txtAObservacionD.setPreferredSize(new java.awt.Dimension(556, 42));
 							//							txtAObservacionD.addKeyListener(this);
 						}
 					}
@@ -137,7 +265,7 @@ public class RegistrarPedido_JInternalFrame extends JInternalFrame implements  A
 						txtNroPedido = new JTextField();
 						pnlArriba.add(txtNroPedido);
 						txtNroPedido.setBounds(81, 19, 163, 21);
-						txtNroPedido.setText("P201305121234");
+						txtNroPedido.setText("E201305121234");
 						txtNroPedido.setEditable(false);
 					}
 					{
@@ -173,13 +301,6 @@ public class RegistrarPedido_JInternalFrame extends JInternalFrame implements  A
 						jTextField2.setBounds(401, 19, 74, 21);
 					}
 					{
-						btnBuscarPedido = new JButton();
-						pnlArriba.add(btnBuscarPedido);
-						btnBuscarPedido.setText("Buscar Pedido");
-						btnBuscarPedido.setBounds(487, 18, 136, 23);
-						btnBuscarPedido.addActionListener(this);
-					}
-					{
 						jLabel3 = new JLabel();
 						pnlArriba.add(jLabel3);
 						jLabel3.setText("Responsable:");
@@ -199,61 +320,6 @@ public class RegistrarPedido_JInternalFrame extends JInternalFrame implements  A
 						jLabel4.setBounds(339, 46, 53, 14);
 					}
 					{
-						pnlProducto = new JPanel();
-						pnlArriba.add(pnlProducto);
-						pnlProducto.setBorder(BorderFactory.createTitledBorder("Datos del Producto"));
-						pnlProducto.setLayout(null);
-						pnlProducto.setBounds(17, 195, 624, 76);
-						{
-							lblNombre = new JLabel();
-							pnlProducto.add(lblNombre);
-							lblNombre.setText("Nombre:");
-							lblNombre.setBounds(17, 26, 62, 14);
-						}
-						{
-							txtNombre = new JTextField();
-							pnlProducto.add(txtNombre);
-							txtNombre.setBounds(79, 23, 475, 21);
-							txtNombre.setEditable(false);
-							//							txtNombre.addKeyListener(this);
-						}
-						{
-							btnBuscarProductos = new JButton();
-							pnlProducto.add(btnBuscarProductos);
-							btnBuscarProductos.setText("Buscar");
-							btnBuscarProductos.setBounds(421, 48, 138, 23);
-							//							btnBuscarProductos.addKeyListener(this);
-							btnBuscarProductos.addActionListener(this);
-						}
-						{
-							jLabel5 = new JLabel();
-							pnlProducto.add(jLabel5);
-							jLabel5.setText("Marca:");
-							jLabel5.setBounds(163, 52, 62, 14);
-						}
-						{
-							jLabel6 = new JLabel();
-							pnlProducto.add(jLabel6);
-							jLabel6.setText("U.Medida:");
-							jLabel6.setBounds(17, 52, 62, 14);
-						}
-						{
-							jTextField5 = new JTextField();
-							pnlProducto.add(jTextField5);
-							jTextField5.setBounds(79, 49, 77, 21);
-							jTextField5.setEditable(false);
-						}
-						{
-							jTextField6 = new JTextField();
-							pnlProducto.add(jTextField6);
-							jTextField6.setBounds(209, 50, 200, 21);
-							jTextField6.setEditable(false);
-						}
-
-						//						modelo1
-						
-					}
-					{
 						jTextField4 = new JTextField();
 						pnlArriba.add(jTextField4);
 						jTextField4.setText("Jefe de RRHH");
@@ -263,11 +329,11 @@ public class RegistrarPedido_JInternalFrame extends JInternalFrame implements  A
 					{
 						jScrollPane1 = new JScrollPane();
 						pnlArriba.add(jScrollPane1);
-						jScrollPane1.setBounds(17, 120, 619, 69);
+						jScrollPane1.setBounds(17, 121, 665, 69);
 						{ 
 							jTable3 = new JTable();
 							jScrollPane1.setViewportView(jTable3);
-							jTable3.setModel(modelo1);
+							jTable3.setModel(modelo2);
 						}
 						
 //						jTable1 = new JTable();
@@ -276,27 +342,21 @@ public class RegistrarPedido_JInternalFrame extends JInternalFrame implements  A
 					}
 				}
 				{
-					lblCantidad = new JLabel();
-					pnlPrincipal.add(lblCantidad);
-					lblCantidad.setText("Cantidad:");
-					lblCantidad.setBounds(38, 293, 71, 16);
+					btnGuardar = new JButton();
+					pnlPrincipal.add(btnGuardar);
+					btnGuardar.setText("Guardar");
+					btnGuardar.setBounds(372, 544, 145, 23);
 				}
 				{
-					txtCantidad = new JTextField();
-					pnlPrincipal.add(txtCantidad);
-					txtCantidad.setBounds(109, 286, 132, 23);
-				}
-				{
-					jButton1 = new JButton();
-					pnlPrincipal.add(jButton1);
-					jButton1.setText("Agregar");
-					jButton1.setBounds(270, 286, 82, 23);
-					jButton1.addActionListener(this);
+					btnCancelar = new JButton();
+					pnlPrincipal.add(btnCancelar);
+					btnCancelar.setText("Cancelar");
+					btnCancelar.setBounds(535, 544, 147, 23);
 				}
 				{
 					jScrollPane2 = new JScrollPane();
 					pnlPrincipal.add(jScrollPane2);
-					jScrollPane2.setBounds(22, 315, 636, 78);
+					jScrollPane2.setBounds(12, 419, 973, 119);
 					{ 
 						jTable1 = new JTable();
 						jScrollPane2.setViewportView(jTable1);
@@ -304,37 +364,18 @@ public class RegistrarPedido_JInternalFrame extends JInternalFrame implements  A
 					}
 				}
 				{
-					btnGuardar = new JButton();
-					pnlPrincipal.add(btnGuardar);
-					btnGuardar.setText("Guardar");
-					btnGuardar.setBounds(88, 461, 145, 23);
+					btnBuscarPedido = new JButton();
+					pnlPrincipal.add(btnBuscarPedido);
+					btnBuscarPedido.setText("Buscar Pedido");
+					btnBuscarPedido.setBounds(782, 106, 171, 23);
+					btnBuscarPedido.addActionListener(this);
 				}
 				{
-					btnCancelar = new JButton();
-					pnlPrincipal.add(btnCancelar);
-					btnCancelar.setText("Cancelar");
-					btnCancelar.setBounds(252, 461, 147, 23);
-				}
-				{
-					btnGuardarEnviar = new JButton();
-					pnlPrincipal.add(btnGuardarEnviar);
-					btnGuardarEnviar.setText("Enviar");
-					btnGuardarEnviar.setBounds(420, 461, 147, 23);
-				}
-				{
-					jLabel7 = new JLabel();
-					pnlPrincipal.add(jLabel7);
-					jLabel7.setText("Observacion:");
-					jLabel7.setBounds(34, 397, 71, 16);
-				}
-				{
-					jScrollPane3 = new JScrollPane();
-					pnlPrincipal.add(jScrollPane3);
-					jScrollPane3.setBounds(117, 397, 522, 57);
-					{
-						jTextArea1 = new JTextArea();
-						jScrollPane3.setViewportView(jTextArea1);
-					}
+					jButton1 = new JButton();
+					pnlPrincipal.add(jButton1);
+					jButton1.setText("Buscar Evaluacion");
+					jButton1.setBounds(782, 60, 171, 23);
+					jButton1.addActionListener(this);
 				}
 				pnlPrincipal.setLayout(null);
 				pnlPrincipal.setPreferredSize(new java.awt.Dimension(359, 255));
@@ -348,23 +389,18 @@ public class RegistrarPedido_JInternalFrame extends JInternalFrame implements  A
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(btnBuscarProductos==e.getSource()){
-				ProductoListado_JDialog productoListado = new ProductoListado_JDialog(objMenuP);
-				productoListado.setVisible(true);
-				productoListado.pack(); 
-			}
-			if(btnBuscarPedido==e.getSource()){
-				BuscarPedidoListado_JDialog buscarPedido = new BuscarPedidoListado_JDialog(objMenuP);
-				buscarPedido.setVisible(true);
-				buscarPedido.pack();
-			}
-			if(jButton1==e.getSource()){
-				System.out.println("kkk");
-				Object[] obj = {"ITEM","COD","PRODUCTO","MARCA","UMEDIDA","CANTIDAD","PRIORIDAD","[E]"};
-				modelo3.addRow(obj);
-				
-			}
-//				modelo2.addRow(array);
+//			if(btnBuscarProductos==e.getSource()){
+//				ProductoListado_JDialog productoListado = new ProductoListado_JDialog(objMenuP);
+//				productoListado.setVisible(true);
+//				productoListado.pack(); 
+//			}
+//			if(btnBuscarPedido==e.getSource()){
+//				BuscarPedidoListado_JDialog buscarPedido = new BuscarPedidoListado_JDialog(objMenuP);
+//				buscarPedido.setVisible(true);
+//				buscarPedido.pack();
+//			}
+			
+
 			
 		}
 
