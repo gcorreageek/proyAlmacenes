@@ -92,7 +92,7 @@ public class DetalleProductoNuevo_JDialog extends JDialog implements  ActionList
 				btnNuevaMarca = new JButton();
 				pnlPrincipal.add(btnNuevaMarca);
 				btnNuevaMarca.setText("Buscar Producto");
-				btnNuevaMarca.setBounds(280, 34, 128, 23);
+				btnNuevaMarca.setBounds(280, 34, 136, 23);
 				btnNuevaMarca.addActionListener(this);
 			}
 			{
@@ -111,7 +111,7 @@ public class DetalleProductoNuevo_JDialog extends JDialog implements  ActionList
 				jButton1 = new JButton();
 				pnlPrincipal.add(jButton1);
 				jButton1.setText("Buscar Proveedor");
-				jButton1.setBounds(280, 93, 128, 23);
+				jButton1.setBounds(280, 93, 136, 23);
 				jButton1.addActionListener(this);
 			}
 			{
