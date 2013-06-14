@@ -26,15 +26,21 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import com.almacen.prototipos.dexterna.InformeDevolucionRegistrarE_JInternalFrame;
+import com.almacen.prototipos.dinterna.InformeDevolucionRegistrarI_JInternalFrame;
 import com.almacen.prototipos.mantenimientos.DetalleProductoListado_JInternalFrame;
 import com.almacen.prototipos.mantenimientos.MarcaListado_JInternalFrame;
 import com.almacen.prototipos.mantenimientos.ProductoListado_JInternalFrame;
 import com.almacen.prototipos.mantenimientos.ProveedorListado_JInternalFrame;
 import com.almacen.prototipos.mantenimientos.UMedidaListado_JDialog;
 import com.almacen.prototipos.mantenimientos.UMedidaListado_JInternalFrame;
+import com.almacen.prototipos.recepcionmateriales.RecepcionMaterialesRegistro_JInternalFrame;
+import com.almacen.prototipos.salidamateriales.SalidaMaterialesRegistrarI_JInternalFrame;
 import com.almacen.prototipos.seguridad.Logueo;
-import com.almacen.prototipos.transacciones.EvaluarPedido_JInternalFrame;
-import com.almacen.prototipos.transacciones.RegistrarPedido_JInternalFrame;
+import com.almacen.prototipos.spexterna.CotizacionRegistrar_JInternalFrame;
+import com.almacen.prototipos.spexterna.EvaluarPedido_JInternalFrame;
+import com.almacen.prototipos.spexterna.OrdenCompraRegistrar_JInternalFrame;
+import com.almacen.prototipos.spinterna.RegistrarPedido_JInternalFrame;
 import com.almacen.prototipos.transacciones.TranCotizacion;
 
 
@@ -52,16 +58,29 @@ import com.almacen.prototipos.transacciones.TranCotizacion;
 */
 public class MenuPrincipal extends JFrame implements ActionListener {
 	private JMenuBar jMenuBar1;
-	private JMenu jMenu7;
 	public static JDesktopPane jDesktopPane1;
 
 	private JMenu jMenu8;
 	private JMenu jMenu2;
 	private JMenu jMenu1;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
+	private JMenuItem mniAcerca;
+	private JMenuItem mniInformeRecepcion;
+	private JMenuItem mniInformeSalida;
+	private JMenuItem mniInformeDevolucion;
+	private JMenuItem mniInformeDevolucionRegistrar;
+	private JMenuItem mniImprimir;
+	private JMenuItem mniEnviar;
+	private JMenuItem mniNuevaCotizacion;
+	private JMenuItem mniNuevaOC;
+	private JMenu mnuEntradaMateriales;
+	private JMenu mnuSalidaMateriales;
+	private JMenu mnuDevolucionExterna;
+	private JMenu mnuDevolucionInterna;
+	private JMenu mnuSolicicitudPedidoExterna;
+	private JMenu mnuSolicitudPedidoInterna;
 	private JMenuItem mniEvaluarPedido;
 	private JMenuItem mniRegistroPedido;
-	private JMenu mnuTransaccion;
 	private JMenuItem mniListadoUMedida;
 	private JMenuItem mniNuevoUMedida;
 	private JMenuItem mniNuevoProducto;
@@ -128,6 +147,15 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	DetalleProductoListado_JInternalFrame detalleProductoListado;
 	RegistrarPedido_JInternalFrame registroPedido;
 	EvaluarPedido_JInternalFrame evaluarPedido;
+	CotizacionRegistrar_JInternalFrame cotizacionRegistrar;
+	OrdenCompraRegistrar_JInternalFrame ordenCompra;
+	
+	InformeDevolucionRegistrarI_JInternalFrame informeDevolucionI;
+	InformeDevolucionRegistrarE_JInternalFrame informeDevolucionE;
+	
+	SalidaMaterialesRegistrarI_JInternalFrame salidaMaterialesR;
+	RecepcionMaterialesRegistro_JInternalFrame recepcionMaterialesR;
+	
 	
  
 	public MenuPrincipal() {
@@ -210,23 +238,6 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 			jMenu2.setMnemonic(java.awt.event.KeyEvent.VK_M);
 			jMenu2.setText("Mantenimiento");
 			jMenu2.setBounds(94, 0, 75, 21);
-			{
-				mnuTransaccion = new JMenu();
-				jMenuBar1.add(mnuTransaccion);
-				mnuTransaccion.setText("Transaccion");
-				{
-					mniRegistroPedido = new JMenuItem();
-					mnuTransaccion.add(mniRegistroPedido);
-					mniRegistroPedido.setText("Registro Pedido");
-					mniRegistroPedido.addActionListener(this);
-				}
-				{
-					mniEvaluarPedido = new JMenuItem();
-					mnuTransaccion.add(mniEvaluarPedido);
-					mniEvaluarPedido.setText("Evaluar Pedido");
-					mniEvaluarPedido.addActionListener(this);
-				}
-			}
 			
 			//jMenuItem3.setAccelerator(KeyStroke.getKeyStroke("alt Z"));
 
@@ -322,14 +333,111 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 
 			//mnuiCotizacionAutIngreso.setAccelerator(KeyStroke.getKeyStroke("alt H"));
 
-			jMenu7 = new JMenu();
-			jMenuBar1.add(jMenu7);
-			jMenu7.setText("Buscar");
-
-			jMenu8 = new JMenu();
-			jMenuBar1.add(jMenu8);
-			jMenu8.setText("Ayuda");
-
+			{
+				mnuSolicitudPedidoInterna = new JMenu();
+				jMenuBar1.add(mnuSolicitudPedidoInterna);
+				mnuSolicitudPedidoInterna.setText("Solicitud Pedido Interna");
+				{
+					mniRegistroPedido = new JMenuItem();
+					mnuSolicitudPedidoInterna.add(mniRegistroPedido);
+					mniRegistroPedido.setText("Registro Pedido");
+					mniRegistroPedido.setBounds(-124, 23, 95, 21);
+					mniRegistroPedido.addActionListener(this);
+				}
+			}
+			{
+				mnuSolicicitudPedidoExterna = new JMenu();
+				jMenuBar1.add(mnuSolicicitudPedidoExterna);
+				mnuSolicicitudPedidoExterna.setText("Solciitud Pedido Externa");
+				{
+					mniEvaluarPedido = new JMenuItem();
+					mnuSolicicitudPedidoExterna.add(mniEvaluarPedido);
+					mniEvaluarPedido.setText("Evaluar Pedido");
+					mniEvaluarPedido.setBounds(-245, 23, 95, 21);
+					mniEvaluarPedido.addActionListener(this);
+				}
+				{
+					mniNuevaOC = new JMenuItem();
+					mnuSolicicitudPedidoExterna.add(mniNuevaOC);
+					mniNuevaOC.setText("Nueva OC");
+					mniNuevaOC.addActionListener(this);
+				}
+				{
+					mniNuevaCotizacion = new JMenuItem();
+					mnuSolicicitudPedidoExterna.add(mniNuevaCotizacion);
+					mniNuevaCotizacion.setText("Nueva Cotizacion");
+					mniNuevaCotizacion.addActionListener(this);
+				}
+				{
+					mniEnviar = new JMenuItem();
+					mnuSolicicitudPedidoExterna.add(mniEnviar);
+					mniEnviar.setText("Enviar");
+					mniEnviar.addActionListener(this);
+				}
+				{
+					mniImprimir = new JMenuItem();
+					mnuSolicicitudPedidoExterna.add(mniImprimir);
+					mniImprimir.setText("Imprimir");
+					mniImprimir.addActionListener(this);
+				}
+			}
+			{
+				mnuDevolucionInterna = new JMenu();
+				jMenuBar1.add(mnuDevolucionInterna);
+				mnuDevolucionInterna.setText("Devolucion Interna");
+				{
+					mniInformeDevolucionRegistrar = new JMenuItem();
+					mnuDevolucionInterna.add(mniInformeDevolucionRegistrar);
+					mniInformeDevolucionRegistrar.setText("Informe Devolucion");
+					mniInformeDevolucionRegistrar.addActionListener(this);
+				}
+			}
+			{
+				mnuDevolucionExterna = new JMenu();
+				jMenuBar1.add(mnuDevolucionExterna);
+				mnuDevolucionExterna.setText("Devolucion Externa");
+				{
+					mniInformeDevolucion = new JMenuItem();
+					mnuDevolucionExterna.add(mniInformeDevolucion);
+					mniInformeDevolucion.setText("Informe Devolucion");
+					mniInformeDevolucion.addActionListener(this);
+				}
+			}
+			{
+				mnuSalidaMateriales = new JMenu();
+				jMenuBar1.add(mnuSalidaMateriales);
+				mnuSalidaMateriales.setText("Salida Materiales");
+				{
+					mniInformeSalida = new JMenuItem();
+					mnuSalidaMateriales.add(mniInformeSalida);
+					mniInformeSalida.setText("Informe Salida");
+					mniInformeSalida.addActionListener(this);
+				}
+			}
+			{
+				mnuEntradaMateriales = new JMenu();
+				jMenuBar1.add(mnuEntradaMateriales);
+				mnuEntradaMateriales.setText("Entrada Materiales");
+				{
+					mniInformeRecepcion = new JMenuItem();
+					mnuEntradaMateriales.add(mniInformeRecepcion);
+					mniInformeRecepcion.setText("Informe Recepcion");
+					mniInformeRecepcion.addActionListener(this);
+				}
+			}
+			{
+				jMenu8 = new JMenu();
+				jMenuBar1.add(jMenu8);
+				jMenu8.setText("Ayuda");
+				jMenu8.setBounds(-861, -65, 10, 10);
+				{
+					mniAcerca = new JMenuItem();
+					jMenu8.add(mniAcerca);
+					mniAcerca.setText("Acerca..");
+					mniAcerca.addActionListener(this);
+				}
+			}
+			
 			BorderLayout thisLayout = new BorderLayout();
 			getContentPane().setLayout(thisLayout);
 			setVisible(true);
@@ -397,25 +505,25 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 		
-		addWindowListener(new WindowAdapter() {
-	        public void windowClosing(WindowEvent e) {
-	            int n = JOptionPane.showConfirmDialog(e.getWindow(),"¿Desea Cerrar el Sistema?", "Se Cerrará el Sistema",
-	            		JOptionPane.YES_NO_OPTION);
-				switch (n){
-				case JOptionPane.YES_OPTION:
-					objLog=null;
-					objLog=new Logueo();   
-					System.exit(0);
-					break;
-				case JOptionPane.NO_OPTION:
-					break;
-				default:
-					System.out.println("CERO");
-				}           
-	        }
-		});
+//		addWindowListener(new WindowAdapter() {
+//	        public void windowClosing(WindowEvent e) {
+//	            int n = JOptionPane.showConfirmDialog(e.getWindow(),"¿Desea Cerrar el Sistema?", "Se Cerrará el Sistema",
+//	            		JOptionPane.YES_NO_OPTION);
+//				switch (n){
+//				case JOptionPane.YES_OPTION:
+//					objLog=null;
+//					objLog=new Logueo();   
+//					System.exit(0);
+//					break;
+//				case JOptionPane.NO_OPTION:
+//					break;
+//				default:
+//					System.out.println("CERO");
+//				}           
+//	        }
+//		});
 		
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 	//	this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("BARRIO.JPG")).getImage());
 	}
@@ -504,11 +612,58 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 				jDesktopPane1.add(evaluarPedido);}
 			try {evaluarPedido.setSelected(true);
 				} catch (java.beans.PropertyVetoException e2) {}
+		} 
+		if(e.getSource()==mniInformeDevolucionRegistrar){
+			if(informeDevolucionI==null||informeDevolucionI.isClosed()){
+				informeDevolucionI= new InformeDevolucionRegistrarI_JInternalFrame();
+				jDesktopPane1.add(informeDevolucionI);}
+			try {informeDevolucionI.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
 		}
-//		evaluarPedido
+		if(e.getSource()==mniNuevaCotizacion){
+			if(cotizacionRegistrar==null||cotizacionRegistrar.isClosed()){
+				cotizacionRegistrar= new CotizacionRegistrar_JInternalFrame();
+				jDesktopPane1.add(cotizacionRegistrar);}
+			try {cotizacionRegistrar.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
+		}
+		if(e.getSource()==mniNuevaOC){
+			if(ordenCompra==null||ordenCompra.isClosed()){
+				ordenCompra= new OrdenCompraRegistrar_JInternalFrame();
+				jDesktopPane1.add(ordenCompra);}
+			try {ordenCompra.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
+		}
+		if(e.getSource()==mniInformeDevolucion){
+			if(informeDevolucionE==null||informeDevolucionE.isClosed()){
+				informeDevolucionE= new  InformeDevolucionRegistrarE_JInternalFrame();
+				jDesktopPane1.add(informeDevolucionE);}
+			try {informeDevolucionE.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
+		}
+		if(e.getSource()==mniInformeSalida){
+			if(salidaMaterialesR==null||salidaMaterialesR.isClosed()){
+				salidaMaterialesR= new SalidaMaterialesRegistrarI_JInternalFrame();
+				jDesktopPane1.add(salidaMaterialesR);}
+			try {salidaMaterialesR.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
+		}
+		if(e.getSource()==mniInformeRecepcion){
+			if(recepcionMaterialesR==null||recepcionMaterialesR.isClosed()){
+				recepcionMaterialesR= new RecepcionMaterialesRegistro_JInternalFrame();
+				jDesktopPane1.add(recepcionMaterialesR);}
+			try {recepcionMaterialesR.setSelected(true);
+				} catch (java.beans.PropertyVetoException e2) {}
+		}
+		if(e.getSource()==mniAcerca){
+			JOptionPane.showMessageDialog(null,"=D");
+//			if(ordenCompra==null||ordenCompra.isClosed()){
+//				ordenCompra= new OrdenCompraRegistrar_JInternalFrame();
+//				jDesktopPane1.add(ordenCompra);}
+//			try {ordenCompra.setSelected(true);
+//				} catch (java.beans.PropertyVetoException e2) {}
+		}
 		
-		
-	 
 		
 	}
 	

@@ -3,6 +3,9 @@ import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 
@@ -34,7 +37,7 @@ import com.almacen.prototipos.principal.MenuPrincipal;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class ProveedorListado_JDialog extends JDialog implements  ActionListener {
+public class ProveedorListado_JDialog extends JDialog implements  ActionListener, MouseListener {
 	MenuPrincipal objMenuP;
 	private JTextField jTextField6;
 	private JLabel jLabel7;
@@ -52,7 +55,7 @@ public class ProveedorListado_JDialog extends JDialog implements  ActionListener
 	String cod_mar,nom_mar;
 	private JTable jTable1;
  
-	String titulo2[]={"COD","EMPRESA","TIPO","NUMERO","RESPONSABLE","TELEFONO","DIRECCION","CORREO","[E]","[M]"};
+	String titulo2[]={"COD","EMPRESA","TIPO","NUMERO","RESPONSABLE","TELEFONO","DIRECCION","CORREO"};
 //	String titulo2[]={"CODIGO","MARCA","ELIMINAR","MODIFICAR"};
 	 DefaultTableModel modelo2 =new DefaultTableModel(null,titulo2);
 	 public ProveedorListado_JDialog(Frame padre) { 
@@ -79,6 +82,7 @@ public class ProveedorListado_JDialog extends JDialog implements  ActionListener
 						jTable1 = new JTable();
 						scrLista.setViewportView(jTable1);
 						jTable1.setModel(modelo2);
+						jTable1.addMouseListener(this);
 					}
 				}
 				{
@@ -141,7 +145,35 @@ public class ProveedorListado_JDialog extends JDialog implements  ActionListener
 				proveedorNuevo.setVisible(true);
 				proveedorNuevo.pack(); 
 			}
+			if(e.getSource()==btnBuscar){
+				Object[]  obj={"PROVE1101","SODIMAC","RUC","10457205550","Augusto Yeck","540-2606","Mz BBB 2 lt 40","gcorreageek@gmail.com"};
+				modelo2.addRow(obj);
+			}
 		}
+
+
+		@Override
+		public void mouseClicked(MouseEvent e) { }
+
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			if(e.getSource()==jTable1 && e.getClickCount()==2){
+				this.setVisible(false);
+			}
+		}
+
+
+		@Override
+		public void mouseReleased(MouseEvent e) { }
+
+
+		@Override
+		public void mouseEntered(MouseEvent e) { }
+
+
+		@Override
+		public void mouseExited(MouseEvent e) {  }
 
 		 
 

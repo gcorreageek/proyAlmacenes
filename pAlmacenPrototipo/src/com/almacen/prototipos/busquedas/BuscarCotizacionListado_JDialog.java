@@ -38,9 +38,11 @@ import com.almacen.prototipos.principal.MenuPrincipal;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class BuscarPedidoListado_JDialog extends JDialog implements  ActionListener, MouseListener {
+public class BuscarCotizacionListado_JDialog extends JDialog implements  ActionListener, MouseListener {
 //	MenuPrincipal objMenuP;
 	private JLabel jLabel5;
+	private JComboBox cboCargo;
+	private JLabel lblCargo;
 	private JComboBox cboArea;
 	private JTextField jTextField4;
 	private JTextField jTextField3;
@@ -52,18 +54,16 @@ public class BuscarPedidoListado_JDialog extends JDialog implements  ActionListe
 	
 	private JPanel pnlPrincipal;
 	private JLabel jLabel2;
-	private JLabel lblMarca;
-	private JTextField txtMarca;
 	private JButton btnBuscar;
 	private JScrollPane scrLista;
 
 	String cod_mar,nom_mar;
 	private JTable jTable1;
-	String titulo2[]={"NPEDIDO","FECHA","AREA","RESPONSABLE","CARGO"};
+	String titulo2[]={"FECHA","AREA","RESPONSABLE","CARGO"};
 //	String titulo2[]={"COD","PRODUCTO","TIPO","NUMERO","RESPONSABLE","TELEFONO","DIRECCION","CORREO","[E]","[M]"};
 //	String titulo2[]={"CODIGO","MARCA","ELIMINAR","MODIFICAR"};
 	 DefaultTableModel modelo2 =new DefaultTableModel(null,titulo2);
-	 public BuscarPedidoListado_JDialog(Frame padre) { 
+	 public BuscarCotizacionListado_JDialog(Frame padre) { 
 		 super( (Frame)padre, true);
 		 try { 
 			this.setPreferredSize(new java.awt.Dimension(778, 335));
@@ -87,19 +87,8 @@ public class BuscarPedidoListado_JDialog extends JDialog implements  ActionListe
 					btnBuscar = new JButton();
 					pnlPrincipal.add(btnBuscar);
 					btnBuscar.setText("Buscar");
-					btnBuscar.setBounds(275, 8, 154, 21);
+					btnBuscar.setBounds(501, 38, 154, 21);
 					btnBuscar.addActionListener(this);
-				}
-				{
-					txtMarca = new JTextField();
-					pnlPrincipal.add(txtMarca);
-					txtMarca.setBounds(83, 6, 144, 23);
-				}
-				{
-					lblMarca = new JLabel();
-					pnlPrincipal.add(lblMarca);
-					lblMarca.setText("N.Pedido:");
-					lblMarca.setBounds(6, 10, 74, 14);
 				}
 				{
 					jLabel2 = new JLabel();
@@ -132,13 +121,13 @@ public class BuscarPedidoListado_JDialog extends JDialog implements  ActionListe
 				{
 					jTextField4 = new JTextField();
 					pnlPrincipal.add(jTextField4);
-					jTextField4.setBounds(95, 66, 197, 23);
+					jTextField4.setBounds(95, 66, 265, 23);
 				}
 				{
 					jLabel5 = new JLabel();
 					pnlPrincipal.add(jLabel5);
 					jLabel5.setText("Area:");
-					jLabel5.setBounds(297, 69, 39, 22);
+					jLabel5.setBounds(540, 66, 39, 22);
 				}
 				{
 					ComboBoxModel cboAreaModel = 
@@ -147,7 +136,22 @@ public class BuscarPedidoListado_JDialog extends JDialog implements  ActionListe
 					cboArea = new JComboBox();
 					pnlPrincipal.add(cboArea);
 					cboArea.setModel(cboAreaModel);
-					cboArea.setBounds(333, 69, 109, 23);
+					cboArea.setBounds(591, 66, 109, 23);
+				}
+				{
+					lblCargo = new JLabel();
+					pnlPrincipal.add(lblCargo);
+					lblCargo.setText("Cargo:");
+					lblCargo.setBounds(365, 69, 49, 16);
+				}
+				{
+					ComboBoxModel cboCargoModel = 
+							new DefaultComboBoxModel(
+									new String[] { "Seleccionar", "Jefe","Asistente" });
+					cboCargo = new JComboBox();
+					pnlPrincipal.add(cboCargo);
+					cboCargo.setModel(cboCargoModel);
+					cboCargo.setBounds(413, 66, 122, 23);
 				}
 				pnlPrincipal.setLayout(null);
 				pnlPrincipal.setPreferredSize(new java.awt.Dimension(359, 255));
@@ -162,7 +166,7 @@ public class BuscarPedidoListado_JDialog extends JDialog implements  ActionListe
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(btnBuscar==e.getSource()){ 
-				Object[]  arrObj={"PED201305254001","25/05/2013","RRHH","Antonia Del Rua","Jefe de RRHH"};
+				Object[]  arrObj={"25/05/2013","Almacen","Antonia Del Rua","Jefe"};
 				modelo2.addRow(arrObj);
 			}
 			
