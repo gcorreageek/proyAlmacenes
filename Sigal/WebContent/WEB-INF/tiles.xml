@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>	
+ 
+	<definition name="d_index" template="/templates/templateBootStrap.jsp">
+		<put-attribute name="header" value="/templates/header.jsp"/>
+		<put-attribute name="menu" value="/templates/menu.jsp"/> 
+		<put-attribute name="body" value="/paginas/inicio/index.jsp"/>
+		<put-attribute name="pie" value="/templates/pie.jsp"/>	
+	</definition>
+	
+	<!-- Producto -->
+	<definition name="d_mainproducto" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_producto.jsp"/>
+ 	</definition>
+	<definition name="d_nuevoproducto" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/nuevo_producto.jsp"/>
+ 	</definition>
+ 	<definition name="d_productostocks" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/producto_stock.jsp"/>
+ 	</definition>
+ 	<!-- Proveedor -->
+ 	<definition name="d_mainproveedor" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_proveedor.jsp"/>
+ 	</definition>
+	<definition name="d_nuevoproveedor" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/nuevo_proveedor.jsp"/>
+ 	</definition>
+ 	<!-- ProductoProveedor -->
+ 	<definition name="d_mainproductoproveedor" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_producto_proveedor.jsp"/>
+ 	</definition>
+	<definition name="d_nuevoproductoproveedor" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/nuevo_producto_proveedor.jsp"/>
+ 	</definition>
+ 	<!-- Pedido -->
+ 	<definition name="d_mainpedido" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/pedido/nuevo_pedido.jsp"/>
+ 	</definition>
+	<definition name="d_evaluarPedido" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/pedido/evaluar_pedido.jsp"/>
+ 	</definition>
+ 	<!-- Cotizacion -->
+ 	<definition name="d_maincotizacion" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/cotizacion/nueva_cotizacion.jsp"/>
+ 	</definition>
+ 	<!-- Orden de Compra -->
+ 	<definition name="d_mainordencompra" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/orden_compra/nueva_orden_compra.jsp"/>
+ 	</definition>
+	<!-- Informe Interno -->
+ 	<definition name="d_maininformeinternosalida" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/informe_interno/main_informe_interno_salida.jsp"/>
+ 	</definition>
+ 	<definition name="d_maininformeinternoentrada" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/informe_interno/main_informe_interno_entrada.jsp"/>
+ 	</definition>
+ 	<!-- Informe Externo -->
+ 	<definition name="d_maininformeexternoentrada" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/informe_externo/main_informe_externo_entrada.jsp"/>
+ 	</definition> 
+ 	
+ 	
+</tiles-definitions>

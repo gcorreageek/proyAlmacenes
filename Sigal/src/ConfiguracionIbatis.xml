@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+	    
+	
+		<typeAlias alias="UsuarioBean" 
+				   type="com.sigal.seguridad.bean.UsuarioDTO" />
+		<typeAlias alias="AreaBean" 
+				   type="com.sigal.seguridad.bean.AreaDTO" />
+		<typeAlias alias="CargoBean" 
+				   type="com.sigal.seguridad.bean.CargoDTO" />		   
+		<typeAlias alias="DetalleUsuarioBean" 
+				   type="com.sigal.seguridad.bean.DetalleUsuarioDTO" />
+	 	<typeAlias alias="MenuBean" 
+				   type="com.sigal.seguridad.bean.MenuDTO" />
+	 	<typeAlias alias="MenuOpcBean" 
+				   type="com.sigal.seguridad.bean.OpcionesMenuDTO" />
+	 	<typeAlias alias="DetallePerfilBean" 
+				   type="com.sigal.seguridad.bean.DetallePerfilDTO" />
+	 	<typeAlias alias="ProductoBean" 
+				   type="com.sigal.mantenimiento.bean.ProductoDTO" />		
+	 	<typeAlias alias="SolicitudPedidoBean" 
+				   type="com.sigal.pedido.bean.SolicitudPedidoDTO" />
+	 	<typeAlias alias="DetallePedidoBean" 
+				   type="com.sigal.pedido.bean.DetallePedidoDTO" />
+		<typeAlias alias="OpcionesBean" 
+				   type="com.sigal.seguridad.bean.OpcionesDTO" />		   
+				   
+				   
+				   
+	 					
+	</typeAliases> 
+
+	<environments default="development">
+		<environment id="development">
+		
+			<transactionManager type="JDBC" />			
+			<dataSource type="UNPOOLED">
+						<property name="driver" value="com.mysql.jdbc.Driver" />
+						<property name="url" value="jdbc:mysql://localhost:3306/bd_sigal" />
+						<property name="username" value="root" />
+						<property name="password" value="root" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!--  Registro de los mappers  -->
+	<mappers>					
+		 <mapper resource="com/sigal/dao/xml/UsuarioXML.xml" />
+		 <mapper resource="com/sigal/dao/xml/MenuXML.xml" />
+		 <mapper resource="com/sigal/dao/xml/ProductoXML.xml" />
+		 <mapper resource="com/sigal/dao/xml/SolicitudPedidoXML.xml" />
+		 <mapper resource="com/sigal/dao/xml/DetallePedidoXML.xml" />
+		 <mapper resource="com/sigal/dao/xml/Opcion.xml" />
+	</mappers>
+</configuration>
+
