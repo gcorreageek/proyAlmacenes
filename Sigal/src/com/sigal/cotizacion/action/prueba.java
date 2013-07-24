@@ -4,7 +4,7 @@
 package com.sigal.cotizacion.action;
 
 /**
- * @author DAVID PEREZ CHATE A. Correa C.
+ * @author DAVIgD PEREZ CHATE A. Correa C.
  *
  */
 public class prueba {
