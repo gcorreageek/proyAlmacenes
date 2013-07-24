@@ -19,10 +19,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<dataSource type="UNPOOLED">
 						<property name="driver" value="com.mysql.jdbc.Driver" />
 						<property name="url" value="jdbc:mysql://localhost:3306/bd_sigal" />
-						<property name="username" value="root" />
-						<!--  -->
-						<property name="password" value="micontraseña" />
-						<!-- - -->
+						<property name="username" value="root" /> 
+						<property name="password" value="micontraseña" /> 
 			</dataSource>
 		</environment>
 	</environments>
