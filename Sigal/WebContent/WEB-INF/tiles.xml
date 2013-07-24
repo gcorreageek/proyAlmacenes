@@ -17,8 +17,8 @@
 	<definition name="d_mainproducto" extends="d_index">
  		<put-attribute name="body" value="/paginas/mantenimientos/main_producto.jsp"/>
  	</definition>
-	<definition name="d_nuevoproducto" extends="d_index">
- 		<put-attribute name="body" value="/paginas/mantenimientos/nuevo_producto.jsp"/>
+	<definition name="d_actuarproducto" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_producto.jsp"/>
  	</definition>
  	<definition name="d_productostocks" extends="d_index">
  		<put-attribute name="body" value="/paginas/mantenimientos/producto_stock.jsp"/>

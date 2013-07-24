@@ -54,14 +54,13 @@
     <![endif]--> 
   </head>
 
-  <body>
-
+  <body> 
     <div class="container">
 
       <form class="form-signin"  action="login"  method="post"  >
         <h2 class="form-signin-heading">Inicie session</h2>
-        <input type="text"  name="objDetUsu.id_usuario"  class="input-block-level" placeholder="Email">
-        <input type="password" name="objDetUsu.pass_usuario" class="input-block-level" placeholder="Password">
+        <input type="text"  name="objUsu.id_usuario"  class="input-block-level" placeholder="Email">
+        <input type="password" name="objUsu.pass_usuario" class="input-block-level" placeholder="Password">
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Recordarmelo
         </label> 

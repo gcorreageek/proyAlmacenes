@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="producto">
+	<select id="SQL_listaProductos" resultType="ProductoBean">
+	    select prod.* from tb_producto	prod  order by prod.cod_producto
+	</select>
+<!-- 	select * from tb_producto	   limit 0 , 5 -->
+<!-- 	select * from tb_producto	   limit 5 , 5 -->
+<!-- 	select * from tb_producto	   limit 10 , 5 -->
+<!-- 	select * from tb_producto	   limit 15 , 5 -->
+	
+<!-- 	select * from tb_producto	   limit 5 offset 0   -->
+<!-- 	select * from tb_producto	   limit 5 offset 5 -->
+<!-- 	select * from tb_producto	   limit 5 offset 10 -->
+<!-- 	select * from tb_producto	   limit 5 offset 15 -->
+<!-- 	select * from tb_producto	   limit 5 offset 20 -->
+	
+	
+	<select id="SQL_listaProductosDescProducto" resultType="ProductoBean">
+	    select prod.* from tb_producto	prod where prod.desc_producto like  #{desc_producto}	  order by prod.cod_producto
+	</select>
+	<select id="SQL_listaProductosVarios" resultType="ProductoBean">
+	    select prod.* from tb_producto	prod 
+	    where prod.desc_producto like #{desc_producto}  
+	    order by prod.cod_producto
+	</select>  
+	<select id="SQL_listaProductosPaginados" resultType="ProductoBean" parameterType="ProductoBean"  >
+	    select prod.* from tb_producto	prod  order by prod.cod_producto  limit  #{inicio} ,  #{tamano}
+	</select>
+	<select id="SQL_listaProductosDescProductoPaginados" resultType="ProductoBean" parameterType="ProductoBean"  >
+	    select prod.* from tb_producto	prod where prod.desc_producto like  #{desc_producto}	  order by prod.cod_producto  limit  #{inicio} ,  #{tamano}
+	</select>
+	<select id="SQL_listaProductosVariosPaginados" resultType="ProductoBean" parameterType="ProductoBean"  >
+	    select prod.* from tb_producto	prod 
+	    where prod.desc_producto like #{desc_producto}  
+	    order by prod.cod_producto  limit  #{inicio} ,  #{tamano}
+	</select> 
+	
+	<select id="SQL_registraProducto"  parameterType="ProductoBean" >
+		insert into tb_producto(desc_producto,unidadMedida,marca,categoria) values(#{desc_producto},#{unidadMedida},#{marca},#{categoria})
+	</select> 
+	<select id="SQL_getProductoXCodProd" resultType="ProductoBean">
+	    select prod.* from tb_producto	prod where prod.cod_producto =  #{cod_producto}	   
+	</select>
+	<select id="SQL_deleteProducto"  parameterType="ProductoBean" >
+	delete from tb_producto where cod_producto = #{cod_producto}  
+	</select> 
+	<select id="SQL_updateProducto"  parameterType="ProductoBean" >
+	update tb_producto set desc_producto=#{desc_producto} , unidadMedida=#{unidadMedida},marca=#{marca}, categoria=#{categoria}
+	where cod_producto = #{cod_producto} 
+	</select> 
+	
+</mapper>
