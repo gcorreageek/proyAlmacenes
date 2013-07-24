@@ -15,7 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @ParentPackage("proy_calidad_SIGAL2")
 public class CotizacionAction extends ActionSupport {
-
+//Como veras!
 	
 	@Action(value="/mainCotizacion",results={@Result(name="success",type="tiles",location="d_maincotizacion")})
 	public String mainCotizacion(){ 
