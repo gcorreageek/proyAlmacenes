@@ -21,10 +21,7 @@ public class CotizacionAction extends ActionSupport {
 	public String mainCotizacion(){ 
 		return SUCCESS;
 	}
-//	@Action(value="/nuevoProductoProveedor",results={@Result(name="success",type="tiles",location="d_nuevoproductoproveedor")})
-//	public String nuevoProductoProveedor(){
-//		return SUCCESS;
-//	}
+
 	
 	
 }
