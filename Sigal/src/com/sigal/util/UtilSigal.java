@@ -26,6 +26,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
  */
 public class UtilSigal {
 
+	
+	public static Integer totalDePaginas(Integer total){   
+		return (int) Math.ceil((double)total/(double)Constantes.FILAS_X_PAGINA);
+	}
 	/**
 	 * @descripcion Este metodo sirve para hacer la encriptacion de una cadena
 	 * @param message --> es el parametro enviado

@@ -3,7 +3,31 @@
 <%@ taglib   prefix="c"  uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib   prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <%@ taglib prefix="s"  uri="/struts-tags" %>
-<div class="pagination">
-   <ul>${requestScope.cadenaPaginacion} 
-   </ul>
-   </div>
+ 
+<table class="table table-striped table-bordered table-hover">
+              <thead>
+                <tr> 
+                  <th>Producto</th>
+                  <th>Categoria</th>
+                  <th>Marca</th>
+                  <th>U.Medida</th> 
+                  <th>Modificar</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+              <c:if test="${requestScope.lstProducto!=null}"   >
+			     <c:forEach  items="${requestScope.lstProducto}"  var="row"  >
+			     	<tr> 
+	                  <td>${row.desc_producto}</td>
+	                  <td>${row.categoria}</td>
+	                  <td>${row.marca}</td>
+	                  <td>${row.unidadMedida}</td> 
+	                  <td><a href="accionProducto?codProd=${row.cod_producto}">[Modificar]</a></td>
+	                  <td><a href="eliminarProducto?codProd=${row.cod_producto}">[Eliminar]</a></td>
+	                </tr>
+			     </c:forEach> 
+		      </c:if> 
+              </tbody>
+</table>
+

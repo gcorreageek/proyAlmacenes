@@ -30,6 +30,8 @@
 
 	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/bootstrap/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/assets/bootstrap/js/bootstrap-datepicker.es.js" charset="UTF-8"></script>
+ 	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/bootstrap/js/bootstrap-paginator.min.js"></script>
+ 	
  	<script type="text/javascript"  >
 
 		$(document).ready(function() {   

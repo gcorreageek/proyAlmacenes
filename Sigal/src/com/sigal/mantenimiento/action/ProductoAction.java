@@ -1,5 +1,6 @@
 package com.sigal.mantenimiento.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -9,120 +10,71 @@ import org.apache.struts2.convention.annotation.Result;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sigal.mantenimiento.bean.ProductoDTO;
 import com.sigal.mantenimiento.service.ProductoService;
+import com.sigal.util.Constantes;
+import com.sigal.util.UtilSigal;
 
 @ParentPackage("proy_calidad_SIGAL2")
 public class ProductoAction extends ActionSupport  {
-
-	/*---------------------------- DECLARACION DE VARIABLES -------------------------------------*/	
+ 
 ProductoService objProServ = new ProductoService();
 private ProductoDTO  objProducto;
 private List<ProductoDTO> lstProducto;
 private String mensaje;
 private Integer rsult;
 private Integer codProd;
-private Integer id;
-private String cant;
-private Integer bloqueAnterior;
-private Integer bloqueSiguiente;
-private Integer inicio;
-private Integer tamano;
-private String cadenaPaginacion;
-/*---------------------------- DECLARACION DE VARIABLES -------------------------------------*/
+private Integer id; 
+private Integer inicio; 
+private Integer numeroPaginas;
+private Integer tagTipoListado;
+ 
+ 
 
-/*---------------------------- METODOS -------------------------------------*/
 
-private final Integer FILAS_X_PAGINA=5;
-private final Integer PAGINAS_LINK=3;
-//El numero de BLOCKES es el que se halla
-// TOTAL/FILAS_X_PAGINA=resultado/PAGINAS_LINK=#BLOCKES
 
-@Action(value="/paginacion",results={@Result(name="success",location="/paginas/mantenimientos/paginacion_producto.jsp")})
-public String paginacion(){
-	String anterior = "<li><a href=\"#\">Anterior<//a><//li>";
-	String siguiente = "<li><a href=\"#\">Siguiente<//a><//li>";
-	 
-	Integer TOTAL = Integer.parseInt(  cant);
-	
-	Integer PAGINAS =  (int) Math.floor(TOTAL/FILAS_X_PAGINA)+1;
-	System.out.println("Ultimo:"+PAGINAS);
-	Integer NUMERO_BLOQUES =(int) Math.floor( PAGINAS/PAGINAS_LINK);
-	
-	String cadena = ""; 
-	if(NUMERO_BLOQUES>PAGINAS_LINK){
-		if(bloqueAnterior==0){
-			
-		}else{
-			anterior = anterior.replaceAll("#", bloqueAnterior.toString());
-			cadena= cadena +anterior;
-		}	
-		bloqueAnterior=bloqueAnterior+1;
-	}
-	System.out.println("1:"+NUMERO_BLOQUES+">"+PAGINAS_LINK);
-	inicio = 0;
-	tamano = 0; 
-	if(NUMERO_BLOQUES>PAGINAS_LINK){
-		int sum=-1;
-		while(bloqueAnterior>-1){
-			sum= sum+1;
-			for(int i=0;i<PAGINAS_LINK;i++){
-				cadena = cadena+"<li><a href=\"#\">"+(i+sum)+"<//a><//li>";
-			} 
-		}
-		
-	}else{System.out.println("education nation!"+PAGINAS); 
-		for(int i=1;i<PAGINAS;i++){ System.out.println("ssssss");
-			tamano = tamano + FILAS_X_PAGINA;
-			inicio =  tamano-(FILAS_X_PAGINA-1);
-			cadena = cadena+"<li><a href=\"mainProducto?tamano="+tamano+"&inicio="+inicio+"\">"+i+"<//a><//li>";
-		} 
-		
-	}
-	System.out.println("2:"+cadena);
-	
-	
-	if(NUMERO_BLOQUES>PAGINAS_LINK){
-		if(bloqueSiguiente==-1){
-			
-		}else{
-			siguiente = siguiente.replaceAll("#", bloqueSiguiente.toString());
-			cadena= cadena +siguiente;
-		}
-	} 
-	cadenaPaginacion = cadena;
-	System.out.println("3:"+cadena);
-	System.out.println("se:"+cadenaPaginacion);
+@Action(value="/listarProductoPag",results={@Result(name="success",location="/paginas/mantenimientos/paginacion_producto.jsp")})
+public String listarProductoPag(){ 
+	Integer comienzo =null; 
+	if(inicio==null || inicio==0){
+		comienzo = 0; 
+	} else{
+		comienzo = (inicio*Constantes.FILAS_X_PAGINA)-Constantes.FILAS_X_PAGINA;
+	}  
+	lstProducto=objProServ.listaProductosPaginado(comienzo,Constantes.FILAS_X_PAGINA );   
 	return SUCCESS;
 }
-
-//@Action(value="/add_product",results={@Result(name="success",type="tiles",location="d_pedidosInternos")})
 @Action(value="/mainProducto",results={@Result(name="success",type="tiles",location="d_mainproducto")})
-public String mainProducto(){
-	cant= objProServ.listaProductosTotal().toString();
-	if(inicio==null && tamano==null){
-		inicio =1;
-		tamano =FILAS_X_PAGINA;
-	}
-	inicio = inicio-1;
-	lstProducto=objProServ.listaProductosPaginado(inicio,5 );
+public String mainProducto(){  
+	lstProducto=objProServ.listaProductosPaginado(0,Constantes.FILAS_X_PAGINA );  
+	this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.listaProductosTotal()); 
+	this.tagTipoListado = 1;
 	return SUCCESS;
 }
-
+@Action(value="/buscarProductosXDescProdPag",results={@Result(name="success",location="/paginas/mantenimientos/paginacion_producto.jsp")})
+public String buscarProductosXDescProdPag(){ 
+	Integer comienzo =null; 
+	if(inicio==null || inicio==0){
+		comienzo = 0; 
+	} else{
+		comienzo = (inicio*Constantes.FILAS_X_PAGINA)-Constantes.FILAS_X_PAGINA;
+	}  
+	lstProducto=objProServ.buscarProductosXDescPaginado(objProducto,comienzo,Constantes.FILAS_X_PAGINA );   
+	return SUCCESS;
+}
 @Action(value="/buscarProductosXDescProd",results={@Result(name="success",type="tiles",location="d_mainproducto")})
-public String buscarProductosXDescProd(){
-	System.out.println(objProducto);
-	System.out.println(objProducto.getDesc_producto());
-	lstProducto=objProServ.buscarProductosXDesc(objProducto);
-	for (ProductoDTO prod : lstProducto) {
-		System.out.println("Prod:"+prod.getDesc_producto());
-	}
+public String buscarProductosXDescProd(){  
+	lstProducto=objProServ.buscarProductosXDescPaginado(objProducto, 0, Constantes.FILAS_X_PAGINA );
+	this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.buscarProductosXDescTotal(objProducto));
+	this.tagTipoListado = 2;
 	return SUCCESS;
 }
 
 @Action(value="/accionProducto",results={@Result(name="success",type="tiles",location="d_actuarproducto")})
 public String accionProducto(){  
-	ProductoDTO prod = new ProductoDTO();
-	prod.setCod_producto(this.codProd);
-	this.objProducto = objProServ.getProducto(prod);
+	if(this.codProd!=null){ 
+		ProductoDTO prod = new ProductoDTO();
+		prod.setCod_producto(this.codProd);
+		this.objProducto = objProServ.getProducto(prod);
+	} 
 	return SUCCESS;
 }
 @Action(value="/eliminarProducto",results={@Result(name="success",type="tiles",location="d_mainproducto")})
@@ -137,7 +89,7 @@ public String eliminarProducto(){
 		this.rsult = 1;
 		this.mensaje="Ocurrio un Problema";
 	}
-	this.lstProducto=objProServ.listaProductos();
+	mainProducto();
 	return SUCCESS;
 }
 
@@ -163,23 +115,7 @@ public String actuarProducto(){
 @Action(value="/productoStocks",results={@Result(name="success",type="tiles",location="d_productostocks")})
 public String productoStocks(){ 
 	return SUCCESS;
-}
-
-
-
-/*---------------------------- METODOS -------------------------------------*/
-
-
-//@Action(value="/listaProductos",results={@Result(name="success",type="json")})
-//public String listaArticulos(){
-//	lstProducto =objProServ.listaProductos();
-//	return SUCCESS;
-//}
-
-
-
-
-/*---------------------------- METODOS DE ACCESO -------------------------------------*/
+} 
 public ProductoDTO getObjProducto() {
 	return objProducto;
 }
@@ -215,65 +151,33 @@ public Integer getCodProd() {
 
 public void setCodProd(Integer codProd) {
 	this.codProd = codProd;
-}
-
-public Integer getId() {
-	return id;
-}
-
-public void setId(Integer id) {
-	this.id = id;
-}
-
-public String getCant() {
-	return cant;
-}
-
-public void setCant(String cant) {
-	this.cant = cant;
-}
-
-public Integer getBloqueAnterior() {
-	return bloqueAnterior;
-}
-
-public void setBloqueAnterior(Integer bloqueAnterior) {
-	this.bloqueAnterior = bloqueAnterior;
-}
-
-public Integer getBloqueSiguiente() {
-	return bloqueSiguiente;
-}
-
-public void setBloqueSiguiente(Integer bloqueSiguiente) {
-	this.bloqueSiguiente = bloqueSiguiente;
-}
-
+} 
 public Integer getInicio() {
 	return inicio;
 }
 
 public void setInicio(Integer inicio) {
 	this.inicio = inicio;
+} 
+public Integer getNumeroPaginas() {
+	return numeroPaginas;
 }
-
+public void setNumeroPaginas(Integer numeroPaginas) {
+	this.numeroPaginas = numeroPaginas;
+}
+public Integer getId() {
+	return id;
+}
+public void setId(Integer id) {
+	this.id = id;
+}
+public Integer getTagTipoListado() {
+	return tagTipoListado;
+}
+public void setTagTipoListado(Integer tagTipoListado) {
+	this.tagTipoListado = tagTipoListado;
+}
  
-
-public Integer getTamano() {
-	return tamano;
-}
-
-public void setTamano(Integer tamano) {
-	this.tamano = tamano;
-}
-
-public String getCadenaPaginacion() {
-	return cadenaPaginacion;
-}
-
-public void setCadenaPaginacion(String cadenaPaginacion) {
-	this.cadenaPaginacion = cadenaPaginacion;
-}
 
  
 

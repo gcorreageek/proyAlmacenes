@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 						<property name="driver" value="com.mysql.jdbc.Driver" />
 						<property name="url" value="jdbc:mysql://localhost:3306/bd_sigal" />
 						<property name="username" value="root" /> 
-						<property name="password" value="micontraseña" /> 
+						<property name="password" value="root" /> 
 			</dataSource>
 		</environment>
 	</environments>

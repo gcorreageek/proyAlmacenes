@@ -11,24 +11,30 @@
 <script type="text/javascript">
 
 $(document).ready(function() { 
-	var vall = $("#totalPaginacion").val(); 
-	$.post("paginacion",{cant:vall},function(data){
-// 		alert(data);
-		$("#paginacionAbajo").html(data);
-	});
-	
-	
-	 setTimeout(function(){ $('.alert').hide(1000); }, 3000); 
+	var numeroPaginas = $("#numeroPaginas").val(); 
+    var options = {
+     currentPage: 1,
+     totalPages: numeroPaginas,
+     onPageClicked: function(e,originalEvent,type,page){ 
+    	if($("#tagTipoListado").val()==1){
+    		$.post("listarProductoPag",{inicio:page},function(data){
+         		$("#divTablaPag").html(data);
+     		}); 	
+    	}else{
+    		$.post("buscarProductosXDescProdPag",{inicio:page},function(data){
+         		$("#divTablaPag").html(data);
+     		}); 	
+    	}
+     	
+     } 
+ 	}
+
+    $('#divPaginador').bootstrapPaginator(options); 
+	setTimeout(function(){ $('.alert').hide(1000); }, 3000); 
 }); 
 </script>
 </head>
-<body>
-
-<c:if test="${requestScope.cant!=null}"   >
-<input id="totalPaginacion" name="totalPaginacion"  type="hidden"  value="${ requestScope.cant}"  />
-</c:if>
-
-
+<body>  
 <h3>Mantenimiento Producto</h3>
 <c:if test="${requestScope.rsult!=null}"   >
 <c:if test="${requestScope.rsult=='0'}"   >
@@ -51,8 +57,8 @@ $(document).ready(function() {
     </form>
     
      
-				
-    <table class="table table-striped table-bordered table-hover">
+		<div id="divTablaPag">
+		<table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
                   <th>Producto</th>
@@ -71,30 +77,19 @@ $(document).ready(function() {
 	                  <td>${row.categoria}</td>
 	                  <td>${row.marca}</td>
 	                  <td>${row.unidadMedida}</td> 
-	                  <td><a href="accionProducto?id=2&codProd=${row.cod_producto}">[Modificar]</a></td>
-	                  <td><a href="eliminarProducto?id=0&codProd=${row.cod_producto}">[Eliminar]</a></td>
+	                  <td><a href="accionProducto?codProd=${row.cod_producto}">[Modificar]</a></td>
+	                  <td><a href="eliminarProducto?codProd=${row.cod_producto}">[Eliminar]</a></td>
 	                </tr>
 			     </c:forEach> 
 		      </c:if> 
               </tbody>
-            </table>
-            <s:hidden  name="bloqueAnterior"  value="0"    />
-            <s:hidden  name="bloqueSiguiente" value="1"    />
-            <div id="paginacionAbajo"> 
+		</table>
+		</div>	 
+		 <s:hidden id="tagTipoListado" name="tagTipoListado"      /> 
+         <s:hidden id="numeroPaginas" name="numeroPaginas"      /> 
+ 	     <div id="divPaginador"></div>    
             
-            </div>
-<!--                 <div class="pagination"> -->
-<!-- 			    <ul> -->
-<!-- 			    <li><a href="#">Anterior</a></li> -->
-<!-- 			    <li><a href="#">1</a></li> -->
-<!-- 			    <li><a href="#">2</a></li> -->
-<!-- 			    <li><a href="#">3</a></li> -->
-<!-- 			    <li><a href="#">4</a></li> -->
-<!-- 			    <li><a href="#">5</a></li> -->
-<!-- 			    <li><a href="#">Siguiente</a></li> -->
-<!-- 			    </ul> -->
-<!-- 			    </div> -->
-            <a class="btn btn-primary"  href="accionProducto?id=1">Nuevo Producto</a>
+            <a class="btn btn-primary"  href="accionProducto">Nuevo Producto</a>
 <!--             <a class="btn btn-primary"  href="productoStocks">Producto con Stocks</a> -->
 
 </body>

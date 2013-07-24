@@ -15,10 +15,10 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<c:if test="${requestScope.objProducto!=null}"   >
+<c:if test="${requestScope.objProducto.cod_producto!=null}"   >
 <h3>Modificar Producto</h3>  
 </c:if>
-<c:if test="${requestScope.objProducto==null}"   >
+<c:if test="${requestScope.objProducto.cod_producto==null}"   >
 <h3>Nuevo Producto</h3>  
 </c:if>
 
