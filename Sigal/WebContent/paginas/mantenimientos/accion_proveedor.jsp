@@ -48,15 +48,9 @@ $(document).ready(function() {
 </div>
 </div>
 <div class="control-group">
-<label class="control-label" for="inputTipo">Tipo</label>
+<label class="control-label" for="inputRuc">Ruc</label>
 <div class="controls">
-<input type="text" id="inputTipo"  name="objProveedor.tipo" value="${objProveedor.tipo}" placeholder="Tipo">
-</div>
-</div>
-<div class="control-group">
-<label class="control-label" for="inputMarca">Numero Doc</label>
-<div class="controls">
-<input type="text" id="inputMarca"  name="objProveedor.ruc" value="${objProveedor.ruc}" placeholder="Numero Doc">
+<input type="text" id="inputRuc"  name="objProveedor.ruc" value="${objProveedor.ruc}" placeholder="Ruc">
 </div>
 </div>
 <div class="control-group">
@@ -65,7 +59,12 @@ $(document).ready(function() {
 <input type="text" id="inputTelefono"  name="objProveedor.telefono" value="${objProveedor.telefono}" placeholder="Telefono">
 </div>
 </div>
- 
+<div class="control-group">
+<label class="control-label" for="inputCorreo">Correo</label>
+<div class="controls">
+<input type="text" id="inputCorreo"  name="objProveedor.correo" value="${objProveedor.correo}" placeholder="Correo">
+</div>
+</div>
  
 <div class="control-group"> 
 <div class="controls">

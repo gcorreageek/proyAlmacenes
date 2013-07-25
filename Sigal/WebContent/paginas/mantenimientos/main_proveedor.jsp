@@ -62,9 +62,9 @@ $(document).ready(function() {
               <thead>
                 <tr> 
                   <th>Razon Social</th>
-                  <th>TipoDoc</th>
                   <th>NumeroDoc</th>
                   <th>Telefono</th> 
+                  <th>Correo</th>
                   <th>Modificar</th>
                   <th>Eliminar</th>
                 </tr>
@@ -74,9 +74,9 @@ $(document).ready(function() {
 			     <c:forEach  items="${requestScope.lstProveedor}"  var="row"  >
 			     	<tr> 
 	                  <td>${row.raz_social}</td>
-	                  <td>${row.tipo}</td>
 	                  <td>${row.ruc}</td>
 	                  <td>${row.telefono}</td> 
+	                  <td>${row.correo}</td>
 	                  <td><a href="accionProveedor?codProvee=${row.cod_proveedor}">[Modificar]</a></td>
 	                  <td><a href="eliminarProveedor?codProvee=${row.cod_proveedor}">[Eliminar]</a></td>
 	                </tr>

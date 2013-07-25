@@ -19,26 +19,20 @@
  	</definition>
 	<definition name="d_actuarproducto" extends="d_index">
  		<put-attribute name="body" value="/paginas/mantenimientos/accion_producto.jsp"/>
- 	</definition>
- 	<definition name="d_productostocks" extends="d_index">
- 		<put-attribute name="body" value="/paginas/mantenimientos/producto_stock.jsp"/>
- 	</definition>
+ 	</definition> 
  	<!-- Proveedor -->
  	<definition name="d_mainproveedor" extends="d_index">
  		<put-attribute name="body" value="/paginas/mantenimientos/main_proveedor.jsp"/>
  	</definition>
 	<definition name="d_actuarproveedor" extends="d_index">
  		<put-attribute name="body" value="/paginas/mantenimientos/accion_proveedor.jsp"/>
- 	</definition>
-<!--  	<definition name="d_productostocks" extends="d_index"> -->
-<!--  		<put-attribute name="body" value="/paginas/mantenimientos/producto_stock.jsp"/> -->
-<!--  	</definition> -->
+ 	</definition> 
  	<!-- ProductoProveedor -->
  	<definition name="d_mainproductoproveedor" extends="d_index">
  		<put-attribute name="body" value="/paginas/mantenimientos/main_producto_proveedor.jsp"/>
  	</definition>
-	<definition name="d_nuevoproductoproveedor" extends="d_index">
- 		<put-attribute name="body" value="/paginas/mantenimientos/nuevo_producto_proveedor.jsp"/>
+	<definition name="d_actuarproductoproveedor" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_producto_proveedor.jsp"/>
  	</definition>
  	<!-- Pedido -->
  	<definition name="d_mainpedido" extends="d_index">

@@ -10,16 +10,16 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 $(document).ready(function() { 
-	 setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+	 setTimeout(function(){ $('.alert').hide(1000); }, 3000); 
 }); 
 </script>
 </head>
 <body>
-<c:if test="${requestScope.objProducto.cod_producto!=null}"   >
-<h3>Modificar Producto</h3>  
+<c:if test="${requestScope.objProductoProveedor.cod_producto_proveedor!=null}"   >
+<h3>Modificar Producto Proveedor</h3>  
 </c:if>
-<c:if test="${requestScope.objProducto.cod_producto==null}"   >
-<h3>Nuevo Producto</h3>  
+<c:if test="${requestScope.objProductoProveedor.cod_producto_proveedor==null}"   >
+<h3>Nuevo Producto Proveedor</h3>  
 </c:if>
 
 
@@ -39,29 +39,33 @@ $(document).ready(function() {
 
 </c:if>
 
-<form class="form-horizontal" action="actuarProducto" method="post"  >
-<s:hidden  name="objProducto.cod_producto"      />
+<form class="form-horizontal" action="actuarProductoProveedor" method="post"  >
+<s:hidden  name="objProductoProveedor.cod_producto_proveedor"      />
+<s:hidden  name="objProductoProveedor.cod_producto"      />
 <div class="control-group">
 <label class="control-label" for="inputNombre">Nombre</label>
 <div class="controls">
-<input type="text" id="inputNombre" name="objProducto.desc_producto" value="${objProducto.desc_producto}" placeholder="Nombre">
+<input type="text" id="inputNombre" name="objProductoProveedor.desc_producto" value="${objProductoProveedor.desc_producto}" placeholder="Nombre">
 </div>
 </div> 
 <div class="control-group">
 <label class="control-label" for="inputUMedida">U.Medida</label>
 <div class="controls">
-<s:select   
-		headerKey="Selecciona" headerValue="Selecciona"
-		list="#{'Unidad':'Unidad', 'Caja':'Caja', 'Docena':'Docena',  'Millar':'Millar'}"
-		name="objProducto.unidadMedida"  value="objProducto.unidadMedida" />
+<input type="text" id="inputUMedida"  name="objProductoProveedor.unidadMedida" value="${objProductoProveedor.unidadMedida}" placeholder="U.Medida">
 </div>
 </div>
- 
+<s:hidden  name="objProductoProveedor.cod_proveedor"      />
+<div class="control-group">
+<label class="control-label" for="inputProveedor">Proveedor</label>
+<div class="controls">
+<input type="text" id="inputProveedor"  name="objProductoProveedor.raz_social" value="${objProductoProveedor.raz_social}" placeholder="Proveedor">
+</div>
+</div>
  
 <div class="control-group"> 
 <div class="controls">
 <button class="btn btn-primary">Guardar</button>
-<a class="btn btn-primary"  href="mainProducto">Listar</a>
+<a class="btn btn-primary"  href="mainProductoProveedor">Listar</a>
 </div>
 </div>
 

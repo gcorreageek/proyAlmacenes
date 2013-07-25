@@ -3,8 +3,12 @@
  */
 package com.sigal.mantenimiento.action;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Stack;
 
+import org.apache.ibatis.exceptions.IbatisException;
+import org.apache.ibatis.jdbc.RuntimeSqlException;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -115,8 +119,15 @@ public class ProveedorAction extends ActionSupport {
 		Boolean rsultado=null;
 		try {
 			rsultado = objProServ.eliminarProveedor(provee);
-		} catch (Exception e) {
-			e.printStackTrace();
+		}  
+		catch (Exception  e ) { 
+//			System.out.println("toda:"+e.getMessage());
+			SQLException sqle = (SQLException) e;
+			System.out.println("te llegooo!");
+			System.out.println("vamos peru1:"+sqle.getErrorCode());
+			System.out.println("vamos peru2:"+sqle.getMessage());
+			System.out.println("vamos peru3:"+sqle.getSQLState());
+			System.out.println("es de aca"+e);
 		}
 		if (rsultado) {
 			this.rsult = 0;
@@ -131,6 +142,7 @@ public class ProveedorAction extends ActionSupport {
 
 	@Action(value = "/actuarProveedor", results = { @Result(name = "success", type = "tiles", location = "d_actuarproveedor") })
 	public String actuarProveedor() {
+		System.out.println("accc");
 		Boolean rsultado = false;
 		try {
 			if (objProveedor.getCod_proveedor() == null) {

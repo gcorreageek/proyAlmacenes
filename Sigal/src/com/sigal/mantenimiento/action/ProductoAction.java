@@ -1,5 +1,6 @@
 package com.sigal.mantenimiento.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -24,7 +25,7 @@ public class ProductoAction extends ActionSupport {
 	private Integer id;
 	private Integer inicio;
 	private Integer numeroPaginas;
-	private Integer tagTipoListado;
+	private Integer tagTipoListado; 
 
 	@Action(value = "/listarProductoPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_producto.jsp") })
 	public String listarProductoPag() {
@@ -194,7 +195,6 @@ public class ProductoAction extends ActionSupport {
 
 	public void setTagTipoListado(Integer tagTipoListado) {
 		this.tagTipoListado = tagTipoListado;
-	}
- 
-
+	} 
+	
 }

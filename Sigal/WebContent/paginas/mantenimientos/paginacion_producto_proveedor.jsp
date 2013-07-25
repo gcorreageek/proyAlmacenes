@@ -7,20 +7,23 @@
 <table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
-                  <th>Producto</th> 
+                  <th>Producto</th>
+                  <th>Categoria</th>
+                  <th>Marca</th>
                   <th>U.Medida</th> 
                   <th>Modificar</th>
                   <th>Eliminar</th>
                 </tr>
               </thead>
               <tbody>
-              <c:if test="${requestScope.lstProducto!=null}"   >
-			     <c:forEach  items="${requestScope.lstProducto}"  var="row"  >
+              <c:if test="${requestScope.lstProductoProveedor!=null}"   >
+			     <c:forEach  items="${requestScope.lstProductoProveedor}"  var="row"  >
 			     	<tr> 
-	                  <td>${row.desc_producto}</td> 
-	                  <td>${row.unidadMedida}</td> 
-	                  <td><a href="accionProducto?codProd=${row.cod_producto}">[Modificar]</a></td>
-	                  <td><a href="eliminarProducto?codProd=${row.cod_producto}">[Eliminar]</a></td>
+			     	  <td>${row.desc_producto}</td>
+	                  <td>${row.unidadMedida}</td>
+	                  <td>${row.raz_social}</td> 
+	                  <td><a href="accionProductoProveedor?codProdProvee=${row.cod_producto_proveedor}">[Modificar]</a></td>
+	                  <td><a href="eliminarProductoProveedor?codProdProvee=${row.cod_producto_proveedor}">[Eliminar]</a></td>
 	                </tr>
 			     </c:forEach> 
 		      </c:if> 

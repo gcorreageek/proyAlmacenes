@@ -21,9 +21,9 @@ $(document).ready(function() {
          		$("#divTablaPag").html(data);
      		}); 	
     	}else{
-//     		$.post("buscarProductosXDescProdPag",{inicio:page},function(data){
-//          		$("#divTablaPag").html(data);
-//      		}); 	
+    		$.post("buscarProductoProveedorXRazonSocialAndDescProdPag",{inicio:page},function(data){
+         		$("#divTablaPag").html(data);
+     		}); 	
     	}
      	
      } 
@@ -51,8 +51,9 @@ $(document).ready(function() {
 </c:if>
 
 </c:if>
-	<form class="form-search"  action="buscarProductosXDescProd" method="post">
-<!-- 	    <input type="text" name="objProducto.desc_producto" class="input-medium search-query" placeholder="Producto" > -->
+	<form class="form-search"  action="buscarProductoProveedorXRazonSocialAndDescProd" method="post">
+	    <input type="text" name="objProductoProveedor.desc_producto" class="input-medium search-query" placeholder="Producto" >
+	    <input type="text" name="objProductoProveedor.raz_social" class="input-medium search-query" placeholder="Proveedor" >
 	    <button type="submit" class="btn">Buscar</button>
     </form>
     
@@ -61,26 +62,22 @@ $(document).ready(function() {
 		<table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
-                  <th>ProductoProveedor</th>
                   <th>Producto</th>
-                  <th>Proveedor</th>
-<!--                   <th>Marca</th> -->
-<!--                   <th>U.Medida</th>  -->
-<!--                   <th>Modificar</th> -->
-<!--                   <th>Eliminar</th> -->
+                  <th>U.Medida</th>
+                  <th>Proveedor</th> 
+                  <th>Modificar</th>
+                  <th>Eliminar</th>
                 </tr>
               </thead>
               <tbody>
               <c:if test="${requestScope.lstProductoProveedor!=null}"   >
 			     <c:forEach  items="${requestScope.lstProductoProveedor}"  var="row"  >
 			     	<tr> 
-			     	  <td>${row.cod_producto_proveedor}</td>
-	                  <td>${row.cod_producto}</td>
-	                  <td>${row.cod_proveedor}</td>
-<%-- 	                  <td>${row.marca}</td> --%>
-<%-- 	                  <td>${row.unidadMedida}</td>  --%>
-<%-- 	                  <td><a href="accionProducto?codProd=${row.cod_producto}">[Modificar]</a></td> --%>
-<%-- 	                  <td><a href="eliminarProducto?codProd=${row.cod_producto}">[Eliminar]</a></td> --%>
+			     	  <td>${row.desc_producto}</td>
+	                  <td>${row.unidadMedida}</td>
+	                  <td>${row.raz_social}</td> 
+	                  <td><a href="accionProductoProveedor?codProdProvee=${row.cod_producto_proveedor}">[Modificar]</a></td>
+	                  <td><a href="eliminarProductoProveedor?codProdProvee=${row.cod_producto_proveedor}">[Eliminar]</a></td>
 	                </tr>
 			     </c:forEach> 
 		      </c:if> 
@@ -91,7 +88,7 @@ $(document).ready(function() {
          <s:hidden id="numeroPaginas" name="numeroPaginas"      /> 
  	     <div id="divPaginador"></div>    
             
-            <a class="btn btn-primary"  href="accionProducto">Nuevo Producto Proveedor</a>
+            <a class="btn btn-primary"  href="accionProductoProveedor">Nuevo Producto Proveedor</a>
 <!--             <a class="btn btn-primary"  href="productoStocks">Producto con Stocks</a> -->
 
 </body>

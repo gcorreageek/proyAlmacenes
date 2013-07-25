@@ -1,5 +1,6 @@
 package com.sigal.mantenimiento.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.sigal.dao.DAOFactory;
@@ -40,7 +41,7 @@ public class ProveedorService {
 	public Boolean actualizarProveedor(ProveedorDTO objProveedor) throws Exception {
 		return objProveeDAO.actualizarProveedor(objProveedor);
 	}
-	public Boolean eliminarProveedor(ProveedorDTO objProveedor)throws Exception  {
+	public Boolean eliminarProveedor(ProveedorDTO objProveedor)throws SQLException  {
 		return objProveeDAO.eliminarProveedor(objProveedor);
 	}
 	

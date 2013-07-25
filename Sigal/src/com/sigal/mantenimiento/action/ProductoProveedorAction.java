@@ -167,7 +167,7 @@ public class ProductoProveedorAction extends ActionSupport {
 	public String accionProductoProveedor() {
 		if (this.codProdProvee != null) {
 			ProductoProveedorDTO prodProvee = new ProductoProveedorDTO();
-			prodProvee.setCod_proveedor(this.codProdProvee);
+			prodProvee.setCod_producto_proveedor(this.codProdProvee);
 			try {
 				this.objProductoProveedor = objProServ.getProductoProveedor(prodProvee);
 			} catch (Exception e) {
@@ -180,7 +180,7 @@ public class ProductoProveedorAction extends ActionSupport {
 	@Action(value = "/eliminarProductoProveedor", results = { @Result(name = "success", type = "tiles", location = "d_mainproductoproveedor") })
 	public String eliminarProductoProveedor() {
 		ProductoProveedorDTO productProve = new ProductoProveedorDTO();
-		productProve.setCod_proveedor(this.codProdProvee);
+		productProve.setCod_producto_proveedor(this.codProdProvee);
 		Boolean rsultado=null;
 		try {
 			rsultado = objProServ.eliminarProductoProveedor(productProve);

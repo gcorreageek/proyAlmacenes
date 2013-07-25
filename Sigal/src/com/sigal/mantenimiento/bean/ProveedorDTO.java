@@ -13,12 +13,12 @@ public class ProveedorDTO  implements
  Serializable{
 	
 	private Integer cod_proveedor;
-	private String raz_social;
-	private Integer tipo;
+	private String raz_social; 
 	private String ruc;
 	private String telefono; 
 	private Integer inicio;
 	private Integer tamano;
+	private String correo;
 	
 	public Integer getCod_proveedor() {
 		return cod_proveedor;
@@ -32,11 +32,12 @@ public class ProveedorDTO  implements
 	public void setRaz_social(String raz_social) {
 		this.raz_social = raz_social;
 	}
-	public Integer getTipo() {
-		return tipo;
+ 
+	public String getCorreo() {
+		return correo;
 	}
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 	public String getRuc() {
 		return ruc;

@@ -30,7 +30,7 @@ $(document).ready(function() {
  	}
 
     $('#divPaginador').bootstrapPaginator(options); 
-	setTimeout(function(){ $('.alert').hide(1000); }, 3000); 
+	setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
 }); 
 </script>
 </head>
@@ -61,9 +61,7 @@ $(document).ready(function() {
 		<table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
-                  <th>Producto</th>
-                  <th>Categoria</th>
-                  <th>Marca</th>
+                  <th>Producto</th> 
                   <th>U.Medida</th> 
                   <th>Modificar</th>
                   <th>Eliminar</th>
@@ -73,9 +71,7 @@ $(document).ready(function() {
               <c:if test="${requestScope.lstProducto!=null}"   >
 			     <c:forEach  items="${requestScope.lstProducto}"  var="row"  >
 			     	<tr> 
-	                  <td>${row.desc_producto}</td>
-	                  <td>${row.categoria}</td>
-	                  <td>${row.marca}</td>
+	                  <td>${row.desc_producto}</td> 
 	                  <td>${row.unidadMedida}</td> 
 	                  <td><a href="accionProducto?codProd=${row.cod_producto}">[Modificar]</a></td>
 	                  <td><a href="eliminarProducto?codProd=${row.cod_producto}">[Eliminar]</a></td>
