@@ -27,9 +27,12 @@
  	<definition name="d_mainproveedor" extends="d_index">
  		<put-attribute name="body" value="/paginas/mantenimientos/main_proveedor.jsp"/>
  	</definition>
-	<definition name="d_nuevoproveedor" extends="d_index">
- 		<put-attribute name="body" value="/paginas/mantenimientos/nuevo_proveedor.jsp"/>
+	<definition name="d_actuarproveedor" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_proveedor.jsp"/>
  	</definition>
+<!--  	<definition name="d_productostocks" extends="d_index"> -->
+<!--  		<put-attribute name="body" value="/paginas/mantenimientos/producto_stock.jsp"/> -->
+<!--  	</definition> -->
  	<!-- ProductoProveedor -->
  	<definition name="d_mainproductoproveedor" extends="d_index">
  		<put-attribute name="body" value="/paginas/mantenimientos/main_producto_proveedor.jsp"/>

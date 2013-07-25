@@ -10,7 +10,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="CargoBean" type="com.sigal.seguridad.bean.CargoDTO" />		    
 	 	<typeAlias alias="MenuBean" type="com.sigal.seguridad.bean.MenuDTO" /> 
 	 	<typeAlias alias="ProductoBean" type="com.sigal.mantenimiento.bean.ProductoDTO" /> 
-	 	
+	 	<typeAlias alias="ProveedorBean" type="com.sigal.mantenimiento.bean.ProveedorDTO" /> 
+	 	<typeAlias alias="ProductoProveedorBean" type="com.sigal.mantenimiento.bean.ProductoProveedorDTO" /> 
 	</typeAliases> 
 
 	<environments default="development">
@@ -31,6 +32,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <mapper resource="com/sigal/dao/xml/Cargo.xml" /> 
 		 <mapper resource="com/sigal/dao/xml/Area.xml" /> 
 		 <mapper resource="com/sigal/dao/xml/Producto.xml" /> 
+		 <mapper resource="com/sigal/dao/xml/Proveedor.xml" /> 
+		 <mapper resource="com/sigal/dao/xml/ProductoProveedor.xml" />
 	</mappers>
 </configuration>
 

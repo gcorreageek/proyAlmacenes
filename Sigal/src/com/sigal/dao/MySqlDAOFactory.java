@@ -3,8 +3,12 @@ package com.sigal.dao;
 import com.sigal.mantenimiento.dao.CategoriaDAO;
 import com.sigal.mantenimiento.dao.MySqlCategoriaDAO;
 import com.sigal.mantenimiento.dao.MySqlProductoDAO;
+import com.sigal.mantenimiento.dao.MySqlProductoProveedorDAO;
+import com.sigal.mantenimiento.dao.MySqlProveedorDAO;
 import com.sigal.mantenimiento.dao.MySqlUmedidaDAO;
 import com.sigal.mantenimiento.dao.ProductoDAO;
+import com.sigal.mantenimiento.dao.ProductoProveedorDAO;
+import com.sigal.mantenimiento.dao.ProveedorDAO;
 import com.sigal.mantenimiento.dao.UmedidaDAO;
 import com.sigal.pedido.dao.MySqlSolicitudPedidoDAO;
 import com.sigal.pedido.dao.SolicitudPedidoDAO;
@@ -50,14 +54,21 @@ public class MySqlDAOFactory extends DAOFactory {
 
 	@Override
 	public CargoDAO getCargoDAO() {
-		// TODO Auto-generated method stub
 		return new MySqlCargoDAO();
 	}
  
 	@Override
 	public AreaDAO getAreaDAO() {
-		// TODO Auto-generated method stub
 		return new MySqlAreaDAO();
+	} 
+	@Override
+	public ProveedorDAO getProveedorDAO() {
+		return new MySqlProveedorDAO();
+	}
+ 
+	@Override
+	public ProductoProveedorDAO getProductoProveedorDAO() {
+		return new MySqlProductoProveedorDAO();
 	}
 
  

@@ -2,6 +2,8 @@ package com.sigal.dao;
 
 import com.sigal.mantenimiento.dao.CategoriaDAO;
 import com.sigal.mantenimiento.dao.ProductoDAO;
+import com.sigal.mantenimiento.dao.ProductoProveedorDAO;
+import com.sigal.mantenimiento.dao.ProveedorDAO;
 import com.sigal.mantenimiento.dao.UmedidaDAO;
 import com.sigal.pedido.dao.SolicitudPedidoDAO;
 import com.sigal.seguridad.dao.AreaDAO;
@@ -23,8 +25,8 @@ public abstract class DAOFactory {
 	public abstract ProductoDAO getProductoDAO();
 	public abstract CategoriaDAO getCategoriaDAO();
 	public abstract UmedidaDAO getUmedidaDAO();
-	
-	
+	public abstract ProveedorDAO getProveedorDAO();
+	public abstract ProductoProveedorDAO getProductoProveedorDAO();
 	 
 	
 	
