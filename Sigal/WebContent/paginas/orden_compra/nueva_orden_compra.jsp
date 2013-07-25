@@ -29,20 +29,12 @@
 	<div  class="form-inline ">
 		<label class="control-label" for="inputProducto">Producto</label>
 		<input type="text" class="input-xxlarge" id="inputProducto" placeholder="Producto" disabled>
-		<label class="control-label" for="inputCategoria">Categoria</label>
-		<input type="text" class="input-medium" id="inputCategoria" placeholder="Categoria" disabled>
-	</div>
-	
-</div>
-<div class="control-group">
-	<div  class="form-inline ">
-		<label class="control-label" for="inputMarca">Marca</label>
-		<input type="text" class="input-large" id="inputMarca" placeholder="Marca" disabled>
 		<label class="control-label" for="inputUMedida">U.Medida</label>
 		<input type="text" class="input-large" id="inputUMedida" placeholder="U.Medida" disabled>
 		<a class="btn btn-primary" href="#myBuscarProducto" data-toggle="modal" >Buscar Producto</a>
 	</div>
-</div>
+	
+</div> 
 <br>
 <br>
 <div class="control-group">
@@ -55,9 +47,7 @@
     <table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr>  
-                  <th>Producto</th>
-                  <th>Categoria</th>
-                  <th>Marca</th>
+                  <th>Producto</th> 
                   <th>U.Medida</th>
                   <th>Cantidad</th> 
                   <th>Eliminar</th>
@@ -65,25 +55,19 @@
               </thead>
               <tbody>
                 <tr>  
-                  <td>Pizarra</td>
-                  <td>Utileria</td>
-                  <td>Chino</td>
+                  <td>Pizarra</td> 
                   <td>Unidad</td>
 				  <td>10</td> 
                   <td><a href="#">[Eliminar]</a></td>
                 </tr>
                 <tr>  
-                  <td>Tizas</td>
-                  <td>Utileria</td>
-                  <td>Caja</td>
+                  <td>Tizas</td> 
                   <td>Unidad</td>
                   <td>100</td> 
                   <td><a href="#">[Eliminar]</a></td>
                 </tr>
                 <tr>  
-                  <td>Lapicero</td>
-                  <td>Utileria</td>
-                  <td>Faber Castell</td>
+                  <td>Lapicero</td> 
                   <td>Unidad</td>
                   <td>100</td> 
                   <td><a href="#">[Eliminar]</a></td>

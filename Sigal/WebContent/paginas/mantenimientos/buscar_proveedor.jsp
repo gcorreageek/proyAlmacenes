@@ -9,42 +9,33 @@
 	<form class="form-search">
 	    <input type="text" class="input-medium search-query" placeholder="Proveedor" >
 	    <button type="submit" class="btn">Buscar</button>
-    </form>
-    <a class="btn btn-primary"  href="nuevoProveedor">Nuevo Proveedor</a>
+    </form> 
     <table class="table table-striped table-bordered table-hover">
               <thead>
-                <tr>
-                  <th>Cod</th>
+                <tr> 
                   <th>Proveedor</th>
-                  <th>TipoDoc</th>
-                  <th>NumDoc</th>
-                  <th>Telefono</th>  
+                  <th>NumDoc</th> 
+                  <th>Correo</th>
                   <th>Seleccionar</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
+                <tr> 
                   <td>3M</td>
-                  <td>RUC</td>
-                  <td>10457205550</td>
-                  <td>54026206</td>  
+                  <td>10457205550</td> 
+                  <td>gcorreageek@gmail.com</td>  
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>
-                <tr>
-                  <td>2</td>
-                  <td>LimpiaTodo SAC</td>
-                  <td>DNI</td>
-                  <td>45720555</td>
-                  <td>5526296</td>  
+                <tr> 
+                  <td>LimpiaTodo SAC</td> 
+                  <td>45720555</td> 
+                  <td>gcorreageek@gmail.com</td> 
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Lau-Chun</td>
-                  <td>RUC</td>
-                  <td>107290122330</td>
-                  <td>#994333</td>  
+                <tr> 
+                  <td>Lau-Chun</td> 
+                  <td>107290122330</td> 
+                  <td>gcorreageek@gmail.com</td>   
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>
               </tbody>

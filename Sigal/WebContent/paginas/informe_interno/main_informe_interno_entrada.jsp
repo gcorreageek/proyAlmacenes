@@ -15,22 +15,14 @@ $(document).ready(function() {
 <h3>Informe Interno de Entrada</h3>
 <form>
 <div class="control-group">
-	<div  class="form-inline">
-		<label class="control-label" for="inputNroPedido">Nro.Informe Interno de Entrada</label>	
-		<input type="text" class="span4" id="inputNroPedido" value="IIE201222212" disabled>
-		<label class="checkbox">
-		<input type="checkbox" id="checkNroPedido" checked>&nbsp;&nbsp;&nbsp; 
-		</label>
+	<div  class="form-inline"> 
 		<label class="control-label" for="inputFecha">Fecha</label>
 		<input type="text" id="inputFecha" value="12/12/2012" disabled> 
 	</div>
 </div>
 <h5>Datos del Pedido</h5>
 <div class="control-group">
-	<div  class="form-inline">
-		<label class="control-label" for="inputNroPedido">Nro.Pedido</label>	
-		<input type="text" class="span4" id="inputNroPedido" value="PED201222212" disabled>
-		&nbsp;&nbsp;&nbsp; 
+	<div  class="form-inline"> 
 		<label class="control-label" for="inputFecha">Fecha</label>
 		<input type="text" id="inputFecha" value="12/12/2012" disabled>
 		<a class="btn btn-primary" href="#myBuscarPedido" data-toggle="modal" >Buscar Pedido</a> 
@@ -56,7 +48,12 @@ $(document).ready(function() {
 		</label>	 
 		<label class="radio">
 		<input type="radio" name="optionsRadios" id="optionPrestamo" value="option1" disabled  checked>Prestamo
-		</label>
+		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label class="control-label" for="inputIcon">Fecha Entrega</label>
+		<div class="input-prepend">
+		<span class="add-on"><i class="icon-calendar"></i></span>
+		<input class="span2 datepicker"   type="text" disabled>
+		</div>
 		
 	</div>
 </div>
@@ -67,7 +64,7 @@ $(document).ready(function() {
 		<label class="control-label" for="inputIcon">Fecha Devolucion</label>
 		<div class="input-prepend">
 		<span class="add-on"><i class="icon-calendar"></i></span>
-		<input class="span4 datepicker" id="inputIcon" type="text" disabled>
+		<input class="span2 datepicker" id="inputIcon" type="text" disabled>
 		</div> 
 		
 	</div>
@@ -93,32 +90,24 @@ $(document).ready(function() {
     <table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
-                  <th>Producto</th>
-                  <th>Categoria</th>
-                  <th>Marca</th>
+                  <th>Producto</th> 
                   <th>U.Medida</th>
                   <th>Cantidad</th>  
                 </tr>
               </thead>
               <tbody>
                 <tr> 
-                  <td>Pizarra</td>
-                  <td>Utileria</td>
-                  <td>Chino</td>
+                  <td>Pizarra</td> 
                   <td>Unidad</td>
 				  <td>10</td>  
                 </tr>
                 <tr> 
-                  <td>Tizas</td>
-                  <td>Utileria</td>
-                  <td>Caja</td>
+                  <td>Tizas</td> 
                   <td>Unidad</td>
                   <td>100</td>  
                 </tr>
                 <tr> 
-                  <td>Lapicero</td>
-                  <td>Utileria</td>
-                  <td>Faber Castell</td>
+                  <td>Lapicero</td> 
                   <td>Unidad</td>
                   <td>100</td>  
                 </tr>

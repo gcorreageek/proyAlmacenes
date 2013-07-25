@@ -46,6 +46,7 @@ $(document).ready(function() {
 <label class="control-label" for="inputNombre">Nombre</label>
 <div class="controls">
 <input type="text" id="inputNombre" name="objProductoProveedor.desc_producto" value="${objProductoProveedor.desc_producto}" placeholder="Nombre">
+<a class="btn btn-primary" href="#myBuscarProducto" data-toggle="modal" >Buscar Producto</a>
 </div>
 </div> 
 <div class="control-group">
@@ -59,6 +60,7 @@ $(document).ready(function() {
 <label class="control-label" for="inputProveedor">Proveedor</label>
 <div class="controls">
 <input type="text" id="inputProveedor"  name="objProductoProveedor.raz_social" value="${objProductoProveedor.raz_social}" placeholder="Proveedor">
+<a class="btn btn-primary" href="#myBuscarProveedor" data-toggle="modal">Buscar Proveedor</a>
 </div>
 </div>
  
@@ -69,12 +71,10 @@ $(document).ready(function() {
 </div>
 </div>
 
-</form>
-
-
- 
-
-
-
+</form> 
 </body>
 </html>
+
+
+<jsp:include page="../mantenimientos/buscar_producto.jsp" />
+<jsp:include page="../mantenimientos/buscar_proveedor.jsp" />

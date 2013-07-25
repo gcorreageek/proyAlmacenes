@@ -3,9 +3,9 @@
 
 <div class="control-group">
 	<div  class="form-inline">
-		<label class="control-label" for="inputNroPedido">Nro.Pedido</label>	
-		<input type="text" class="span4" id="inputNroPedido" value="PED201222212" disabled>
-		&nbsp;&nbsp;&nbsp; 
+<!-- 		<label class="control-label" for="inputNroPedido">Nro.Pedido</label>	 -->
+<!-- 		<input type="text" class="span4" id="inputNroPedido" value="PED201222212" disabled> -->
+<!-- 		&nbsp;&nbsp;&nbsp;  -->
 		<label class="control-label" for="inputFecha">Fecha</label>
 		<input type="text" id="inputFecha" value="12/12/2012" disabled>
 		<a class="btn btn-primary" href="#myBuscarPedido" data-toggle="modal" >Buscar Pedido</a> 
@@ -31,7 +31,12 @@
 		</label>	 
 		<label class="radio">
 		<input type="radio" name="optionsRadios" id="optionPrestamo" value="option1" disabled  checked>Prestamo
-		</label>
+		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label class="input-medium">Fecha Entrega</label>
+		<div class="input-prepend">
+		<span class="add-on"><i class="icon-calendar"></i></span>
+		<input class="span2 datepicker"  type="text" disabled>
+		</div> 
 		
 	</div>
 </div>
@@ -42,7 +47,7 @@
 		<label class="control-label" for="inputIcon">Fecha Devolucion</label>
 		<div class="input-prepend">
 		<span class="add-on"><i class="icon-calendar"></i></span>
-		<input class="span4 datepicker" id="inputIcon" type="text" disabled>
+		<input class="span2 datepicker"  type="text" disabled>
 		</div> 
 		
 	</div>
@@ -56,46 +61,30 @@
     <table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
-                  <th>Producto</th>
-                  <th>Categoria</th>
-                  <th>Marca</th>
+                  <th>Producto</th> 
                   <th>U.Medida</th>
                   <th>Cantidad</th>  
-                  <th>Stock</th>
-                  <th>Stock Min</th>
-                  <th>Stock Max</th>
+                  <th>Stock</th> 
                 </tr>
               </thead>
               <tbody>
                 <tr> 
-                  <td>Pizarra</td>
-                  <td>Utileria</td>
-                  <td>Chino</td>
+                  <td>Pizarra</td> 
                   <td>Unidad</td>
 				  <td>10</td>  
-				  <td>20</td>
-				  <td>10</td>
-				  <td>100</td>
+				  <td>20</td> 
                 </tr>
                 <tr> 
-                  <td>Tizas</td>
-                  <td>Utileria</td>
-                  <td>Caja</td>
+                  <td>Tizas</td> 
                   <td>Unidad</td>
                   <td>100</td> 
-                  <td>10</td>
                   <td>10</td> 
-                  <td>10</td>
                 </tr>
                 <tr> 
-                  <td>Lapicero</td>
-                  <td>Utileria</td>
-                  <td>Faber Castell</td>
+                  <td>Lapicero</td> 
                   <td>Unidad</td>
                   <td>100</td> 
-				  <td>10</td>
-				  <td>10</td>
-				  <td>10</td>
+				  <td>10</td> 
                 </tr>
               </tbody>
             </table> 

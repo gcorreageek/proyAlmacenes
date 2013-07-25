@@ -23,11 +23,11 @@ $(document).ready(function() {
 
 <div class="control-group">
 	<div  class="form-inline">
-		<label class="control-label" for="inputNroPedido">Nro.Pedido</label>	
-		<input type="text" class="span4" id="inputNroPedido" value="PED201222212" disabled>
-		<label class="checkbox">
-		<input type="checkbox" id="checkNroPedido" checked>&nbsp;&nbsp;&nbsp; 
-		</label>
+<!-- 		<label class="control-label" for="inputNroPedido">Nro.Pedido</label>	 -->
+<!-- 		<input type="text" class="span4" id="inputNroPedido" value="PED201222212" disabled> -->
+<!-- 		<label class="checkbox"> -->
+<!-- 		<input type="checkbox" id="checkNroPedido" checked>&nbsp;&nbsp;&nbsp;  -->
+<!-- 		</label> -->
 		<label class="control-label" for="inputFecha">Fecha</label>
 		<input type="text" id="inputFecha" value="12/12/2012" disabled> 
 	</div>
@@ -49,10 +49,15 @@ $(document).ready(function() {
 		<label class="input-small">Tipo Pedido</label>
 		<label class="radio">
 		<input type="radio" name="optionsRadios" id="optionAbastecimiento" value="option2" checked>Abastecimiento
-		</label>	 
+		</label>&nbsp;&nbsp;&nbsp;
 		<label class="radio">
 		<input type="radio" name="optionsRadios" id="optionPrestamo" value="option1" >Prestamo
-		</label>
+		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label class="input-medium">Fecha Entrega</label>
+		<div class="input-prepend">
+		<span class="add-on"><i class="icon-calendar"></i></span>
+		<input class="span2 datepicker"  type="text">
+		</div> 
 		
 	</div>
 </div>
@@ -60,10 +65,10 @@ $(document).ready(function() {
 <div class="control-group"  id="divFechaDevolucion" >
 	<div  class="form-inline "> 
   
-		<label class="control-label" for="inputIcon">Fecha Devolucion</label>
+		<label class="control-label" for="inputIcon">Fecha Devoluci&oacute;n</label>
 		<div class="input-prepend">
 		<span class="add-on"><i class="icon-calendar"></i></span>
-		<input class="span4 datepicker" id="inputIcon" type="text">
+		<input class="span2 datepicker"  type="text">
 		</div> 
 		
 	</div>
@@ -75,20 +80,12 @@ $(document).ready(function() {
 	<div  class="form-inline ">
 		<label class="control-label" for="inputProducto">Producto</label>
 		<input type="text" class="input-xxlarge" id="inputProducto" placeholder="Producto" disabled>
-		<label class="control-label" for="inputCategoria">Categoria</label>
-		<input type="text" class="input-medium" id="inputCategoria" placeholder="Categoria" disabled>
-	</div>
-	
-</div>
-<div class="control-group">
-	<div  class="form-inline ">
-		<label class="control-label" for="inputMarca">Marca</label>
-		<input type="text" class="input-large" id="inputMarca" placeholder="Marca" disabled>
 		<label class="control-label" for="inputUMedida">U.Medida</label>
 		<input type="text" class="input-large" id="inputUMedida" placeholder="U.Medida" disabled>
 		<a class="btn btn-primary" href="#myBuscarProducto" data-toggle="modal" >Buscar Producto</a>
 	</div>
-</div>
+	
+</div> 
 
 <br>
 <br>
@@ -102,9 +99,7 @@ $(document).ready(function() {
     <table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
-                  <th>Producto</th>
-                  <th>Categoria</th>
-                  <th>Marca</th>
+                  <th>Producto</th>  
                   <th>U.Medida</th>
                   <th>Cantidad</th> 
                   <th>Eliminar</th>
@@ -112,25 +107,19 @@ $(document).ready(function() {
               </thead>
               <tbody>
                 <tr> 
-                  <td>Pizarra</td>
-                  <td>Utileria</td>
-                  <td>Chino</td>
+                  <td>Pizarra</td>  
                   <td>Unidad</td>
 				  <td>10</td> 
                   <td><a href="#">[Eliminar]</a></td>
                 </tr>
                 <tr> 
-                  <td>Tizas</td>
-                  <td>Utileria</td>
-                  <td>Caja</td>
+                  <td>Tizas</td> 
                   <td>Unidad</td>
                   <td>100</td> 
                   <td><a href="#">[Eliminar]</a></td>
                 </tr>
                 <tr> 
-                  <td>Lapicero</td>
-                  <td>Utileria</td>
-                  <td>Faber Castell</td>
+                  <td>Lapicero</td> 
                   <td>Unidad</td>
                   <td>100</td> 
                   <td><a href="#">[Eliminar]</a></td>

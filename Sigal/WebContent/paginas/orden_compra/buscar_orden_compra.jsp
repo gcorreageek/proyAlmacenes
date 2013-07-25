@@ -26,28 +26,24 @@
     <table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
-                  <th>Responsable</th> 
-                  <th>Cargo</th>
+                  <th>Responsable</th>  
                   <th>Fecha</th>  
                   <th>Seleccionar</th>
                 </tr>
               </thead>
               <tbody>
                 <tr> 
-                  <td>Luz Campos</td> 
-                  <td>Asistente de RRHH</td>
+                  <td>Luz Campos</td>  
                   <td>20/12/2012</td>   
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>
                 <tr>
-                  <td>Luz Campos</td> 
-                  <td>Asistente de RRHH</td>
+                  <td>Luz Campos</td>  
                   <td>20/12/2012</td>   
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>
                 <tr>
-                  <td>Luz Campos</td> 
-                  <td>Asistente de RRHH</td>
+                  <td>Luz Campos</td>  
                   <td>20/12/2012</td>   
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>

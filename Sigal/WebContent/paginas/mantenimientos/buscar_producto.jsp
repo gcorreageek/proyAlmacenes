@@ -13,40 +13,28 @@
 <!-- 	    <input type="text" class="input-medium search-query" placeholder="U.Medida" > -->
 	    <button type="submit" class="btn">Buscar</button>
     </form>
-    <a class="btn btn-primary"  href="nuevoProducto">Nuevo Producto</a>
+<!--     <a class="btn btn-primary"  href="nuevoProducto">Nuevo Producto</a> -->
     <table class="table table-striped table-bordered table-hover">
               <thead>
-                <tr>
-                  <th>Cod</th>
-                  <th>Producto</th>
-                  <th>Categoria</th>
-                  <th>Marca</th>
+                <tr> 
+                  <th>Producto</th> 
                   <th>U.Medida</th> 
                   <th>Seleccionar</th> 
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Pizarra</td>
-                  <td>Utileria</td>
-                  <td>Chino</td>
+                <tr> 
+                  <td>Pizarra</td> 
                   <td>Unidad</td>  
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Tizas</td>
-                  <td>Utileria</td>
-                  <td>Caja</td>
+                <tr> 
+                  <td>Tizas</td> 
                   <td>Unidad</td> 
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Lapicero</td>
-                  <td>Utileria</td>
-                  <td>Faber Castell</td>
+                <tr> 
+                  <td>Lapicero</td> 
                   <td>Unidad</td> 
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>

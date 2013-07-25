@@ -14,27 +14,26 @@
 </div>
 <div class="modal-body">
 
-	<form class="form-search">  
-	    <input type="text" class="input-medium search-query" placeholder="Nro.Pedido" >
+	<form class="form-search">   
 	    <input type="text" class="input-medium search-query" placeholder="Responsable" >
-	    <input type="text" class="input-medium search-query" placeholder="Fecha Inicio" >
-	    <input type="text" class="input-medium search-query" placeholder="Fecha Fin" >
+	    
+	    
 	    <select>
 		<option>Seleccionar</option>
 		<option>RRHH</option>
 		<option>VENTAS</option> 
 		</select>
+		
+		<input type="text" class="input-medium search-query" placeholder="Fecha Inicio" >
+	    <input type="text" class="input-medium search-query" placeholder="Fecha Fin" >
+		
 		<select>
 		<option>Seleccionar</option>
 		<option>Abastecimiento</option>
 		<option>Prestamo</option> 
 		</select>
-		<select>
-		<option>Seleccionar</option>
-		<option>Sin Evaluar</option>
-		<option>Aprobadas</option>
-		<option>Desaprobadas</option> 
-		</select>
+		
+		
 	    <button type="submit" class="btn">Buscar</button>
 	    
 	    
@@ -46,42 +45,34 @@
     </form> 
     <table class="table table-striped table-bordered table-hover">
               <thead>
-                <tr>
-                  <th>NroPedido</th>
-                  <th>Area</th>
+                <tr> 
                   <th>Responsable</th>
+                  <th>Area</th>
+                  <th>Fecha</th> 
                   <th>T.Pedido</th>
-                  <th>Fecha</th>
-                  <th>Estado</th>   
                   <th>Seleccionar</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>PED200121</td>
-                  <td>RRHH</td>
+                <tr> 
                   <td>Luz Campos</td>
-                  <td>Abastecimiento</td>
+                  <td>RRHH</td>
                   <td>20/12/2012</td>  
-                  <td>Sin Atender</td> 
+                  <td>Abastecimiento</td>
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>
-                <tr>
-                  <td>PED200121</td>
-                  <td>RRHH</td>
+                <tr> 
                   <td>Luz Campos</td>
+                  <td>RRHH</td>
+                  <td>20/12/2012</td> 
                   <td>Abastecimiento</td>
-                  <td>20/12/2012</td>  
-                  <td>Sin Atender</td> 
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>
-                <tr>
-                  <td>PED200121</td>
-                  <td>RRHH</td>
+                <tr> 
                   <td>Luz Campos</td>
-                  <td>Abastecimiento</td>
+                  <td>RRHH</td>
                   <td>20/12/2012</td>  
-                  <td>Sin Atender</td> 
+                  <td>Abastecimiento</td> 
                   <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
                 </tr>
               </tbody>

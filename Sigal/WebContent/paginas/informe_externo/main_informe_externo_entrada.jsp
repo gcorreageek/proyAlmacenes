@@ -15,12 +15,7 @@ $(document).ready(function() {
 <h3>Informe Externo de Entrada</h3>
 <form>
 <div class="control-group">
-	<div  class="form-inline">
-		<label class="control-label" for="inputNroPedido">Nro.IEE</label>	
-		<input type="text" class="span4" id="inputNroPedido" value="IEE201222212" disabled>
-		<label class="checkbox">
-		<input type="checkbox" id="checkNroPedido" checked>&nbsp;&nbsp;&nbsp; 
-		</label>
+	<div  class="form-inline"> 
 		<label class="control-label" for="inputFecha">Fecha</label>
 		<input type="text" id="inputFecha" value="12/12/2012" disabled> 
 	</div>
@@ -29,7 +24,7 @@ $(document).ready(function() {
 <div class="control-group">
 	<div  class="form-inline ">
 		<label class="control-label" for="inputResponsable">Responsable</label>
-		<input type="text" id="inputResponsable" class="input-xxlarge" placeholder="Responsable" disabled>
+		<input type="text" id="inputResponsable" class="span5" placeholder="Responsable" disabled>
 		<a class="btn btn-primary" href="#myBuscarOrdenCompra" data-toggle="modal">Buscar Orden de Compra</a>
 	</div>
 </div> 
@@ -55,32 +50,24 @@ $(document).ready(function() {
     <table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
-                  <th>Producto</th>
-                  <th>Categoria</th>
-                  <th>Marca</th>
+                  <th>Producto</th> 
                   <th>U.Medida</th>
                   <th>Cantidad</th>  
                 </tr>
               </thead>
               <tbody>
                 <tr> 
-                  <td>Pizarra</td>
-                  <td>Utileria</td>
-                  <td>Chino</td>
+                  <td>Pizarra</td> 
                   <td>Unidad</td>
 				  <td>10</td>  
                 </tr>
                 <tr> 
-                  <td>Tizas</td>
-                  <td>Utileria</td>
-                  <td>Caja</td>
+                  <td>Tizas</td> 
                   <td>Unidad</td>
                   <td>100</td>  
                 </tr>
                 <tr> 
-                  <td>Lapicero</td>
-                  <td>Utileria</td>
-                  <td>Faber Castell</td>
+                  <td>Lapicero</td> 
                   <td>Unidad</td>
                   <td>100</td>  
                 </tr>
