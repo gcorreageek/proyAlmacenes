@@ -33,14 +33,11 @@ public class ProductoAction extends ActionSupport {
 		if (inicio == null || inicio == 0) {
 			comienzo = 0;
 		} else {
-			comienzo = (inicio * Constantes.FILAS_X_PAGINA)
-					- Constantes.FILAS_X_PAGINA;
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
-		lstProducto = objProServ.listaProductosPaginado(comienzo,
-				Constantes.FILAS_X_PAGINA);
+		lstProducto = objProServ.listaProductosPaginado(comienzo, Constantes.FILAS_X_PAGINA);
 		return SUCCESS;
 	}
-
 	@Action(value = "/mainProducto", results = { @Result(name = "success", type = "tiles", location = "d_mainproducto") })
 	public String mainProducto() {
 		lstProducto = objProServ.listaProductosPaginado(0,
@@ -50,31 +47,25 @@ public class ProductoAction extends ActionSupport {
 		this.tagTipoListado = 1;
 		return SUCCESS;
 	}
-
+	
 	@Action(value = "/buscarProductosXDescProdPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_producto.jsp") })
 	public String buscarProductosXDescProdPag() {
 		Integer comienzo = null;
 		if (inicio == null || inicio == 0) {
 			comienzo = 0;
 		} else {
-			comienzo = (inicio * Constantes.FILAS_X_PAGINA)
-					- Constantes.FILAS_X_PAGINA;
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
-		lstProducto = objProServ.buscarProductosXDescPaginado(objProducto,
-				comienzo, Constantes.FILAS_X_PAGINA);
+		lstProducto = objProServ.buscarProductosXDescPaginado(objProducto, comienzo, Constantes.FILAS_X_PAGINA);
 		return SUCCESS;
 	}
-
 	@Action(value = "/buscarProductosXDescProd", results = { @Result(name = "success", type = "tiles", location = "d_mainproducto") })
 	public String buscarProductosXDescProd() {
-		lstProducto = objProServ.buscarProductosXDescPaginado(objProducto, 0,
-				Constantes.FILAS_X_PAGINA);
-		this.numeroPaginas = UtilSigal.totalDePaginas(objProServ
-				.buscarProductosXDescTotal(objProducto));
+		lstProducto = objProServ.buscarProductosXDescPaginado(objProducto, 0,Constantes.FILAS_X_PAGINA);
+		this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.buscarProductosXDescTotal(objProducto));
 		this.tagTipoListado = 2;
 		return SUCCESS;
-	}
-
+	} 
 	@Action(value = "/accionProducto", results = { @Result(name = "success", type = "tiles", location = "d_actuarproducto") })
 	public String accionProducto() {
 		if (this.codProd != null) {
@@ -116,14 +107,44 @@ public class ProductoAction extends ActionSupport {
 			this.rsult = 1;
 			this.mensaje = "Ocurrio un Problema";
 		}
-
+		return SUCCESS;
+	} 
+	//Modal
+	@Action(value = "/listarProductoPagModal", results = { @Result(name = "success", location = "/paginas/mantenimientos/buscar_producto.jsp") })
+	public String listarProductoPagModal() {
+		Integer comienzo = null;
+		if (inicio == null || inicio == 0) {
+			comienzo = 0;
+		} else {
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+		}
+		lstProducto = objProServ.listaProductosPaginado(comienzo, Constantes.FILAS_X_PAGINA);
+		return SUCCESS;
+	} 
+	@Action(value = "/buscarProductosXDescProdPagModal", results = { @Result(name = "success", location = "/paginas/mantenimientos/buscar_producto.jsp") })
+	public String buscarProductosXDescProdPagModal() {
+		Integer comienzo = null;
+		if (inicio == null || inicio == 0) {
+			comienzo = 0;
+		} else {
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+		}
+		lstProducto = objProServ.buscarProductosXDescPaginado(objProducto, comienzo, Constantes.FILAS_X_PAGINA);
 		return SUCCESS;
 	}
-
-	@Action(value = "/productoStocks", results = { @Result(name = "success", type = "tiles", location = "d_productostocks") })
-	public String productoStocks() {
+	@Action(value = "/listarProductoTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/producto_listado_total.jsp") })
+	public String listarProductoTotal() { 
+		this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.listaProductosTotal());
+		System.out.println("nunmeroPaginas:"+numeroPaginas);
+		this.tagTipoListado = 1;
 		return SUCCESS;
 	}
+	@Action(value = "/buscarProductoTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/producto_buscar_total.jsp") })
+	public String buscarProductoTotal() { 
+		this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.buscarProductosXDescTotal(objProducto));
+		this.tagTipoListado = 2;
+		return SUCCESS;
+	} 
 
 	public ProductoDTO getObjProducto() {
 		return objProducto;

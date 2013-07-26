@@ -10,8 +10,10 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.sigal.mantenimiento.bean.ProductoDTO;
 import com.sigal.mantenimiento.bean.ProductoProveedorDTO;
 import com.sigal.mantenimiento.service.ProductoProveedorService;
+import com.sigal.mantenimiento.service.ProductoService;
 import com.sigal.util.Constantes;
 import com.sigal.util.UtilSigal;
 
@@ -22,8 +24,10 @@ import com.sigal.util.UtilSigal;
 @ParentPackage("proy_calidad_SIGAL2")
 public class ProductoProveedorAction extends ActionSupport {
 	ProductoProveedorService objProServ = new ProductoProveedorService();
+	ProductoService objProductoServ = new ProductoService();
 	private ProductoProveedorDTO objProductoProveedor;
 	private List<ProductoProveedorDTO> lstProductoProveedor;
+	private List<ProductoDTO> lstProducto;
 	private String mensaje;
 	private Integer rsult;
 	private Integer codProdProvee;
@@ -57,6 +61,93 @@ public class ProductoProveedorAction extends ActionSupport {
 			this.tagTipoListado = 1;
 		} catch (Exception e) { 
 			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	
+	@Action(value = "/buscarProductoProveedorXRazonSocialAndDescProdPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_producto_proveedor.jsp") })
+	public String buscarProductoProveedorXRazonSocialAndDescProdPag() {
+		Integer comienzo = null;
+		if (inicio == null || inicio == 0) {
+			comienzo = 0;
+		} else {
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+		}
+		try {
+			lstProductoProveedor = objProServ.buscarProductosProveedorXRazonSocialAndDescProdPaginado(objProductoProveedor, comienzo, Constantes.FILAS_X_PAGINA);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+
+	@Action(value = "/buscarProductoProveedorXRazonSocialAndDescProd", results = { @Result(name = "success", type = "tiles", location = "d_mainproductoproveedor") })
+	public String buscarProductoProveedorXRazonSocialAndDescProd() {
+		try {
+			lstProductoProveedor = objProServ.buscarProductosProveedorXRazonSocialAndDescProdPaginado(objProductoProveedor, 0,
+					Constantes.FILAS_X_PAGINA);
+			this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.buscarProductosProveedorXRazonSocialAndDescProdTotal(objProductoProveedor));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		this.tagTipoListado = 2;
+		return SUCCESS;
+	}
+
+	@Action(value = "/accionProductoProveedor", results = { @Result(name = "success", type = "tiles", location = "d_actuarproductoproveedor") })
+	public String accionProductoProveedor() {
+		if (this.codProdProvee != null) {
+			ProductoProveedorDTO prodProvee = new ProductoProveedorDTO();
+			prodProvee.setCod_producto_proveedor(this.codProdProvee);
+			try {
+				this.objProductoProveedor = objProServ.getProductoProveedor(prodProvee);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+//		lstProducto = objProductoServ.listaProductosPaginado(0, Constantes.FILAS_X_PAGINA);
+		return SUCCESS;
+	}
+
+	@Action(value = "/eliminarProductoProveedor", results = { @Result(name = "success", type = "tiles", location = "d_mainproductoproveedor") })
+	public String eliminarProductoProveedor() {
+		ProductoProveedorDTO productProve = new ProductoProveedorDTO();
+		productProve.setCod_producto_proveedor(this.codProdProvee);
+		Boolean rsultado=null;
+		try {
+			rsultado = objProServ.eliminarProductoProveedor(productProve);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (rsultado) {
+			this.rsult = 0;
+			this.mensaje = "Se Elimino Correctamente";
+		} else {
+			this.rsult = 1;
+			this.mensaje = "Ocurrio un Problema";
+		}
+		mainProductoProveedor();
+		return SUCCESS;
+	}
+
+	@Action(value = "/actuarProductoProveedor", results = { @Result(name = "success", type = "tiles", location = "d_actuarproductoproveedor") })
+	public String actuarProductoProveedor() {
+		Boolean rsultado = false;
+		try {
+			if (objProductoProveedor.getCod_producto_proveedor() == null) {
+				rsultado = objProServ.registrarProductoProveedor(objProductoProveedor);
+			} else {
+				rsultado = objProServ.actualizarProductoProveedor(objProductoProveedor);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (rsultado) {
+			this.rsult = 0;
+			this.mensaje = "Todo Correctamente";
+		} else {
+			this.rsult = 1;
+			this.mensaje = "Ocurrio un Problema";
 		}
 		return SUCCESS;
 	}
@@ -134,91 +225,15 @@ public class ProductoProveedorAction extends ActionSupport {
 		this.tagTipoListado = tagTipoListado;
 	}
 
-	@Action(value = "/buscarProductoProveedorXRazonSocialAndDescProdPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_producto_proveedor.jsp") })
-	public String buscarProductoProveedorXRazonSocialAndDescProdPag() {
-		Integer comienzo = null;
-		if (inicio == null || inicio == 0) {
-			comienzo = 0;
-		} else {
-			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
-		}
-		try {
-			lstProductoProveedor = objProServ.buscarProductosProveedorXRazonSocialAndDescProdPaginado(objProductoProveedor, comienzo, Constantes.FILAS_X_PAGINA);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return SUCCESS;
+	public List<ProductoDTO> getLstProducto() {
+		return lstProducto;
 	}
 
-	@Action(value = "/buscarProductoProveedorXRazonSocialAndDescProd", results = { @Result(name = "success", type = "tiles", location = "d_mainproductoproveedor") })
-	public String buscarProductoProveedorXRazonSocialAndDescProd() {
-		try {
-			lstProductoProveedor = objProServ.buscarProductosProveedorXRazonSocialAndDescProdPaginado(objProductoProveedor, 0,
-					Constantes.FILAS_X_PAGINA);
-			this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.buscarProductosProveedorXRazonSocialAndDescProdTotal(objProductoProveedor));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		this.tagTipoListado = 2;
-		return SUCCESS;
+	public void setLstProducto(List<ProductoDTO> lstProducto) {
+		this.lstProducto = lstProducto;
 	}
 
-	@Action(value = "/accionProductoProveedor", results = { @Result(name = "success", type = "tiles", location = "d_actuarproductoproveedor") })
-	public String accionProductoProveedor() {
-		if (this.codProdProvee != null) {
-			ProductoProveedorDTO prodProvee = new ProductoProveedorDTO();
-			prodProvee.setCod_producto_proveedor(this.codProdProvee);
-			try {
-				this.objProductoProveedor = objProServ.getProductoProveedor(prodProvee);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return SUCCESS;
-	}
 
-	@Action(value = "/eliminarProductoProveedor", results = { @Result(name = "success", type = "tiles", location = "d_mainproductoproveedor") })
-	public String eliminarProductoProveedor() {
-		ProductoProveedorDTO productProve = new ProductoProveedorDTO();
-		productProve.setCod_producto_proveedor(this.codProdProvee);
-		Boolean rsultado=null;
-		try {
-			rsultado = objProServ.eliminarProductoProveedor(productProve);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (rsultado) {
-			this.rsult = 0;
-			this.mensaje = "Se Elimino Correctamente";
-		} else {
-			this.rsult = 1;
-			this.mensaje = "Ocurrio un Problema";
-		}
-		mainProductoProveedor();
-		return SUCCESS;
-	}
-
-	@Action(value = "/actuarProductoProveedor", results = { @Result(name = "success", type = "tiles", location = "d_actuarproductoproveedor") })
-	public String actuarProductoProveedor() {
-		Boolean rsultado = false;
-		try {
-			if (objProductoProveedor.getCod_producto_proveedor() == null) {
-				rsultado = objProServ.registrarProductoProveedor(objProductoProveedor);
-			} else {
-				rsultado = objProServ.actualizarProductoProveedor(objProductoProveedor);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (rsultado) {
-			this.rsult = 0;
-			this.mensaje = "Todo Correctamente";
-		} else {
-			this.rsult = 1;
-			this.mensaje = "Ocurrio un Problema";
-		}
-		return SUCCESS;
-	}
 	 
 	
 	

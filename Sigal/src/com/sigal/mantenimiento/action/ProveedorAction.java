@@ -5,16 +5,12 @@ package com.sigal.mantenimiento.action;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Stack;
 
-import org.apache.ibatis.exceptions.IbatisException;
-import org.apache.ibatis.jdbc.RuntimeSqlException;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.sigal.mantenimiento.bean.ProductoDTO;
 import com.sigal.mantenimiento.bean.ProveedorDTO;
 import com.sigal.mantenimiento.service.ProveedorService;
 import com.sigal.util.Constantes;
@@ -164,6 +160,61 @@ public class ProveedorAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	//Modal
+	@Action(value = "/listarProveedorPagModal", results = { @Result(name = "success", location = "/paginas/mantenimientos/buscar_proveedor.jsp") })
+	public String listarProveedorPagModal() {
+		Integer comienzo = null;
+		if (inicio == null || inicio == 0) {
+			comienzo = 0;
+		} else {
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+		}
+		try {
+			lstProveedor = objProServ.listaProveedorPaginado(comienzo, Constantes.FILAS_X_PAGINA);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	} 
+	@Action(value = "/buscarProveedorXRazonSocialPagModal", results = { @Result(name = "success", location = "/paginas/mantenimientos/buscar_proveedor.jsp") })
+	public String buscarProveedorXRazonSocialPagModal() {
+		Integer comienzo = null;
+		if (inicio == null || inicio == 0) {
+			comienzo = 0;
+		} else {
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+		}
+		try {
+			lstProveedor = objProServ.buscarProveedorXDescPaginado(objProveedor, comienzo, Constantes.FILAS_X_PAGINA);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	@Action(value = "/listarProveedorTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/proveedor_listado_total.jsp") })
+	public String listarProveedorTotal() { 
+		try {
+			this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.listaProveedorTotal());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return SUCCESS;
+	}
+	@Action(value = "/buscarProveedorTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/proveedor_buscar_total.jsp") })
+	public String buscarProveedorTotal() { 
+		try {
+			this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.buscarProveedorXDescTotal(objProveedor));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	} 
+	
+	
+	
 	public ProveedorDTO getObjProveedor() {
 		return objProveedor;
 	}

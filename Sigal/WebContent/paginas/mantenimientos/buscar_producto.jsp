@@ -1,20 +1,9 @@
-<!-- Modal -->
-<div id="myBuscarProducto" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalBuscarProducto" aria-hidden="true">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-<h3 id="myModalBuscarProducto">Buscar Producto</h3>
-</div>
-<div class="modal-body">
-
-	<form class="form-search">
-	    <input type="text" class="input-medium search-query" placeholder="Producto" >
-<!-- 	    <input type="text" class="input-medium search-query" placeholder="Categoria" > -->
-<!-- 	    <input type="text" class="input-medium search-query" placeholder="Marca" > -->
-<!-- 	    <input type="text" class="input-medium search-query" placeholder="U.Medida" > -->
-	    <button type="submit" class="btn">Buscar</button>
-    </form>
-<!--     <a class="btn btn-primary"  href="nuevoProducto">Nuevo Producto</a> -->
-    <table class="table table-striped table-bordered table-hover">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib   prefix="c"  uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib   prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ taglib prefix="s"  uri="/struts-tags" %>
+			<table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
                   <th>Producto</th> 
@@ -23,39 +12,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr> 
-                  <td>Pizarra</td> 
-                  <td>Unidad</td>  
-                  <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
-                </tr>
-                <tr> 
-                  <td>Tizas</td> 
-                  <td>Unidad</td> 
-                  <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
-                </tr>
-                <tr> 
-                  <td>Lapicero</td> 
-                  <td>Unidad</td> 
-                  <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
-                </tr>
+              <c:if test="${requestScope.lstProducto!=null}"   > 
+			     <c:forEach  items="${requestScope.lstProducto}"  var="row"  >
+			     	<tr> 
+	                  <td>${row.desc_producto}</td> 
+	                  <td>${row.unidadMedida}</td> 
+	                  <td align="center"><button onclick="javascript:seleccionaProd(${row.cod_producto},'${row.desc_producto}','${row.unidadMedida}')" type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td> 
+	                </tr>
+			     </c:forEach> 
+		      </c:if>   
               </tbody>
             </table>
-                <div class="pagination">
-			    <ul>
-			    <li><a href="#">Anterior</a></li>
-			    <li><a href="#">1</a></li>
-			    <li><a href="#">2</a></li>
-			    <li><a href="#">3</a></li>
-			    <li><a href="#">4</a></li>
-			    <li><a href="#">5</a></li>
-			    <li><a href="#">Siguiente</a></li>
-			    </ul>
-			    </div>
-
-
-</div>
-<!-- <div class="modal-footer"> -->
-<!-- <button class="btn btn-primary">Aceptar</button> -->
-<!-- <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button> -->
-<!-- </div> -->
-</div>
+            
