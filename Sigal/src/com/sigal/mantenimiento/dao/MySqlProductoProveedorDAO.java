@@ -53,7 +53,10 @@ public class MySqlProductoProveedorDAO implements ProductoProveedorDAO {
 				lstProductosProveedor = (List<ProductoProveedorDTO>) sesion.selectList(
 						"productoproveedor.SQL_listaProductoProveedorPaginados", prodProvee);
 			} else {
-				if (!productoProveedor.getRaz_social().isEmpty() || !productoProveedor.getDesc_producto().isEmpty()) {
+				System.out.println("razon:"+productoProveedor.getRaz_social());
+				System.out.println("desc:"+productoProveedor.getDesc_producto());
+				if (productoProveedor.getRaz_social()!=null && productoProveedor.getDesc_producto()!=null) {
+					System.out.println("eee");
 					productoProveedor.setDesc_producto("%" + productoProveedor.getDesc_producto()+ "%");
 					productoProveedor.setRaz_social("%" + productoProveedor.getRaz_social()+ "%");
 					productoProveedor.setInicio(inicio);

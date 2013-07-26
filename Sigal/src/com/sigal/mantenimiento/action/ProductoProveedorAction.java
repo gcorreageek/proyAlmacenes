@@ -75,6 +75,7 @@ public class ProductoProveedorAction extends ActionSupport {
 		}
 		try {
 			lstProductoProveedor = objProServ.buscarProductosProveedorXRazonSocialAndDescProdPaginado(objProductoProveedor, comienzo, Constantes.FILAS_X_PAGINA);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -84,9 +85,12 @@ public class ProductoProveedorAction extends ActionSupport {
 	@Action(value = "/buscarProductoProveedorXRazonSocialAndDescProd", results = { @Result(name = "success", type = "tiles", location = "d_mainproductoproveedor") })
 	public String buscarProductoProveedorXRazonSocialAndDescProd() {
 		try {
-			lstProductoProveedor = objProServ.buscarProductosProveedorXRazonSocialAndDescProdPaginado(objProductoProveedor, 0,
-					Constantes.FILAS_X_PAGINA);
+
+			System.out.println("lsita"+objProductoProveedor.getDesc_producto());
+			System.out.println("lsita"+objProductoProveedor.getRaz_social());
+			lstProductoProveedor = objProServ.buscarProductosProveedorXRazonSocialAndDescProdPaginado(objProductoProveedor, 0, Constantes.FILAS_X_PAGINA);
 			this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.buscarProductosProveedorXRazonSocialAndDescProdTotal(objProductoProveedor));
+			System.out.println("lsita"+lstProductoProveedor.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

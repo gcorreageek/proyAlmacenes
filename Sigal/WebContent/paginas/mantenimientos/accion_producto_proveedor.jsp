@@ -16,11 +16,13 @@ function seleccionaProd(codProd,descProd,uMedida){
 	$("#unidadMedida").val(uMedida); 
 }
 function seleccionaProvee(codProvee,descProvee){ 
-	$("cod_proveedor").val(codProvee);
-	$("raz_social").val(descProvee); 
+	console.log('ddddd:'+codProvee+'|'+descProvee);
+	$("#cod_proveedor").val(codProvee);
+	$("#raz_social").val(descProvee); 
 }
 
 $(document).ready(function() { 
+	/**PRODCUTO**/
 	$('#idBuscarProducto').click(function(){
 		$("#txtProducto").val("");
 		$.post("listarProductoTotal",function(data){
@@ -39,7 +41,7 @@ $(document).ready(function() {
 	 		$("#divTablaProdModal").html(data);
 		}); 
 	}); 
-	
+	/**PROVEEDOR**/
 	$('#idBuscarProveedor').click(function(){
 		$("#txtProveedor").val("");
 		$.post("listarProveedorTotal",function(data){
@@ -91,6 +93,7 @@ $(document).ready(function() {
 
 <form class="form-horizontal" action="actuarProductoProveedor" method="post"  >
 <s:hidden  name="objProductoProveedor.cod_producto_proveedor"      />
+
 <s:hidden  name="objProductoProveedor.cod_producto"  id="cod_producto"    />
 <div class="control-group">
 <label class="control-label" for="desc_producto">Nombre</label>
@@ -98,13 +101,15 @@ $(document).ready(function() {
 <input type="text" id="desc_producto" name="objProductoProveedor.desc_producto" value="${objProductoProveedor.desc_producto}" placeholder="Nombre"  disabled>
 <a class="btn btn-primary" id="idBuscarProducto" href="#myBuscarProducto" data-toggle="modal" >Buscar Producto</a>
 </div>
-</div> 
+</div>
+ 
 <div class="control-group">
 <label class="control-label" for="unidadMedida">U.Medida</label>
 <div class="controls">
 <input type="text" id="unidadMedida"  name="objProductoProveedor.unidadMedida" value="${objProductoProveedor.unidadMedida}" placeholder="U.Medida"  disabled>
 </div>
 </div>
+
 <s:hidden  name="objProductoProveedor.cod_proveedor" id="cod_proveedor"     />
 <div class="control-group">
 <label class="control-label" for="raz_social">Proveedor</label>
@@ -155,9 +160,9 @@ $(document).ready(function() {
 	    <input type="text" id="txtProveedor" name="objProveedor.raz_social" class="input-medium search-query" placeholder="Proveedor" >
 	    <button type="submit" class="btn" id="idBotonBuscarProveedor" >Buscar</button>
     </div> 
-      <div id="divTablaProdModal">
+      <div id="divTablaProveModal">
       </div>
-      <div id="divDatosTotal"></div>  
+      <div id="divDatosProveTotal"></div>  
 </div> 
 </div>
   

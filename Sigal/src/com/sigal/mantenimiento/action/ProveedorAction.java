@@ -32,8 +32,9 @@ public class ProveedorAction extends ActionSupport {
 	private Integer inicio;
 	private Integer numeroPaginas;
 	private Integer tagTipoListado;
+	private Integer numeroPaginasModalProveedor;
 
-	@Action(value = "/listarProveedorPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_provedor.jsp") })
+	@Action(value = "/listarProveedorPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_proveedor.jsp") })
 	public String listarProveedorPag() {
 		Integer comienzo = null;
 		if (inicio == null || inicio == 0) {
@@ -42,8 +43,9 @@ public class ProveedorAction extends ActionSupport {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA)
 					- Constantes.FILAS_X_PAGINA;
 		}
-		try {
+		try {  
 			lstProveedor = objProServ.listaProveedorPaginado(comienzo, Constantes.FILAS_X_PAGINA);
+			System.out.println("dddPaginacion:"+lstProveedor.size());
 		} catch (Exception e) { 
 			System.out.println(""+e.getMessage());
 		}
@@ -195,9 +197,8 @@ public class ProveedorAction extends ActionSupport {
 	@Action(value = "/listarProveedorTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/proveedor_listado_total.jsp") })
 	public String listarProveedorTotal() { 
 		try {
-			this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.listaProveedorTotal());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			this.numeroPaginasModalProveedor = UtilSigal.totalDePaginas(objProServ.listaProveedorTotal());
+		} catch (Exception e) { 
 			e.printStackTrace();
 		} 
 		return SUCCESS;
@@ -205,9 +206,8 @@ public class ProveedorAction extends ActionSupport {
 	@Action(value = "/buscarProveedorTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/proveedor_buscar_total.jsp") })
 	public String buscarProveedorTotal() { 
 		try {
-			this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.buscarProveedorXDescTotal(objProveedor));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			this.numeroPaginasModalProveedor = UtilSigal.totalDePaginas(objProServ.buscarProveedorXDescTotal(objProveedor));
+		} catch (Exception e) { 
 			e.printStackTrace();
 		}
 		return SUCCESS;
@@ -286,9 +286,16 @@ public class ProveedorAction extends ActionSupport {
 	public void setTagTipoListado(Integer tagTipoListado) {
 		this.tagTipoListado = tagTipoListado;
 	}
-	 
-	
-	
+
+	public Integer getNumeroPaginasModalProveedor() {
+		return numeroPaginasModalProveedor;
+	}
+
+	public void setNumeroPaginasModalProveedor(Integer numeroPaginasModalProveedor) {
+		this.numeroPaginasModalProveedor = numeroPaginasModalProveedor;
+	}
+
+ 
 	
 	
 	

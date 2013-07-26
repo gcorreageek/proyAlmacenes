@@ -44,8 +44,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from tb_proveedor provee inner join tb_producto_proveedor prod_provee  
 		on provee.cod_proveedor=prod_provee.cod_proveedor
 		inner join  tb_producto prod
-		on prod.cod_producto=prod_provee.cod_producto
-		where provee.raz_social like  #{raz_social} || prod.desc_producto like   #{desc_producto}
+		on prod.cod_producto=prod_provee.cod_producto 
+		where provee.raz_social like  #{raz_social} and  prod.desc_producto like   #{desc_producto}
 		order by prod_provee.cod_producto_proveedor  limit  #{inicio} ,  #{tamano}  
 	</select>
 	<select id="SQL_listaProductoProveedorVariosPaginados" resultType="ProductoProveedorBean" parameterType="ProductoProveedorBean"  >

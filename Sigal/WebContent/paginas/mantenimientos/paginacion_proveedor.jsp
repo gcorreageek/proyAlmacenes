@@ -21,8 +21,8 @@
 			     	<tr> 
 	                  <td>${row.raz_social}</td>
 	                  <td>${row.ruc}</td> 
-	                  <td>${row.correo}</td>
 	                  <td>${row.telefono}</td> 
+	                  <td>${row.correo}</td> 
 	                  <td><a href="accionProveedor?codProvee=${row.cod_proveedor}">[Modificar]</a></td>
 	                  <td><a href="eliminarProveedor?codProvee=${row.cod_proveedor}">[Eliminar]</a></td>
 	                </tr>

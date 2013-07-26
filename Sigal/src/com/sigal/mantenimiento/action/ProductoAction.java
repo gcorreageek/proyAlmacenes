@@ -26,6 +26,7 @@ public class ProductoAction extends ActionSupport {
 	private Integer inicio;
 	private Integer numeroPaginas;
 	private Integer tagTipoListado; 
+	private Integer numeroPaginasModalProducto;
 
 	@Action(value = "/listarProductoPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_producto.jsp") })
 	public String listarProductoPag() {
@@ -134,15 +135,13 @@ public class ProductoAction extends ActionSupport {
 	}
 	@Action(value = "/listarProductoTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/producto_listado_total.jsp") })
 	public String listarProductoTotal() { 
-		this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.listaProductosTotal());
-		System.out.println("nunmeroPaginas:"+numeroPaginas);
-		this.tagTipoListado = 1;
+		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.listaProductosTotal());
+		System.out.println("nunmeroPaginas:"+numeroPaginasModalProducto); 
 		return SUCCESS;
 	}
 	@Action(value = "/buscarProductoTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/producto_buscar_total.jsp") })
 	public String buscarProductoTotal() { 
-		this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.buscarProductosXDescTotal(objProducto));
-		this.tagTipoListado = 2;
+		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.buscarProductosXDescTotal(objProducto)); 
 		return SUCCESS;
 	} 
 
@@ -216,6 +215,16 @@ public class ProductoAction extends ActionSupport {
 
 	public void setTagTipoListado(Integer tagTipoListado) {
 		this.tagTipoListado = tagTipoListado;
-	} 
+	}
+	public Integer getNumeroPaginasModalProducto() {
+		return numeroPaginasModalProducto;
+	}
+	public void setNumeroPaginasModalProducto(Integer numeroPaginasModalProducto) {
+		this.numeroPaginasModalProducto = numeroPaginasModalProducto;
+	}
+ 
+	
+	
+	
 	
 }

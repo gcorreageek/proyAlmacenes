@@ -9,8 +9,12 @@ import org.apache.struts2.convention.annotation.Result;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sigal.seguridad.bean.AreaDTO;
+import com.sigal.seguridad.bean.CargoDTO;
 import com.sigal.seguridad.bean.MenuDTO;
 import com.sigal.seguridad.bean.UsuarioDTO;
+import com.sigal.seguridad.service.AreaService;
+import com.sigal.seguridad.service.CargoService;
 import com.sigal.seguridad.service.LogueoService;
 import com.sigal.util.UtilSigal;
 
@@ -22,6 +26,8 @@ import com.sigal.util.UtilSigal;
 public class LogueoAction extends ActionSupport {
 	
 	LogueoService objLogServ = new LogueoService();
+	AreaService objAreaServ = new AreaService();
+	CargoService objCargoServ = new CargoService();
 	
 	private UsuarioDTO objUsu; 
 	
@@ -75,6 +81,10 @@ public class LogueoAction extends ActionSupport {
 				lasesion =ActionContext.getContext().getSession();  
 				lasesion.put("listaMenu", listaMenu);
 				lasesion.put("objUsuario", objUsuario); 
+				CargoDTO objCargo = objCargoServ.getCargo(objUsuario.getCod_cargo());
+				lasesion.put("objCargo", objCargo);
+				AreaDTO objArea = objAreaServ.getArea(objCargo.getCod_area());
+				lasesion.put("objArea", objArea); 
 			}
 			else {
 				ir=ERROR;

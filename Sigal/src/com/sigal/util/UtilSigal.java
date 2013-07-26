@@ -1,6 +1,9 @@
 package com.sigal.util;
 
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -29,6 +32,12 @@ public class UtilSigal {
 	
 	public static Integer totalDePaginas(Integer total){   
 		return (int) Math.ceil((double)total/(double)Constantes.FILAS_X_PAGINA);
+	}
+	public static String fechaActual(){
+		SimpleDateFormat formateador = new SimpleDateFormat( "dd/MM/yyyy", new Locale("es_ES"));
+		   Date fechaDate = new Date();
+		   String fecha = formateador.format(fechaDate);
+		   return fecha;
 	}
 	/**
 	 * @descripcion Este metodo sirve para hacer la encriptacion de una cadena

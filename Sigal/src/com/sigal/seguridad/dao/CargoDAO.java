@@ -1,11 +1,11 @@
 package com.sigal.seguridad.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.sigal.seguridad.bean.CargoDTO;
 
 public interface CargoDAO {
 
-	ArrayList<CargoDTO> listaCargos();
+	CargoDTO getCargo(Integer codCargo);
 
 }

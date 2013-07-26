@@ -3,7 +3,9 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cargo">
-	  
+	 <select id="SQL_getCargo" resultType="CargoBean">
+	    select car.* from tb_cargo	car	where car.cod_cargo=#{cod_cargo}	
+	</select> 
 	 
 	        
 </mapper>
