@@ -33,6 +33,17 @@ public class UtilSigal {
 	public static Integer totalDePaginas(Integer total){   
 		return (int) Math.ceil((double)total/(double)Constantes.FILAS_X_PAGINA);
 	}
+	public static java.sql.Date fechaDateSql(String fecString){ 
+		java.sql.Date fecFormatoDate = null;
+		try {													   
+		      SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy", new Locale("es", "ES"));
+		      fecFormatoDate = new java.sql.Date(sdf.parse(fecString).getTime()); 
+		} catch (Exception ex) {
+		      System.out.println("Error al obtener el formato de la fecha/hora: " + ex.getMessage());
+		}
+		
+		return fecFormatoDate;
+	}
 	public static String fechaActual(){
 		SimpleDateFormat formateador = new SimpleDateFormat( "dd/MM/yyyy", new Locale("es_ES"));
 		   Date fechaDate = new Date();

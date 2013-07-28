@@ -10,6 +10,9 @@ public class DetallePedidoDTO {
 	private	String	desc_producto	;
 	private	String	unidadMedida	; 
 	
+	   
+	private	Integer	stock_producto	; 
+	
 	
 	public Integer getCod_detallePedido() {
 		return cod_detallePedido;
@@ -46,6 +49,12 @@ public class DetallePedidoDTO {
 	}
 	public void setUnidadMedida(String unidadMedida) {
 		this.unidadMedida = unidadMedida;
+	}
+	public Integer getStock_producto() {
+		return stock_producto;
+	}
+	public void setStock_producto(Integer stock_producto) {
+		this.stock_producto = stock_producto;
 	}
 	
 	

@@ -19,6 +19,11 @@ function seleccionaProd(codProd,descProd,uMedida){
 	$("#desc_producto").val(descProd);
 	$("#unidadMedida").val(uMedida); 
 }
+function eliminarDetallePedido(idProd){
+	$.post("eliminarDetallePedido",{"idProd":idProd},function(data){
+ 		$("#divDetallePedido").html(data);
+	});
+} 
 $(document).ready(function() {
 	$('#idBuscarProducto').click(function(){
 		$("#txtProducto").val("");
@@ -54,7 +59,6 @@ $(document).ready(function() {
 	});
 	
 	$('#btnAgregarDetallePedido').click(function(){
-		
 		var idProd= $("#cod_producto").val();
 		var cantidad= $("#inputCantidad").val();
 		console.log('ddddd:'+idProd+'|'+cantidad);
@@ -62,12 +66,32 @@ $(document).ready(function() {
 	 		$("#divDetallePedido").html(data);
 		}); 
 	});
+	$('#btnGuardar').click(function(){
+		var radioSelecionado=$('input:radio[name=optionsRadios]:checked').val();
+		var fechaEntrega = $('#idFechaEntrega').val();
+		var fechaDevolucion = $('#idFechaDevolucion').val();
+		var observacion = $('#inputObservacion').val();  
+		$.post("guardarPedido",
+			{
+		"tipoPedido":radioSelecionado,
+		"fechaEntrega":fechaEntrega,
+		"fechaDevolucion":fechaDevolucion,
+		"obsDevolucion":observacion
+			}
+		,
+		function(data){
+	 		$("#divMostrarMensaje").html(data);
+		});
+		
+		
+		
+	});
+	
 	
 });  
 </script>
-<h3>Registrar Solicitud de Pedido</h3> 
-<form>
-
+<h3>Registrar Solicitud de Pedido</h3>  
+<div id="divMostrarMensaje"></div>
 <div class="control-group">
 	<div  class="form-inline"> 
 		<label class="control-label" for="inputFecha">Fecha</label>
@@ -90,15 +114,15 @@ $(document).ready(function() {
 	<div  class="form-inline ">
 		<label class="input-small">Tipo Pedido</label>
 		<label class="radio">
-		<input type="radio" name="optionsRadios" id="optionAbastecimiento" value="option2" checked>Abastecimiento
+		<input type="radio" name="optionsRadios" id="optionAbastecimiento" value="Abastecimiento" checked>Abastecimiento
 		</label>&nbsp;&nbsp;&nbsp;
 		<label class="radio">
-		<input type="radio" name="optionsRadios" id="optionPrestamo" value="option1" >Prestamo
+		<input type="radio" name="optionsRadios" id="optionPrestamo" value="Prestamo" >Prestamo
 		</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<label class="input-medium">Fecha Entrega</label>
 		<div class="input-prepend">
 		<span class="add-on"><i class="icon-calendar"></i></span>
-		<input class="span2 datepicker"  type="text">
+		<input class="span2 datepicker" id="idFechaEntrega"  type="text">
 		</div> 
 		
 	</div>
@@ -110,7 +134,7 @@ $(document).ready(function() {
 		<label class="control-label" for="inputIcon">Fecha Devoluci&oacute;n</label>
 		<div class="input-prepend">
 		<span class="add-on"><i class="icon-calendar"></i></span>
-		<input class="span2 datepicker"  type="text">
+		<input class="span2 datepicker" id="idFechaDevolucion"  type="text">
 		</div> 
 		
 	</div>
@@ -168,12 +192,11 @@ $(document).ready(function() {
 
 <div class="control-group"> 
 <div class="controls"  align="center">
-<a class="btn  btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;&nbsp;
+<a class="btn  btn-primary" id="btnGuardar" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;&nbsp;
 <a class="btn  btn-primary"  onclick="javascript:history.back();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cancelar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 </div>
 </div>
-
-</form>
+ 
 
  
  

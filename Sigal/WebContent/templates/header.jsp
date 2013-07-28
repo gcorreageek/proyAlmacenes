@@ -36,7 +36,7 @@
 
 		$(document).ready(function() {   
 		    $('.datepicker').datepicker({
-		    	format: 'mm/dd/yyyy',
+		    	format: 'dd/mm/yyyy',
 		        language: 'es' 
 			});
 		 

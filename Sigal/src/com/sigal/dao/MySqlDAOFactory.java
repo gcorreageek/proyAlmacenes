@@ -10,7 +10,9 @@ import com.sigal.mantenimiento.dao.ProductoDAO;
 import com.sigal.mantenimiento.dao.ProductoProveedorDAO;
 import com.sigal.mantenimiento.dao.ProveedorDAO;
 import com.sigal.mantenimiento.dao.UmedidaDAO;
+import com.sigal.pedido.dao.MySqlPedidoDetalleDAO;
 import com.sigal.pedido.dao.MySqlSolicitudPedidoDAO;
+import com.sigal.pedido.dao.PedidoDetalleDAO;
 import com.sigal.pedido.dao.SolicitudPedidoDAO;
 import com.sigal.seguridad.dao.AreaDAO;
 import com.sigal.seguridad.dao.CargoDAO;
@@ -69,6 +71,10 @@ public class MySqlDAOFactory extends DAOFactory {
 	@Override
 	public ProductoProveedorDAO getProductoProveedorDAO() {
 		return new MySqlProductoProveedorDAO();
+	} 
+	@Override
+	public PedidoDetalleDAO getPedidoDetalleDAO() {
+		return new MySqlPedidoDetalleDAO();
 	}
 
  

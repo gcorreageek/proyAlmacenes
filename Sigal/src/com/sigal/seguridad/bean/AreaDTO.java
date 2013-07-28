@@ -4,6 +4,7 @@ public class AreaDTO {
 
 	private Integer cod_area;
 	private String desc_area;
+	  
 	public Integer getCod_area() {
 		return cod_area;
 	}

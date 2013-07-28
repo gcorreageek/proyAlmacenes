@@ -128,4 +128,4 @@ $(document).ready(function() {
 
 
 
-<jsp:include page="../pedido/buscar_pedido.jsp" /> 
+<%-- <jsp:include page="../pedido/buscar_pedido.jsp" />  --%>

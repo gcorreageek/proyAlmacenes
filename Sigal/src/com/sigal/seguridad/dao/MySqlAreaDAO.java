@@ -1,5 +1,8 @@
 package com.sigal.seguridad.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -22,6 +25,18 @@ public class MySqlAreaDAO implements AreaDAO {
 			sesion.close();
 		}
 		return objArea;
+	}
+ 
+	@Override
+	public List<AreaDTO> listarArea(AreaDTO area) {
+		SqlSession sesion =sqlMapper.openSession();
+		List<AreaDTO> lstArea = new ArrayList<>(); 
+		try {
+			lstArea= (List<AreaDTO>)sesion.selectList("area.SQL_listaArea");
+		} finally{
+			sesion.close();
+		}
+		return lstArea;
 	} 
  
 	 

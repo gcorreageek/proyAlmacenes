@@ -7,6 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    select area.* from tb_area	area	where area.cod_area=#{cod_area}	
 	</select>
 	
-	 
+	 <select id="SQL_listaArea" resultType="AreaBean">
+	    select area.* from tb_area	area	 order by 	area.cod_area desc
+	</select>
 	        
 </mapper>

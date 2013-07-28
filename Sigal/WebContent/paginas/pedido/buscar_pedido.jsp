@@ -1,49 +1,9 @@
-<!-- <style type="text/css"> -->
-<!-- /* 	max-height: 800px; */ -->
-<!-- /* 	width: 900px; /* SET THE WIDTH OF THE MODAL */ */ -->
-<!-- /* 	margin: -250px 0 0 -450px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */ */ -->
-<!-- </style> -->
-
-
-
-<!-- Modal -->
-<div id="myBuscarPedido" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalBuscarPedido" aria-hidden="true">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-<h3 id="myModalBuscarPedido">Buscar Solicitud de Pedido</h3>
-</div>
-<div class="modal-body">
-
-	<form class="form-search">   
-	    <input type="text" class="input-medium search-query" placeholder="Responsable" >
-	    
-	    
-	    <select>
-		<option>Seleccionar</option>
-		<option>RRHH</option>
-		<option>VENTAS</option> 
-		</select>
-		
-		<input type="text" class="input-medium search-query" placeholder="Fecha Inicio" >
-	    <input type="text" class="input-medium search-query" placeholder="Fecha Fin" >
-		
-		<select>
-		<option>Seleccionar</option>
-		<option>Abastecimiento</option>
-		<option>Prestamo</option> 
-		</select>
-		
-		
-	    <button type="submit" class="btn">Buscar</button>
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-    </form> 
-    <table class="table table-striped table-bordered table-hover">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib   prefix="c"  uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib   prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ taglib prefix="s"  uri="/struts-tags" %>
+			<table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
                   <th>Responsable</th>
@@ -54,41 +14,17 @@
                 </tr>
               </thead>
               <tbody>
-                <tr> 
-                  <td>Luz Campos</td>
-                  <td>RRHH</td>
-                  <td>20/12/2012</td>  
-                  <td>Abastecimiento</td>
-                  <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
-                </tr>
-                <tr> 
-                  <td>Luz Campos</td>
-                  <td>RRHH</td>
-                  <td>20/12/2012</td> 
-                  <td>Abastecimiento</td>
-                  <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
-                </tr>
-                <tr> 
-                  <td>Luz Campos</td>
-                  <td>RRHH</td>
-                  <td>20/12/2012</td>  
-                  <td>Abastecimiento</td> 
-                  <td align="center"><button type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td>
-                </tr>
+              <c:if test="${requestScope.lstPedido!=null}"   > 
+			     <c:forEach  items="${requestScope.lstPedido}"  var="row"  >
+			     	<tr> 
+	                  <td>${row.nom_usuario}</td> 
+	                  <td>${row.desc_area}</td> 
+	                  <td>${row.fechaRegistro_pedido}</td> 
+	                  <td>${row.tipo_pedido}</td> 
+	                  <td align="center"><button onclick="javascript:seleccionaPedido(${row.cod_solicitudPedido},'${row.nom_usuario}','${row.desc_area}','${row.desc_cargo}','${row.fechaRegistro_pedido}','${row.fechaDevolucion_pedido}','${row.fechaEntrega_pedido}','${row.tipo_pedido}','${row.comentario_pedido}')" type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td> 
+	                </tr>
+			     </c:forEach> 
+		      </c:if>   
               </tbody>
             </table>
-                <div class="pagination">
-			    <ul>
-			    <li><a href="#">Anterior</a></li>
-			    <li><a href="#">1</a></li>
-			    <li><a href="#">2</a></li>
-			    <li><a href="#">3</a></li>
-			    <li><a href="#">4</a></li>
-			    <li><a href="#">5</a></li>
-			    <li><a href="#">Siguiente</a></li>
-			    </ul>
-			    </div>
-
-
-</div> 
-</div>
+            
