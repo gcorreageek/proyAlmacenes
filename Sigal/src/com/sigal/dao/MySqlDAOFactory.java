@@ -1,5 +1,9 @@
 package com.sigal.dao;
 
+import com.sigal.cotizacion.dao.CotizacionDAO;
+import com.sigal.cotizacion.dao.CotizacionDetalleDAO;
+import com.sigal.cotizacion.dao.MySqlCotizacionDAO;
+import com.sigal.cotizacion.dao.MySqlCotizacionDetalleDAO;
 import com.sigal.mantenimiento.dao.CategoriaDAO;
 import com.sigal.mantenimiento.dao.MySqlCategoriaDAO;
 import com.sigal.mantenimiento.dao.MySqlProductoDAO;
@@ -75,6 +79,16 @@ public class MySqlDAOFactory extends DAOFactory {
 	@Override
 	public PedidoDetalleDAO getPedidoDetalleDAO() {
 		return new MySqlPedidoDetalleDAO();
+	}
+ 
+	@Override
+	public CotizacionDAO getCotizacionDAO() {
+		return new MySqlCotizacionDAO();
+	}
+ 
+	@Override
+	public CotizacionDetalleDAO getCotizacionDetalleDAO() {
+		return new MySqlCotizacionDetalleDAO();
 	}
 
  

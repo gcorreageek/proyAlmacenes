@@ -11,26 +11,42 @@ public class ProductoService {
 
 	DAOFactory fabrica = DAOFactory.getDAOFactory(Constantes.ORIGENDATOS);
 	ProductoDAO objProDAO = fabrica.getProductoDAO();
+	
+	
+	public List<ProductoDTO> buscarProductosXDesc(ProductoDTO producto) {
+		return objProDAO.buscarProductos(producto);
+	} 
 	public List<ProductoDTO> listaProductos() {
 		return objProDAO.buscarProductos(null);
 	}
-	public List<ProductoDTO> buscarProductosXDesc(ProductoDTO producto) {
-		return objProDAO.buscarProductos(producto);
-	}
-	
-	
-	public List<ProductoDTO> listaProductosPaginado(Integer inicio,Integer tamano) {
-		return objProDAO.buscarProductosPaginados(null, inicio,tamano);
-	}
-	public Integer listaProductosTotal() {
-		return objProDAO.buscarProductos(null).size();
-	}
+	//Modal
 	public List<ProductoDTO> buscarProductosXDescPaginado(ProductoDTO producto,Integer inicio,Integer tamano) {
 		return objProDAO.buscarProductosPaginados(producto, inicio, tamano);
+	}
+	public List<ProductoDTO> listaProductosPaginado(Integer inicio,Integer tamano) {
+		return objProDAO.buscarProductosPaginados(null, inicio,tamano);
 	}
 	public Integer buscarProductosXDescTotal(ProductoDTO producto ) {
 		return objProDAO.buscarProductos(producto).size();
 	}
+	public Integer listaProductosTotal() {
+		return objProDAO.buscarProductos(null).size();
+	}
+	//Modal idProvee
+	public List<ProductoDTO> buscarProductosIdProveeXDescPaginado(ProductoDTO producto,Integer idProvee,Integer inicio,Integer tamano) {
+		return objProDAO.buscarProductosIdProveePaginados(producto,idProvee, inicio, tamano);
+	}
+	public List<ProductoDTO> listaProductosIdProveePaginado(Integer idProvee,Integer inicio,Integer tamano) {
+		return objProDAO.buscarProductosIdProveePaginados(null,idProvee, inicio,tamano);
+	}
+	public Integer buscarProductosIdProveeXDescTotal(ProductoDTO producto,Integer idProvee) {
+		return objProDAO.buscarProductosIdProvee(producto,idProvee).size();
+	}
+	public Integer listaProductosIdProveeTotal(Integer idProvee) {
+		return objProDAO.buscarProductosIdProvee(null,idProvee).size();
+	}
+	//------------------------------------
+	
 	public Boolean registrarProducto(ProductoDTO objProducto) {
 		return objProDAO.registrarProducto(objProducto);
 	}

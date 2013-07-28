@@ -1,5 +1,7 @@
 package com.sigal.dao;
 
+import com.sigal.cotizacion.dao.CotizacionDAO;
+import com.sigal.cotizacion.dao.CotizacionDetalleDAO;
 import com.sigal.mantenimiento.dao.CategoriaDAO;
 import com.sigal.mantenimiento.dao.ProductoDAO;
 import com.sigal.mantenimiento.dao.ProductoProveedorDAO;
@@ -31,6 +33,8 @@ public abstract class DAOFactory {
 	public abstract SolicitudPedidoDAO getSolicitudPedidoDAO();
 	public abstract PedidoDetalleDAO getPedidoDetalleDAO();
 	
+	public abstract CotizacionDAO getCotizacionDAO();
+	public abstract CotizacionDetalleDAO getCotizacionDetalleDAO();
 	
 	public static DAOFactory getDAOFactory(int wichFactory){
 		

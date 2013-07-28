@@ -8,23 +8,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>  
 	<select id="SQL_listaProductosDescProducto" resultType="ProductoBean">
 	    select prod.* from tb_producto	prod where prod.desc_producto like  #{desc_producto}	  order by prod.cod_producto
-	</select>
-	<select id="SQL_listaProductosVarios" resultType="ProductoBean">
-	    select prod.* from tb_producto	prod 
-	    where prod.desc_producto like #{desc_producto}  
-	    order by prod.cod_producto
-	</select>  
+	</select> 
 	<select id="SQL_listaProductosPaginados" resultType="ProductoBean" parameterType="ProductoBean"  >
 	    select prod.* from tb_producto	prod  order by prod.cod_producto  limit  #{inicio} ,  #{tamano}
 	</select>
 	<select id="SQL_listaProductosDescProductoPaginados" resultType="ProductoBean" parameterType="ProductoBean"  >
 	    select prod.* from tb_producto	prod where prod.desc_producto like  #{desc_producto}	  order by prod.cod_producto  limit  #{inicio} ,  #{tamano}
-	</select>
-	<select id="SQL_listaProductosVariosPaginados" resultType="ProductoBean" parameterType="ProductoBean"  >
-	    select prod.* from tb_producto	prod 
-	    where prod.desc_producto like #{desc_producto}  
-	    order by prod.cod_producto  limit  #{inicio} ,  #{tamano}
+	</select>  
+	 
+	<select id="SQL_listaProductosIdProvee" resultType="ProductoBean" parameterType="ProductoBean" > 
+	    select prod.*  from tb_producto	prod 
+		inner join tb_producto_proveedor prod_prove on prod_prove.cod_producto=prod.cod_producto 
+		inner join tb_proveedor prove on prove.cod_proveedor=prod_prove.cod_proveedor
+		where prove.cod_proveedor=#{cod_proveedor}  order by prod.cod_producto
+	</select>  
+	<select id="SQL_listaProductosDescProductoIdProvee" resultType="ProductoBean" parameterType="ProductoBean" >
+	    select prod.*  from tb_producto	prod 
+		inner join tb_producto_proveedor prod_prove on prod_prove.cod_producto=prod.cod_producto 
+		inner join tb_proveedor prove on prove.cod_proveedor=prod_prove.cod_proveedor
+	    where prove.cod_proveedor=#{cod_proveedor} and prod.desc_producto like  #{desc_producto}	  order by prod.cod_producto
 	</select> 
+	<select id="SQL_listaProductosPaginadosIdProvee" resultType="ProductoBean" parameterType="ProductoBean"  >
+	    select prod.*  from tb_producto	prod 
+		inner join tb_producto_proveedor prod_prove on prod_prove.cod_producto=prod.cod_producto 
+		inner join tb_proveedor prove on prove.cod_proveedor=prod_prove.cod_proveedor
+		where prove.cod_proveedor=#{cod_proveedor} 
+	    order by prod.cod_producto  limit  #{inicio} ,  #{tamano}
+	</select>
+	<select id="SQL_listaProductosDescProductoPaginadosIdProvee" resultType="ProductoBean" parameterType="ProductoBean"  >
+	    select prod.*  from tb_producto	prod 
+		inner join tb_producto_proveedor prod_prove on prod_prove.cod_producto=prod.cod_producto 
+		inner join tb_proveedor prove on prove.cod_proveedor=prod_prove.cod_proveedor
+	    where prove.cod_proveedor=#{cod_proveedor}  and prod.desc_producto like  #{desc_producto}	  order by prod.cod_producto  limit  #{inicio} ,  #{tamano}
+	</select>
 	
 	<select id="SQL_registraProducto"  parameterType="ProductoBean" >
 		insert into tb_producto(desc_producto,unidadMedida) values(#{desc_producto},#{unidadMedida})

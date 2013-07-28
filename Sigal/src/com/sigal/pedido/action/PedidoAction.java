@@ -74,6 +74,7 @@ public class PedidoAction extends ActionSupport {
 	
 	@Action(value="/nuevoPedido",results={@Result(name="success",type="tiles",location="d_mainpedido")})
 	public String mainPedido(){ 
+		lasesion.remove("lstDetPed");
 		return SUCCESS;
 	}
 	@Action(value="/evaluarPedido",results={@Result(name="success",type="tiles",location="d_evaluarPedido")})

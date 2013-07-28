@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cotizacion"> 
+     
+    <!-- Tamano Inicio  -->
+	<select id="SQL_listaCotizacion" resultType="CotizacionBean">
+	    select cot.*,usu.*,cargo.*,area.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		order by cot.cod_cotizacion asc
+	</select>  
+	<select id="SQL_listaCotizacionXNombre" resultType="CotizacionBean" parameterType="CotizacionBean" >
+		select cot.*,usu.*,cargo.*,area.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		where usu.nom_usuario like #{nom_usuario}
+		order by cot.cod_cotizacion asc
+	</select> 
+	<select id="SQL_listaCotizacionXFechas" resultType="CotizacionBean" parameterType="CotizacionBean" >
+		select cot.*,usu.*,cargo.*,area.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		where cot.fecharegistro_cotizacion between #{fechaInicio} and #{fechaFin}
+		order by ped.cod_cotizacion asc
+	</select>  
+	 <!-- Tamano Fin  -->
+	 <!-- Paginacion Inicio -->
+	<select id="SQL_listaCotizacionPag" resultType="CotizacionBean" parameterType="CotizacionBean"  >
+		select cot.*,usu.*,cargo.*,area.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		order by ped.cod_cotizacion asc limit  #{inicio} ,  #{tamano} 
+	</select> 
+	<select id="SQL_listaCotizacionXNombrePag" resultType="CotizacionBean" parameterType="CotizacionBean"  >
+	    select cot.*,usu.*,cargo.*,area.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		where usu.nom_usuario like #{nom_usuario} 
+		order by ped.cod_cotizacion asc  limit  #{inicio} ,  #{tamano}  
+	</select>  
+	<select id="SQL_listaCotizacionXFechasPag" resultType="CotizacionBean" parameterType="CotizacionBean"  >
+	    select cot.*,usu.*,cargo.*,area.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		where ped.fechaRegistro_pedido between #{fechaInicio} and #{fechaFin}
+		order by ped.cod_cotizacion asc  limit  #{inicio} ,  #{tamano}  
+	</select>   
+	<!-- Paginacion Fin -->
+	 
+    
+	<insert id="SQL_registraCotizacion"  parameterType="CotizacionBean" useGeneratedKeys="true"
+      keyProperty="cod_cotizacion"   > 
+		insert into tb_cotizacion(obs_cotizacion,cod_usuario,fecharegistro_cotizacion,
+		cod_proveedor) values(#{obs_cotizacion},#{cod_usuario},CURDATE(),
+		#{cod_proveedor}) 
+	</insert> 
+	
+	<select id="SQL_getPedido" resultType="CotizacionBean">
+		select cot.*,usu.*,cargo.*,area.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		where cot.cod_cotizacion =  #{cod_cotizacion} 	   
+	</select>
+
+	
+</mapper>

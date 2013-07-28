@@ -13,7 +13,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 	<typeAlias alias="ProveedorBean" type="com.sigal.mantenimiento.bean.ProveedorDTO" /> 
 	 	<typeAlias alias="ProductoProveedorBean" type="com.sigal.mantenimiento.bean.ProductoProveedorDTO" /> 
 	 	<typeAlias alias="PedidoBean" type="com.sigal.pedido.bean.SolicitudPedidoDTO" /> 
-	 	<typeAlias alias="PedidoDetalleBean" type="com.sigal.pedido.bean.DetallePedidoDTO" /> 
+	 	<typeAlias alias="PedidoDetalleBean" type="com.sigal.pedido.bean.DetallePedidoDTO" />
+	 	<typeAlias alias="CotizacionBean" type="com.sigal.cotizacion.bean.CotizacionDTO" />
+	 	<typeAlias alias="CotizacionDetalleBean" type="com.sigal.cotizacion.bean.CotizacionDetalleDTO" /> 
 	</typeAliases> 
 
 	<environments default="development">
@@ -41,6 +43,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <mapper resource="com/sigal/dao/xml/ProductoProveedor.xml" />
 		 <mapper resource="com/sigal/dao/xml/Pedido.xml" />
 		 <mapper resource="com/sigal/dao/xml/PedidoDetalle.xml" />
+		 <mapper resource="com/sigal/dao/xml/Cotizacion.xml" />
+		 <mapper resource="com/sigal/dao/xml/CotizacionDetalle.xml" />
 	</mappers>
 </configuration>
 

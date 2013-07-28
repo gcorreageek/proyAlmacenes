@@ -14,6 +14,7 @@ import com.sigal.mantenimiento.bean.ProductoProveedorDTO;
  */
 public interface ProductoProveedorDAO {
 	ProductoProveedorDTO getProductoProveedor(ProductoProveedorDTO productoProveedor) throws Exception;
+	ProductoProveedorDTO getProductoProveedorXIdProdAndIdProvee(ProductoProveedorDTO productoProveedor) throws Exception;
 	List<ProductoProveedorDTO> buscarProductoProveedorPaginados(ProductoProveedorDTO productoProveedor,Integer inicio,Integer tamano) throws Exception;
 	List<ProductoProveedorDTO> buscarProductoProveedor(ProductoProveedorDTO productoProveedor) throws Exception;
 	

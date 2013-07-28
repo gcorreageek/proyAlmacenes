@@ -140,6 +140,22 @@ public class MySqlProductoProveedorDAO implements ProductoProveedorDAO {
 		}
 		return result;
 	}
+ 
+	@Override
+	public ProductoProveedorDTO getProductoProveedorXIdProdAndIdProvee(
+			ProductoProveedorDTO productoProveedorViene) throws Exception {
+		SqlSession sesion = sqlMapper.openSession();
+		ProductoProveedorDTO productoProveedor = new ProductoProveedorDTO();
+		try {  
+			productoProveedor = (ProductoProveedorDTO) sesion.selectOne(
+							"productoproveedor.SQL_getProductoProveedorXcodProdAndCodProvee",
+							productoProveedorViene);
+			 
+		} finally {
+			sesion.close();
+		}
+		return productoProveedor;
+	}
 
 	 
 }

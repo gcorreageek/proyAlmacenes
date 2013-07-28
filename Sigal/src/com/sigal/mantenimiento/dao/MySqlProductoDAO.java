@@ -30,14 +30,14 @@ public class MySqlProductoDAO implements ProductoDAO {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductoDTO> buscarProductos(ProductoDTO producto) {
 		SqlSession sesion = sqlMapper.openSession();
 		List<ProductoDTO> lstProductos = new ArrayList<ProductoDTO>();
 		try {
 			if (producto == null) {
-				lstProductos = (List<ProductoDTO>) sesion
-						.selectList("producto.SQL_listaProductos");
+				lstProductos = (List<ProductoDTO>) sesion.selectList("producto.SQL_listaProductos");
 			} else {
 				if (!producto.getDesc_producto().isEmpty()) {
 					lstProductos = (List<ProductoDTO>) sesion.selectList(
@@ -53,6 +53,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 		return lstProductos;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductoDTO> buscarProductosPaginados(ProductoDTO producto,
 			Integer inicio, Integer tamano) {
@@ -84,6 +85,9 @@ public class MySqlProductoDAO implements ProductoDAO {
 		}
 		return lstProductos;
 	}
+	
+	//Para el PROVEEDOR!!
+	
 
 	@Override
 	public ProductoDTO getProducto(ProductoDTO productoViene) {
@@ -139,5 +143,69 @@ public class MySqlProductoDAO implements ProductoDAO {
 		}
 		return result;
 	}
+ 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductoDTO> buscarProductosIdProveePaginados(
+			ProductoDTO producto, Integer idProvee, Integer inicio,
+			Integer tamano) {
+		SqlSession sesion = sqlMapper.openSession();
+		List<ProductoDTO> lstProductos = new ArrayList<ProductoDTO>();
+		try {
+			if (producto == null) {
+				ProductoDTO prod = new ProductoDTO();
+				prod.setCod_proveedor(idProvee);
+				prod.setInicio(inicio);
+				prod.setTamano(tamano);
+				lstProductos = (List<ProductoDTO>) sesion.selectList(
+						"producto.SQL_listaProductosPaginadosIdProvee", prod);
+			} else {
+				if (!producto.getDesc_producto().isEmpty()) {
+					producto.setCod_proveedor(idProvee);
+					producto.setDesc_producto("%" + producto.getDesc_producto()
+							+ "%");
+					producto.setInicio(inicio);
+					producto.setTamano(tamano);
+					lstProductos = (List<ProductoDTO>) sesion.selectList(
+							"producto.SQL_listaProductosDescProductoPaginadosIdProvee",
+							producto);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			sesion.close();
+		}
+		return lstProductos;
+	}
+ 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductoDTO> buscarProductosIdProvee(ProductoDTO producto,
+			Integer idProvee) {
+		SqlSession sesion = sqlMapper.openSession();
+		List<ProductoDTO> lstProductos = new ArrayList<ProductoDTO>();
+		try {
+			if (producto == null) {
+				ProductoDTO prod = new ProductoDTO();
+				prod.setCod_proveedor(idProvee);
+				lstProductos = (List<ProductoDTO>) sesion.selectList("producto.SQL_listaProductosIdProvee",prod);
+			} else {
+				if (!producto.getDesc_producto().isEmpty()) {
+					producto.setCod_proveedor(idProvee);
+					lstProductos = (List<ProductoDTO>) sesion.selectList(
+							"producto.SQL_listaProductosDescProductoIdProvee", "%"
+									+ producto.getDesc_producto() + "%");
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			sesion.close();
+		}
+		return lstProductos;
+	}
+ 
+ 
 
 }

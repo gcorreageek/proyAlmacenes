@@ -12,6 +12,8 @@ public class ProductoDTO implements Serializable {
 	private	Integer	inicio	;
 	private	Integer	tamano	;
 	
+	private Integer cod_proveedor;
+	
 	
 	public Integer getCod_producto() {
 		return cod_producto;
@@ -50,6 +52,12 @@ public class ProductoDTO implements Serializable {
 	}
 	public void setTamano(Integer tamano) {
 		this.tamano = tamano;
+	}
+	public Integer getCod_proveedor() {
+		return cod_proveedor;
+	}
+	public void setCod_proveedor(Integer cod_proveedor) {
+		this.cod_proveedor = cod_proveedor;
 	}
  
 	

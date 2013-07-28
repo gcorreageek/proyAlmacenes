@@ -19,7 +19,7 @@ function seleccionaProd(codProd,descProd,uMedida){
 	$("#desc_producto").val(descProd);
 	$("#unidadMedida").val(uMedida); 
 }
-function eliminarDetallePedido(idProd){
+function eliminarDetallePedido(idProd){ 
 	$.post("eliminarDetallePedido",{"idProd":idProd},function(data){
  		$("#divDetallePedido").html(data);
 	});

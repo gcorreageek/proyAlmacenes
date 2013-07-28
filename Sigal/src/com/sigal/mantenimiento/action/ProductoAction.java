@@ -27,6 +27,7 @@ public class ProductoAction extends ActionSupport {
 	private Integer numeroPaginas;
 	private Integer tagTipoListado; 
 	private Integer numeroPaginasModalProducto;
+	private Integer idProve;
 
 	@Action(value = "/listarProductoPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_producto.jsp") })
 	public String listarProductoPag() {
@@ -134,7 +135,7 @@ public class ProductoAction extends ActionSupport {
 		return SUCCESS;
 	}
 	@Action(value = "/listarProductoTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/producto_listado_total.jsp") })
-	public String listarProductoTotal() { 
+	public String listarProductoTotal() {  
 		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.listaProductosTotal());
 		System.out.println("nunmeroPaginas:"+numeroPaginasModalProducto); 
 		return SUCCESS;
@@ -143,8 +144,41 @@ public class ProductoAction extends ActionSupport {
 	public String buscarProductoTotal() { 
 		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.buscarProductosXDescTotal(objProducto)); 
 		return SUCCESS;
+	}  
+	//Modal idProve
+	@Action(value = "/listarProductoPagModalidProve", results = { @Result(name = "success", location = "/paginas/mantenimientos/buscar_producto.jsp") })
+	public String listarProductoPagModalidProve() {
+		Integer comienzo = null;
+		if (inicio == null || inicio == 0) {
+			comienzo = 0;
+		} else {
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+		}
+		lstProducto = objProServ.listaProductosIdProveePaginado(this.idProve,comienzo, Constantes.FILAS_X_PAGINA);
+		return SUCCESS;
 	} 
-
+	@Action(value = "/buscarProductosXDescProdPagModalidProve", results = { @Result(name = "success", location = "/paginas/mantenimientos/buscar_producto.jsp") })
+	public String buscarProductosXDescProdPagModalidProve() {
+		Integer comienzo = null;
+		if (inicio == null || inicio == 0) {
+			comienzo = 0;
+		} else {
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+		}
+		lstProducto = objProServ.buscarProductosIdProveeXDescPaginado(objProducto,this.idProve, comienzo, Constantes.FILAS_X_PAGINA);
+		return SUCCESS;
+	}
+	@Action(value = "/listarProductoTotalidProve", results = { @Result(name = "success", location = "/paginas/mantenimientos/producto_listado_total.jsp") })
+	public String listarProductoTotalidProve() {  
+		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.listaProductosIdProveeTotal(this.idProve));
+		System.out.println("nunmeroPaginas:"+numeroPaginasModalProducto); 
+		return SUCCESS;
+	}
+	@Action(value = "/buscarProductoTotalidProve", results = { @Result(name = "success", location = "/paginas/mantenimientos/producto_buscar_total.jsp") })
+	public String buscarProductoTotalidProve() { 
+		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.buscarProductosIdProveeXDescTotal(objProducto,this.idProve)); 
+		return SUCCESS;
+	} 
 	public ProductoDTO getObjProducto() {
 		return objProducto;
 	}
@@ -221,6 +255,12 @@ public class ProductoAction extends ActionSupport {
 	}
 	public void setNumeroPaginasModalProducto(Integer numeroPaginasModalProducto) {
 		this.numeroPaginasModalProducto = numeroPaginasModalProducto;
+	}
+	public Integer getIdProve() {
+		return idProve;
+	}
+	public void setIdProve(Integer idProve) {
+		this.idProve = idProve;
 	}
  
 	

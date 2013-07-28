@@ -25,8 +25,6 @@ function seleccionaPedido(codPedido,nomUsuario,area,cargo,fechaRegistro,fechaDev
 	} 
 	$.post("getDetallePedido",{"objPedido.cod_solicitudPedido":codPedido},function(data){
  		$("#idTableDetallePedido").html(data);
- 		
- 		setTimeout(function(){ $(location).attr('href','inicio'); }, 4000); 
 	});  	
 } 
 function guardarEvaluacion(evaluacion){
@@ -42,7 +40,8 @@ function guardarEvaluacion(evaluacion){
  		$("#divMensajeEvaluacion").html(data);
  		$('#myEvaluacionPedido').modal({
 		  keyboard: false
-		});
+		}); 
+ 		setTimeout(function(){ $(location).attr('href','inicio'); }, 4000); 
  		
 	}); 
 }

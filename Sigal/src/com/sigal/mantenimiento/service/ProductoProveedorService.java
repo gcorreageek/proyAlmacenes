@@ -47,5 +47,8 @@ public class ProductoProveedorService {
 	public ProductoProveedorDTO getProductoProveedor(ProductoProveedorDTO productoProveedor)throws Exception {
 		return objProDAO.getProductoProveedor(productoProveedor);
 	}
+	public ProductoProveedorDTO getProductoProveedorIdProdAndIdProvee(ProductoProveedorDTO productoProveedor)throws Exception {
+		return objProDAO.getProductoProveedorXIdProdAndIdProvee(productoProveedor);
+	}
 	
 }
