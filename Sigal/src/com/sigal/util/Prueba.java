@@ -3,15 +3,16 @@
  */
 package com.sigal.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
-
-import com.sigal.seguridad.bean.AreaDTO;
 
 /**
  * @author Gustavo A. Correa C.
@@ -27,22 +28,35 @@ public class Prueba {
 				   Date fechaDate = new Date();
 				   String fecha = formateador.format(fechaDate);
 				   System.out.println(fecha);
-				   
-//				   List<AreaDTO>
-//				     lstArea = new ArrayList<>();
-//					
-//					AreaDTO area = new AreaDTO(1,"Sistemas");
-//					area.setCod_area(1);
-//					area.setDesc_area("Sistemas"); 
-//					lstArea.add(area);
-//					AreaDTO area2 = new AreaDTO();
-//					area2.setCod_area(2);
-//					area2.setDesc_area("Finansas"); 
-//					lstArea.add(area2);
-//					
-//					for (AreaDTO areaDTO : lstArea) {
-//						System.out.println(areaDTO.getDesc_area());
-//					}
+//				   String url = "https://Esto/Jaha";
+//				   	System.out.println(url.substring(0,url.indexOf("/",8)));
+				   	
+				   	
+				   	
+				   	
+				   	
+				   	
+				   	try {
+				         // Se abre la conexión
+				         URL url = new URL("http://www.chuidiang.com");
+				         URLConnection conexion = url.openConnection();
+				         conexion.connect();
+				         
+				         // Lectura
+				         InputStream is = conexion.getInputStream();
+				         BufferedReader br = new BufferedReader(new InputStreamReader(is));
+				         char[] buffer = new char[1000];
+				         int leido;
+				         while ((leido = br.read(buffer)) > 0) {
+				            System.out.println(new String(buffer, 0, leido));
+				         }
+				      } catch (MalformedURLException e) {
+				         // TODO Auto-generated catch block
+				         e.printStackTrace();
+				      } catch (IOException e) {
+				         // TODO Auto-generated catch block
+				         e.printStackTrace();
+				      }
 				   
 	}
 }

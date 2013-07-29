@@ -87,6 +87,9 @@ $(document).ready(function() {
 		
 	});
 	
+	$('#idFechaEntrega').datepicker('setStartDate', $('#inputFecha').val()).on('changeDate', function(ev){  
+		$('#idFechaDevolucion').datepicker('setStartDate',$('#idFechaEntrega').val() );
+	});  
 	
 });  
 </script>

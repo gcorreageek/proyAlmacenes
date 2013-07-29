@@ -11,6 +11,7 @@
                   <th>U.Medida</th> 
                   <th>Modificar</th>
                   <th>Eliminar</th>
+                  <th>Ver QR</th>
                 </tr>
               </thead>
               <tbody>
@@ -21,6 +22,7 @@
 	                  <td>${row.unidadMedida}</td> 
 	                  <td><a href="accionProducto?codProd=${row.cod_producto}">[Modificar]</a></td>
 	                  <td><a href="eliminarProducto?codProd=${row.cod_producto}">[Eliminar]</a></td>
+	                  <td><a href="#" onclick="javascript:generarQR(${row.cod_producto});">[Ver QR]</a></td>
 	                </tr>
 			     </c:forEach> 
 		      </c:if> 

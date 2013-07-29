@@ -9,7 +9,35 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <script type="text/javascript">
-
+function generarQR(idProd){
+	var url = document.URL; 
+	url = url.substring(0,url.indexOf("/",8));
+	url = url + "/Sigal/leerQR?codProd="+idProd; 
+	console.log('utl:'+url);
+	var imagen= "<img src='http://www.codigos-qr.com/qr/php/qr_img.php?d="+url+"&s=4&e=' alt='Códigos QR / Qr Codes'/>";
+	$("#divMostrarMensaje").html(imagen);
+	$('#myImagenQr').modal({
+	  keyboard: false
+	});  
+	
+	
+// 	http://www.codigos-qr.com/generador-qr-codes.php
+// url
+// post
+// url:"",tipo:"url",elreferer:"http://www.codigos-qr.com/generador-de-codigos-qr/",size:"4"
+// 	$.post("http://www.codigos-qr.com/generador-qr-codes.php",{url:"prueba.com",tipo:"url",elreferer:"http://www.codigos-qr.com/generador-de-codigos-qr/",size:"4"},function(data){ 
+// 			console.log('vamos peru!');
+// 		alert(''+data);
+		
+// 		//  		$("#divMostrarMensaje").html(data);
+// //  		$('#myImagenQr').modal({
+// // 		  keyboard: false
+// // 		});  
+// 	}); 
+	
+	
+	
+}
 $(document).ready(function() { 
 	var numeroPaginas = $("#numeroPaginas").val(); 
     var options = {
@@ -65,16 +93,18 @@ $(document).ready(function() {
                   <th>U.Medida</th> 
                   <th>Modificar</th>
                   <th>Eliminar</th>
+                  <th>Ver QR</th>
                 </tr>
               </thead>
               <tbody>
               <c:if test="${requestScope.lstProducto!=null}"   >
 			     <c:forEach  items="${requestScope.lstProducto}"  var="row"  >
-			     	<tr> 
+			     	 <tr> 
 	                  <td>${row.desc_producto}</td> 
 	                  <td>${row.unidadMedida}</td> 
 	                  <td><a href="accionProducto?codProd=${row.cod_producto}">[Modificar]</a></td>
 	                  <td><a href="eliminarProducto?codProd=${row.cod_producto}">[Eliminar]</a></td>
+	                  <td><a href="#" onclick="javascript:generarQR(${row.cod_producto});">[Ver QR]</a></td>
 	                </tr>
 			     </c:forEach> 
 		      </c:if> 
@@ -90,3 +120,14 @@ $(document).ready(function() {
 
 </body>
 </html>
+
+
+
+
+
+<div id="myImagenQr" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalImagenQR" aria-hidden="true">
+<div class="modal-body"> 
+      <div id="divMostrarMensaje" align="center">
+      </div> 
+</div> 
+</div>

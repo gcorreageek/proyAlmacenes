@@ -17,7 +17,7 @@
     </style>
     <link href="<%=request.getContextPath()%>/assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 <%-- 	<link href="<%=request.getContextPath()%>/assets/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet"> --%>
-	<link href="<%=request.getContextPath()%>/assets/bootstrap/css/jquery.ui.all.css" rel="stylesheet">
+<%-- 	<link href="<%=request.getContextPath()%>/assets/bootstrap/css/jquery.ui.all.css" rel="stylesheet"> --%>
 	<link href="<%=request.getContextPath()%>/assets/bootstrap/css/datepicker.css" rel="stylesheet"> 
 <!-- 	<link rel="stylesheet" href="../../themes/base/jquery.ui.all.css"> -->
 	
@@ -28,6 +28,7 @@
     <script src="<%=request.getContextPath()%>/assets/bootstrap/js/jquery.js"></script> 
     <script src="<%=request.getContextPath()%>/assets/bootstrap/js/bootstrap.js"></script> 
 
+<%-- 	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/bootstrap/js/bootstrap-datepicker-entrefechas.js"></script> --%>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/bootstrap/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/assets/bootstrap/js/bootstrap-datepicker.es.js" charset="UTF-8"></script>
  	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/bootstrap/js/bootstrap-paginator.min.js"></script>
@@ -39,6 +40,9 @@
 		    	format: 'dd/mm/yyyy',
 		        language: 'es' 
 			});
+// 		    idFechaEntrega idFechaDevolucion
+	        // disabling dates
+		    
 		 
 		});  
 	</script>

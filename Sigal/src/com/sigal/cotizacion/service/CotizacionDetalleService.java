@@ -2,6 +2,8 @@ package com.sigal.cotizacion.service;
 
 import java.util.List;
 
+import com.sigal.cotizacion.bean.CotizacionDetalleDTO;
+import com.sigal.cotizacion.dao.CotizacionDetalleDAO;
 import com.sigal.dao.DAOFactory;
 import com.sigal.pedido.bean.DetallePedidoDTO;
 import com.sigal.pedido.bean.SolicitudPedidoDTO;
@@ -13,10 +15,10 @@ public class CotizacionDetalleService {
 	
 	DAOFactory fabrica = DAOFactory.getDAOFactory(Constantes.ORIGENDATOS);
 //	pedido objSolPDAO = fabrica.getSolicitudPedidoDAO();
-	PedidoDetalleDAO objPedDetDAO = fabrica.getPedidoDetalleDAO();
+	CotizacionDetalleDAO objCotDetDAO = fabrica.getCotizacionDetalleDAO();
 	 
-	public List<DetallePedidoDTO> listaPedidoXidPedido(DetallePedidoDTO det) throws Exception {
-		return objPedDetDAO.getPedidoDetalle(det);
+	public List<CotizacionDetalleDTO> listaCotizacionXidCotizacion(CotizacionDetalleDTO det) throws Exception {
+		return objCotDetDAO.getCotizacionDetalle(det);
 	}  
 	
 	

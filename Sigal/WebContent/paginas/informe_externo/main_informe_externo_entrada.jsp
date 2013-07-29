@@ -94,4 +94,4 @@ $(document).ready(function() {
 
 
 
-<jsp:include page="../orden_compra/buscar_orden_compra.jsp" /> 
+<%-- <jsp:include page="../orden_compra/buscar_orden_compra.jsp" />  --%>

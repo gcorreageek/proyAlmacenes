@@ -16,6 +16,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 	<typeAlias alias="PedidoDetalleBean" type="com.sigal.pedido.bean.DetallePedidoDTO" />
 	 	<typeAlias alias="CotizacionBean" type="com.sigal.cotizacion.bean.CotizacionDTO" />
 	 	<typeAlias alias="CotizacionDetalleBean" type="com.sigal.cotizacion.bean.CotizacionDetalleDTO" /> 
+	 	<typeAlias alias="OrdenCompraBean" type="com.sigal.ordencompra.bean.OrdenCompraDTO" />
+	 	<typeAlias alias="OrdenCompraDetalleBean" type="com.sigal.ordencompra.bean.OrdenCompraDetalleDTO" /> 
 	</typeAliases> 
 
 	<environments default="development">
@@ -45,6 +47,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <mapper resource="com/sigal/dao/xml/PedidoDetalle.xml" />
 		 <mapper resource="com/sigal/dao/xml/Cotizacion.xml" />
 		 <mapper resource="com/sigal/dao/xml/CotizacionDetalle.xml" />
+		 <mapper resource="com/sigal/dao/xml/OrdenCompra.xml" />
+		 <mapper resource="com/sigal/dao/xml/OrdenCompraDetalle.xml" />
 	</mappers>
 </configuration>
 

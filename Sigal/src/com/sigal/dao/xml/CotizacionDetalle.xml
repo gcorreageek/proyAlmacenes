@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		on prod_provee.cod_producto_proveedor=det.cod_producto_proveedor
 		inner join tb_producto  prod
 		on prod.cod_producto=prod_provee.cod_producto 
-		where ped.cod_solicitudPedido=#{cod_solicitudPedido}  
+		where cot.cod_cotizacion=#{cod_solicitudPedido}  
 		order by cot.cod_cotizacion desc
 	</select>
 	

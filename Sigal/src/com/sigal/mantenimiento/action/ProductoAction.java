@@ -3,6 +3,7 @@ package com.sigal.mantenimiento.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.connector.Request;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -28,6 +29,7 @@ public class ProductoAction extends ActionSupport {
 	private Integer tagTipoListado; 
 	private Integer numeroPaginasModalProducto;
 	private Integer idProve;
+	private String url;
 
 	@Action(value = "/listarProductoPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_producto.jsp") })
 	public String listarProductoPag() {
@@ -179,6 +181,24 @@ public class ProductoAction extends ActionSupport {
 		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.buscarProductosIdProveeXDescTotal(objProducto,this.idProve)); 
 		return SUCCESS;
 	} 
+	@Action(value = "/generarQR", results = { @Result(name = "success", location = "/paginas/mantenimientos/ver_qr.jsp") })
+	public String generarQR() {  
+		Integer cod= getCodProd();
+		String url = getUrl();
+		url = url.substring(0, url.indexOf("/",8)); 
+		url= url + "/Sigal/leerQR?codProd="+cod;
+		System.out.println("url2:"+url);
+		//optengo el codigoQR
+		//me connecto con http a la web y hago que genere el QR de la direccion
+		// /Sigal/leerQR?codProd=
+//		request
+		
+		return SUCCESS;
+	} 
+	@Action(value = "/leerQR", results = { @Result(name = "success", location = "/paginas/mantenimientos/leer_qr.jsp") })
+	public String leerQR() {  
+		return SUCCESS;
+	}
 	public ProductoDTO getObjProducto() {
 		return objProducto;
 	}
@@ -261,6 +281,12 @@ public class ProductoAction extends ActionSupport {
 	}
 	public void setIdProve(Integer idProve) {
 		this.idProve = idProve;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
  
 	

@@ -62,14 +62,14 @@ public class MySqlCotizacionDAO implements CotizacionDAO {
 					cotizacionViene.setNom_usuario("%"+cotizacionViene.getNom_usuario()+"%");
 					cotizacionViene.setInicio(inicio);
 					cotizacionViene.setTamano(tamano);
-					lstCotizacion= (List<CotizacionDTO>) sesion.selectList("pedido.SQL_listaCotizacionXNombrePag",cotizacionViene);
+					lstCotizacion= (List<CotizacionDTO>) sesion.selectList("cotizacion.SQL_listaCotizacionXNombrePag",cotizacionViene);
 				} else if(cotizacionViene.getFechaInicio()!=null   &&  cotizacionViene.getFechaFin()!=null ){
 					System.out.println("fechas");
 					cotizacionViene.setFechaInicio(cotizacionViene.getFechaInicio());
 					cotizacionViene.setFechaFin(cotizacionViene.getFechaFin());
 					cotizacionViene.setInicio(inicio);
 					cotizacionViene.setTamano(tamano);
-					lstCotizacion = (List<CotizacionDTO>) sesion.selectList("pedido.SQL_listaCotizacionXFechasPag",cotizacionViene);
+					lstCotizacion = (List<CotizacionDTO>) sesion.selectList("cotizacion.SQL_listaCotizacionXFechasPag",cotizacionViene);
 				} 
 			}
 		} finally {
@@ -84,19 +84,19 @@ public class MySqlCotizacionDAO implements CotizacionDAO {
 		List<CotizacionDTO> lstCotizacion = new ArrayList<CotizacionDTO>();
 		try {
 			if (cotizacionViene == null) {
-				lstCotizacion = (List<CotizacionDTO>) sesion.selectList("pedido.SQL_listaCotizacion");
+				lstCotizacion = (List<CotizacionDTO>) sesion.selectList("cotizacion.SQL_listaCotizacion");
 			} else {
 				System.out.println("nomusu:"+cotizacionViene.getNom_usuario()); 
 				System.out.println("fecha:"+cotizacionViene.getFechaInicio()+"|"+cotizacionViene.getFechaFin());
 				if(!"".equals(cotizacionViene.getNom_usuario())){
 					System.out.println("nomsuario");
 					cotizacionViene.setNom_usuario("%"+cotizacionViene.getNom_usuario()+"%"); 
-					lstCotizacion = (List<CotizacionDTO>) sesion.selectList("pedido.SQL_listaCotizacionXNombre",cotizacionViene);
+					lstCotizacion = (List<CotizacionDTO>) sesion.selectList("cotizacion.SQL_listaCotizacionXNombre",cotizacionViene);
 				} else if(cotizacionViene.getFechaInicio()!=null  && cotizacionViene.getFechaFin()!=null ){
 					System.out.println("fechas");
 					cotizacionViene.setFechaInicio(cotizacionViene.getFechaInicio());
 					cotizacionViene.setFechaFin(cotizacionViene.getFechaFin()); 
-					lstCotizacion = (List<CotizacionDTO>) sesion.selectList("pedido.SQL_listaCotizacionXFechas",cotizacionViene);
+					lstCotizacion = (List<CotizacionDTO>) sesion.selectList("cotizacion.SQL_listaCotizacionXFechas",cotizacionViene);
 				} 
 			}
 		}  finally {
