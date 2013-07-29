@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iidetalle"> 
+<!--     select cod_detalle_informe_interno,cod_informe_interno,cod_detalle_pedido from tb_informe_interno_detalle; -->
+    
+	<insert id="SQL_registraDetalleII"  parameterType="InformeInternoDetalleBean"   >
+		insert into tb_informe_interno_detalle(cod_informe_interno,cod_detalle_pedido) 
+		values(#{cod_informe_interno},#{cod_detalle_pedido})
+	</insert>  
+	 
+	
+</mapper>

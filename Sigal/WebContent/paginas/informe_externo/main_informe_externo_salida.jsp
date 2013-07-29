@@ -58,7 +58,7 @@ $(document).ready(function() {
 // 	 setTimeout(function(){ $('.alert').hide(1000); }, 3000); 
 }); 
 </script>
-<h3>Informe Externo de Entrada</h3>
+<h3>Informe Externo de Salida</h3>
 <form>
 <s:hidden  name="objOrdenCompra.cod_OrdenCompra"  id="cod_OrdenCompra"    />
 <div class="control-group">
@@ -155,7 +155,7 @@ $(document).ready(function() {
 <div id="myIE" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalIE" aria-hidden="true">
 <div class="modal-header"> 
 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-<h3 id="myModalIE">Resultado Informe Externo de Entrada</h3>
+<h3 id="myModalIE">Resultado Informe Externo de Salida</h3>
 </div>
 <div class="modal-body"> 
       <div id="divMensaje">

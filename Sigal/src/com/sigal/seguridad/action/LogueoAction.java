@@ -79,6 +79,11 @@ public class LogueoAction extends ActionSupport {
 				}
 						
 				lasesion =ActionContext.getContext().getSession();  
+				Object[] objj = (Object[]) lasesion.get("DatosQR");
+				System.out.println("objj1:"+objj[0]);
+				System.out.println("objj2:"+objj[1]);
+				
+				
 				lasesion.put("listaMenu", listaMenu);
 				lasesion.put("objUsuario", objUsuario); 
 				CargoDTO objCargo = objCargoServ.getCargo(objUsuario.getCod_cargo());

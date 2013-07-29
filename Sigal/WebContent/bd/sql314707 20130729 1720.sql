@@ -15,11 +15,11 @@
 
 
 --
--- Create schema bd_sigal
+-- Create schema sql314707
 --
 
-CREATE DATABASE IF NOT EXISTS bd_sigal;
-USE bd_sigal;
+CREATE DATABASE IF NOT EXISTS sql314707;
+USE sql314707;
 
 --
 -- Definition of table `tb_acceso_menu`
@@ -35,7 +35,7 @@ CREATE TABLE `tb_acceso_menu` (
   KEY `fk_codmenu_menu_idx` (`cod_menu`),
   CONSTRAINT `fk_codcargo_cargo` FOREIGN KEY (`cod_cargo`) REFERENCES `tb_cargo` (`cod_cargo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_codmenu_menu` FOREIGN KEY (`cod_menu`) REFERENCES `tb_menu` (`cod_menu`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_acceso_menu`
@@ -60,7 +60,8 @@ INSERT INTO `tb_acceso_menu` (`cod_accesomenu`,`cod_menu`,`cod_cargo`) VALUES
  (15,15,1),
  (16,1,2),
  (17,2,2),
- (18,5,2);
+ (18,5,2),
+ (19,16,1);
 /*!40000 ALTER TABLE `tb_acceso_menu` ENABLE KEYS */;
 
 
@@ -122,7 +123,7 @@ CREATE TABLE `tb_cotizacion` (
   `cod_cotizacion` int(11) NOT NULL AUTO_INCREMENT,
   `obs_cotizacion` text,
   `cod_usuario` int(11) DEFAULT NULL,
-  `fecharegistro_cotizacion` date DEFAULT NULL,
+  `fecharegistro_cotizacion` datetime DEFAULT NULL,
   `cod_proveedor` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_cotizacion`),
   KEY `fk_cotizacion_cod_usuario_idx` (`cod_usuario`),
@@ -137,7 +138,7 @@ CREATE TABLE `tb_cotizacion` (
 
 /*!40000 ALTER TABLE `tb_cotizacion` DISABLE KEYS */;
 INSERT INTO `tb_cotizacion` (`cod_cotizacion`,`obs_cotizacion`,`cod_usuario`,`fecharegistro_cotizacion`,`cod_proveedor`) VALUES 
- (5,NULL,1,'2013-07-28',12);
+ (5,NULL,1,'2013-07-28 00:00:00',12);
 /*!40000 ALTER TABLE `tb_cotizacion` ENABLE KEYS */;
 
 
@@ -176,23 +177,26 @@ INSERT INTO `tb_cotizacion_detalle` (`cod_detallecotizacion`,`cant_detallecotiza
 DROP TABLE IF EXISTS `tb_informe_externo`;
 CREATE TABLE `tb_informe_externo` (
   `cod_informe_externo` int(11) NOT NULL AUTO_INCREMENT,
-  `nro_informe_externo` varchar(45) DEFAULT NULL,
   `fecha_informe_externo` datetime DEFAULT NULL,
-  `tipo_informe_externo` int(11) DEFAULT NULL,
+  `tipo_informe_externo` varchar(30) DEFAULT NULL,
   `cod_usuario` int(11) DEFAULT NULL,
   `cod_ordencompra` int(11) DEFAULT NULL,
+  `obs_informeexterno` text,
   PRIMARY KEY (`cod_informe_externo`),
   KEY `fk_usuario_inf_ext_idx` (`cod_usuario`),
   KEY `fk_ordencompra_cod_oc_idx` (`cod_ordencompra`),
   CONSTRAINT `fk_ordencompra_cod_oc` FOREIGN KEY (`cod_ordencompra`) REFERENCES `tb_ordencompra` (`cod_OrdenCompra`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_inf_ext` FOREIGN KEY (`cod_usuario`) REFERENCES `tb_usuario` (`cod_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='proveedor(recepcion de los productos)';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='proveedor(recepcion de los productos)';
 
 --
 -- Dumping data for table `tb_informe_externo`
 --
 
 /*!40000 ALTER TABLE `tb_informe_externo` DISABLE KEYS */;
+INSERT INTO `tb_informe_externo` (`cod_informe_externo`,`fecha_informe_externo`,`tipo_informe_externo`,`cod_usuario`,`cod_ordencompra`,`obs_informeexterno`) VALUES 
+ (1,'2013-07-29 05:43:15','Entrada',1,3,'seppio'),
+ (2,'2013-07-29 05:55:59','Entrada',1,3,'jjjjj salidsa');
 /*!40000 ALTER TABLE `tb_informe_externo` ENABLE KEYS */;
 
 
@@ -210,13 +214,20 @@ CREATE TABLE `tb_informe_externo_detalle` (
   KEY `fk_codoc_ext_id_idx` (`cod_detalle_ordencompra`),
   CONSTRAINT `fk_codoc_ext_id` FOREIGN KEY (`cod_detalle_ordencompra`) REFERENCES `tb_ordencompra_detalle` (`cod_DetalleOrdenCompra`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_informeext_id` FOREIGN KEY (`cod_informe_externo`) REFERENCES `tb_informe_externo` (`cod_informe_externo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_informe_externo_detalle`
 --
 
 /*!40000 ALTER TABLE `tb_informe_externo_detalle` DISABLE KEYS */;
+INSERT INTO `tb_informe_externo_detalle` (`cod_detalle_informe_externo`,`cod_informe_externo`,`cod_detalle_ordencompra`) VALUES 
+ (1,1,2),
+ (2,1,3),
+ (3,1,1),
+ (4,2,2),
+ (5,2,3),
+ (6,2,1);
 /*!40000 ALTER TABLE `tb_informe_externo_detalle` ENABLE KEYS */;
 
 
@@ -227,23 +238,26 @@ CREATE TABLE `tb_informe_externo_detalle` (
 DROP TABLE IF EXISTS `tb_informe_interno`;
 CREATE TABLE `tb_informe_interno` (
   `cod_informe_interno` int(11) NOT NULL AUTO_INCREMENT,
-  `nro_informe_interno` varchar(45) DEFAULT NULL,
   `fecha_informe_interno` datetime DEFAULT NULL,
-  `tipo_informe_interno` int(11) DEFAULT NULL,
+  `tipo_informe_interno` varchar(30) DEFAULT NULL,
   `cod_usuario` int(11) DEFAULT NULL,
   `cod_pedido` int(11) DEFAULT NULL,
+  `obs_informeinterno` text,
   PRIMARY KEY (`cod_informe_interno`),
   KEY `fk_usuario_inf_int_idx` (`cod_usuario`),
   KEY `fk_pedido_inf_int_idx` (`cod_pedido`),
   CONSTRAINT `fk_pedido_inf_int` FOREIGN KEY (`cod_pedido`) REFERENCES `tb_pedido` (`cod_solicitudPedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_inf_int` FOREIGN KEY (`cod_usuario`) REFERENCES `tb_usuario` (`cod_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='area(salida productos, recepcion de producto devuelto)';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='area(salida productos, recepcion de producto devuelto)';
 
 --
 -- Dumping data for table `tb_informe_interno`
 --
 
 /*!40000 ALTER TABLE `tb_informe_interno` DISABLE KEYS */;
+INSERT INTO `tb_informe_interno` (`cod_informe_interno`,`fecha_informe_interno`,`tipo_informe_interno`,`cod_usuario`,`cod_pedido`,`obs_informeinterno`) VALUES 
+ (3,'2013-07-29 03:43:55','Salida',1,16,'como se fue'),
+ (6,'2013-07-29 03:59:10','Entrada',1,16,'jkjjj');
 /*!40000 ALTER TABLE `tb_informe_interno` ENABLE KEYS */;
 
 
@@ -261,13 +275,18 @@ CREATE TABLE `tb_informe_interno_detalle` (
   KEY `fk_detallepedido_pk_idx` (`cod_detalle_pedido`),
   CONSTRAINT `fk_detallepedido_pk` FOREIGN KEY (`cod_detalle_pedido`) REFERENCES `tb_pedido_detalle` (`cod_detallePedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_informeint_pk` FOREIGN KEY (`cod_informe_interno`) REFERENCES `tb_informe_interno` (`cod_informe_interno`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_informe_interno_detalle`
 --
 
 /*!40000 ALTER TABLE `tb_informe_interno_detalle` DISABLE KEYS */;
+INSERT INTO `tb_informe_interno_detalle` (`cod_detalle_informe_interno`,`cod_informe_interno`,`cod_detalle_pedido`) VALUES 
+ (5,3,26),
+ (6,3,27),
+ (11,6,26),
+ (12,6,27);
 /*!40000 ALTER TABLE `tb_informe_interno_detalle` ENABLE KEYS */;
 
 
@@ -286,7 +305,7 @@ CREATE TABLE `tb_menu` (
   `orden_menu` int(11) DEFAULT NULL,
   `master_menu` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_menu`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_menu`
@@ -308,7 +327,8 @@ INSERT INTO `tb_menu` (`cod_menu`,`nom_menu`,`url_menu`,`icono_menu`,`tipo_menu`
  (12,'Entrada','mainInformeInternoEntrada',NULL,2,11,13,1),
  (13,'Salida','mainInformeInternoSalida',NULL,2,11,12,1),
  (14,'Informe Externa','#',NULL,1,14,14,1),
- (15,'Entrada','mainInformeExternoEntrada',NULL,2,14,15,1);
+ (15,'Entrada','mainInformeExternoEntrada',NULL,2,14,15,1),
+ (16,'Salida','mainInformeExternoSalida',NULL,2,14,16,1);
 /*!40000 ALTER TABLE `tb_menu` ENABLE KEYS */;
 
 
@@ -319,7 +339,7 @@ INSERT INTO `tb_menu` (`cod_menu`,`nom_menu`,`url_menu`,`icono_menu`,`tipo_menu`
 DROP TABLE IF EXISTS `tb_ordencompra`;
 CREATE TABLE `tb_ordencompra` (
   `cod_OrdenCompra` int(11) NOT NULL AUTO_INCREMENT,
-  `fecharegistro_ordencompra` date DEFAULT NULL,
+  `fecharegistro_ordencompra` datetime DEFAULT NULL,
   `cod_usuario` int(11) DEFAULT NULL,
   `cod_cotizacion` int(11) NOT NULL,
   `cod_proveedor` int(11) DEFAULT NULL,
@@ -338,7 +358,7 @@ CREATE TABLE `tb_ordencompra` (
 
 /*!40000 ALTER TABLE `tb_ordencompra` DISABLE KEYS */;
 INSERT INTO `tb_ordencompra` (`cod_OrdenCompra`,`fecharegistro_ordencompra`,`cod_usuario`,`cod_cotizacion`,`cod_proveedor`) VALUES 
- (3,'2013-07-28',1,5,12);
+ (3,'2013-07-28 00:00:00',1,5,12);
 /*!40000 ALTER TABLE `tb_ordencompra` ENABLE KEYS */;
 
 
@@ -382,7 +402,7 @@ CREATE TABLE `tb_pedido` (
   `comentario_pedido` text,
   `tipo_pedido` varchar(45) DEFAULT NULL,
   `fechaDevolucion_pedido` date DEFAULT NULL,
-  `fechaRegistro_pedido` date DEFAULT NULL,
+  `fechaRegistro_pedido` datetime DEFAULT NULL,
   `fechaEntrega_pedido` date DEFAULT NULL,
   `estado_pedido` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`cod_solicitudPedido`),
@@ -396,7 +416,7 @@ CREATE TABLE `tb_pedido` (
 
 /*!40000 ALTER TABLE `tb_pedido` DISABLE KEYS */;
 INSERT INTO `tb_pedido` (`cod_solicitudPedido`,`cod_usuario`,`comentario_pedido`,`tipo_pedido`,`fechaDevolucion_pedido`,`fechaRegistro_pedido`,`fechaEntrega_pedido`,`estado_pedido`) VALUES 
- (1,1,'sss','sss','2013-11-07','2013-07-27','2013-09-07','Sin Atender'),
+ (1,1,'sss','sss','2013-11-07','2013-07-27 00:00:00','2013-09-07','Sin Atender'),
  (2,1,NULL,NULL,NULL,NULL,NULL,'Sin Atender'),
  (3,1,'prueba obs','Prestamo',NULL,NULL,NULL,'Sin Atender'),
  (4,1,'noiguna','Prestamo',NULL,NULL,NULL,'Sin Atender'),
@@ -407,10 +427,10 @@ INSERT INTO `tb_pedido` (`cod_solicitudPedido`,`cod_usuario`,`comentario_pedido`
  (9,1,'bien ok!','Prestamo','0034-01-03',NULL,'0034-01-03','Sin Atender'),
  (10,1,'ddddddd','Prestamo','2013-07-29',NULL,'2013-07-29','Sin Atender'),
  (11,1,'ser','Prestamo','2013-07-24',NULL,'2013-07-01','Sin Atender'),
- (12,1,'ddd','Prestamo','2013-07-17','2013-07-27','2013-07-01','Sin Atender'),
- (14,1,'ssss','Prestamo','2013-07-31','2013-07-27','2013-07-01','Sin Atender'),
- (15,1,'ser','Prestamo','2013-07-25','2013-07-27','2013-07-01','Sin Atender'),
- (16,1,'niguna','Abastecimiento','2013-07-02','2013-07-27','2013-07-01','Desaprobado');
+ (12,1,'ddd','Prestamo','2013-07-17','2013-07-27 00:00:00','2013-07-01','Sin Atender'),
+ (14,1,'ssss','Prestamo','2013-07-31','2013-07-27 00:00:00','2013-07-01','Sin Atender'),
+ (15,1,'ser','Prestamo','2013-07-25','2013-07-27 00:00:00','2013-07-01','Sin Atender'),
+ (16,1,'niguna','Abastecimiento','2013-07-02','2013-07-27 00:00:00','2013-07-01','Desaprobado');
 /*!40000 ALTER TABLE `tb_pedido` ENABLE KEYS */;
 
 
@@ -596,389 +616,3 @@ INSERT INTO `tb_usuario` (`cod_usuario`,`nom_usuario`,`apePat_usuario`,`apeMat_u
  (1,'Gustavo','Correa','Caja',1,'gcorreageek','aa743a0aaec8f7d7a1f01442503957f4d7a2d634','1');
 /*!40000 ALTER TABLE `tb_usuario` ENABLE KEYS */;
 
-
---
--- Definition of procedure `sp_buscaUsuario`
---
-
-DROP PROCEDURE IF EXISTS `sp_buscaUsuario`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_buscaUsuario`(Vid_usuario varchar(40))
-BEGIN
-SELECT tb_perfil.desc_perfil,
-       tb_area.desc_area,
-       tb_cargo.desc_cargo,
-       tb_usuario.cod_usuario,
-       tb_usuario.nom_usuario,
-       tb_usuario.apePat_usuario,
-       tb_usuario.apeMat_usuario,
-       tb_usuario.id_usuario,
-       tb_usuario.pass_usuario,
-       tb_usuario.cod_perfil
-  FROM    (   (   bd_sigal.tb_usuario tb_usuario
-               INNER JOIN
-                  bd_sigal.tb_perfil tb_perfil
-               ON (tb_usuario.cod_perfil = tb_perfil.cod_perfil))
-           INNER JOIN
-              bd_sigal.tb_cargo tb_cargo
-           ON (tb_usuario.cod_cargo = tb_cargo.cod_cargo))
-       INNER JOIN
-          bd_sigal.tb_area tb_area
-       ON (tb_usuario.cod_area = tb_area.cod_area)
- WHERE (tb_usuario.id_usuario = Vid_usuario) and (tb_usuario.estado_usuario='A');
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_buscaUsuarioM`
---
-
-DROP PROCEDURE IF EXISTS `sp_buscaUsuarioM`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_buscaUsuarioM`(Vid_usuario varchar(45))
-BEGIN
-SELECT tb_usuario.nom_usuario,
-       tb_usuario.apePat_usuario,
-       tb_usuario.apeMat_usuario,
-       tb_usuario.cod_cargo,
-       tb_usuario.cod_area,
-       tb_usuario.id_usuario
-  FROM bd_sigal.tb_usuario tb_usuario
- WHERE (tb_usuario.id_usuario = Vid_usuario);
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_ListaAreas`
---
-
-DROP PROCEDURE IF EXISTS `sp_ListaAreas`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ListaAreas`()
-BEGIN
-	SELECT tb_area.cod_area, tb_area.desc_area
-  FROM bd_sigal.tb_area tb_area;
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_ListaCargos`
---
-
-DROP PROCEDURE IF EXISTS `sp_ListaCargos`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ListaCargos`()
-BEGIN
-	SELECT tb_cargo.cod_cargo, tb_cargo.desc_cargo
-  FROM bd_sigal.tb_cargo tb_cargo;
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_listaDetUsuarios`
---
-
-DROP PROCEDURE IF EXISTS `sp_listaDetUsuarios`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listaDetUsuarios`()
-BEGIN
-	SELECT tb_usuario.nom_usuario,
-       tb_usuario.apePat_usuario,
-       tb_usuario.apeMat_usuario,
-       tb_area.desc_area,
-       tb_cargo.desc_cargo,
-       tb_usuario.id_usuario,
-       tb_usuario.estado_usuario
-  FROM    (   bd_sigal.tb_usuario tb_usuario
-           INNER JOIN
-              bd_sigal.tb_area tb_area
-           ON (tb_usuario.cod_area = tb_area.cod_area))
-       INNER JOIN
-          bd_sigal.tb_cargo tb_cargo
-       ON (tb_usuario.cod_cargo = tb_cargo.cod_cargo);
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_listaMenu`
---
-
-DROP PROCEDURE IF EXISTS `sp_listaMenu`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listaMenu`(varcod_perfil int)
-BEGIN
-	SELECT distinct tb_menu.desc_Menu,
-       tb_menu.cod_Menu,
-       tb_menu.actionUrl_Menu
-  FROM    (   (   bd_sigal.tb_detalleperfil tb_detalleperfil
-               INNER JOIN
-                  bd_sigal.tb_perfil tb_perfil
-               ON (tb_detalleperfil.cod_perfil = tb_perfil.cod_perfil))
-           INNER JOIN
-              bd_sigal.tb_menu tb_menu
-           ON (tb_detalleperfil.cod_menu = tb_menu.cod_Menu))
-       INNER JOIN
-          bd_sigal.tb_usuario tb_usuario
-       ON (tb_usuario.cod_perfil = tb_perfil.cod_perfil)
- WHERE (tb_usuario.cod_perfil = varcod_perfil);
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_listaOpcionesMenu`
---
-
-DROP PROCEDURE IF EXISTS `sp_listaOpcionesMenu`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listaOpcionesMenu`(varcod_menu int,varcod_perfil int)
-BEGIN
-	SELECT tb_opcionesmenu.cod_opcionesMenu,
-       tb_opcionesmenu.cod_Menu,
-       tb_opcionesmenu.desc_OpcionesMenu,
-       tb_opcionesmenu.actionUrl_OpcionesMenu
-  FROM    (   (   bd_sigal.tb_detalleperfil tb_detalleperfil
-               INNER JOIN
-                  bd_sigal.tb_perfil tb_perfil
-               ON (tb_detalleperfil.cod_perfil = tb_perfil.cod_perfil))
-           INNER JOIN
-              bd_sigal.tb_opcionesmenu tb_opcionesmenu
-           ON (tb_detalleperfil.cod_opcionesMenu =
-                  tb_opcionesmenu.cod_opcionesMenu))
-       INNER JOIN
-          bd_sigal.tb_usuario tb_usuario
-       ON (tb_usuario.cod_perfil = tb_perfil.cod_perfil)
- WHERE (tb_opcionesmenu.cod_Menu =varcod_menu ) AND (tb_usuario.cod_perfil = varcod_perfil);
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_listaProductos`
---
-
-DROP PROCEDURE IF EXISTS `sp_listaProductos`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listaProductos`(estado_producto char(1))
-BEGIN
-	SELECT tb_producto.cod_producto,
-       tb_producto.desc_producto,
-       tb_producto.cod_unidadMedida,
-       tb_producto.cod_marca,
-       tb_producto.cod_categoria,
-       tb_producto.stock_producto,
-       tb_producto.estado_producto
-  FROM bd_sigal.tb_producto tb_producto
- WHERE (tb_producto.estado_producto = estado_producto);
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_listaProductosCD`
---
-
-DROP PROCEDURE IF EXISTS `sp_listaProductosCD`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listaProductosCD`()
-BEGIN
-	SELECT tb_producto.cod_producto, tb_producto.desc_producto
-  FROM bd_sigal.tb_producto tb_producto
- WHERE (tb_producto.estado_producto = 'A');
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_obtenerUltimoCodigo`
---
-
-DROP PROCEDURE IF EXISTS `sp_obtenerUltimoCodigo`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_obtenerUltimoCodigo`()
-BEGIN
-	SELECT tb_solicitudpedido.cod_solicitudPedido
-  FROM bd_sigal.tb_solicitudpedido tb_solicitudpedido
-ORDER BY tb_solicitudpedido.cod_solicitudPedido DESC
- LIMIT 1;
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_registraDetallePedido`
---
-
-DROP PROCEDURE IF EXISTS `sp_registraDetallePedido`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registraDetallePedido`( Vcod_solicitudPedido	char(8),
-                                            Vcod_producto	int,
-                                            Vcantidad	int)
-BEGIN
-	INSERT
-  INTO bd_sigal.tb_detallepedido(cod_solicitudPedido, cod_producto, cantidad)
-VALUES (Vcod_solicitudPedido,Vcod_producto,Vcantidad);
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_registraProducto`
---
-
-DROP PROCEDURE IF EXISTS `sp_registraProducto`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registraProducto`(Vdesc_producto	varchar(45),
-                                      Vcod_unidadMedida	int(11),
-                                      Vcod_marca	int(11),
-                                      Vcod_categoria	int(11))
-BEGIN
-	INSERT INTO bd_sigal.tb_producto(desc_producto,
-                                 cod_unidadMedida,
-                                 cod_marca,
-                                 cod_categoria)
-VALUES (Vdesc_producto,
-        Vcod_unidadMedida,
-        Vcod_marca,
-        Vcod_categoria);
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_registrarSolicitudPedido`
---
-
-DROP PROCEDURE IF EXISTS `sp_registrarSolicitudPedido`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarSolicitudPedido`(Vcod_solicitudPedido	char(8),	
-                        Vcod_usuario	int,	
-                        Vcomentario_pedido	text,	
-                        Vtipo_pedido	varchar(45),	
-                        VfechaDevolucion_pedido	date,	
-                        VfechaRegistro_pedido	date,		
-                        VfechaRespuesta_pedido	date,		
-                        Vestado_pedido	varchar(45))
-BEGIN
-            INSERT INTO bd_sigal.tb_solicitudpedido(cod_solicitudPedido,
-                                                    cod_usuario,
-                                                    comentario_pedido,
-                                                    tipo_pedido,
-                                                    fechaDevolucion_pedido,
-                                                    fechaRegistro_pedido,
-                                                    fechaRespuesta_pedido,
-                                                    estado_pedido)
-            VALUES (Vcod_solicitudPedido	,	
-                        Vcod_usuario	,	
-                        Vcomentario_pedido	,	
-                        Vtipo_pedido	,	
-                        VfechaDevolucion_pedido	,	
-                        VfechaRegistro_pedido	,		
-                        VfechaRespuesta_pedido	,		
-                        Vestado_pedido	) ;
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
---
--- Definition of procedure `sp_registrarUsuario`
---
-
-DROP PROCEDURE IF EXISTS `sp_registrarUsuario`;
-
-DELIMITER $$
-
-/*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarUsuario`(Vnom_usuario	varchar(45),
-                                      VapePat_usuario	varchar(45),
-                                      VapeMat_usuario	varchar(45),
-                                      Vcod_cargo	int(11),
-                                      Vcod_area	int(11),
-                                      Vid_usuario	varchar(45),
-                                      Vpass_usuario	varchar(150))
-BEGIN
-INSERT INTO bd_sigal.tb_usuario(nom_usuario,
-                                apePat_usuario,
-                                apeMat_usuario,
-                                cod_cargo,
-                                cod_area,
-                                id_usuario,
-                                pass_usuario,estado_usuario)
-VALUES (Vnom_usuario,
-        VapePat_usuario,
-        VapeMat_usuario,
-        Vcod_cargo,
-        Vcod_area,
-        Vid_usuario,
-        Vpass_usuario,'A');
-END $$
-/*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
-
-DELIMITER ;
-
-
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

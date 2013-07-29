@@ -2,21 +2,24 @@ package com.sigal.mantenimiento.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.catalina.connector.Request;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sigal.mantenimiento.bean.ProductoDTO;
 import com.sigal.mantenimiento.service.ProductoService;
+import com.sigal.pedido.bean.DetallePedidoDTO;
 import com.sigal.util.Constantes;
 import com.sigal.util.UtilSigal;
 
 @ParentPackage("proy_calidad_SIGAL2")
 public class ProductoAction extends ActionSupport {
-
+	Map<String, Object> lasesion = ActionContext.getContext().getSession(); 
 	ProductoService objProServ = new ProductoService();
 	private ProductoDTO objProducto;
 	private List<ProductoDTO> lstProducto;
@@ -30,6 +33,7 @@ public class ProductoAction extends ActionSupport {
 	private Integer numeroPaginasModalProducto;
 	private Integer idProve;
 	private String url;
+	private String tipo;
 
 	@Action(value = "/listarProductoPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_producto.jsp") })
 	public String listarProductoPag() {
@@ -182,21 +186,36 @@ public class ProductoAction extends ActionSupport {
 		return SUCCESS;
 	} 
 	@Action(value = "/generarQR", results = { @Result(name = "success", location = "/paginas/mantenimientos/ver_qr.jsp") })
-	public String generarQR() {  
-		Integer cod= getCodProd();
-		String url = getUrl();
-		url = url.substring(0, url.indexOf("/",8)); 
-		url= url + "/Sigal/leerQR?codProd="+cod;
-		System.out.println("url2:"+url);
-		//optengo el codigoQR
-		//me connecto con http a la web y hago que genere el QR de la direccion
-		// /Sigal/leerQR?codProd=
-//		request
-		
+	public String generarQR() {   
 		return SUCCESS;
 	} 
 	@Action(value = "/leerQR", results = { @Result(name = "success", location = "/paginas/mantenimientos/leer_qr.jsp") })
-	public String leerQR() {  
+	public String leerQR() {
+		Integer cod = getCodProd();
+		ProductoDTO prod =  new ProductoDTO();
+		prod.setCod_producto(cod);
+		objProducto = objProServ.getProducto(prod); 
+		return SUCCESS;
+	}
+//	guardaSessionQR
+	@Action(value = "/guardaSessionQR", results = { @Result(name = "success", location = "/paginas/seguridad/login.jsp") })
+	public String guardaSessionQR() {
+		Integer cod = getCodProd();
+		String tipo = getTipo(); 
+		Object[] obj = null;
+		obj = (Object[]) lasesion.get("DatosQR");
+		if(obj==null){
+			obj = new Object[2];
+		}
+		System.out.println("cod:"+cod);
+		System.out.println("tipo:"+tipo);
+		obj[0]=cod;
+		obj[1]=tipo;
+		lasesion.put("DatosQR", obj);
+		Object[] objj = (Object[]) lasesion.get("DatosQR");
+		System.out.println("objj1:"+objj[0]);
+		System.out.println("objj2:"+objj[1]);
+		
 		return SUCCESS;
 	}
 	public ProductoDTO getObjProducto() {
@@ -287,6 +306,12 @@ public class ProductoAction extends ActionSupport {
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
  
 	

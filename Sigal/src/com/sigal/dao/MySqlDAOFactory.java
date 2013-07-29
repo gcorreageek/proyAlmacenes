@@ -4,6 +4,14 @@ import com.sigal.cotizacion.dao.CotizacionDAO;
 import com.sigal.cotizacion.dao.CotizacionDetalleDAO;
 import com.sigal.cotizacion.dao.MySqlCotizacionDAO;
 import com.sigal.cotizacion.dao.MySqlCotizacionDetalleDAO;
+import com.sigal.informeexterno.dao.InformeExternoDAO;
+import com.sigal.informeexterno.dao.InformeExternoDetalleDAO;
+import com.sigal.informeexterno.dao.MySqlInformeExternoDAO;
+import com.sigal.informeexterno.dao.MySqlInformeExternoDetalleDAO;
+import com.sigal.informeinterno.dao.InformeInternoDAO;
+import com.sigal.informeinterno.dao.InformeInternoDetalleDAO;
+import com.sigal.informeinterno.dao.MySqlInformeInternoDAO;
+import com.sigal.informeinterno.dao.MySqlInformeInternoDetalleDAO;
 import com.sigal.mantenimiento.dao.CategoriaDAO;
 import com.sigal.mantenimiento.dao.MySqlCategoriaDAO;
 import com.sigal.mantenimiento.dao.MySqlProductoDAO;
@@ -101,6 +109,22 @@ public class MySqlDAOFactory extends DAOFactory {
 	@Override
 	public OrdenCompraDetalleDAO getOrdenCompraDetalleDAO() {
 		return new MySqlOrdenCompraDetalleDAO();
+	} 
+	@Override
+	public InformeInternoDAO getInformeInternoDAO() {
+		return new MySqlInformeInternoDAO();
+	} 
+	@Override
+	public InformeInternoDetalleDAO getInformeInternoDetalleDAO() {
+		return new MySqlInformeInternoDetalleDAO();
+	} 
+	@Override
+	public InformeExternoDAO getInformeExternoDAO() {
+		return new MySqlInformeExternoDAO();
+	} 
+	@Override
+	public InformeExternoDetalleDAO getInformeExternoDetalleDAO() {
+		return new MySqlInformeExternoDetalleDAO();
 	}
 
  

@@ -21,8 +21,8 @@
 	<session-config>
 		<session-timeout>50</session-timeout>
 	</session-config>
-<!-- 	<error-page>  -->
-<!-- 	    <error-code>404</error-code>  -->
-<!-- 	    <location>/pages/error.jsp</location>  -->
-<!-- 	</error-page> -->
+	<error-page> 
+	    <error-code>404</error-code> 
+	    <location>/paginas/seguridad/error.jsp</location> 
+	</error-page>
 </web-app>

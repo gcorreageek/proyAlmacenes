@@ -4,6 +4,7 @@
 package com.sigal.informeinterno.action;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -12,9 +13,16 @@ import org.apache.struts2.convention.annotation.Result;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sigal.informeinterno.bean.InformeInternoDTO;
+import com.sigal.informeinterno.bean.InformeInternoDetalleDTO;
+import com.sigal.informeinterno.service.InformeInternoService;
 import com.sigal.mantenimiento.bean.ProductoDTO;
 import com.sigal.mantenimiento.service.ProductoService;
 import com.sigal.pedido.bean.DetallePedidoDTO;
+import com.sigal.pedido.service.PedidoDetalleService;
+import com.sigal.seguridad.bean.AreaDTO;
+import com.sigal.seguridad.bean.UsuarioDTO;
+import com.sigal.seguridad.service.AreaService;
 
 /**
  * @author Gustavo A. Correa C.
@@ -22,13 +30,20 @@ import com.sigal.pedido.bean.DetallePedidoDTO;
  */
 @ParentPackage("proy_calidad_SIGAL2")
 public class InformeInternoAction extends ActionSupport {
+	InformeInternoService objInfInterServ = new InformeInternoService();
 	ProductoService objProdServ = new ProductoService();
+	PedidoDetalleService objPedDetServ = new PedidoDetalleService();
 	ProductoDTO objProducto;
-	private Map<String, Object> lasesion = ActionContext.getContext().getSession(); 
+	AreaService objAreaServ = new AreaService();
+	
+	private List<AreaDTO> lstArea;
+	Map<String, Object> lasesion = ActionContext.getContext().getSession(); 
 	
 	private Integer codProd;
 	private String mensaje;
 	private Integer rsult;
+	private InformeInternoDTO objInformeInterno;
+	List<InformeInternoDetalleDTO> lstIIDet;
 	
 //	rsult mensaje
 	private final int totalProductoEnElDetalle=2;
@@ -45,38 +60,8 @@ public class InformeInternoAction extends ActionSupport {
 		if(prod==null){
 			this.setMensaje("No es un producto Valido!");
 			this.setRsult(-1);
-		}else{ 
-			System.out.println("settea");
-			
-			setObjProducto(prod);
-			//Buscamos si ese producto es de un pedido sin atender
-			//su pongamos k si es y hay 2 productos
-			//los metemos en una arreglo y comparamos si falta uno
-			if(lstDetPed==null){ 
-				lstDetPed = new ArrayList<DetallePedidoDTO>();
-			}
-			DetallePedidoDTO detallePed = new DetallePedidoDTO();
-			detallePed.setCod_producto(prod.getCod_producto()); 
-			lstDetPed.add(detallePed); 
-			System.out.println("ttam:"+lstDetPed.size());
-			if(lstDetPed.size()<3){//kiero k sean 2 productos
-				if(lstDetPed.size()==2){
-					this.setMensaje("Producto Completos ahora si les puedes dar Salida");
-					this.setRsult(0);
-				}else{
-					this.setMensaje("Muy bien!Pero Faltan mas productos");
-					this.setRsult(1);
-				} 
-			}else{ 
-				this.setMensaje("Se paso el # de productos! Tiene que eliminar 1 producto de la tabla");
-				this.setRsult(-2);
-			}
-			
-			lasesion.put("lstProdII", lstDetPed);
-			System.out.println("Tamano:"+lstDetPed.size());
-			for (DetallePedidoDTO obj : lstDetPed) {
-				System.out.println("obj:"+obj.getCod_producto());
-			}
+		}else{  
+			setObjProducto(prod); 
 		} 
 		return SUCCESS;
 	}
@@ -84,11 +69,82 @@ public class InformeInternoAction extends ActionSupport {
 	
 
 	@Action(value="/mainInformeInternoSalida",results={@Result(name="success",type="tiles",location="d_maininformeinternosalida")})
-	public String mainInformeInternoSalida(){ 
+	public String mainInformeInternoSalida(){
+		System.out.println("entra1");
+		Object[] obj =  (Object[]) lasesion.get("DatosQR");
+		System.out.println("entra2");
+		System.out.println("obj:"+obj[0]+"|"+obj[1]);
+		if(obj!=null){
+			if("Salida".equals(obj[1])){
+				codProd = (Integer) obj[0];
+			} 
+		}
+		lstArea = objAreaServ.listaArea();
 		return SUCCESS;
 	}
+	
+	@Action(value="/guardarIIS",results={@Result(name="success",location="/paginas/pedido/pedido_evaluacion_mensaje.jsp")})
+	public String guardarIIS(){
+		try {
+			UsuarioDTO usuario =  (UsuarioDTO) lasesion.get("objUsuario");
+			objInformeInterno.setCod_usuario(usuario.getCod_usuario()); 
+			objInformeInterno.setTipo_informe_interno("Salida"); 
+			lstIIDet = new ArrayList<>();
+			DetallePedidoDTO pedDet = new DetallePedidoDTO();
+			pedDet.setCod_solicitudPedido(objInformeInterno.getCod_pedido()); 
+			List<DetallePedidoDTO> lstDetPedido= objPedDetServ.listaPedidoXidPedido(pedDet);
+			for (DetallePedidoDTO detallePedidoDTO : lstDetPedido) {
+				InformeInternoDetalleDTO iiDet = new InformeInternoDetalleDTO();
+				iiDet.setCod_detalle_pedido(detallePedidoDTO.getCod_detallePedido()); 
+				lstIIDet.add(iiDet);
+			} 
+			objInfInterServ.registrar(objInformeInterno, lstIIDet);  
+			this.mensaje = "Se ingreso correctamente el Informe Interno Salida";
+		} catch (Exception e) {
+			System.out.println("Try:"+e);
+			e.printStackTrace();
+		} 
+		return SUCCESS;
+	}
+	@Action(value="/guardarIIE",results={@Result(name="success",location="/paginas/pedido/pedido_evaluacion_mensaje.jsp")})
+	public String guardarIIE(){
+		try {
+			UsuarioDTO usuario =  (UsuarioDTO) lasesion.get("objUsuario");
+			objInformeInterno.setCod_usuario(usuario.getCod_usuario()); 
+			objInformeInterno.setTipo_informe_interno("Entrada"); 
+			lstIIDet = new ArrayList<>();
+			DetallePedidoDTO pedDet = new DetallePedidoDTO();
+			pedDet.setCod_solicitudPedido(objInformeInterno.getCod_pedido()); 
+			List<DetallePedidoDTO> lstDetPedido= objPedDetServ.listaPedidoXidPedido(pedDet);
+			for (DetallePedidoDTO detallePedidoDTO : lstDetPedido) {
+				InformeInternoDetalleDTO iiDet = new InformeInternoDetalleDTO();
+				iiDet.setCod_detalle_pedido(detallePedidoDTO.getCod_detallePedido()); 
+				lstIIDet.add(iiDet);
+			} 
+			objInfInterServ.registrar(objInformeInterno, lstIIDet);  
+			this.mensaje = "Se ingreso correctamente el Informe Interno Entrada";
+		} catch (Exception e) {
+			System.out.println("Try:"+e);
+			e.printStackTrace();
+		} 
+		return SUCCESS;
+	}
+	
+	
+	
+	
+	
+	
+	
 	@Action(value="/mainInformeInternoEntrada",results={@Result(name="success",type="tiles",location="d_maininformeinternoentrada")})
 	public String mainInformeInternoEntrada(){ 
+		lstArea = objAreaServ.listaArea();
+		Object[] obj =  (Object[]) lasesion.get("DatosQR");
+		if(obj!=null){
+			if("Entrada".equals(obj[1])){
+				codProd = (Integer) obj[0];
+			} 
+		} 
 		return SUCCESS;
 	}
 
@@ -135,6 +191,30 @@ public class InformeInternoAction extends ActionSupport {
 	} 
 	public void setRsult(Integer rsult) {
 		this.rsult = rsult;
+	}
+
+
+
+	public List<AreaDTO> getLstArea() {
+		return lstArea;
+	}
+
+
+
+	public void setLstArea(List<AreaDTO> lstArea) {
+		this.lstArea = lstArea;
+	}
+
+
+
+	public InformeInternoDTO getObjInformeInterno() {
+		return objInformeInterno;
+	}
+
+
+
+	public void setObjInformeInterno(InformeInternoDTO objInformeInterno) {
+		this.objInformeInterno = objInformeInterno;
 	}
 	
 	

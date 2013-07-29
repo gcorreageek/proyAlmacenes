@@ -20,6 +20,9 @@
 	<definition name="d_actuarproducto" extends="d_index">
  		<put-attribute name="body" value="/paginas/mantenimientos/accion_producto.jsp"/>
  	</definition> 
+ 	<definition name="leerQR" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/leer_qr.jsp"/>
+ 	</definition>
  	<!-- Proveedor -->
  	<definition name="d_mainproveedor" extends="d_index">
  		<put-attribute name="body" value="/paginas/mantenimientos/main_proveedor.jsp"/>
@@ -60,6 +63,8 @@
  	<definition name="d_maininformeexternoentrada" extends="d_index">
  		<put-attribute name="body" value="/paginas/informe_externo/main_informe_externo_entrada.jsp"/>
  	</definition> 
- 	
+ 	<definition name="d_maininformeexternosalida" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/informe_externo/main_informe_externo_salida.jsp"/>
+ 	</definition> 
  	
 </tiles-definitions>

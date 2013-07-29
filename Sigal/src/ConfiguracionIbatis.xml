@@ -18,6 +18,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 	<typeAlias alias="CotizacionDetalleBean" type="com.sigal.cotizacion.bean.CotizacionDetalleDTO" /> 
 	 	<typeAlias alias="OrdenCompraBean" type="com.sigal.ordencompra.bean.OrdenCompraDTO" />
 	 	<typeAlias alias="OrdenCompraDetalleBean" type="com.sigal.ordencompra.bean.OrdenCompraDetalleDTO" /> 
+	 	<typeAlias alias="InformeInternoBean" type="com.sigal.informeinterno.bean.InformeInternoDTO" />
+	 	<typeAlias alias="InformeInternoDetalleBean" type="com.sigal.informeinterno.bean.InformeInternoDetalleDTO" /> 
+	 	<typeAlias alias="InformeExternoBean" type="com.sigal.informeexterno.bean.InformeExternoDTO" />
+	 	<typeAlias alias="InformeExternoDetalleBean" type="com.sigal.informeexterno.bean.InformeExternoDetalleDTO" /> 
 	</typeAliases> 
 
 	<environments default="development">
@@ -25,12 +29,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<transactionManager type="JDBC" />			
 			<dataSource type="UNPOOLED"> 
 						<property name="driver" value="com.mysql.jdbc.Driver" />
-						<property name="url" value="jdbc:mysql://localhost:3306/bd_sigal" />
-						<property name="username" value="root" /> 
-						<property name="password" value="root" /> 
-<!-- 						<property name="url" value="jdbc:mysql://sql3.freemysqlhosting.net:3306/sql314707" /> -->
-<!-- 						<property name="username" value="sql314707" />  -->
-<!-- 						<property name="password" value="eY3!qG4!" />  -->
+<!-- 						<property name="url" value="jdbc:mysql://localhost:3306/bd_sigal" /> -->
+<!-- 						<property name="username" value="root" />  -->
+<!-- 						<property name="password" value="root" />  -->
+						<property name="url" value="jdbc:mysql://sql3.freemysqlhosting.net:3306/sql314707" />
+						<property name="username" value="sql314707" /> 
+						<property name="password" value="eY3!qG4!" /> 
 			</dataSource>
 		</environment>
 	</environments>
@@ -49,6 +53,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <mapper resource="com/sigal/dao/xml/CotizacionDetalle.xml" />
 		 <mapper resource="com/sigal/dao/xml/OrdenCompra.xml" />
 		 <mapper resource="com/sigal/dao/xml/OrdenCompraDetalle.xml" />
+		 <mapper resource="com/sigal/dao/xml/InformeInterno.xml" />
+		 <mapper resource="com/sigal/dao/xml/InformeInternoDetalle.xml" />
+		 <mapper resource="com/sigal/dao/xml/InformeExterno.xml" />
+		 <mapper resource="com/sigal/dao/xml/InformeExternoDetalle.xml" />
 	</mappers>
 </configuration>
 

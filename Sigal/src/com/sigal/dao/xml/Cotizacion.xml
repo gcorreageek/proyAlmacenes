@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="SQL_registraCotizacion"  parameterType="CotizacionBean" useGeneratedKeys="true"
       keyProperty="cod_cotizacion"   > 
 		insert into tb_cotizacion(obs_cotizacion,cod_usuario,fecharegistro_cotizacion,
-		cod_proveedor) values(#{obs_cotizacion},#{cod_usuario},CURDATE(),
+		cod_proveedor) values(#{obs_cotizacion},#{cod_usuario},NOW(),
 		#{cod_proveedor}) 
 	</insert> 
 	

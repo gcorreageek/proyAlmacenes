@@ -6,13 +6,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Autheticaci&oacute;n de Usuario</title>
+    <title>Sigal</title>
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/assets/bootstrap/img/sigal_logo.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="../../assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/assets/bootstrap/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 40px;
@@ -46,7 +47,7 @@
       }
 
     </style>
-    <link href="../../assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>

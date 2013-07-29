@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ie"> 
+<!-- select cod_informe_externo,fecha_informe_externo, -->
+<!-- tipo_informe_externo,cod_usuario,cod_ordencompra,obs_informeexterno -->
+<!--  from tb_informe_externo; --> 
+	<insert id="SQL_registraIE"  parameterType="InformeExternoBean" useGeneratedKeys="true"
+      keyProperty="cod_informe_externo"   > 
+		insert into tb_informe_externo(fecha_informe_externo,tipo_informe_externo,
+		cod_usuario,cod_ordencompra,obs_informeexterno) values(NOW(),#{tipo_informe_externo},
+		#{cod_usuario},#{cod_ordencompra},#{obs_informeexterno}) 
+	</insert> 
+	
+ 
+
+	
+</mapper>

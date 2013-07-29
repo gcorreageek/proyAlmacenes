@@ -2,6 +2,10 @@ package com.sigal.dao;
 
 import com.sigal.cotizacion.dao.CotizacionDAO;
 import com.sigal.cotizacion.dao.CotizacionDetalleDAO;
+import com.sigal.informeexterno.dao.InformeExternoDAO;
+import com.sigal.informeexterno.dao.InformeExternoDetalleDAO;
+import com.sigal.informeinterno.dao.InformeInternoDAO;
+import com.sigal.informeinterno.dao.InformeInternoDetalleDAO;
 import com.sigal.mantenimiento.dao.CategoriaDAO;
 import com.sigal.mantenimiento.dao.ProductoDAO;
 import com.sigal.mantenimiento.dao.ProductoProveedorDAO;
@@ -40,6 +44,13 @@ public abstract class DAOFactory {
 	//oc
 	public abstract OrdenCompraDAO getOrdenCompraDAO();
 	public abstract OrdenCompraDetalleDAO getOrdenCompraDetalleDAO();
+	//informes int
+	public abstract InformeInternoDAO getInformeInternoDAO();
+	public abstract InformeInternoDetalleDAO getInformeInternoDetalleDAO();
+	//informes ext
+	public abstract InformeExternoDAO getInformeExternoDAO();
+	public abstract InformeExternoDetalleDAO getInformeExternoDetalleDAO();
+	
 	
 	public static DAOFactory getDAOFactory(int wichFactory){
 		

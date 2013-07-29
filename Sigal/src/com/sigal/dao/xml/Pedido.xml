@@ -98,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into tb_pedido(cod_usuario,comentario_pedido,tipo_pedido,
 		fechaDevolucion_pedido,fechaRegistro_pedido,fechaEntrega_pedido,
 		estado_pedido) values(#{cod_usuario},#{comentario_pedido},#{tipo_pedido},
-		#{fechaDevolucion_pedido},CURDATE(),#{fechaEntrega_pedido},
+		#{fechaDevolucion_pedido},NOW(),#{fechaEntrega_pedido},
 		#{estado_pedido}) 
 	</insert> 
 	

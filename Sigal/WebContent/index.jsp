@@ -1,1 +1,1 @@
-<%response.sendRedirect("paginas/seguridad/login.jsp");%>
+<jsp:include page="/paginas/seguridad/login.jsp" /> 

@@ -14,6 +14,10 @@ public class OrdenCompraDetalleDTO {
 	private Integer cod_producto_proveedor;
 	private Integer cantidad;
 	
+	private String desc_producto;
+	private String unidadMedida;
+	private Integer stock_producto; 
+	
 	
 	public Integer getCod_DetalleOrdenCompra() {
 		return cod_DetalleOrdenCompra;
@@ -38,6 +42,24 @@ public class OrdenCompraDetalleDTO {
 	}
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
+	}
+	public String getDesc_producto() {
+		return desc_producto;
+	}
+	public void setDesc_producto(String desc_producto) {
+		this.desc_producto = desc_producto;
+	}
+	public String getUnidadMedida() {
+		return unidadMedida;
+	}
+	public void setUnidadMedida(String unidadMedida) {
+		this.unidadMedida = unidadMedida;
+	}
+	public Integer getStock_producto() {
+		return stock_producto;
+	}
+	public void setStock_producto(Integer stock_producto) {
+		this.stock_producto = stock_producto;
 	}
 	
 	
