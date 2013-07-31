@@ -1,11 +1,18 @@
 package com.sigal.seguridad.bean;
 
-public class CargoDTO {
+import java.io.Serializable;
 
-	
+public class CargoDTO implements Serializable{
+ 
+	private static final long serialVersionUID = -3830777767106851948L;
 	private Integer cod_cargo;
 	private String desc_cargo;
 	private Integer cod_area;
+	
+	private Integer inicio;
+	private Integer tamano;
+	private String desc_area;
+	
 	public Integer getCod_cargo() {
 		return cod_cargo;
 	}
@@ -23,6 +30,24 @@ public class CargoDTO {
 	}
 	public void setCod_area(Integer cod_area) {
 		this.cod_area = cod_area;
+	}
+	public Integer getInicio() {
+		return inicio;
+	}
+	public void setInicio(Integer inicio) {
+		this.inicio = inicio;
+	}
+	public Integer getTamano() {
+		return tamano;
+	}
+	public void setTamano(Integer tamano) {
+		this.tamano = tamano;
+	}
+	public String getDesc_area() {
+		return desc_area;
+	}
+	public void setDesc_area(String desc_area) {
+		this.desc_area = desc_area;
 	}
  
 	

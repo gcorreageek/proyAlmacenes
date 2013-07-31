@@ -2,8 +2,9 @@ package com.sigal.seguridad.bean;
 
 import java.io.Serializable;
 
-public class MenuDTO implements Serializable {
-
+public class MenuDTO implements Serializable { 
+ 
+	private static final long serialVersionUID = -8296328486735351816L;
 	private Integer cod_menu;
 	private String nom_menu;
 	private String url_menu; 

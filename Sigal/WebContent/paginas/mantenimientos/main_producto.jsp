@@ -21,21 +21,6 @@ function generarQR(idProd){
 	});  
 	
 	
-// 	http://www.codigos-qr.com/generador-qr-codes.php
-// url
-// post
-// url:"",tipo:"url",elreferer:"http://www.codigos-qr.com/generador-de-codigos-qr/",size:"4"
-// 	$.post("http://www.codigos-qr.com/generador-qr-codes.php",{url:"prueba.com",tipo:"url",elreferer:"http://www.codigos-qr.com/generador-de-codigos-qr/",size:"4"},function(data){ 
-// 			console.log('vamos peru!');
-// 		alert(''+data);
-		
-// 		//  		$("#divMostrarMensaje").html(data);
-// //  		$('#myImagenQr').modal({
-// // 		  keyboard: false
-// // 		});  
-// 	}); 
-	
-	
 	
 }
 $(document).ready(function() { 
@@ -55,10 +40,12 @@ $(document).ready(function() {
     	}
      	
      } 
- 	}
+ 	};
 
     $('#divPaginador').bootstrapPaginator(options); 
-	setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+	setTimeout(function(){ $('.alert').hide(1000); }, 2000);
+	
+	 
 }); 
 </script>
 </head>
@@ -113,10 +100,8 @@ $(document).ready(function() {
 		</div>	 
 		 <s:hidden id="tagTipoListado" name="tagTipoListado"      /> 
          <s:hidden id="numeroPaginas" name="numeroPaginas"      /> 
- 	     <div id="divPaginador"></div>    
-            
-            <a class="btn btn-primary"  href="accionProducto">Nuevo Producto</a>
-<!--             <a class="btn btn-primary"  href="productoStocks">Producto con Stocks</a> -->
+ 	     <div id="divPaginador"></div>     
+            <a class="btn btn-primary"  href="accionProducto">Nuevo Producto</a> 
 
 </body>
 </html>
@@ -128,6 +113,6 @@ $(document).ready(function() {
 <div id="myImagenQr" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalImagenQR" aria-hidden="true">
 <div class="modal-body"> 
       <div id="divMostrarMensaje" align="center">
-      </div> 
+      </div>  
 </div> 
 </div>

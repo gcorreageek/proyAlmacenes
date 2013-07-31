@@ -19,7 +19,7 @@
 	                  <td>${row.raz_social}</td> 
 	                  <td>${row.ruc}</td> 
 	                  <td>${row.correo}</td> 
-	                  <td align="center"><button onclick="javascript:seleccionaProvee(${row.cod_proveedor},'${row.raz_social}')" type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td> 
+	                  <td align="center"><button onclick="javascript:seleccionaProvee(${row.cod_proveedor},"${row.raz_social}");" type="button" class="btn btn-link" data-dismiss="modal" aria-hidden="true">[Seleccionar]</button></td> 
 	                </tr>
 			     </c:forEach> 
 		      </c:if>   

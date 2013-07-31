@@ -71,9 +71,7 @@ public class InformeInternoAction extends ActionSupport {
 	@Action(value="/mainInformeInternoSalida",results={@Result(name="success",type="tiles",location="d_maininformeinternosalida")})
 	public String mainInformeInternoSalida(){
 		System.out.println("entra1");
-		Object[] obj =  (Object[]) lasesion.get("DatosQR");
-		System.out.println("entra2");
-		System.out.println("obj:"+obj[0]+"|"+obj[1]);
+		Object[] obj =  (Object[]) lasesion.get("DatosQR"); 
 		if(obj!=null){
 			if("Salida".equals(obj[1])){
 				codProd = (Integer) obj[0];
@@ -128,14 +126,7 @@ public class InformeInternoAction extends ActionSupport {
 			e.printStackTrace();
 		} 
 		return SUCCESS;
-	}
-	
-	
-	
-	
-	
-	
-	
+	} 
 	@Action(value="/mainInformeInternoEntrada",results={@Result(name="success",type="tiles",location="d_maininformeinternoentrada")})
 	public String mainInformeInternoEntrada(){ 
 		lstArea = objAreaServ.listaArea();
@@ -148,6 +139,15 @@ public class InformeInternoAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	
+	public Object getPedidos(Integer idProd){
+		if(idProd!=null ){
+//			objPedDetServ.listaPedidoXidPedido(det)
+		}
+		
+		
+		return null;
+	}
 
 
 	public Integer getCodProd() {

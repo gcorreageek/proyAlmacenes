@@ -40,7 +40,7 @@ function guardarIIS(){//objInformeInterno.cod_pedido  obs_informeinterno
 
 $(document).ready(function() {  
 	var idProd= $('#cod_producto').val();
-	if(idProd!=null){ 
+	if(idProd!=''){ 
 		alert('Tienes un producto para darle entrada:'+idProd);
 	}
 	$('#idBuscarPedido').click(function(){

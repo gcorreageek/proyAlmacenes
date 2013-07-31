@@ -103,11 +103,17 @@ public class ProductoAction extends ActionSupport {
 	@Action(value = "/actuarProducto", results = { @Result(name = "success", type = "tiles", location = "d_actuarproducto") })
 	public String actuarProducto() {
 		Boolean rsultado = false;
-		if (objProducto.getCod_producto() == null) {
-			rsultado = objProServ.registrarProducto(objProducto);
-		} else {
-			rsultado = objProServ.actualizarProducto(objProducto);
+		if(!"".equals(objProducto.getDesc_producto().trim())){
+			rsultado = true;
 		}
+		if(rsultado){
+			if (objProducto.getCod_producto() == null) {
+				rsultado = objProServ.registrarProducto(objProducto);
+			} else {
+				rsultado = objProServ.actualizarProducto(objProducto);
+			}	
+		}
+		
 		if (rsultado) {
 			this.rsult = 0;
 			this.mensaje = "Todo Correctamente";
@@ -211,11 +217,7 @@ public class ProductoAction extends ActionSupport {
 		System.out.println("tipo:"+tipo);
 		obj[0]=cod;
 		obj[1]=tipo;
-		lasesion.put("DatosQR", obj);
-		Object[] objj = (Object[]) lasesion.get("DatosQR");
-		System.out.println("objj1:"+objj[0]);
-		System.out.println("objj2:"+objj[1]);
-		
+		lasesion.put("DatosQR", obj);  
 		return SUCCESS;
 	}
 	public ProductoDTO getObjProducto() {

@@ -42,6 +42,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where ped.tipo_pedido=#{tipo_pedido}
 		order by ped.cod_solicitudPedido desc
 	</select> 
+<!-- 	<select id="SQL_listaPedidoXIdProducto" resultType="PedidoBean" parameterType="PedidoBean" > -->
+<!-- 		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario -->
+<!-- 		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo -->
+<!-- 		inner join tb_area area on cargo.cod_area= area.cod_area -->
+<!-- 		inner join tb_pedido_detalle det on ped.cod_solicitudpedido=det.cod_solicitudpedido -->
+		
+<!-- 		where ped.tipo_pedido=#{tipo_pedido} -->
+<!-- 		order by ped.cod_solicitudPedido desc -->
+<!-- 	</select>  -->
 	 <!-- Tamano Fin  -->
 	 <!-- Paginacion Inicio -->
 	<select id="SQL_listaPedidoPag" resultType="PedidoBean" parameterType="PedidoBean"  >

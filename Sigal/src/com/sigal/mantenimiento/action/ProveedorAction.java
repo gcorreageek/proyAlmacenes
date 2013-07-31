@@ -114,18 +114,12 @@ public class ProveedorAction extends ActionSupport {
 	public String eliminarProveedor() {
 		ProveedorDTO provee = new ProveedorDTO();
 		provee.setCod_proveedor(this.codProvee);
-		Boolean rsultado=null;
+		Boolean rsultado=false;
 		try {
 			rsultado = objProServ.eliminarProveedor(provee);
 		}  
 		catch (Exception  e ) { 
-//			System.out.println("toda:"+e.getMessage());
-			SQLException sqle = (SQLException) e;
-			System.out.println("te llegooo!");
-			System.out.println("vamos peru1:"+sqle.getErrorCode());
-			System.out.println("vamos peru2:"+sqle.getMessage());
-			System.out.println("vamos peru3:"+sqle.getSQLState());
-			System.out.println("es de aca"+e);
+			e.printStackTrace();
 		}
 		if (rsultado) {
 			this.rsult = 0;
@@ -139,9 +133,14 @@ public class ProveedorAction extends ActionSupport {
 	}
 
 	@Action(value = "/actuarProveedor", results = { @Result(name = "success", type = "tiles", location = "d_actuarproveedor") })
-	public String actuarProveedor() {
-		System.out.println("accc");
+	public String actuarProveedor() { 
 		Boolean rsultado = false;
+		if(!"".equals(objProveedor.getRaz_social())){
+			rsultado = true;
+		}
+		if(!"".equals(objProveedor.getCorreo())){
+			rsultado = true;
+		}
 		try {
 			if (objProveedor.getCod_proveedor() == null) {
 				rsultado = objProServ.registrarProveedor(objProveedor);

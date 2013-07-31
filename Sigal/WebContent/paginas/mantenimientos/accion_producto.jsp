@@ -50,12 +50,19 @@ $(document).ready(function() {
 <div class="control-group">
 <label class="control-label" for="inputUMedida">U.Medida</label>
 <div class="controls">
-<s:select   
-		headerKey="Selecciona" headerValue="Selecciona"
+<s:select    
 		list="#{'Unidad':'Unidad', 'Caja':'Caja', 'Docena':'Docena',  'Millar':'Millar'}"
 		name="objProducto.unidadMedida"  value="objProducto.unidadMedida" />
 </div>
 </div>
+<!-- <div class="control-group"> -->
+<!-- <label class="control-label" for="inputUMedida">Habilitaci&oacute;n</label> -->
+<!-- <div class="controls"> -->
+<%-- <s:select     --%>
+<%-- 		list="#{'Aprobado':'Aprobado', 'Desaprobado':'Desaprobado'}" --%>
+<%-- 		name="objProducto.unidadMedida"  value="objProducto.unidadMedida" /> --%>
+<!-- </div> -->
+<!-- </div> -->
  
  
 <div class="control-group"> 

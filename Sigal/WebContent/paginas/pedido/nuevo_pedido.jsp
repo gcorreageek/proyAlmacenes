@@ -105,7 +105,8 @@ $(document).ready(function() {
 <div class="control-group">
 	<div  class="form-inline ">
 		<label class="control-label" for="inputResponsable">Responsable</label>	
-		<input type="text" class="span4" id="inputResponsable" value="<%= detalleUsuario.getApePat_usuario()+" "+detalleUsuario.getApeMat_usuario()+" "+detalleUsuario.getNom_usuario() %>"   disabled>
+		<input type="text" class="span4" id="inputResp
+		onsable" value="<%=  detalleUsuario.getNom_usuario() %>"   disabled>
 		<label class="control-label" for="inputArea">Area</label>
 		<input type="text" id="inputArea" value="<%=areaUsuario.getDesc_area() %>" disabled> 
 		<label class="control-label" for="inputCargo">Cargo</label>

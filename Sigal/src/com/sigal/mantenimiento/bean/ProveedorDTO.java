@@ -19,6 +19,7 @@ public class ProveedorDTO  implements
 	private Integer inicio;
 	private Integer tamano;
 	private String correo;
+	private String habilitado;
 	
 	public Integer getCod_proveedor() {
 		return cod_proveedor;
@@ -62,6 +63,12 @@ public class ProveedorDTO  implements
 	}
 	public void setTamano(Integer tamano) {
 		this.tamano = tamano;
+	}
+	public String getHabilitado() {
+		return habilitado;
+	}
+	public void setHabilitado(String habilitado) {
+		this.habilitado = habilitado;
 	}
 	
 	

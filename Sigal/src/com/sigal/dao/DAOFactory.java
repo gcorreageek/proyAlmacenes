@@ -15,8 +15,10 @@ import com.sigal.ordencompra.dao.OrdenCompraDAO;
 import com.sigal.ordencompra.dao.OrdenCompraDetalleDAO;
 import com.sigal.pedido.dao.PedidoDetalleDAO;
 import com.sigal.pedido.dao.SolicitudPedidoDAO;
+import com.sigal.seguridad.dao.AccesoDAO;
 import com.sigal.seguridad.dao.AreaDAO;
 import com.sigal.seguridad.dao.CargoDAO;
+import com.sigal.seguridad.dao.MenuDAO;
 import com.sigal.seguridad.dao.UsuarioDAO;
 
 
@@ -28,6 +30,8 @@ public abstract class DAOFactory {
 	public abstract UsuarioDAO getUsuarioDAO();
 	public abstract CargoDAO getCargoDAO();
 	public abstract AreaDAO getAreaDAO();
+	public abstract AccesoDAO getAccesoDAO();
+	public abstract MenuDAO getMenuDAO();
 	
 	//producto
 	public abstract ProductoDAO getProductoDAO();

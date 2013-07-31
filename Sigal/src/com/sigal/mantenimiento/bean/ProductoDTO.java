@@ -11,6 +11,7 @@ public class ProductoDTO implements Serializable {
 	private	Integer	stock_producto	; 
 	private	Integer	inicio	;
 	private	Integer	tamano	;
+	private String habilitado;
 	
 	private Integer cod_proveedor;
 	

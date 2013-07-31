@@ -1,1 +1,1 @@
-<jsp:include page="/paginas/seguridad/login.jsp" /> 
+<jsp:forward page="/paginas/seguridad/login.jsp" /> 

@@ -46,9 +46,8 @@ public class LogueoAction extends ActionSupport {
 	 */
 	@SuppressWarnings("unused")
 	@Action(value="/login",results={@Result(name="success",type="tiles",location="d_index"),@Result(name="error",location="/paginas/seguridad/login.jsp")})
-	public String Login(){
-		System.out.println("Entro!!");
-		System.out.println("Mira1:"+objUsu.getId_usuario());
+	public String Login(){ 
+		System.out.println("Mira1:"+objUsu.getUsu_usuario());
 		System.out.println("Mira2:"+objUsu.getPass_usuario());
 		String ir=SUCCESS;
 		
@@ -58,14 +57,15 @@ public class LogueoAction extends ActionSupport {
 		
 		try {
 							
-			objUsuario = objLogServ.obtieneXusuario(objUsu.getId_usuario());
+			objUsuario = objLogServ.obtieneXusuario(objUsu.getUsu_usuario());
 			
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		
 		if(objUsuario!=null){
-			if(objUsuario.getPass_usuario().equals(UtilSigal.getHash(objUsu.getPass_usuario()))){
+			String hash= UtilSigal.getHash(objUsu.getPass_usuario());
+			if(objUsuario.getPass_usuario().equals( UtilSigal.getHash(objUsu.getPass_usuario()))){
 				//si la contraseña del usuario concuerda creamos la sesion
 				System.out.println("bienvenido");
 				//ya valide el usuario ahora obtengo los modulos a los que tiene el acceso el usuario
@@ -74,14 +74,9 @@ public class LogueoAction extends ActionSupport {
 				
 				
 				listaMenu=objLogServ.obtenerMenuXcodPerfil(objUsuario.getCod_cargo()); 
-				 for (MenuDTO menuDTO : listaMenu) {
-					System.out.println(menuDTO.getNom_menu()+"|"+menuDTO.getUrl_menu());
-				}
+		 
 						
 				lasesion =ActionContext.getContext().getSession();  
-				Object[] objj = (Object[]) lasesion.get("DatosQR");
-				System.out.println("objj1:"+objj[0]);
-				System.out.println("objj2:"+objj[1]);
 				
 				
 				lasesion.put("listaMenu", listaMenu);

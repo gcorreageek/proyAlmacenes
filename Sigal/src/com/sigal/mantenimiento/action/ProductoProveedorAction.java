@@ -117,7 +117,7 @@ public class ProductoProveedorAction extends ActionSupport {
 	public String eliminarProductoProveedor() {
 		ProductoProveedorDTO productProve = new ProductoProveedorDTO();
 		productProve.setCod_producto_proveedor(this.codProdProvee);
-		Boolean rsultado=null;
+		Boolean rsultado=false;
 		try {
 			rsultado = objProServ.eliminarProductoProveedor(productProve);
 		} catch (Exception e) {

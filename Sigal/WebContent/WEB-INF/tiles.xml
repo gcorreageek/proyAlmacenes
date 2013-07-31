@@ -13,6 +13,31 @@
 		<put-attribute name="pie" value="/templates/pie.jsp"/>	
 	</definition>
 	
+	<!-- Acceso -->
+	<definition name="d_mainacceso" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_acceso.jsp"/>
+ 	</definition>
+	<!-- Usuario -->
+	<definition name="d_mainusuario" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_usuario.jsp"/>
+ 	</definition>
+ 	<definition name="d_actuarusuario" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_usuario.jsp"/>
+ 	</definition>
+	<!-- 	Cargo -->
+	<definition name="d_maincargo" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_cargo.jsp"/>
+ 	</definition>
+ 	<definition name="d_actuarcargo" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_cargo.jsp"/>
+ 	</definition>
+	<!-- Area -->
+	<definition name="d_mainarea" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_area.jsp"/>
+ 	</definition>
+ 	<definition name="d_actuararea" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_area.jsp"/>
+ 	</definition>
 	<!-- Producto -->
 	<definition name="d_mainproducto" extends="d_index">
  		<put-attribute name="body" value="/paginas/mantenimientos/main_producto.jsp"/>
@@ -66,5 +91,7 @@
  	<definition name="d_maininformeexternosalida" extends="d_index">
  		<put-attribute name="body" value="/paginas/informe_externo/main_informe_externo_salida.jsp"/>
  	</definition> 
+ 	
+ 	
  	
 </tiles-definitions>

@@ -20,6 +20,8 @@ public class ProductoProveedorDTO  implements
 	private Integer cod_proveedor;
 	private String raz_social; 
 	private Double precio;
+	private String habilitado;
+	
 	private Integer inicio;
 	private Integer tamano;
 	
@@ -93,6 +95,7 @@ public class ProductoProveedorDTO  implements
 	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
+	
 	
 	
 	

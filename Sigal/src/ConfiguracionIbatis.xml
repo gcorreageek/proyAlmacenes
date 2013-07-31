@@ -9,6 +9,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="AreaBean" type="com.sigal.seguridad.bean.AreaDTO" />
 		<typeAlias alias="CargoBean" type="com.sigal.seguridad.bean.CargoDTO" />		    
 	 	<typeAlias alias="MenuBean" type="com.sigal.seguridad.bean.MenuDTO" /> 
+	 	<typeAlias alias="AccesoBean" type="com.sigal.seguridad.bean.AccesoMenuDTO" /> 
 	 	<typeAlias alias="ProductoBean" type="com.sigal.mantenimiento.bean.ProductoDTO" /> 
 	 	<typeAlias alias="ProveedorBean" type="com.sigal.mantenimiento.bean.ProveedorDTO" /> 
 	 	<typeAlias alias="ProductoProveedorBean" type="com.sigal.mantenimiento.bean.ProductoProveedorDTO" /> 
@@ -29,12 +30,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<transactionManager type="JDBC" />			
 			<dataSource type="UNPOOLED"> 
 						<property name="driver" value="com.mysql.jdbc.Driver" />
-<!-- 						<property name="url" value="jdbc:mysql://localhost:3306/bd_sigal" /> -->
-<!-- 						<property name="username" value="root" />  -->
-<!-- 						<property name="password" value="root" />  -->
-						<property name="url" value="jdbc:mysql://sql3.freemysqlhosting.net:3306/sql314707" />
-						<property name="username" value="sql314707" /> 
-						<property name="password" value="eY3!qG4!" /> 
+						<property name="url" value="jdbc:mysql://localhost:3306/bd_sigal" />
+						<property name="username" value="root" /> 
+						<property name="password" value="root" /> 
+<!-- 						<property name="url" value="jdbc:mysql://sql3.freemysqlhosting.net:3306/sql314707" /> -->
+<!-- 						<property name="username" value="sql314707" />  -->
+<!-- 						<property name="password" value="eY3!qG4!" />  -->
 			</dataSource>
 		</environment>
 	</environments>
@@ -42,6 +43,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>					
 		 <mapper resource="com/sigal/dao/xml/Usuario.xml" />
 		 <mapper resource="com/sigal/dao/xml/Menu.xml" /> 
+		 <mapper resource="com/sigal/dao/xml/Acceso.xml" /> 
 		 <mapper resource="com/sigal/dao/xml/Cargo.xml" /> 
 		 <mapper resource="com/sigal/dao/xml/Area.xml" /> 
 		 <mapper resource="com/sigal/dao/xml/Producto.xml" /> 

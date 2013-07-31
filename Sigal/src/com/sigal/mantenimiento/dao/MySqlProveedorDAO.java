@@ -39,6 +39,7 @@ public class MySqlProveedorDAO implements ProveedorDAO {
 		return proveedor;
 	}
  
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProveedorDTO> buscarProveedorPaginados(ProveedorDTO proveedor,
 			Integer inicio, Integer tamano) {
@@ -68,6 +69,7 @@ public class MySqlProveedorDAO implements ProveedorDAO {
 		return lstProveedor;
 	}
  
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProveedorDTO> buscarProveedor(ProveedorDTO proveedor) {
 		SqlSession sesion = sqlMapper.openSession();

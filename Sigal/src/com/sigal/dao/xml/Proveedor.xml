@@ -5,29 +5,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="proveedor">
 	<select id="SQL_listaProveedor" resultType="ProveedorBean">
 	    select provee.* from tb_proveedor	provee  order by provee.cod_proveedor
-	</select> 
-	
-	
+	</select>  
 	<select id="SQL_listaProveedorRazonSocial" resultType="ProveedorBean">
 	    select provee.* from tb_proveedor	provee where provee.raz_social like  #{raz_social}	  order by provee.cod_proveedor
-	</select>
-	<select id="SQL_listaProveedorVarios" resultType="ProveedorBean">
-	    select provee.* from tb_proveedor	provee 
-	    where provee.raz_social like #{raz_social}  
-	    order by provee.cod_proveedor
-	</select>  
+	</select> 
 	<select id="SQL_listaProveedorPaginados" resultType="ProveedorBean" parameterType="ProveedorBean"  >
 	    select provee.* from tb_proveedor	provee  order by provee.cod_proveedor  limit  #{inicio} ,  #{tamano}
 	</select>
 	<select id="SQL_listaProveedorRazonSocialPaginados" resultType="ProveedorBean" parameterType="ProveedorBean"  >
 	    select provee.* from tb_proveedor	provee where provee.raz_social like  #{raz_social}	  order by provee.cod_proveedor  limit  #{inicio} ,  #{tamano}
-	</select>
-	<select id="SQL_listaProveedorVariosPaginados" resultType="ProveedorBean" parameterType="ProveedorBean"  >
-	    select provee.* from tb_proveedor	provee 
-	    where provee.raz_social like #{raz_social}  
-	    order by provee.cod_proveedor  limit  #{inicio} ,  #{tamano}
 	</select> 
 	
+	
+	
+	<!-- 	aparte -->
 	<select id="SQL_registraProveedor"  parameterType="ProveedorBean" >
 		insert into tb_proveedor(raz_social,ruc,telefono,correo) values(#{raz_social},#{ruc},#{telefono},#{correo})
 	</select> 

@@ -30,10 +30,14 @@ import com.sigal.pedido.dao.MySqlPedidoDetalleDAO;
 import com.sigal.pedido.dao.MySqlSolicitudPedidoDAO;
 import com.sigal.pedido.dao.PedidoDetalleDAO;
 import com.sigal.pedido.dao.SolicitudPedidoDAO;
+import com.sigal.seguridad.dao.AccesoDAO;
 import com.sigal.seguridad.dao.AreaDAO;
 import com.sigal.seguridad.dao.CargoDAO;
+import com.sigal.seguridad.dao.MenuDAO;
+import com.sigal.seguridad.dao.MySqlAccesoDAO;
 import com.sigal.seguridad.dao.MySqlAreaDAO;
 import com.sigal.seguridad.dao.MySqlCargoDAO;
+import com.sigal.seguridad.dao.MySqlMenuDAO;
 import com.sigal.seguridad.dao.MySqlUsuarioDAO;
 import com.sigal.seguridad.dao.UsuarioDAO;
 
@@ -125,6 +129,14 @@ public class MySqlDAOFactory extends DAOFactory {
 	@Override
 	public InformeExternoDetalleDAO getInformeExternoDetalleDAO() {
 		return new MySqlInformeExternoDetalleDAO();
+	} 
+	@Override
+	public AccesoDAO getAccesoDAO() {
+		return new MySqlAccesoDAO();
+	} 
+	@Override
+	public MenuDAO getMenuDAO() {
+		return new MySqlMenuDAO();
 	}
 
  

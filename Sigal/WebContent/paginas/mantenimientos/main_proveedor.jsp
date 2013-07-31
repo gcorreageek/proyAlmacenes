@@ -89,8 +89,7 @@ $(document).ready(function() {
          <s:hidden id="numeroPaginas" name="numeroPaginas"      /> 
  	     <div id="divPaginador"></div>    
             
-            <a class="btn btn-primary"  href="accionProveedor">Nuevo Proveedor</a>
-<!--             <a class="btn btn-primary"  href="productoStocks">Producto con Stocks</a> -->
+            <a class="btn btn-primary"  href="accionProveedor">Nuevo Proveedor</a> 
 
 </body>
 </html>
