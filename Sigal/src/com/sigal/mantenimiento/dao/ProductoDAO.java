@@ -13,5 +13,11 @@ public interface ProductoDAO {
 	Boolean registrarProducto(ProductoDTO objProducto);
 	Boolean actualizarProducto(ProductoDTO objProducto);
 	Boolean eliminarProducto(ProductoDTO objProducto);
+	
+	List<ProductoDTO> buscarHabilitadosProductosPaginados(ProductoDTO producto,Integer inicio,Integer tamano);
+	List<ProductoDTO> buscarHabilitadosProductos(ProductoDTO producto);
+ 
+	List<ProductoDTO> buscarHabilitadosProductosIdProveePaginados( Object object, Integer idProve, Integer comienzo, Integer filasXPagina);
+	List<ProductoDTO> buscarHabilitadosProductosIdProvee(Object object, Integer idProve);
 
 }

@@ -10,8 +10,8 @@ import java.io.Serializable;
  *
  */
 public class ProveedorDTO  implements
- Serializable{
-	
+ Serializable{ 
+	private static final long serialVersionUID = 254441589439841466L;
 	private Integer cod_proveedor;
 	private String raz_social; 
 	private String ruc;

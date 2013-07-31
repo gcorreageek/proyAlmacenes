@@ -3,8 +3,8 @@ package com.sigal.mantenimiento.bean;
 import java.io.Serializable;
 
 public class ProductoDTO implements Serializable {
-
-	
+ 
+	private static final long serialVersionUID = 841008064908519638L;
 	private	Integer	cod_producto	;
 	private	String	desc_producto	;
 	private	String	unidadMedida	;  
@@ -59,6 +59,12 @@ public class ProductoDTO implements Serializable {
 	}
 	public void setCod_proveedor(Integer cod_proveedor) {
 		this.cod_proveedor = cod_proveedor;
+	}
+	public String getHabilitado() {
+		return habilitado;
+	}
+	public void setHabilitado(String habilitado) {
+		this.habilitado = habilitado;
 	}
  
 	

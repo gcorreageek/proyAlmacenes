@@ -3,8 +3,6 @@
  */
 package com.sigal.seguridad.action;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -21,6 +19,7 @@ import com.sigal.util.UtilSigal;
  * @author Gustavo A. Correa C.
  *
  */
+@SuppressWarnings("serial")
 @ParentPackage("proy_calidad_SIGAL2")
 public class AreaAction extends ActionSupport {
 	AreaService objAreaServ = new AreaService();
@@ -107,8 +106,7 @@ public class AreaAction extends ActionSupport {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-//		System.out.println("dd:"+objArea.getDesc_area());
+		} 
 		return SUCCESS;
 	}
 
@@ -121,13 +119,7 @@ public class AreaAction extends ActionSupport {
 			rsultado = objAreaServ.eliminarArea(provee);
 		}  
 		catch (Exception  e ) { 
-//			System.out.println("toda:"+e.getMessage());
-			SQLException sqle = (SQLException) e;
-			System.out.println("te llegooo!");
-			System.out.println("vamos peru1:"+sqle.getErrorCode());
-			System.out.println("vamos peru2:"+sqle.getMessage());
-			System.out.println("vamos peru3:"+sqle.getSQLState());
-			System.out.println("es de aca"+e);
+			e.printStackTrace();
 		}
 		if (rsultado) {
 			this.rsult = 0;
@@ -141,18 +133,24 @@ public class AreaAction extends ActionSupport {
 	}
 
 	@Action(value = "/actuarArea", results = { @Result(name = "success", type = "tiles", location = "d_actuararea") })
-	public String actuarArea() {
-		System.out.println("accc");
+	public String actuarArea() { 
 		Boolean rsultado = false;
-		try {
-			if (objArea.getCod_area() == null) {
-				rsultado = objAreaServ.registrarArea(objArea);
-			} else {
-				rsultado = objAreaServ.actualizarArea(objArea);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		objArea.setDesc_area(objArea.getDesc_area().trim());
+		if(!"".equals(objArea.getDesc_area())){
+			rsultado = true;
 		}
+		if(rsultado){
+			try {
+				if (objArea.getCod_area() == null) {
+					rsultado = objAreaServ.registrarArea(objArea);
+				} else {
+					rsultado = objAreaServ.actualizarArea(objArea);
+				}
+			} catch (Exception e) {
+				rsultado = false;
+				e.printStackTrace();
+			}	
+		} 
 		if (rsultado) {
 			this.rsult = 0;
 			this.mensaje = "Todo Correctamente";

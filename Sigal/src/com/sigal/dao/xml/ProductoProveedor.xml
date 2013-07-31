@@ -45,13 +45,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="SQL_registraProductoProveedor"  parameterType="ProductoProveedorBean" >
-		insert into tb_producto_proveedor(cod_producto,cod_proveedor,precio) values(#{cod_producto},#{cod_proveedor},#{precio})
+		insert into tb_producto_proveedor(cod_producto,cod_proveedor) values(#{cod_producto},#{cod_proveedor})
 	</select>  
 	<select id="SQL_deleteProductoProveedor"  parameterType="ProductoProveedorBean" >
 	delete from tb_producto_proveedor where  cod_producto_proveedor =  #{cod_producto_proveedor}  
 	</select> 
 	<select id="SQL_updateProductoProveedor"  parameterType="ProductoProveedorBean" >
-	update tb_producto_proveedor set cod_producto=#{cod_producto} , cod_proveedor=#{cod_proveedor},precio=#{precio} 
+	update tb_producto_proveedor set cod_producto=#{cod_producto} , cod_proveedor=#{cod_proveedor}
 	where  cod_producto_proveedor =  #{cod_producto_proveedor}  
 	</select> 
 	<select id="SQL_getProductoProveedorXCodProductoProveedor" resultType="ProductoProveedorBean">

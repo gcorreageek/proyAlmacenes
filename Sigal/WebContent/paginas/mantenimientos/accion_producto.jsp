@@ -42,7 +42,7 @@ $(document).ready(function() {
 <form class="form-horizontal" action="actuarProducto" method="post"  >
 <s:hidden  name="objProducto.cod_producto"      />
 <div class="control-group">
-<label class="control-label" for="inputNombre">Nombre</label>
+<label class="control-label" for="inputNombre">Nombre*</label>
 <div class="controls">
 <input type="text" id="inputNombre" name="objProducto.desc_producto" value="${objProducto.desc_producto}" placeholder="Nombre">
 </div>
@@ -55,14 +55,14 @@ $(document).ready(function() {
 		name="objProducto.unidadMedida"  value="objProducto.unidadMedida" />
 </div>
 </div>
-<!-- <div class="control-group"> -->
-<!-- <label class="control-label" for="inputUMedida">Habilitaci&oacute;n</label> -->
-<!-- <div class="controls"> -->
-<%-- <s:select     --%>
-<%-- 		list="#{'Aprobado':'Aprobado', 'Desaprobado':'Desaprobado'}" --%>
-<%-- 		name="objProducto.unidadMedida"  value="objProducto.unidadMedida" /> --%>
-<!-- </div> -->
-<!-- </div> -->
+<div class="control-group">
+<label class="control-label" for="inputUMedida">Habilitaci&oacute;n</label>
+<div class="controls">
+<s:select    
+		list="#{'Habilitado':'Habilitado', 'Desabilitado':'Desabilitado'}"
+		name="objProducto.habilitado"  value="objProducto.habilitado" />
+</div>
+</div> 
  
  
 <div class="control-group"> 

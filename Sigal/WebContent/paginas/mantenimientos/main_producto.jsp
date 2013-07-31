@@ -78,6 +78,9 @@ $(document).ready(function() {
                 <tr> 
                   <th>Producto</th> 
                   <th>U.Medida</th> 
+<%--                   <c:if test="${session.lstProducto!=null}"   > --%>
+<!--                   <th>Stock<th> -->
+<%--                   </c:if>  --%>
                   <th>Modificar</th>
                   <th>Eliminar</th>
                   <th>Ver QR</th>

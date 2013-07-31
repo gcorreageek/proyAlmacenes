@@ -42,7 +42,7 @@ $(document).ready(function() {
 <form class="form-horizontal" action="actuarProveedor" method="post"  >
 <s:hidden  name="objProveedor.cod_proveedor"      />
 <div class="control-group">
-<label class="control-label" for="inputNombre">Rason Social</label>
+<label class="control-label" for="inputNombre">Rason Social*</label>
 <div class="controls">
 <input type="text" id="inputRazonSocial" name="objProveedor.raz_social" value="${objProveedor.raz_social}" placeholder="Rason Social">
 </div>
@@ -60,9 +60,17 @@ $(document).ready(function() {
 </div>
 </div>
 <div class="control-group">
-<label class="control-label" for="inputCorreo">Correo</label>
+<label class="control-label" for="inputCorreo">Correo*</label>
 <div class="controls">
 <input type="text" id="inputCorreo"  name="objProveedor.correo" value="${objProveedor.correo}" placeholder="Correo">
+</div>
+</div>
+<div class="control-group">
+<label class="control-label" for="inputUMedida">Habilitaci&oacute;n</label>
+<div class="controls">
+<s:select    
+		list="#{'Habilitado':'Habilitado', 'Desabilitado':'Desabilitado'}"
+		name="objProveedor.habilitado"  value="objProveedor.habilitado" />
 </div>
 </div>
  

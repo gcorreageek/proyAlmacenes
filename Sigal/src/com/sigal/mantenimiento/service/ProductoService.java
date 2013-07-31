@@ -21,10 +21,10 @@ public class ProductoService {
 	}
 	//Modal
 	public List<ProductoDTO> buscarProductosXDescPaginado(ProductoDTO producto,Integer inicio,Integer tamano) {
-		return objProDAO.buscarProductosPaginados(producto, inicio, tamano);
+		return objProDAO.buscarProductosPaginados(producto, inicio, tamano);//Se cambio
 	}
 	public List<ProductoDTO> listaProductosPaginado(Integer inicio,Integer tamano) {
-		return objProDAO.buscarProductosPaginados(null, inicio,tamano);
+		return objProDAO.buscarProductosPaginados(null, inicio,tamano);//se cambio
 	}
 	public Integer buscarProductosXDescTotal(ProductoDTO producto ) {
 		return objProDAO.buscarProductos(producto).size();
@@ -58,6 +58,37 @@ public class ProductoService {
 	}
 	public Boolean eliminarProducto(ProductoDTO objProducto) {
 		return objProDAO.eliminarProducto(objProducto);
+	} 
+	
+	public List<ProductoDTO> listaProductosPaginadoHabilitados(
+			Integer comienzo, Integer filasXPagina) {
+		return objProDAO.buscarHabilitadosProductosPaginados(null, comienzo,filasXPagina);//se cambio
+	} 
+	public List<ProductoDTO> buscarProductosXDescPaginadoHabilitados(
+			ProductoDTO objProducto, Integer comienzo, Integer filasXPagina) {
+		return objProDAO.buscarHabilitadosProductosPaginados(objProducto, comienzo, filasXPagina);//Se cambio
+	} 
+	public Integer listaProductosTotalHabilitados() {
+		return objProDAO.buscarHabilitadosProductos(null).size();
+	} 
+	public Integer buscarProductosXDescTotalHabilitados(ProductoDTO objProducto) {
+		return objProDAO.buscarHabilitadosProductos(objProducto).size();
+	} 
+	public List<ProductoDTO> listaProductosIdProveePaginadoHabilitados(
+			Integer idProve, Integer comienzo, Integer filasXPagina) {
+		return objProDAO.buscarHabilitadosProductosIdProveePaginados(null,idProve, comienzo,filasXPagina);
+	} 
+	public List<ProductoDTO> buscarProductosIdProveeXDescPaginadoHabilitados(
+			ProductoDTO objProducto, Integer idProve, Integer comienzo,
+			Integer filasXPagina) {
+		return objProDAO.buscarHabilitadosProductosIdProveePaginados(objProducto,idProve, comienzo, filasXPagina);
+	} 
+	public Integer listaProductosIdProveeTotalHabilitados(Integer idProve) {
+		return objProDAO.buscarHabilitadosProductosIdProvee(null,idProve).size();
+	} 
+	public Integer buscarProductosIdProveeXDescTotalHabilitados(
+			ProductoDTO objProducto, Integer idProve) {
+		return objProDAO.buscarHabilitadosProductosIdProvee(objProducto,idProve).size();
 	}
 	
 }

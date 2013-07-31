@@ -1,6 +1,5 @@
 package com.sigal.mantenimiento.service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.sigal.dao.DAOFactory;
@@ -39,11 +38,25 @@ public class ProveedorService {
 	public Boolean actualizarProveedor(ProveedorDTO objProveedor) throws Exception {
 		return objProveeDAO.actualizarProveedor(objProveedor);
 	}
-	public Boolean eliminarProveedor(ProveedorDTO objProveedor)throws SQLException  {
+	public Boolean eliminarProveedor(ProveedorDTO objProveedor)throws Exception  {
 		return objProveeDAO.eliminarProveedor(objProveedor);
 	}
 	public ProveedorDTO getProveedor(ProveedorDTO proveedor)throws Exception  {
 		return objProveeDAO.getProveedor(proveedor);
+	} 
+	public List<ProveedorDTO> listaProveedorPaginadoHabilitado(
+			Integer comienzo, Integer filasXPagina) {
+		return objProveeDAO.buscarProveedorPaginadosHabilitado(null, comienzo,filasXPagina);
+	} 
+	public List<ProveedorDTO> buscarProveedorXDescPaginadoHabilitado(
+			ProveedorDTO objProveedor, Integer comienzo, Integer filasXPagina) {
+		return objProveeDAO.buscarProveedorPaginadosHabilitado(objProveedor, comienzo, filasXPagina);
+	} 
+	public Integer listaProveedorTotalHabilitado() {
+		return objProveeDAO.buscarProveedorHabilitado(null).size();
+	} 
+	public Integer buscarProveedorXDescTotalHabilitado(ProveedorDTO objProveedor) {
+		return objProveeDAO.buscarProveedorHabilitado(objProveedor).size();
 	}
 	
 }

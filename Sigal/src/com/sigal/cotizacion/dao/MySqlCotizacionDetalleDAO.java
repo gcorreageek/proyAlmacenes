@@ -26,7 +26,7 @@ public class MySqlCotizacionDetalleDAO implements CotizacionDetalleDAO {
 	public List<CotizacionDetalleDTO> getCotizacionDetalle(
 			CotizacionDetalleDTO detalle) { 
 		SqlSession sesion = sqlMapper.openSession();
-		List<CotizacionDetalleDTO> det = new ArrayList<>();
+		List<CotizacionDetalleDTO> det = new ArrayList<CotizacionDetalleDTO>();
 		try {
 			if (detalle != null) {
 				if (detalle.getCod_cotizacion() != null) {

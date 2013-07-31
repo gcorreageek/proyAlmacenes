@@ -3,7 +3,6 @@
  */
 package com.sigal.seguridad.action;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,15 +137,23 @@ public class CargoAction extends ActionSupport {
 	public String actuarCargo() {
 		lstArea = objAreaServ.listaArea(); 
 		Boolean rsultado = false;
-		try {
-			if (objCargo.getCod_cargo() == null) {
-				rsultado = objCargoServ.registrarCargo(objCargo);
-			} else {
-				rsultado = objCargoServ.actualizarCargo(objCargo);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		objCargo.setDesc_cargo(objCargo.getDesc_cargo().trim());
+		if(!"".equals(objCargo.getDesc_cargo())){
+			rsultado=true;
 		}
+		if(rsultado){
+			try {
+				if (objCargo.getCod_cargo() == null) {
+					rsultado = objCargoServ.registrarCargo(objCargo);
+				} else {
+					rsultado = objCargoServ.actualizarCargo(objCargo);
+				}
+			} catch (Exception e) {
+				rsultado=false;
+				e.printStackTrace();
+			}	
+		}
+		
 		if (rsultado) {
 			this.rsult = 0;
 			this.mensaje = "Todo Correctamente";

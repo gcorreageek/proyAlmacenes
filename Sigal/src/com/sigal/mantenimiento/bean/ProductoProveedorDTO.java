@@ -10,7 +10,8 @@ import java.io.Serializable;
  *
  */
 public class ProductoProveedorDTO  implements
- Serializable{  
+ Serializable{   
+	private static final long serialVersionUID = 6444869094378899037L;
 	private Integer cod_producto_proveedor;
 	private	Integer	cod_producto	;
 	private	String	desc_producto	;
@@ -18,8 +19,7 @@ public class ProductoProveedorDTO  implements
 	private	String	marca	;
 	private String 	categoria;
 	private Integer cod_proveedor;
-	private String raz_social; 
-	private Double precio;
+	private String raz_social;  
 	private String habilitado;
 	
 	private Integer inicio;
@@ -89,13 +89,12 @@ public class ProductoProveedorDTO  implements
 	public void setTamano(Integer tamano) {
 		this.tamano = tamano;
 	}
-	public Double getPrecio() {
-		return precio;
+	public String getHabilitado() {
+		return habilitado;
 	}
-	public void setPrecio(Double precio) {
-		this.precio = precio;
-	}
-	
+	public void setHabilitado(String habilitado) {
+		this.habilitado = habilitado;
+	} 
 	
 	
 	

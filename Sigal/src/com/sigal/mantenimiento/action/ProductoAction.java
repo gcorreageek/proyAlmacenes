@@ -103,13 +103,17 @@ public class ProductoAction extends ActionSupport {
 	@Action(value = "/actuarProducto", results = { @Result(name = "success", type = "tiles", location = "d_actuarproducto") })
 	public String actuarProducto() {
 		Boolean rsultado = false;
-		if(!"".equals(objProducto.getDesc_producto().trim())){
+		objProducto.setDesc_producto(objProducto.getDesc_producto().trim());
+		if(!"".equals(objProducto.getDesc_producto())){
 			rsultado = true;
 		}
 		if(rsultado){
 			if (objProducto.getCod_producto() == null) {
+				objProducto.setStock_producto(0);
 				rsultado = objProServ.registrarProducto(objProducto);
 			} else {
+				Integer stock = objProServ.getProducto(objProducto).getStock_producto();
+				objProducto.setStock_producto(stock);
 				rsultado = objProServ.actualizarProducto(objProducto);
 			}	
 		}
@@ -126,69 +130,73 @@ public class ProductoAction extends ActionSupport {
 	//Modal
 	@Action(value = "/listarProductoPagModal", results = { @Result(name = "success", location = "/paginas/mantenimientos/buscar_producto.jsp") })
 	public String listarProductoPagModal() {
+		System.out.println("buscar1");
 		Integer comienzo = null;
 		if (inicio == null || inicio == 0) {
 			comienzo = 0;
 		} else {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
-		lstProducto = objProServ.listaProductosPaginado(comienzo, Constantes.FILAS_X_PAGINA);
+		lstProducto = objProServ.listaProductosPaginadoHabilitados(comienzo, Constantes.FILAS_X_PAGINA);
 		return SUCCESS;
 	} 
 	@Action(value = "/buscarProductosXDescProdPagModal", results = { @Result(name = "success", location = "/paginas/mantenimientos/buscar_producto.jsp") })
 	public String buscarProductosXDescProdPagModal() {
+		System.out.println("buscar2");
 		Integer comienzo = null;
 		if (inicio == null || inicio == 0) {
 			comienzo = 0;
 		} else {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
-		lstProducto = objProServ.buscarProductosXDescPaginado(objProducto, comienzo, Constantes.FILAS_X_PAGINA);
+		lstProducto = objProServ.buscarProductosXDescPaginadoHabilitados(objProducto, comienzo, Constantes.FILAS_X_PAGINA);
 		return SUCCESS;
 	}
 	@Action(value = "/listarProductoTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/producto_listado_total.jsp") })
 	public String listarProductoTotal() {  
-		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.listaProductosTotal());
+		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.listaProductosTotalHabilitados());
 		System.out.println("nunmeroPaginas:"+numeroPaginasModalProducto); 
 		return SUCCESS;
 	}
 	@Action(value = "/buscarProductoTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/producto_buscar_total.jsp") })
 	public String buscarProductoTotal() { 
-		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.buscarProductosXDescTotal(objProducto)); 
+		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.buscarProductosXDescTotalHabilitados(objProducto)); 
 		return SUCCESS;
 	}  
 	//Modal idProve
 	@Action(value = "/listarProductoPagModalidProve", results = { @Result(name = "success", location = "/paginas/mantenimientos/buscar_producto.jsp") })
 	public String listarProductoPagModalidProve() {
+		System.out.println("buscar3");
 		Integer comienzo = null;
 		if (inicio == null || inicio == 0) {
 			comienzo = 0;
 		} else {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
-		lstProducto = objProServ.listaProductosIdProveePaginado(this.idProve,comienzo, Constantes.FILAS_X_PAGINA);
+		lstProducto = objProServ.listaProductosIdProveePaginadoHabilitados(this.idProve,comienzo, Constantes.FILAS_X_PAGINA);
 		return SUCCESS;
 	} 
 	@Action(value = "/buscarProductosXDescProdPagModalidProve", results = { @Result(name = "success", location = "/paginas/mantenimientos/buscar_producto.jsp") })
 	public String buscarProductosXDescProdPagModalidProve() {
+		System.out.println("buscar4");
 		Integer comienzo = null;
 		if (inicio == null || inicio == 0) {
 			comienzo = 0;
 		} else {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
-		lstProducto = objProServ.buscarProductosIdProveeXDescPaginado(objProducto,this.idProve, comienzo, Constantes.FILAS_X_PAGINA);
+		lstProducto = objProServ.buscarProductosIdProveeXDescPaginadoHabilitados(objProducto,this.idProve, comienzo, Constantes.FILAS_X_PAGINA);
 		return SUCCESS;
 	}
 	@Action(value = "/listarProductoTotalidProve", results = { @Result(name = "success", location = "/paginas/mantenimientos/producto_listado_total.jsp") })
 	public String listarProductoTotalidProve() {  
-		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.listaProductosIdProveeTotal(this.idProve));
+		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.listaProductosIdProveeTotalHabilitados(this.idProve));
 		System.out.println("nunmeroPaginas:"+numeroPaginasModalProducto); 
 		return SUCCESS;
 	}
 	@Action(value = "/buscarProductoTotalidProve", results = { @Result(name = "success", location = "/paginas/mantenimientos/producto_buscar_total.jsp") })
 	public String buscarProductoTotalidProve() { 
-		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.buscarProductosIdProveeXDescTotal(objProducto,this.idProve)); 
+		this.numeroPaginasModalProducto = UtilSigal.totalDePaginas(objProServ.buscarProductosIdProveeXDescTotalHabilitados(objProducto,this.idProve)); 
 		return SUCCESS;
 	} 
 	@Action(value = "/generarQR", results = { @Result(name = "success", location = "/paginas/mantenimientos/ver_qr.jsp") })

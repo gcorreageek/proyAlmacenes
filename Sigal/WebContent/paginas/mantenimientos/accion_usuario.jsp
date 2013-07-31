@@ -72,13 +72,13 @@ $(document).ready(function() {
 <div class="form-horizontal"  >
 <s:hidden  name="objUsuario.cod_usuario" id="cod_usuario"     />
 <div class="control-group">
-<label class="control-label" for="inputNombre">Nombre</label>
+<label class="control-label" for="inputNombre">Nombre*</label>
 <div class="controls">
 <s:textfield id="nom_usuario"  name="objUsuario.nom_usuario" placeholder="Nombre"  ></s:textfield> 
 </div>
 </div>
 <div class="control-group">
-<label class="control-label" for="inputNombre">Correo</label>
+<label class="control-label" for="inputNombre">Correo*</label>
 <div class="controls">
 <s:textfield id="correo_usuario"  name="objUsuario.correo_usuario" placeholder="Correo"  ></s:textfield> 
 </div>
@@ -92,7 +92,7 @@ $(document).ready(function() {
 </div> 
 
 <div class="control-group">
-<label class="control-label" for="inputNombre">Cargo</label>
+<label class="control-label" for="inputNombre">Cargo*</label>
 <div class="controls">
 <div id="cboCargo"> 
 <s:hidden  name="objUsuario.cod_cargo" id="inputCargo"     />
@@ -101,14 +101,14 @@ $(document).ready(function() {
 </div> 
 
 <div class="control-group">
-<label class="control-label" for="inputNombre">Usuario</label>
+<label class="control-label" for="inputNombre">Usuario*</label>
 <div class="controls">
 <s:textfield id="usu_usuario"  name="objUsuario.usu_usuario" placeholder="Usuario"  ></s:textfield> 
 </div>
 </div>   
 
 <div class="control-group">
-<label class="control-label" for="inputNombre">Contraseña</label>
+<label class="control-label" for="inputNombre">Contraseña*</label>
 <div class="controls">
 <s:password id="pass_usuario"  name="objUsuario.pass_usuario" placeholder="Contraseña"  ></s:password> 
 <c:if test="${requestScope.objUsuario.cod_usuario!=null}"   >

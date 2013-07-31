@@ -3,7 +3,6 @@
  */
 package com.sigal.seguridad.action;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,8 +107,7 @@ public class UsuarioAction extends ActionSupport {
 	public String accionUsuario() {
 		System.out.println("cod:" + codUsuario);
 		try {
-			lstArea = objAreaServ.listaArea();
-//			lstCargo = objCargoServ.listaCargo();
+			lstArea = objAreaServ.listaArea(); 
 			if (this.codUsuario != null) {
 				System.out.println("codUsuario:" + codUsuario);
 				this.objUsuario = objUsuarioServ.getUsuario(this.codUsuario);
@@ -117,8 +115,7 @@ public class UsuarioAction extends ActionSupport {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-//		System.out.println("dd:"+objUsuario.getDesc_usuario());
+		} 
 		return SUCCESS;
 	}
 
@@ -131,13 +128,7 @@ public class UsuarioAction extends ActionSupport {
 			rsultado = objUsuarioServ.eliminarUsuario(provee);
 		}  
 		catch (Exception  e ) { 
-//			System.out.println("toda:"+e.getMessage());
-			SQLException sqle = (SQLException) e;
-			System.out.println("te llegooo!");
-			System.out.println("vamos peru1:"+sqle.getErrorCode());
-			System.out.println("vamos peru2:"+sqle.getMessage());
-			System.out.println("vamos peru3:"+sqle.getSQLState());
-			System.out.println("es de aca"+e);
+			e.printStackTrace();
 		}
 		if (rsultado) {
 			this.rsult = 0;
@@ -151,28 +142,42 @@ public class UsuarioAction extends ActionSupport {
 	}
 
 	@Action(value = "/actuarUsuario", results = { @Result(name = "success", location = "/paginas/mantenimientos/mensaje_usuario.jsp") })
-	public String actuarUsuario() {
-		System.out.println("accc:"+objUsuario.getHabilitado());
+	public String actuarUsuario() { 
 		Boolean rsultado = false;
-		try {
-			if (objUsuario.getCod_usuario() == null) { 
-				String pass= objUsuario.getPass_usuario(); 
-				pass = UtilSigal.getHash(pass); 
-				objUsuario.setPass_usuario(pass);
-				rsultado = objUsuarioServ.registrarUsuario(objUsuario);
-			} else {
-				String pass=objUsuarioServ.getUsuario(objUsuario.getCod_usuario()).getPass_usuario();
-				objUsuario.setPass_usuario(pass);
-				rsultado = objUsuarioServ.actualizarUsuario(objUsuario);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		objUsuario.setNom_usuario(objUsuario.getNom_usuario().trim());
+		objUsuario.setCorreo_usuario(objUsuario.getCorreo_usuario().trim());
+		objUsuario.setUsu_usuario(objUsuario.getUsu_usuario().trim()); 
+		objUsuario.setPass_usuario(objUsuario.getPass_usuario().trim());
+		if(!"".equals(objUsuario.getNom_usuario()) && !"".equals(objUsuario.getCorreo_usuario())
+				&& !"".equals(objUsuario.getUsu_usuario()) ){ 
+			rsultado = true;
 		}
+		if(rsultado){
+			try {
+				if (objUsuario.getCod_usuario() == null) { 
+					if(!"".equals(objUsuario.getPass_usuario())){
+						String pass= objUsuario.getPass_usuario(); 
+						pass = UtilSigal.getHash(pass); 
+						objUsuario.setPass_usuario(pass);
+						rsultado = objUsuarioServ.registrarUsuario(objUsuario);
+					} else{
+						rsultado=false;
+					}
+				} else {
+					String pass=objUsuarioServ.getUsuario(objUsuario.getCod_usuario()).getPass_usuario();
+					objUsuario.setPass_usuario(pass);
+					rsultado = objUsuarioServ.actualizarUsuario(objUsuario);
+				}
+			} catch (Exception e) {
+				rsultado=false;
+				e.printStackTrace();
+			}	
+		} 
 		if (rsultado) {
-			this.rsult = 0;
+			this.rsult = 1;
 			this.mensaje = "Todo Correctamente";
 		} else {
-			this.rsult = 1;
+			this.rsult = 0;
 			this.mensaje = "Ocurrio un Problema";
 		} 
 		return SUCCESS;
@@ -181,20 +186,29 @@ public class UsuarioAction extends ActionSupport {
 	@Action(value = "/actualizaPassUsuario", results = { @Result(name = "success", location = "/paginas/mantenimientos/mensaje_usuario.jsp") })
 	public String actualizaPassUsuario() { 
 		Boolean rsultado = false;
-		try { 
-				String pass= objUsuario.getPass_usuario();
+		String pass= objUsuario.getPass_usuario();
+		if (!"".equals(pass)) {
+			rsultado = true;
+		} 
+		if (rsultado) {
+			try {
+				// String pass= objUsuario.getPass_usuario();
 				pass = UtilSigal.getHash(pass);
 				objUsuario = objUsuarioServ.getUsuario(objUsuario.getCod_usuario());
-				objUsuario.setPass_usuario(pass);
+				objUsuario.setPass_usuario(pass); 
 				rsultado = objUsuarioServ.actualizarUsuario(objUsuario);
-		} catch (Exception e) {
-			e.printStackTrace();
+			} catch (Exception e) {
+				rsultado = false;
+				e.printStackTrace();
+			}
 		}
+		
+		
 		if (rsultado) {
-			this.rsult = 0;
+			this.rsult = 1;
 			this.mensaje = "Todo Correctamente";
 		} else {
-			this.rsult = 1;
+			this.rsult = 0;
 			this.mensaje = "Ocurrio un Problema";
 		} 
 		return SUCCESS;

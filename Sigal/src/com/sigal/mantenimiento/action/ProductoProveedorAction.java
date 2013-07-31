@@ -144,6 +144,7 @@ public class ProductoProveedorAction extends ActionSupport {
 				rsultado = objProServ.actualizarProductoProveedor(objProductoProveedor);
 			}
 		} catch (Exception e) {
+			rsultado=false;
 			e.printStackTrace();
 		}
 		if (rsultado) {

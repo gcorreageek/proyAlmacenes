@@ -132,5 +132,57 @@ public class MySqlProveedorDAO implements ProveedorDAO {
 		}
 		return result;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProveedorDTO> buscarProveedorPaginadosHabilitado(Object object,
+			Integer inicio, Integer tamano) {
+		ProveedorDTO proveedor= (ProveedorDTO) object;
+		SqlSession sesion = sqlMapper.openSession();
+		List<ProveedorDTO> lstProveedor = new ArrayList<ProveedorDTO>();
+		try {
+			if (proveedor == null) {
+				ProveedorDTO provee = new ProveedorDTO();
+				provee.setInicio(inicio);
+				provee.setTamano(tamano);
+				lstProveedor = (List<ProveedorDTO>) sesion.selectList(
+						"proveedor.SQL_listaProveedorPaginadosHabilitados", provee);
+			} else {
+				if (!proveedor.getRaz_social().isEmpty()) {
+					proveedor.setRaz_social("%" + proveedor.getRaz_social()
+							+ "%");
+					proveedor.setInicio(inicio);
+					proveedor.setTamano(tamano);
+					lstProveedor = (List<ProveedorDTO>) sesion.selectList(
+							"proveedor.SQL_listaProveedorRazonSocialPaginadosHabilitados",
+							proveedor);
+				}
+			}
+		}  finally {
+			sesion.close();
+		}
+		return lstProveedor;
+	} 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProveedorDTO> buscarProveedorHabilitado(Object object) {
+		ProveedorDTO proveedor= (ProveedorDTO) object;
+		SqlSession sesion = sqlMapper.openSession();
+		List<ProveedorDTO> lstProveedor= new ArrayList<ProveedorDTO>();
+		try {
+			if (proveedor == null) {
+				lstProveedor = (List<ProveedorDTO>) sesion
+						.selectList("proveedor.SQL_listaProveedorHabilitados");
+			} else {
+				if (!proveedor.getRaz_social().isEmpty()) {
+					lstProveedor = (List<ProveedorDTO>) sesion.selectList(
+							"proveedor.SQL_listaProveedorRazonSocialHabilitados", "%"
+									+ proveedor.getRaz_social() + "%");
+				}
+			}
+		} finally {
+			sesion.close();
+		}
+		return lstProveedor;
+	}
 
 }

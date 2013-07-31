@@ -3,7 +3,6 @@
  */
 package com.sigal.mantenimiento.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.sigal.mantenimiento.bean.ProveedorDTO;
@@ -18,7 +17,10 @@ public interface ProveedorDAO {
 	List<ProveedorDTO> buscarProveedor(ProveedorDTO proveedor) throws Exception; 
 	Boolean registrarProveedor(ProveedorDTO objProveedor) throws Exception;
 	Boolean actualizarProveedor(ProveedorDTO objProveedor) throws Exception;
-	Boolean eliminarProveedor(ProveedorDTO objProveedor) throws SQLException;
+	Boolean eliminarProveedor(ProveedorDTO objProveedor) throws Exception;
+ 
+	List<ProveedorDTO> buscarProveedorPaginadosHabilitado(Object object,Integer comienzo, Integer filasXPagina);
+	List<ProveedorDTO> buscarProveedorHabilitado(Object object);
 	
 	
 }

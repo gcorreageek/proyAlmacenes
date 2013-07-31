@@ -3,7 +3,6 @@
  */
 package com.sigal.mantenimiento.action;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -135,20 +134,22 @@ public class ProveedorAction extends ActionSupport {
 	@Action(value = "/actuarProveedor", results = { @Result(name = "success", type = "tiles", location = "d_actuarproveedor") })
 	public String actuarProveedor() { 
 		Boolean rsultado = false;
-		if(!"".equals(objProveedor.getRaz_social())){
+		objProveedor.setRaz_social(objProveedor.getRaz_social().trim());
+		objProveedor.setCorreo(objProveedor.getCorreo().trim());
+		if(!"".equals(objProveedor.getRaz_social()) &&  !"".equals(objProveedor.getCorreo())){
 			rsultado = true;
-		}
-		if(!"".equals(objProveedor.getCorreo())){
-			rsultado = true;
-		}
-		try {
-			if (objProveedor.getCod_proveedor() == null) {
-				rsultado = objProServ.registrarProveedor(objProveedor);
-			} else {
-				rsultado = objProServ.actualizarProveedor(objProveedor);
+		} 
+		if (rsultado) {
+			try {
+				if (objProveedor.getCod_proveedor() == null) {
+					rsultado = objProServ.registrarProveedor(objProveedor);
+				} else {
+					rsultado = objProServ.actualizarProveedor(objProveedor);
+				}
+			} catch (Exception e) {
+				rsultado=false;
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		if (rsultado) {
 			this.rsult = 0;
@@ -171,7 +172,7 @@ public class ProveedorAction extends ActionSupport {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
 		try {
-			lstProveedor = objProServ.listaProveedorPaginado(comienzo, Constantes.FILAS_X_PAGINA);
+			lstProveedor = objProServ.listaProveedorPaginadoHabilitado(comienzo, Constantes.FILAS_X_PAGINA);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -186,7 +187,7 @@ public class ProveedorAction extends ActionSupport {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
 		try {
-			lstProveedor = objProServ.buscarProveedorXDescPaginado(objProveedor, comienzo, Constantes.FILAS_X_PAGINA);
+			lstProveedor = objProServ.buscarProveedorXDescPaginadoHabilitado(objProveedor, comienzo, Constantes.FILAS_X_PAGINA);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -196,7 +197,7 @@ public class ProveedorAction extends ActionSupport {
 	@Action(value = "/listarProveedorTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/proveedor_listado_total.jsp") })
 	public String listarProveedorTotal() { 
 		try {
-			this.numeroPaginasModalProveedor = UtilSigal.totalDePaginas(objProServ.listaProveedorTotal());
+			this.numeroPaginasModalProveedor = UtilSigal.totalDePaginas(objProServ.listaProveedorTotalHabilitado());
 		} catch (Exception e) { 
 			e.printStackTrace();
 		} 
@@ -205,7 +206,7 @@ public class ProveedorAction extends ActionSupport {
 	@Action(value = "/buscarProveedorTotal", results = { @Result(name = "success", location = "/paginas/mantenimientos/proveedor_buscar_total.jsp") })
 	public String buscarProveedorTotal() { 
 		try {
-			this.numeroPaginasModalProveedor = UtilSigal.totalDePaginas(objProServ.buscarProveedorXDescTotal(objProveedor));
+			this.numeroPaginasModalProveedor = UtilSigal.totalDePaginas(objProServ.buscarProveedorXDescTotalHabilitado(objProveedor));
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}
