@@ -40,10 +40,7 @@ $(document).ready(function() {
 </c:if>
 
 <form class="form-horizontal" action="actuarCargo" method="post"  >
-<s:hidden  name="objCargo.cod_cargo"      />
-
-
-
+<s:hidden  name="objCargo.cod_cargo"      /> 
 <div class="control-group">
 <label class="control-label" for="inputArea">Area</label>
 <div class="controls">

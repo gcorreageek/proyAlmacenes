@@ -103,7 +103,7 @@ public class LogueoAction extends ActionSupport {
 	 * @descripcion Metodo encargado de finalizar la sesion de usuarios
 	 * @return success = exito , error=fracaso 
 	 */
-	@Action(value="/logout",results={@Result(name="success",location="/pages/login.jsp")})
+	@Action(value="/logout",results={@Result(name="success",location="/paginas/seguridad/login.jsp")})
 	public String logOut(){
 		ActionContext.getContext().getSession().clear();
 		return SUCCESS;

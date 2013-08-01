@@ -20,10 +20,17 @@ function eliminarDetalleCotizacion(idProd){
 	});
 }
 $(document).ready(function() { 
+	var mensaje="<div class='alert alert-error'><h4>Error!</h4>";
 	/**PRODCUTO**/
 	$('#idBuscarProducto').click(function(){
 		$("#txtProducto").val("");
 		var idProvee = $('#cod_proveedor').val();
+		if(idProvee==null || idProvee=='' ){ 
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Proveedor correcto"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		} 
+		$('#myBuscarProducto').modal({  keyboard: false });  
 		$.post("listarProductoTotalidProve",{idProve:idProvee},function(data){
 	 		$("#divDatosProdTotal").html(data);
 		}); 
@@ -63,34 +70,59 @@ $(document).ready(function() {
 	$('#btnAgregarDetallePedido').click(function(){
 		var idProd= $("#cod_producto").val();
 		var cantidad= $("#inputCantidad").val();
-		var codprove = $('#cod_proveedor').val();
-		console.log('ddddd:'+idProd+'|'+cantidad);
-		$.post("agregarDetalleCotizacion",{"objCotizacion.cod_proveedor":codprove,"idProd":idProd,cantidad:cantidad},function(data){
+		var idProvee = $('#cod_proveedor').val(); 
+		if(idProvee==null || idProvee=='' ){ 
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Proveedor correcto"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		}
+		if(idProd==null || idProd=='' ){ 
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Producto correcto"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		}
+		if(!/^([0-9])*$/.test(cantidad) || cantidad=='' || cantidad==0){  
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Cantidad Valida"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		} 
+		$.post("agregarDetalleCotizacion",{"objCotizacion.cod_proveedor":idProvee,"idProd":idProd,cantidad:cantidad},function(data){
 	 		$("#divDetallePedido").html(data);
 		}); 
 	});
 
 	$('#btnGuardar').click(function(){ 
-		var codprove = $('#cod_proveedor').val();
-// 		var observacion = $('#inputObservacion').val();  
+		var codprove = $('#cod_proveedor').val(); 
+		if(codprove==null || codprove=='' ){ 
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Proveedor correcto"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		}
+		
 		$.post("guardarCotizacion",
 			{ 
 		"objCotizacion.cod_proveedor":codprove 
 			}
 		,
 		function(data){
-			$("#divMostrarMensaje").html(data);
-	 		$('#myCotizacion').modal({
-			  keyboard: false
-			}); 
-// 	 		setTimeout(function(){ $(location).attr('href','inicio'); }, 4000); 
+			var bien = data.indexOf("Error");  
+			if(bien<0){
+				$("#divMostrarMensajeInterno").html(data);
+		 		$('#myCotizacion').modal({  keyboard: false });  
+		 		setTimeout(function(){ $(location).attr('href','mainCotizacion'); }, 4000);
+			}else{
+				$("#divMostrarMensajeInterno").html(data);
+		 		$('#myCotizacion').modal({  keyboard: false });  
+			}  
 		});
 	});
 	
-	 setTimeout(function(){ $('.alert').hide(1000); }, 3000); 
+// 	 setTimeout(function(){ $('.alert').hide(1000); }, 3000); 
 }); 
 </script>
 <h3>Registrar Solicitud de Cotizacion</h3>
+<div id="divMostrarMensaje"> 
+</div>
 <form>
 <!-- Proveedor -->
 <h5>Datos del Proveedor</h5>  
@@ -114,7 +146,7 @@ $(document).ready(function() {
 		<input type="text" class="input-xxlarge" id="desc_producto" placeholder="Producto" disabled>
 		<label class="control-label" for="inputUMedida">U.Medida</label>
 		<input type="text" class="input-large" id="unidadMedida"   placeholder="U.Medida" disabled>
-		<a class="btn btn-primary"  id="idBuscarProducto" href="#myBuscarProducto" data-toggle="modal" >Buscar Producto</a>
+		<a class="btn btn-primary"  id="idBuscarProducto"   data-toggle="modal" >Buscar Producto</a>
 	</div> 
 </div> 
 <br>
@@ -144,7 +176,7 @@ $(document).ready(function() {
 <div class="control-group"> 
 <div class="controls"  align="center">
 <a class="btn  btn-primary" id="btnGuardar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;&nbsp;
-<a class="btn  btn-primary"  onclick="javascript:history.back();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cancelar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<a class="btn  btn-primary"  href="mainCotizacion">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cancelar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 </div>
 </div>
 
@@ -185,12 +217,8 @@ $(document).ready(function() {
 </div> 
 </div>
 <div id="myCotizacion" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalCotizacion" aria-hidden="true">
-<div class="modal-header"> 
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-<h3 id="myModalCotizacion">Resultado Cotizacion</h3>
-</div>
 <div class="modal-body"> 
-      <div id="divMostrarMensaje">
+      <div id="divMostrarMensajeInterno">
       </div> 
 </div> 
 </div>

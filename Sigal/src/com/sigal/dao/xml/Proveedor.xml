@@ -38,16 +38,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="SQL_listaProveedorPaginadosHabilitados" resultType="ProveedorBean" parameterType="ProveedorBean"  >
-	    select provee.* from tb_proveedor	provee where provee.hablitado='Habilitado' order by provee.cod_proveedor  limit  #{inicio} ,  #{tamano}
+	    select provee.* from tb_proveedor	provee where provee.habilitado='Habilitado' order by provee.cod_proveedor  limit  #{inicio} ,  #{tamano}
 	</select>
 	<select id="SQL_listaProveedorRazonSocialPaginadosHabilitados" resultType="ProveedorBean" parameterType="ProveedorBean"  >
-	    select provee.* from tb_proveedor	provee where provee.hablitado='Habilitado'  and provee.raz_social like  #{raz_social}	  order by provee.cod_proveedor  limit  #{inicio} ,  #{tamano}
+	    select provee.* from tb_proveedor	provee where provee.habilitado='Habilitado'  and provee.raz_social like  #{raz_social}	  order by provee.cod_proveedor  limit  #{inicio} ,  #{tamano}
 	</select> 
 	<select id="SQL_listaProveedorHabilitados" resultType="ProveedorBean">
-	    select provee.* from tb_proveedor	provee  where provee.hablitado='Habilitado' order by provee.cod_proveedor
+	    select provee.* from tb_proveedor	provee  where provee.habilitado='Habilitado' order by provee.cod_proveedor
 	</select> 
 	<select id="SQL_listaProveedorRazonSocialHabilitados" resultType="ProveedorBean">
-	    select provee.* from tb_proveedor	provee where provee.hablitado='Habilitado'  and provee.raz_social like  #{raz_social}	  order by provee.cod_proveedor
+	    select provee.* from tb_proveedor	provee where provee.habilitado='Habilitado'  and provee.raz_social like  #{raz_social}	  order by provee.cod_proveedor
 	</select> 
 	
 </mapper>

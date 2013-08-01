@@ -89,4 +89,21 @@ public class MySqlAccesoDAO implements AccesoDAO {
 		return acceso;
 	}
 
+
+//	SQL_getAccesoXIdCargoIdMenu
+	@Override
+	public AccesoMenuDTO getAccesoXIdMenuIdCargo(Integer idMenu, Integer IdCargo)
+			throws Exception {
+		SqlSession sesion =sqlMapper.openSession();
+		AccesoMenuDTO acceso = new AccesoMenuDTO();
+		try {
+			acceso.setCod_cargo(IdCargo);
+			acceso.setCod_menu(idMenu);
+			acceso= (AccesoMenuDTO)sesion.selectOne("acceso.SQL_getAccesoXIdCargoIdMenu",acceso);
+		} finally{
+			sesion.close();
+		}
+		return acceso;
+	}
+
 }

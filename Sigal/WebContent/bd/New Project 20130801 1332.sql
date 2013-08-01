@@ -37,7 +37,7 @@ CREATE TABLE `tb_acceso_menu` (
   KEY `fk_codmenu_menu_idx` (`cod_menu`),
   CONSTRAINT `fk_codcargo_cargo` FOREIGN KEY (`cod_cargo`) REFERENCES `tb_cargo` (`cod_cargo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_codmenu_menu` FOREIGN KEY (`cod_menu`) REFERENCES `tb_menu` (`cod_menu`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_acceso_menu`
@@ -69,7 +69,19 @@ INSERT INTO `tb_acceso_menu` (`cod_accesomenu`,`cod_menu`,`cod_cargo`,`habilitad
  (32,1,28,'Habilitado'),
  (33,2,28,'Habilitado'),
  (34,4,28,'Habilitado'),
- (35,7,28,'Habilitado');
+ (35,7,28,'Habilitado'),
+ (37,2,29,'Habilitado'),
+ (38,5,27,'Habilitado'),
+ (40,1,27,'Habilitado'),
+ (41,3,27,'Habilitado'),
+ (43,6,27,'Habilitado'),
+ (44,10,27,'Habilitado'),
+ (45,19,27,'Habilitado'),
+ (46,14,27,'Habilitado'),
+ (47,15,27,'Habilitado'),
+ (48,11,27,'Habilitado'),
+ (49,13,27,'Habilitado'),
+ (50,12,27,'Habilitado');
 /*!40000 ALTER TABLE `tb_acceso_menu` ENABLE KEYS */;
 
 
@@ -83,7 +95,7 @@ CREATE TABLE `tb_area` (
   `desc_area` varchar(45) NOT NULL,
   PRIMARY KEY (`cod_area`),
   UNIQUE KEY `desc_area_UNIQUE` (`desc_area`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_area`
@@ -108,6 +120,7 @@ CREATE TABLE `tb_cargo` (
   `desc_cargo` varchar(45) DEFAULT NULL,
   `cod_area` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_cargo`),
+  UNIQUE KEY `uniq_area_cargo_unico` (`desc_cargo`,`cod_area`),
   KEY `fk_codarea_cargo_idx` (`cod_area`),
   CONSTRAINT `fk_codarea_cargo` FOREIGN KEY (`cod_area`) REFERENCES `tb_area` (`cod_area`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
@@ -119,15 +132,15 @@ CREATE TABLE `tb_cargo` (
 /*!40000 ALTER TABLE `tb_cargo` DISABLE KEYS */;
 INSERT INTO `tb_cargo` (`cod_cargo`,`desc_cargo`,`cod_area`) VALUES 
  (1,'Administrador',1),
- (4,'pruea 2',NULL),
- (5,'pruea 3',NULL),
- (6,'pruea 4',NULL),
- (7,'pruea 6',NULL),
- (19,'pruea 3',1),
- (22,'pruea 6',1),
+ (29,'Asistente de Logistica',3),
  (27,'DBA',2),
  (28,'Jefe de Logistica',3),
- (29,'Asistente de Logistica',3);
+ (4,'pruea 2',NULL),
+ (5,'pruea 3',NULL),
+ (19,'pruea 3',1),
+ (6,'pruea 4',NULL),
+ (7,'pruea 6',NULL),
+ (22,'pruea 6',1);
 /*!40000 ALTER TABLE `tb_cargo` ENABLE KEYS */;
 
 
@@ -147,13 +160,16 @@ CREATE TABLE `tb_cotizacion` (
   KEY `fk_cotizacion_cod_proveedor_idx` (`cod_proveedor`),
   CONSTRAINT `fk_cotizacion_cod_proveedor` FOREIGN KEY (`cod_proveedor`) REFERENCES `tb_proveedor` (`cod_proveedor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_cotizacion_cod_usuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tb_usuario` (`cod_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_cotizacion`
 --
 
 /*!40000 ALTER TABLE `tb_cotizacion` DISABLE KEYS */;
+INSERT INTO `tb_cotizacion` (`cod_cotizacion`,`obs_cotizacion`,`cod_usuario`,`fecharegistro_cotizacion`,`cod_proveedor`) VALUES 
+ (1,NULL,1,'2013-08-01 13:28:07',18),
+ (2,NULL,1,'2013-08-01 13:29:35',18);
 /*!40000 ALTER TABLE `tb_cotizacion` ENABLE KEYS */;
 
 
@@ -172,13 +188,17 @@ CREATE TABLE `tb_cotizacion_detalle` (
   KEY `fk_detalle_cotizacion_cod_productoproveedor_idx` (`cod_producto_proveedor`),
   CONSTRAINT `fk_detalle_cotizacion_cod_productoproveedor` FOREIGN KEY (`cod_producto_proveedor`) REFERENCES `tb_producto_proveedor` (`cod_producto_proveedor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Detalle_Cotizacion_Cotizacion1` FOREIGN KEY (`cod_cotizacion`) REFERENCES `tb_cotizacion` (`cod_cotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_cotizacion_detalle`
 --
 
 /*!40000 ALTER TABLE `tb_cotizacion_detalle` DISABLE KEYS */;
+INSERT INTO `tb_cotizacion_detalle` (`cod_detallecotizacion`,`cant_detallecotizacion`,`cod_cotizacion`,`cod_producto_proveedor`) VALUES 
+ (1,23,1,1),
+ (2,18,1,3),
+ (3,908,2,1);
 /*!40000 ALTER TABLE `tb_cotizacion_detalle` ENABLE KEYS */;
 
 
@@ -199,7 +219,7 @@ CREATE TABLE `tb_informe_externo` (
   KEY `fk_ordencompra_cod_oc_idx` (`cod_ordencompra`),
   CONSTRAINT `fk_ordencompra_cod_oc` FOREIGN KEY (`cod_ordencompra`) REFERENCES `tb_ordencompra` (`cod_OrdenCompra`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_inf_ext` FOREIGN KEY (`cod_usuario`) REFERENCES `tb_usuario` (`cod_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='proveedor(recepcion de los productos)';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='proveedor(recepcion de los productos)';
 
 --
 -- Dumping data for table `tb_informe_externo`
@@ -250,7 +270,7 @@ CREATE TABLE `tb_informe_interno` (
   KEY `fk_pedido_inf_int_idx` (`cod_pedido`),
   CONSTRAINT `fk_pedido_inf_int` FOREIGN KEY (`cod_pedido`) REFERENCES `tb_pedido` (`cod_solicitudPedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_inf_int` FOREIGN KEY (`cod_usuario`) REFERENCES `tb_usuario` (`cod_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='area(salida productos, recepcion de producto devuelto)';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='area(salida productos, recepcion de producto devuelto)';
 
 --
 -- Dumping data for table `tb_informe_interno`
@@ -348,7 +368,7 @@ CREATE TABLE `tb_ordencompra` (
   CONSTRAINT `fk_ordem_compra_codproveedor` FOREIGN KEY (`cod_proveedor`) REFERENCES `tb_proveedor` (`cod_proveedor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_orden_compa_idusario` FOREIGN KEY (`cod_usuario`) REFERENCES `tb_usuario` (`cod_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Orden_Compra_Cotizacion1` FOREIGN KEY (`cod_cotizacion`) REFERENCES `tb_cotizacion` (`cod_cotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_ordencompra`
@@ -371,9 +391,9 @@ CREATE TABLE `tb_ordencompra_detalle` (
   PRIMARY KEY (`cod_DetalleOrdenCompra`),
   KEY `fk_ordenCompra` (`cod_ordenCompra`),
   KEY `fk_producto` (`cod_producto_proveedor`),
-  CONSTRAINT `fk_ordencompra_detalle_cod_productoproveedor` FOREIGN KEY (`cod_producto_proveedor`) REFERENCES `tb_producto_proveedor` (`cod_producto_proveedor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ordenCompra` FOREIGN KEY (`cod_ordenCompra`) REFERENCES `tb_ordencompra` (`cod_OrdenCompra`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_ordenCompra` FOREIGN KEY (`cod_ordenCompra`) REFERENCES `tb_ordencompra` (`cod_OrdenCompra`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ordencompra_detalle_cod_productoproveedor` FOREIGN KEY (`cod_producto_proveedor`) REFERENCES `tb_producto_proveedor` (`cod_producto_proveedor`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_ordencompra_detalle`
@@ -398,16 +418,24 @@ CREATE TABLE `tb_pedido` (
   `fechaEntrega_pedido` date DEFAULT NULL,
   `estado_pedido` varchar(45) DEFAULT NULL,
   `fechaEvaluacion_pedido` datetime DEFAULT NULL,
+  `comentarioevaluacion_pedido` text,
   PRIMARY KEY (`cod_solicitudPedido`),
   KEY `fk_usuario` (`cod_usuario`),
   CONSTRAINT `tb_pedido_ibfk_1` FOREIGN KEY (`cod_usuario`) REFERENCES `tb_usuario` (`cod_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_pedido`
 --
 
 /*!40000 ALTER TABLE `tb_pedido` DISABLE KEYS */;
+INSERT INTO `tb_pedido` (`cod_solicitudPedido`,`cod_usuario`,`comentario_pedido`,`tipo_pedido`,`fechaDevolucion_pedido`,`fechaRegistro_pedido`,`fechaEntrega_pedido`,`estado_pedido`,`fechaEvaluacion_pedido`,`comentarioevaluacion_pedido`) VALUES 
+ (3,1,'observacion','Abastecimiento',NULL,'2013-08-01 02:24:46','2013-08-02','Aprobado',NULL,'okkkk dkdkwelkmlkvslkmvsmlfvmvmfsmvmvsmsdvmkmkllllllkm'),
+ (4,1,'Gutsabo anonio correa caja felix','Abastecimiento',NULL,'2013-08-01 02:43:46','2013-08-01','Aprobada',NULL,NULL),
+ (5,1,'njhdhdllll kkk','Prestamo','2013-08-02','2013-08-01 12:06:51','2013-08-01','Sin Atender',NULL,NULL),
+ (6,1,'valida la obsd ok!','Prestamo','2013-08-09','2013-08-01 12:37:26','2013-08-01','Desaprobado',NULL,'lo sentimos no tenemos stocck del producto!'),
+ (7,1,'','Abastecimiento',NULL,'2013-08-01 12:40:04','2013-08-02','Sin Atender',NULL,NULL),
+ (8,1,'','Abastecimiento',NULL,'2013-08-01 12:42:19','2013-08-16','Sin Atender',NULL,NULL);
 /*!40000 ALTER TABLE `tb_pedido` ENABLE KEYS */;
 
 
@@ -424,15 +452,24 @@ CREATE TABLE `tb_pedido_detalle` (
   PRIMARY KEY (`cod_detallePedido`),
   KEY `fk_pedido` (`cod_solicitudPedido`),
   KEY `fk_producto` (`cod_producto`),
-  CONSTRAINT `tb_pedido_fk_cod_pedido` FOREIGN KEY (`cod_solicitudPedido`) REFERENCES `tb_pedido` (`cod_solicitudPedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `tb_pedido_detalle_ibfk_2` FOREIGN KEY (`cod_producto`) REFERENCES `tb_producto` (`cod_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+  CONSTRAINT `tb_pedido_detalle_ibfk_2` FOREIGN KEY (`cod_producto`) REFERENCES `tb_producto` (`cod_producto`),
+  CONSTRAINT `tb_pedido_fk_cod_pedido` FOREIGN KEY (`cod_solicitudPedido`) REFERENCES `tb_pedido` (`cod_solicitudPedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_pedido_detalle`
 --
 
 /*!40000 ALTER TABLE `tb_pedido_detalle` DISABLE KEYS */;
+INSERT INTO `tb_pedido_detalle` (`cod_detallePedido`,`cod_solicitudPedido`,`cod_producto`,`cantidad`) VALUES 
+ (1,3,72,21),
+ (2,4,72,21),
+ (3,5,71,2),
+ (4,6,72,21),
+ (5,6,71,43),
+ (6,7,71,21),
+ (7,8,72,21),
+ (8,8,71,17);
 /*!40000 ALTER TABLE `tb_pedido_detalle` ENABLE KEYS */;
 
 
@@ -450,7 +487,7 @@ CREATE TABLE `tb_producto` (
   PRIMARY KEY (`cod_producto`),
   UNIQUE KEY `desc_producto_umedidad_UNIQUE` (`desc_producto`,`unidadMedida`),
   KEY `fk_unidadMedida` (`unidadMedida`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_producto`
@@ -458,7 +495,12 @@ CREATE TABLE `tb_producto` (
 
 /*!40000 ALTER TABLE `tb_producto` DISABLE KEYS */;
 INSERT INTO `tb_producto` (`cod_producto`,`desc_producto`,`unidadMedida`,`stock_producto`,`habilitado`) VALUES 
- (65,'producto1','Unidad',NULL,NULL);
+ (65,'producto1','Unidad',NULL,'Desabilitado'),
+ (67,'Celular','Unidad',0,'Desabilitado'),
+ (69,'Celular','Docena',0,NULL),
+ (70,'Meza','Unidad',0,'Desabilitado'),
+ (71,'dddsss','Unidad',0,'Habilitado'),
+ (72,'ddeqad','Unidad',0,'Habilitado');
 /*!40000 ALTER TABLE `tb_producto` ENABLE KEYS */;
 
 
@@ -472,17 +514,21 @@ CREATE TABLE `tb_producto_proveedor` (
   `cod_producto` int(11) DEFAULT NULL,
   `cod_proveedor` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_producto_proveedor`),
+  UNIQUE KEY `fk_codproveedor_codproducot_unicos` (`cod_producto`,`cod_proveedor`),
   KEY `fk_codproducto_producto_idx` (`cod_producto`),
   KEY `fk_codproveedor_proveedor_idx` (`cod_proveedor`),
   CONSTRAINT `fk_codproducto_producto` FOREIGN KEY (`cod_producto`) REFERENCES `tb_producto` (`cod_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_codproveedor_proveedor` FOREIGN KEY (`cod_proveedor`) REFERENCES `tb_proveedor` (`cod_proveedor`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_producto_proveedor`
 --
 
 /*!40000 ALTER TABLE `tb_producto_proveedor` DISABLE KEYS */;
+INSERT INTO `tb_producto_proveedor` (`cod_producto_proveedor`,`cod_producto`,`cod_proveedor`) VALUES 
+ (1,71,18),
+ (3,72,18);
 /*!40000 ALTER TABLE `tb_producto_proveedor` ENABLE KEYS */;
 
 
@@ -493,20 +539,25 @@ CREATE TABLE `tb_producto_proveedor` (
 DROP TABLE IF EXISTS `tb_proveedor`;
 CREATE TABLE `tb_proveedor` (
   `cod_proveedor` int(11) NOT NULL AUTO_INCREMENT,
-  `raz_social` varchar(150) DEFAULT NULL,
+  `raz_social` varchar(150) NOT NULL,
   `ruc` varchar(15) DEFAULT NULL,
   `telefono` varchar(14) DEFAULT NULL,
-  `correo` varchar(45) DEFAULT NULL,
+  `correo` varchar(45) NOT NULL,
   `habilitado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`cod_proveedor`),
   UNIQUE KEY `raz_social_UNIQUE` (`raz_social`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_proveedor`
 --
 
 /*!40000 ALTER TABLE `tb_proveedor` DISABLE KEYS */;
+INSERT INTO `tb_proveedor` (`cod_proveedor`,`raz_social`,`ruc`,`telefono`,`correo`,`habilitado`) VALUES 
+ (15,'a','','','',NULL),
+ (16,'dd','','','',NULL),
+ (17,'','','','ccc',NULL),
+ (18,'Prueba','6677777776','ju','jjjj','Habilitado');
 /*!40000 ALTER TABLE `tb_proveedor` ENABLE KEYS */;
 
 
@@ -528,7 +579,7 @@ CREATE TABLE `tb_usuario` (
   KEY `fk_cargo` (`cod_cargo`),
   CONSTRAINT `tb_usuario_fk_cod_cargo` FOREIGN KEY (`cod_cargo`) REFERENCES `tb_cargo` (`cod_cargo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `tb_usuario_ibfk_1` FOREIGN KEY (`cod_cargo`) REFERENCES `tb_cargo` (`cod_cargo`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COMMENT='Habilitado para acceso al sistema';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 COMMENT='Habilitado para acceso al sistema';
 
 --
 -- Dumping data for table `tb_usuario`
@@ -539,12 +590,15 @@ INSERT INTO `tb_usuario` (`cod_usuario`,`nom_usuario`,`correo_usuario`,`cod_carg
  (1,'Administrador','gcorreageek@gmail.com',1,'gcorreageek','aa743a0aaec8f7d7a1f01442503957f4d7a2d634','Habilitado'),
  (2,'Gustavo','gcorreageek@gmail.com',29,'gcorreageek1',NULL,'Habilitado'),
  (4,'Gustavo','gcorreageek@gmail.com',1,'gcorreacaja',NULL,'Habilitado'),
- (6,'Gustavo','gcorreageek@gmail.com',28,'gcorreacaja1',NULL,'Desabilitado'),
+ (6,'Gustavo','ddddjj',28,'gcorreacaja1',NULL,'Desabilitado'),
  (8,'gustavo','gcorreageek@gmail.com',29,'nn9','8cb2237d0679ca88db6464eac60da96345513964','Desabilitado'),
  (9,'Gustavo','ggg',27,'gcorreageek4','aa743a0aaec8f7d7a1f01442503957f4d7a2d634','Habilitado'),
  (10,'gustavo','gcorreageek@gmail.com',29,'gcorreageek67','aa743a0aaec8f7d7a1f01442503957f4d7a2d634','Habilitado'),
  (11,'Gustavo','gcorreageek@gmail.com',1,'gcorreageek98','8cb2237d0679ca88db6464eac60da96345513964','Habilitado'),
- (12,'Gustavo','gcorreageek@gmail.com',22,'gcorreageek122','f7c3bc1d808e04732adf679965ccc34ca7ae3441','Habilitado');
+ (12,'Gustavo','gcorreageek@gmail.com',22,'gcorreageek122','f7c3bc1d808e04732adf679965ccc34ca7ae3441','Habilitado'),
+ (13,'Gustavo','gcorreageek@gmail.com',29,'nn12','da39a3ee5e6b4b0d3255bfef95601890afd80709','Habilitado'),
+ (14,'Gustavo','gcorreageek@gmail.com',29,'gcorreageek1234','8cb2237d0679ca88db6464eac60da96345513964','Habilitado'),
+ (15,'Gustavo','gcorreageek@gmail.com',1,'vamos per','7c4a8d09ca3762af61e59520943dc26494f8941b','Desabilitado');
 /*!40000 ALTER TABLE `tb_usuario` ENABLE KEYS */;
 
 

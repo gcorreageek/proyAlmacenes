@@ -14,6 +14,7 @@ public class SolicitudPedidoDTO  implements Serializable{
 	private	java.sql.Date	fechaRegistro_pedido	;//objPedido.fechaRegistro_pedido
 	private	java.sql.Date	fechaEntrega_pedido	;
 	private String    estado_pedido;
+	private String comentarioevaluacion_pedido;
 	 
 	private String nom_usuario;//objPedido.nom_usuario
 	private String apePat_usuario;
@@ -142,6 +143,12 @@ public class SolicitudPedidoDTO  implements Serializable{
 	}
 	public void setFechaFin(java.sql.Date fechaFin) {
 		this.fechaFin = fechaFin;
+	}
+	public String getComentarioevaluacion_pedido() {
+		return comentarioevaluacion_pedido;
+	}
+	public void setComentarioevaluacion_pedido(String comentarioevaluacion_pedido) {
+		this.comentarioevaluacion_pedido = comentarioevaluacion_pedido;
 	}
 	
 	

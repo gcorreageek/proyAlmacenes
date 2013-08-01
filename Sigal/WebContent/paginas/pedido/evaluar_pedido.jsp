@@ -28,25 +28,45 @@ function seleccionaPedido(codPedido,nomUsuario,area,cargo,fechaRegistro,fechaDev
 	});  	
 } 
 function guardarEvaluacion(evaluacion){
+	var mensaje="<div class='alert alert-error'><h4>Error!</h4>";
 	var codPedido=$("#cod_pedido").val();
+	var observacion=$("#inputObservacion").val();
+	
 	var r='';
 	if(evaluacion==1){
 		 r='Aprobado';
 	}else if(evaluacion==2){
 		 r='Desaprobado';
 	}
-	$.post("guardarEvaluacionPedido",{"objPedido.cod_solicitudPedido":codPedido,"objPedido.estado_pedido":r},function(data){
-		 
- 		$("#divMensajeEvaluacion").html(data);
- 		$('#myEvaluacionPedido').modal({
-		  keyboard: false
-		}); 
- 		setTimeout(function(){ $(location).attr('href','inicio'); }, 4000); 
- 		
+	if(codPedido==null || codPedido==''){
+		$("#divMostrarMensaje").html(mensaje+" Ingrese un Pedido "+ "</div>");
+		setTimeout(function(){ $('.alert').hide(1000); }, 2000); 	
+		return;
+	}
+	var iChars = "#$%^&*()+=-[]\\'/{}|\"<>"; 
+	for (var i = 0; i < observacion.length; i++) {
+	    if (iChars.indexOf(observacion.charAt(i)) != -1) {
+	    	$("#divMostrarMensaje").html(mensaje+" Ingrese una Observacion valida"+ "</div>");
+ 			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+ 			return;
+	    }
+	}  
+	
+	$.post("guardarEvaluacionPedido",{"objPedido.cod_solicitudPedido":codPedido,"objPedido.comentarioevaluacion_pedido":observacion,"objPedido.estado_pedido":r},function(data){
+ 		var bien = data.indexOf("Error");  
+		if(bien<0){
+			$("#divMensajeEvaluacion").html(data);
+	 		$('#myEvaluacionPedido').modal({  keyboard: false });  
+	 		setTimeout(function(){ $(location).attr('href','evaluarPedido'); }, 4000);
+		}else{
+			$("#divMensajeEvaluacion").html(data);
+	 		$('#myEvaluacionPedido').modal({  keyboard: false });  
+		}  
 	}); 
 }
 
 $(document).ready(function() {  
+	
 	$('#idBuscarPedido').click(function(){
 // 		$("#txtPedido").val("");
 		$.post("listarPedidoTotal",function(data){
@@ -89,6 +109,8 @@ $(document).ready(function() {
 }); 
 </script>
 <h3>Evaluar Solicitud de Pedido</h3>
+<div id="divMostrarMensaje"> 
+</div>
 <form>
 <s:hidden  name="objPedido.cod_solicitudPedido"  id="cod_pedido"    />
 <div class="control-group">
@@ -181,8 +203,8 @@ $(document).ready(function() {
 		  
 		<s:select headerKey="0" headerValue="Seleccionar"  list="lstArea" listValue="desc_area" listKey="cod_area" id="cboArea" />  
     
-		<input type="text" id="txtFechaInicio" class="input-medium search-query" placeholder="Fecha Inicio" >
-	    <input type="text" id="txtFechaFin" class="input-medium search-query" placeholder="Fecha Fin" >
+		<input type="text" id="txtFechaInicio" class="input-medium search-query datepicker" placeholder="Fecha Inicio" >
+	    <input type="text" id="txtFechaFin" class="input-medium search-query datepicker" placeholder="Fecha Fin" >
 	    <s:select   headerKey="0" headerValue="Seleccionar" 
 		list="#{'Abastecimiento':'Abastecimiento', 'Prestamo':'Prestamo'}"
 		name="objPedido.tipo_pedido"  value="objPedido.tipo_pedido" 
@@ -199,10 +221,6 @@ $(document).ready(function() {
 
 
 <div id="myEvaluacionPedido" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalEvaluacionPedido" aria-hidden="true">
-<div class="modal-header"> 
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-<h3 id="myModalEvaluacionPedido">Resultado Evaluacion del Pedido</h3>
-</div>
 <div class="modal-body"> 
       <div id="divMensajeEvaluacion">
       </div> 

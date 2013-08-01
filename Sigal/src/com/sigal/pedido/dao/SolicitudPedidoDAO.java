@@ -13,5 +13,19 @@ public interface SolicitudPedidoDAO {
 	List<SolicitudPedidoDTO> buscarPedido(SolicitudPedidoDTO pedidoViene) throws Exception;
 	
 	Object actualizarPedido(SolicitudPedidoDTO objSolP) ;
+	/**
+	 * @param objPedido
+	 * @param inicio
+	 * @param tamano
+	 * @return
+	 */
+	List<SolicitudPedidoDTO> buscarPedidoPagSinAtender(
+			SolicitudPedidoDTO objPedido, Integer inicio, Integer tamano);
+	/**
+	 * @param pedido
+	 * @return
+	 */
+	List<SolicitudPedidoDTO> buscarPedidoSinAtender(SolicitudPedidoDTO pedido);
+	 
 	
 }

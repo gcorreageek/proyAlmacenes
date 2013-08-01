@@ -42,6 +42,20 @@ public class PedidoService {
 	}
 	public void guardarEvaluacionPedido(SolicitudPedidoDTO objSolP ) {
 		objSolPDAO.actualizarPedido(objSolP);
+	} 
+	public List<SolicitudPedidoDTO> listaPedidoPaginadoSinAtender(
+			Integer inicio, Integer tamano) throws Exception {
+		return objSolPDAO.buscarPedidoPagSinAtender(null, inicio,tamano);
+	} 
+	public List<SolicitudPedidoDTO> buscarPedidoPaginadoSinAtender(
+			SolicitudPedidoDTO objPedido, Integer inicio, Integer tamano) throws Exception {
+		return objSolPDAO.buscarPedidoPagSinAtender(objPedido, inicio, tamano);
+	} 
+	public Integer listaPedidoTotalSinAtender() throws Exception {
+		return objSolPDAO.buscarPedidoSinAtender(null).size();
+	} 
+	public Integer buscarPedidoTotalSinAtender(SolicitudPedidoDTO pedido) throws Exception {
+		return objSolPDAO.buscarPedidoSinAtender(pedido).size();
 	}
 	
 	

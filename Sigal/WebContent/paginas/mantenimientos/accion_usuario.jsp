@@ -53,7 +53,7 @@ $(document).ready(function() {
 		 }); 
 	 });
 	 
-	 
+// 	 $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
 }); 
 </script>
 </head>
@@ -80,7 +80,8 @@ $(document).ready(function() {
 <div class="control-group">
 <label class="control-label" for="inputNombre">Correo*</label>
 <div class="controls">
-<s:textfield id="correo_usuario"  name="objUsuario.correo_usuario" placeholder="Correo"  ></s:textfield> 
+<input type="email" id="correo_usuario" value="${objUsuario.correo_usuario}" name="objUsuario.correo_usuario" placeholder="Correo"  required>
+<%-- <s:textfield id="correo_usuario"  name="objUsuario.correo_usuario" placeholder="Correo"  ></s:textfield>  --%>
 </div>
 </div> 
 

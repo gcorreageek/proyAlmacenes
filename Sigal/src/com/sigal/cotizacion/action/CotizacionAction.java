@@ -20,6 +20,7 @@ import com.sigal.cotizacion.service.CotizacionService;
 import com.sigal.mantenimiento.bean.ProductoProveedorDTO;
 import com.sigal.mantenimiento.service.ProductoProveedorService;
 import com.sigal.mantenimiento.service.ProductoService;
+import com.sigal.pedido.bean.DetallePedidoDTO;
 import com.sigal.seguridad.bean.UsuarioDTO;
 import com.sigal.util.Constantes;
 import com.sigal.util.UtilSigal;
@@ -41,6 +42,7 @@ public class CotizacionAction extends ActionSupport {
 	private Integer idProd;
 	private Integer cantidad;
 	private CotizacionDTO objCotizacion;
+	private Integer rsult;
 	private String mensaje;
 	private Integer inicio;
 	private List<CotizacionDTO> lstCotizacion ;
@@ -51,7 +53,9 @@ public class CotizacionAction extends ActionSupport {
 		lasesion.remove("lstDetCoti");
 		return SUCCESS;
 	}
-	@Action(value="/agregarDetalleCotizacion",results={@Result(name="success",location="/paginas/cotizacion/detalle_cotizacion.jsp")})
+	@Action(value="/agregarDetalleCotizacion",results={
+			@Result(name="error",location="/paginas/cotizacion/detalle_cotizacion.jsp"),
+			@Result(name="success",location="/paginas/cotizacion/detalle_cotizacion.jsp")})
 	public String agregarDetallePedido(){
 		lstDetCoti = (List<CotizacionDetalleDTO>) lasesion.get("lstDetCoti");
 		
@@ -62,8 +66,7 @@ public class CotizacionAction extends ActionSupport {
 		
 		try {
 			prodProvee = objProdProveeServ.getProductoProveedorIdProdAndIdProvee(prodProvee);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) { 
 			e.printStackTrace();
 		} 
 		objDetalle.setCod_producto_proveedor(prodProvee.getCod_producto_proveedor());
@@ -74,11 +77,14 @@ public class CotizacionAction extends ActionSupport {
 		if(lstDetCoti==null){
 			lstDetCoti = new ArrayList<CotizacionDetalleDTO>();
 		}
-		
-		lstDetCoti.add(objDetalle);
-		for (CotizacionDetalleDTO cot : lstDetCoti) {
-			System.out.println("mamachota:"+cot.getDesc_producto());
+		for (CotizacionDetalleDTO prod2 : lstDetCoti) {
+			if(prod2.getCod_producto().equals(getIdProd())){
+				this.rsult=0;
+				this.mensaje="Producto ya existe!";
+				return ERROR;
+			}
 		}
+		lstDetCoti.add(objDetalle); 
 		lasesion.put("lstDetCoti", lstDetCoti);
 		return SUCCESS;
 	}
@@ -101,16 +107,27 @@ public class CotizacionAction extends ActionSupport {
 			System.out.println("Guadrarr!"); 
 			UsuarioDTO usuario =  (UsuarioDTO) lasesion.get("objUsuario");
 			objCotizacion.setCod_usuario(usuario.getCod_usuario()); 
+			if(objCotizacion.getCod_proveedor()==null){
+				this.rsult=0;
+				this.mensaje="Agregar Proveedor";
+				return SUCCESS;
+			}
 			lstDetCoti = (ArrayList<CotizacionDetalleDTO>) lasesion.get("lstDetCoti"); 
-			
+			if(lstDetCoti==null){
+				this.rsult=0;
+				this.mensaje="Agregar detalle";
+				return SUCCESS;
+			}
 			objCotizacionServ.registrarCotizacion(objCotizacion, lstDetCoti);
 			lasesion.remove("lstDetCoti");
+			this.rsult=1;
 			this.mensaje="Se guardo correctamente!";
 		} catch (Exception e) {
 			System.out.println("Try:"+e);
 			e.printStackTrace();
-		}
-		
+			this.rsult=0;
+			this.mensaje="Ocurrio un error al Grabar";
+		} 
 		return SUCCESS;
 	}
 	@Action(value = "/getDetalleCotizacion", results = { @Result(name = "success", location = "/paginas/cotizacion/detalle_cotizacion.jsp") })
@@ -239,6 +256,12 @@ public class CotizacionAction extends ActionSupport {
 	}
 	public void setNumeroPaginasModalCotizacion(Integer numeroPaginasModalCotizacion) {
 		this.numeroPaginasModalCotizacion = numeroPaginasModalCotizacion;
+	}
+	public Integer getRsult() {
+		return rsult;
+	}
+	public void setRsult(Integer rsult) {
+		this.rsult = rsult;
 	} 
 
 	

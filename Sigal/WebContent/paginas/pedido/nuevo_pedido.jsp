@@ -25,6 +25,8 @@ function eliminarDetallePedido(idProd){
 	});
 } 
 $(document).ready(function() {
+	var mensaje="<div class='alert alert-error'><h4>Error!</h4>";
+// 	$('.alert').hide(); 
 	$('#idBuscarProducto').click(function(){
 		$("#txtProducto").val("");
 		$.post("listarProductoTotal",function(data){
@@ -56,12 +58,21 @@ $(document).ready(function() {
 		}else{
 			$("#inputNroPedido").prop('disabled', false);
 		} 
-	});
-	
-	$('#btnAgregarDetallePedido').click(function(){
+	}); 
+	$('#btnAgregarDetallePedido').click(function(){ 
 		var idProd= $("#cod_producto").val();
-		var cantidad= $("#inputCantidad").val();
-		console.log('ddddd:'+idProd+'|'+cantidad);
+		var cantidad= $("#inputCantidad").val();  
+		var str = '<h4>Error!</h4>';
+		if(idProd==null || idProd=='' ){ 
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Producto correcto"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		}
+		if(!/^([0-9])*$/.test(cantidad) || cantidad=='' || cantidad==0){  
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Cantidad Valida"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		}  
 		$.post("agregarDetallePedido",{"idProd":idProd,cantidad:cantidad},function(data){
 	 		$("#divDetallePedido").html(data);
 		}); 
@@ -71,20 +82,48 @@ $(document).ready(function() {
 		var fechaEntrega = $('#idFechaEntrega').val();
 		var fechaDevolucion = $('#idFechaDevolucion').val();
 		var observacion = $('#inputObservacion').val();  
+		var iChars = "#$%^&*()+=-[]\\'/{}|\"<>"; 
+		for (var i = 0; i < observacion.length; i++) {
+		    if (iChars.indexOf(observacion.charAt(i)) != -1) {
+		    	$("#divMostrarMensaje").html(mensaje+" Ingrese una Observacion valida"+ "</div>");
+	 			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+	 			return;
+		    }
+		} 
+		//validar fechas 
+		if(fechaEntrega=='' || fechaEntrega==null){
+			$("#divMostrarMensaje").html(mensaje+" Ingrese una Fecha de Entrega valida"+ "</div>");
+ 			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+ 			return;
+		}
+		if(radioSelecionado=='Prestamo'){
+			if(fechaDevolucion=='' || fechaDevolucion==null){
+				$("#divMostrarMensaje").html(mensaje+" Ingrese una Fecha de Devolucion valida"+ "</div>");
+	 			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+	 			return;
+			}
+		}
+		 
+		
 		$.post("guardarPedido",
 			{
-		"tipoPedido":radioSelecionado,
-		"fechaEntrega":fechaEntrega,
-		"fechaDevolucion":fechaDevolucion,
-		"obsDevolucion":observacion
+			"tipoPedido":radioSelecionado,
+			"fechaEntrega":fechaEntrega,
+			"fechaDevolucion":fechaDevolucion,
+			"obsDevolucion":observacion
 			}
 		,
-		function(data){
-	 		$("#divMostrarMensaje").html(data);
-		});
-		
-		
-		
+		function(data){ 
+			var bien = data.indexOf("Error");  
+			if(bien<0){
+				$("#idMensajeInterno").html(data);
+		 		$('#myMensaje').modal({  keyboard: false });  
+		 		setTimeout(function(){ $(location).attr('href','nuevoPedido'); }, 4000);
+			}else{
+				$("#idMensajeInterno").html(data);
+		 		$('#myMensaje').modal({  keyboard: false });  
+			} 
+		});  
 	});
 	
 	$('#idFechaEntrega').datepicker('setStartDate', $('#inputFecha').val()).on('changeDate', function(ev){  
@@ -94,7 +133,8 @@ $(document).ready(function() {
 });  
 </script>
 <h3>Registrar Solicitud de Pedido</h3>  
-<div id="divMostrarMensaje"></div>
+<div id="divMostrarMensaje"> 
+</div>
 <div class="control-group">
 	<div  class="form-inline"> 
 		<label class="control-label" for="inputFecha">Fecha</label>
@@ -126,7 +166,7 @@ $(document).ready(function() {
 		<label class="input-medium">Fecha Entrega</label>
 		<div class="input-prepend">
 		<span class="add-on"><i class="icon-calendar"></i></span>
-		<input class="span2 datepicker" id="idFechaEntrega"  type="text">
+		<input class="span2 datepicker" id="idFechaEntrega"  type="text"  readonly>
 		</div> 
 		
 	</div>
@@ -138,7 +178,7 @@ $(document).ready(function() {
 		<label class="control-label" for="inputIcon">Fecha Devoluci&oacute;n</label>
 		<div class="input-prepend">
 		<span class="add-on"><i class="icon-calendar"></i></span>
-		<input class="span2 datepicker" id="idFechaDevolucion"  type="text">
+		<input class="span2 datepicker" id="idFechaDevolucion"  type="text" readonly>
 		</div> 
 		
 	</div>
@@ -222,5 +262,11 @@ $(document).ready(function() {
 </div>
  
   
+  
+<div id="myMensaje" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalBuscarProducto" aria-hidden="true">
+<div class="modal-body">
+<div id="idMensajeInterno"></div> 
+</div> 
+</div>
 
  

@@ -30,5 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_cargo cargo on cargo.cod_cargo=acceso.cod_cargo
 		where acceso.cod_menu=#{cod_menu} order by menu.orden_menu
 	</select>
+	<select id="SQL_getAccesoXIdCargoIdMenu" resultType="AccesoBean"  parameterType="AccesoBean">
+		select menu.*,acceso.*,cargo.* from tb_menu menu 
+		inner join tb_acceso_menu acceso on acceso.cod_menu=menu.cod_menu 
+		inner join tb_cargo cargo on cargo.cod_cargo=acceso.cod_cargo
+		where acceso.cod_menu=#{cod_menu} and acceso.cod_cargo=#{cod_cargo} order by menu.orden_menu
+	</select>
 	        
 </mapper>

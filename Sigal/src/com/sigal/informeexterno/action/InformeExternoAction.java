@@ -57,7 +57,7 @@ public class InformeExternoAction extends ActionSupport  {
 			UsuarioDTO usuario =  (UsuarioDTO) lasesion.get("objUsuario");
 			objInformeExterno.setCod_usuario(usuario.getCod_usuario()); 
 			objInformeExterno.setTipo_informe_externo("Entrada");
-			lstIEDet = new ArrayList<>();
+			lstIEDet = new ArrayList<InformeExternoDetalleDTO>();
 			OrdenCompraDetalleDTO ocDet = new OrdenCompraDetalleDTO();
 			ocDet.setCod_ordenCompra(objInformeExterno.getCod_ordencompra()); 
 			List<OrdenCompraDetalleDTO> lstDetOC= objOCDetServ.listaOrdenCompraXidOrdenCompra(ocDet);

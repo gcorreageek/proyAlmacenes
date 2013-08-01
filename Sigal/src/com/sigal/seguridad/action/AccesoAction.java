@@ -74,21 +74,20 @@ public class AccesoAction extends ActionSupport {
 	}
 	@Action(value = "/guardarAcceso", results = { @Result(name = "success", location = "/paginas/mantenimientos/mensaje_usuario.jsp") })
 	public String guardarAcceso() {  
-		objAcceso.setHabilitado("Habilitado");
-		System.out.println("cargo:"+objAcceso.getCod_cargo());
-		System.out.println("menu:"+objAcceso.getCod_menu());
-		try {
-			//Si ese cargo ya registro a ese menu
-			List<AccesoMenuDTO> lstA = objAccesoServ.listaAcceso(objAcceso.getCod_cargo());
-			Integer  idSubMenu =objMenuServ.getMenu(objAcceso.getCod_menu()).getId_submenu();
-			for (AccesoMenuDTO accesoMenuDTO : lstA) {
-				if(!accesoMenuDTO.getCod_menu().equals(idSubMenu)){ 
+		objAcceso.setHabilitado("Habilitado"); 
+		try { 
+			MenuDTO m = objMenuServ.getMenu(objAcceso.getCod_menu());
+			Integer idSubMenu = m.getId_submenu();  
+			if (!objAcceso.getCod_menu().equals(idSubMenu)) {
+				AccesoMenuDTO acceso = objAccesoServ.getAccesoXIdMenuIdCargo(idSubMenu, objAcceso.getCod_cargo());
+				if (acceso == null) { 
+					AccesoMenuDTO accesoMenuDTO = new AccesoMenuDTO();
+					accesoMenuDTO.setCod_cargo(objAcceso.getCod_cargo());
 					accesoMenuDTO.setCod_menu(idSubMenu);
 					accesoMenuDTO.setHabilitado("Habilitado");
-					objAccesoServ.registrarAcceso(accesoMenuDTO); 
-					break;
+					objAccesoServ.registrarAcceso(accesoMenuDTO);
 				}
-			}  
+			} 
 			objAccesoServ.registrarAcceso(objAcceso); 
 			rsult=1;
 			mensaje="Se Guardo existosamente";

@@ -27,4 +27,7 @@ public class AccesoService {
 	public AccesoMenuDTO  getAccesoXIdMenu(Integer idMenu) throws Exception {
 		return objAccesoDAO.getAccesoXIdMenu(idMenu);
 	}
+	public AccesoMenuDTO  getAccesoXIdMenuIdCargo(Integer idMenu,Integer idCargo) throws Exception {
+		return objAccesoDAO.getAccesoXIdMenuIdCargo(idMenu, idCargo);
+	}
 }

@@ -42,6 +42,7 @@ public class PedidoAction extends ActionSupport {
 	private Map<String, Object> lasesion = ActionContext.getContext().getSession(); 
 	private List<DetallePedidoDTO> lstDetPed ;
 	private String mensaje;
+	private Integer rsult;
 	 
 	private SolicitudPedidoDTO objPedido;
 	private DetallePedidoDTO objDetallePedido;
@@ -69,7 +70,8 @@ public class PedidoAction extends ActionSupport {
 	private String mensajeR;
 	
 	Integer cod_area;
-	String desc_area;
+	String desc_area; 
+	 
 	
 	
 	@Action(value="/nuevoPedido",results={@Result(name="success",type="tiles",location="d_mainpedido")})
@@ -82,9 +84,12 @@ public class PedidoAction extends ActionSupport {
 		lstArea = objAreaServ.listaArea(); 
 		return SUCCESS;
 	}							 
-	@Action(value="/agregarDetallePedido",results={@Result(name="success",location="/paginas/pedido/detalle_pedido.jsp")})
+	@Action(value="/agregarDetallePedido",results={
+			@Result(name="error",location="/paginas/pedido/detalle_pedido.jsp"),
+			@Result(name="success",location="/paginas/pedido/detalle_pedido.jsp")})
 	public String agregarDetallePedido(){
 		lstDetPed = (ArrayList<DetallePedidoDTO>) lasesion.get("lstDetPed");
+		
 		DetallePedidoDTO objDetalle = new DetallePedidoDTO();
 		ProductoDTO prod = new ProductoDTO();
 		prod.setCod_producto(getIdProd());
@@ -96,7 +101,13 @@ public class PedidoAction extends ActionSupport {
 		if(lstDetPed==null){
 			lstDetPed = new ArrayList<DetallePedidoDTO>();
 		}
-		
+		for (DetallePedidoDTO prod2 : lstDetPed) {
+			if(prod2.getCod_producto().equals(getIdProd())){
+				this.rsult=0;
+				this.mensaje="Producto ya existe!";
+				return ERROR;
+			}
+		}
 		lstDetPed.add(objDetalle); 
 		lasesion.put("lstDetPed", lstDetPed);
 		return SUCCESS;
@@ -122,18 +133,46 @@ public class PedidoAction extends ActionSupport {
 			pedido.setCod_usuario(usuario.getCod_usuario());
 			pedido.setComentario_pedido(getObsDevolucion());
 			pedido.setEstado_pedido("Sin Atender");
-			System.out.println("devo:"+getFechaDevolucion());
-			System.out.println("entre:"+getFechaEntrega()); 
-			
+			//validar las fechas
+			java.sql.Date fechaEntregaS = UtilSigal.fechaDateSql(getFechaEntrega());
+			java.sql.Date fechaDevolucionS = UtilSigal.fechaDateSql(getFechaDevolucion());
+			//fecha1 es anterior a la fecha2
+			if(fechaEntregaS==null){
+				this.rsult=0;
+				this.mensaje="Fecha de Entrega vacia";
+				return SUCCESS;
+			}
+			if("Prestamo".equals(getTipoPedido())){
+				if(fechaDevolucionS==null){
+					this.rsult=0;
+					this.mensaje="Fecha de Devolucion vacio";
+					return SUCCESS;
+				}
+				if(fechaDevolucionS.before(fechaEntregaS)){
+					this.rsult=0;
+					this.mensaje="Fecha de Entrega es mayor a la Fecha de Devolucion";
+					return SUCCESS;
+				} 	
+			}
+			  
 			pedido.setFechaDevolucion_pedido(UtilSigal.fechaDateSql(getFechaDevolucion()) );
 			pedido.setFechaEntrega_pedido(UtilSigal.fechaDateSql(getFechaEntrega())); 
 			pedido.setTipo_pedido(getTipoPedido());
 			lstDetPed = (ArrayList<DetallePedidoDTO>) lasesion.get("lstDetPed");
+			if(lstDetPed==null){
+				this.rsult=0;
+				this.mensaje="Agregar detalle";
+				return SUCCESS;
+			}
 			objPedidoServ.registrarPedido(pedido, lstDetPed);
 			lasesion.remove("lstDetPed");
+			this.rsult=1;
+			this.mensaje="Se registro su Pedido!";
 		} catch (Exception e) {
 			System.out.println("Try:"+e);
 			e.printStackTrace();
+			this.rsult=0;
+			this.mensaje="Ocurrio un error al Grabar";
 		}
 		
 		return SUCCESS;
@@ -143,12 +182,15 @@ public class PedidoAction extends ActionSupport {
 	public String guardarEvaluacionPedido(){
 		try {
 			//aprobar o desaprobar
-			System.out.println("Guadrarr Evaluacion!"+objPedido.getEstado_pedido()); 
+			System.out.println("commenatrio Evaluacion!"+objPedido.getComentarioevaluacion_pedido()); 
 			objPedidoServ.guardarEvaluacionPedido(objPedido);
-			this.mensaje = "Se "+objPedido.getEstado_pedido()+" el Pedido";
+			this.mensaje = "El Pedido se guardo con estado "+objPedido.getEstado_pedido()+"";
+			this.rsult= 1;
 		} catch (Exception e) {
 			System.out.println("Try:"+e);
 			e.printStackTrace();
+			this.mensaje = "Ocurrio un error en guardar el Pedido";
+			this.rsult= 0;
 		}
 		
 		return SUCCESS;
@@ -168,7 +210,7 @@ public class PedidoAction extends ActionSupport {
 	} 
 	//Modal
 	@Action(value = "/listarPedidoPagModal", results = { @Result(name = "success", location = "/paginas/pedido/buscar_pedido.jsp") })
-	public String listarPedidoPagModal() {
+	public String listarPedidoPagModal() { 
 		Integer comienzo = null;
 		if (inicio == null || inicio == 0) {
 			comienzo = 0;
@@ -176,7 +218,7 @@ public class PedidoAction extends ActionSupport {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		} 
 		try {
-			lstPedido =   objPedidoServ.listaPedidoPaginado(comienzo, Constantes.FILAS_X_PAGINA);
+			lstPedido =   objPedidoServ.listaPedidoPaginadoSinAtender(comienzo, Constantes.FILAS_X_PAGINA);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -184,7 +226,7 @@ public class PedidoAction extends ActionSupport {
 		return SUCCESS;
 	} 
 	@Action(value = "/buscarPedidoPagModal", results = { @Result(name = "success", location = "/paginas/pedido/buscar_pedido.jsp") })
-	public String buscarPedidoPagModal() {
+	public String buscarPedidoPagModal() { 
 		Integer comienzo = null;
 		if (inicio == null || inicio == 0) {
 			comienzo = 0;
@@ -192,7 +234,7 @@ public class PedidoAction extends ActionSupport {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
 		try {
-			lstPedido = objPedidoServ.buscarPedidoPaginado(objPedido, comienzo, Constantes.FILAS_X_PAGINA);
+			lstPedido = objPedidoServ.buscarPedidoPaginadoSinAtender(objPedido, comienzo, Constantes.FILAS_X_PAGINA);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -200,10 +242,10 @@ public class PedidoAction extends ActionSupport {
 		return SUCCESS;
 	}
 	@Action(value = "/listarPedidoTotal", results = { @Result(name = "success", location = "/paginas/pedido/pedido_listado_total.jsp") })
-	public String listarPedidoTotal() { 
+	public String listarPedidoTotal() {  
 		try {
 			System.out.println("totla:"+objPedidoServ.listaPedidoTotal());
-			this.numeroPaginasModalPedido= UtilSigal.totalDePaginas(objPedidoServ.listaPedidoTotal());
+			this.numeroPaginasModalPedido= UtilSigal.totalDePaginas(objPedidoServ.listaPedidoTotalSinAtender());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -212,10 +254,10 @@ public class PedidoAction extends ActionSupport {
 		return SUCCESS;
 	}
 	@Action(value = "/buscarPedidoTotal", results = { @Result(name = "success", location = "/paginas/pedido/pedido_buscar_total.jsp") })
-	public String buscarPedidoTotal() { 
+	public String buscarPedidoTotal() {  
 		try {
 			System.out.println("total reg:"+objPedidoServ.buscarPedidoTotal(objPedido));
-			this.numeroPaginasModalPedido = UtilSigal.totalDePaginas(objPedidoServ.buscarPedidoTotal(objPedido));
+			this.numeroPaginasModalPedido = UtilSigal.totalDePaginas(objPedidoServ.buscarPedidoTotalSinAtender(objPedido));
 			System.out.println("total paginas:"+numeroPaginasModalPedido);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -323,6 +365,12 @@ public class PedidoAction extends ActionSupport {
 	}
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
+	}
+	public Integer getRsult() {
+		return rsult;
+	}
+	public void setRsult(Integer rsult) {
+		this.rsult = rsult;
 	}
 	
  
