@@ -19,7 +19,9 @@ public class PedidoDetalleService {
 		return objPedDetDAO.getPedidoDetalle(det);
 	}  
 	
-	
+	public  DetallePedidoDTO  getPedidoIdPedido(DetallePedidoDTO det) throws Exception {
+		return objPedDetDAO.getPedidoDetalle1(det);
+	} 
 	
 
 }

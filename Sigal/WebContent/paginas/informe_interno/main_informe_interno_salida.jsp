@@ -29,12 +29,34 @@ function seleccionaPedido(codPedido,nomUsuario,area,cargo,fechaRegistro,fechaDev
 	});  	
 } 
 function guardarIIS(){//objInformeInterno.cod_pedido  obs_informeinterno
+// 	alert('ddd');
+	var mensaje="<div class='alert alert-error'><h4>Error!</h4>";
 	var codPedido=$("#cod_pedido").val(); 
-	var obs=$("#inputObservacion").val(); 
-	$.post("guardarIIS",{"objInformeInterno.cod_pedido":codPedido,"objInformeInterno.obs_informeinterno":obs},function(data){
- 		$("#divMensaje").html(data);
- 		$('#myIIS').modal({  keyboard: false }); 
- 		setTimeout(function(){ $(location).attr('href','inicio'); }, 4000); 
+	var observacion=$("#inputObservacion").val(); 
+	var iChars = "#$%^&*()+=-[]\\'/{}|\"<>"; 
+	if(codPedido==null || codPedido=='' ){ 
+		$("#divMostrarMensaje").html(mensaje+" Ingrese Pedido correcto"+ "</div>");
+		setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+		return;
+	}
+	for (var i = 0; i < observacion.length; i++) {
+	    if (iChars.indexOf(observacion.charAt(i)) != -1) {
+	    	$("#divMostrarMensaje").html(mensaje+" Ingrese una Observacion valida"+ "</div>");
+ 			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+ 			return;
+	    }
+	} 
+	$.post("guardarIIS",{"objInformeInterno.cod_pedido":codPedido,"objInformeInterno.obs_informeinterno":observacion},function(data){
+// 		console.log('mira'+data);
+		var bien = data.indexOf("Error");  
+		if(bien<0){
+			$("#idMensajeInterno").html(data);
+	 		$('#myIIS').modal({  keyboard: false });  
+	 		setTimeout(function(){ $(location).attr('href','mainInformeInternoSalida'); }, 4000);
+		}else{
+			$("#idMensajeInterno").html(data);
+	 		$('#myIIS').modal({  keyboard: false });  
+		} 
 	}); 
 }
 
@@ -46,10 +68,10 @@ $(document).ready(function() {
 	
 	$('#idBuscarPedido').click(function(){
 // 		$("#txtPedido").val("");
-		$.post("listarPedidoTotal",function(data){
+		$.post("listarPedidoTotalAprobados",function(data){
 	 		$("#divDatosPedidoTotal").html(data);
 		}); 
-		$.post("listarPedidoPagModal",{inicio:null},function(data){
+		$.post("listarPedidoPagModalAprobados",{inicio:null},function(data){
 	 		$("#divTablaPedidoModal").html(data);
 		}); 
 	});  
@@ -61,7 +83,7 @@ $(document).ready(function() {
 		var txtFechaFin=$("#txtFechaFin").val();
 		var cboTipo=$("#cboTipo").val();
 // 		objPedido.fechaRegistro_pedido objPedido.cod_area objPedido.nom_usuario objPedido.tipo_pedido
-		$.post("buscarPedidoTotal",{
+		$.post("buscarPedidoTotalAprobados",{
 			"objPedido.nom_usuario":txtNombreRespo,
 			"objPedido.cod_area":cboArea,
 			"objPedido.fechaInicio":txtFechaInicio,
@@ -70,7 +92,7 @@ $(document).ready(function() {
 			},function(data){
 	 		$("#divDatosPedidoTotal").html(data);
 		}); 
-		$.post("buscarPedidoPagModal",{
+		$.post("buscarPedidoPagModalAprobados",{
 			"objPedido.nom_usuario":txtNombreRespo,
 			"objPedido.cod_area":cboArea,
 			"objPedido.fechaInicio":txtFechaInicio,
@@ -79,13 +101,12 @@ $(document).ready(function() {
 			},function(data){
 	 		$("#divTablaPedidoModal").html(data);
 		}); 
-	});  
-
-
-// 	 setTimeout(function(){ $('.alert').hide(1000); }, 3000); 
+	});   
 }); 
 </script>
 <h3>Informe Interno de Salida</h3>
+<div id="divMostrarMensaje"> 
+</div>
 <form>
 <s:hidden  name="objPedido.cod_solicitudPedido"  id="cod_pedido"    />
 <s:hidden  name="codProd"  id="cod_producto"    />
@@ -191,8 +212,8 @@ $(document).ready(function() {
 		  
 		<s:select headerKey="0" headerValue="Seleccionar"  list="lstArea" listValue="desc_area" listKey="cod_area" id="cboArea" />  
     
-		<input type="text" id="txtFechaInicio" class="input-medium search-query" placeholder="Fecha Inicio" >
-	    <input type="text" id="txtFechaFin" class="input-medium search-query" placeholder="Fecha Fin" >
+		<input type="text" id="txtFechaInicio" class="input-medium search-query datepicker" placeholder="Fecha Inicio" >
+	    <input type="text" id="txtFechaFin" class="input-medium search-query datepicker" placeholder="Fecha Fin" >
 	    <s:select   headerKey="0" headerValue="Seleccionar" 
 		list="#{'Abastecimiento':'Abastecimiento', 'Prestamo':'Prestamo'}"
 		name="objPedido.tipo_pedido"  value="objPedido.tipo_pedido" 
@@ -207,14 +228,10 @@ $(document).ready(function() {
 
 
 
-<div id="myIIS" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalIIS" aria-hidden="true">
-<div class="modal-header"> 
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-<h3 id="myModalIIS">Resultado Informe Interno de Salida</h3>
-</div>
-<div class="modal-body"> 
-      <div id="divMensaje">
-      </div> 
+<div id="myIIS" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalBuscarProducto" aria-hidden="true">
+<div class="modal-body">
+<div id="idMensajeInterno"></div> 
 </div> 
 </div>
+
  

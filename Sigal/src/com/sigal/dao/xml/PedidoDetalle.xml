@@ -15,6 +15,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where ped.cod_solicitudPedido=#{cod_solicitudPedido}  
 		order by det.cod_detallePedido 
 	</select>
+	<select id="SQL_getDetallePedido1"   resultType="PedidoDetalleBean"    >
+		select * from tb_pedido_detalle where cod_detallePedido=#{cod_detallePedido} 
+	</select> 
 	
 	 
 	

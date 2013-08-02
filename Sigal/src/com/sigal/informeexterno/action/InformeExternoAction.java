@@ -16,6 +16,10 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.sigal.informeexterno.bean.InformeExternoDTO;
 import com.sigal.informeexterno.bean.InformeExternoDetalleDTO;
 import com.sigal.informeexterno.service.InformeExternoService;
+import com.sigal.mantenimiento.bean.ProductoDTO;
+import com.sigal.mantenimiento.bean.ProductoProveedorDTO;
+import com.sigal.mantenimiento.service.ProductoProveedorService;
+import com.sigal.mantenimiento.service.ProductoService;
 import com.sigal.ordencompra.bean.OrdenCompraDetalleDTO;
 import com.sigal.ordencompra.service.OrdenCompraDetalleService;
 import com.sigal.seguridad.bean.UsuarioDTO;
@@ -29,6 +33,8 @@ public class InformeExternoAction extends ActionSupport  {
 	InformeExternoService objInfExternoServ = new InformeExternoService();
 //	ProductoService objProdServ = new ProductoService();
 	OrdenCompraDetalleService objOCDetServ = new OrdenCompraDetalleService();
+	ProductoProveedorService objProdProveeServ = new ProductoProveedorService();
+	ProductoService objProductoServ = new ProductoService();
 //	ProductoDTO objProducto;
 //	AreaService objAreaServ = new AreaService();
 	 
@@ -37,6 +43,7 @@ public class InformeExternoAction extends ActionSupport  {
 	
 //	private Integer codProd;
 	private String mensaje;
+	private Integer rsult;
 //	private Integer rsult;
 	private InformeExternoDTO objInformeExterno;
 	
@@ -59,18 +66,29 @@ public class InformeExternoAction extends ActionSupport  {
 			objInformeExterno.setTipo_informe_externo("Entrada");
 			lstIEDet = new ArrayList<InformeExternoDetalleDTO>();
 			OrdenCompraDetalleDTO ocDet = new OrdenCompraDetalleDTO();
+			if(objInformeExterno.getCod_ordencompra()==null){
+				this.mensaje = "Agrege Orden de Compra";
+				this.rsult= 0;
+				return SUCCESS;
+			}
 			ocDet.setCod_ordenCompra(objInformeExterno.getCod_ordencompra()); 
 			List<OrdenCompraDetalleDTO> lstDetOC= objOCDetServ.listaOrdenCompraXidOrdenCompra(ocDet);
 			for (OrdenCompraDetalleDTO detalleOCDTO : lstDetOC) {
 				InformeExternoDetalleDTO ieDet = new InformeExternoDetalleDTO(); 
 				ieDet.setCod_detalle_ordencompra(detalleOCDTO.getCod_DetalleOrdenCompra());
+				//coddetalleordencimpra    
 				lstIEDet.add(ieDet);
 			} 
-			objInfExternoServ.registrarOrdenCompra(objInformeExterno, lstIEDet);  
-			this.mensaje = "Se ingreso correctamente el Informe Externo Entrada";
+			Integer r = (Integer)objInfExternoServ.registrarOrdenCompra(objInformeExterno, lstIEDet);  
+			if(r>0){
+				this.mensaje = "Se ingreso correctamente el Informe Externo Entrada";
+				this.rsult= 1;	
+			} 
 		} catch (Exception e) {
 			System.out.println("Try:"+e);
 			e.printStackTrace();
+			this.mensaje = "Ocurrio un error en guardar el IEE";
+			this.rsult= 0;
 		} 
 		return SUCCESS;
 	}
@@ -83,18 +101,40 @@ public class InformeExternoAction extends ActionSupport  {
 			objInformeExterno.setTipo_informe_externo("Salida");
 			lstIEDet = new ArrayList<>();
 			OrdenCompraDetalleDTO ocDet = new OrdenCompraDetalleDTO();
+			if(objInformeExterno.getCod_ordencompra()==null){
+				this.mensaje = "Agrege Orden de Compra";
+				this.rsult= 0;
+				return SUCCESS;
+			}
 			ocDet.setCod_ordenCompra(objInformeExterno.getCod_ordencompra()); 
 			List<OrdenCompraDetalleDTO> lstDetOC= objOCDetServ.listaOrdenCompraXidOrdenCompra(ocDet);
 			for (OrdenCompraDetalleDTO detalleOCDTO : lstDetOC) {
 				InformeExternoDetalleDTO ieDet = new InformeExternoDetalleDTO(); 
 				ieDet.setCod_detalle_ordencompra(detalleOCDTO.getCod_DetalleOrdenCompra());
+				
+				ProductoProveedorDTO prodProvee = new ProductoProveedorDTO();
+				prodProvee.setCod_proveedor(detalleOCDTO.getCod_producto_proveedor());
+				prodProvee = objProdProveeServ.getProductoProveedor(prodProvee);
+				ProductoDTO prod = new ProductoDTO();
+				prod.setCod_producto(prodProvee.getCod_producto());
+				prod = objProductoServ.getProducto(prod); 
+				if(prod.getStock_producto()<detalleOCDTO.getCantidad()){
+					this.mensaje = "No hay stock suficiente para el producto \""+prod.getDesc_producto()+"\"";
+					this.rsult= 0;
+					return SUCCESS;
+				} 
 				lstIEDet.add(ieDet);
 			} 
-			objInfExternoServ.registrarOrdenCompra(objInformeExterno, lstIEDet);  
-			this.mensaje = "Se ingreso correctamente el Informe Externo Salida";
+			Integer r = (Integer) objInfExternoServ.registrarOrdenCompra(objInformeExterno, lstIEDet);  
+			if(r>0){
+				this.mensaje = "Se ingreso correctamente el Informe Externo Salida";
+				this.rsult= 1;	
+			}  
 		} catch (Exception e) {
 			System.out.println("Try:"+e);
 			e.printStackTrace();
+			this.mensaje = "Ocurrio un error en guardar el IES";
+			this.rsult= 0;
 		} 
 		return SUCCESS;
 	}

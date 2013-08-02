@@ -13,4 +13,6 @@ import com.sigal.ordencompra.bean.OrdenCompraDetalleDTO;
  */
 public interface OrdenCompraDetalleDAO {
 	List<OrdenCompraDetalleDTO> getOCDetalle(OrdenCompraDetalleDTO detalle);
+	
+	 OrdenCompraDetalleDTO getOCDetalle1(OrdenCompraDetalleDTO detalle);
 }

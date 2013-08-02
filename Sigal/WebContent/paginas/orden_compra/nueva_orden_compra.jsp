@@ -27,8 +27,8 @@ function eliminarDetalleCotizacion(idProd){
 	});
 }
 $(document).ready(function() {  
-	$('#idBuscarCotizacion').click(function(){
-// 		$("#txtPedido").val("");
+	var mensaje="<div class='alert alert-error'><h4>Error!</h4>";
+	$('#idBuscarCotizacion').click(function(){ 
 		$.post("listarCotizacionTotal",function(data){
 	 		$("#divDatosCotizacionTotal").html(data);
 		}); 
@@ -37,10 +37,14 @@ $(document).ready(function() {
 		}); 
 	});  
 	/**PRODUCTO**/
-	$('#idBuscarProducto').click(function(){
-		$("#txtProducto").val("");
-		console.log('ddemente!');
-		var idProvee = $('#cod_proveedor').val();
+	$('#idBuscarProducto').click(function(){ 
+		var idProvee = $('#cod_proveedor').val(); 
+		if(idProvee==null || idProvee=='' ){ 
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Proveedor correcto"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		} 
+		$('#myBuscarProducto').modal({  keyboard: false });  
 		$.post("listarProductoTotalidProve",{idProve:idProvee},function(data){
 	 		$("#divDatosProdTotal").html(data);
 		}); 
@@ -62,18 +66,18 @@ $(document).ready(function() {
 	$('#idBotonBuscarCotizacion').click(function(){ 
 		var txtNombreRespo=$("#txtNombreResponsable").val(); 
 		var txtFechaInicio=$("#txtFechaInicio").val();
-		var txtFechaFin=$("#txtFechaFin").val();  
-		$.post("buscarPedidoTotal",{
+		var txtFechaFin=$("#txtFechaFin").val(); 
+		$.post("buscarCotizacionTotal",{
 			"objCotizacion.nom_usuario":txtNombreRespo, 
-			"objCotizacion.fechaInicio":txtFechaInicio,
-			"objCotizacion.fechaFin":txtFechaFin
+			"fechaComienzaInicio":txtFechaInicio,
+			"fechaTerminaFin":txtFechaFin
 			},function(data){
 	 		$("#divDatosCotizacionTotal").html(data);
 		}); 
 		$.post("buscarCotizacionPagModal",{
 			"objCotizacion.nom_usuario":txtNombreRespo, 
-			"objCotizacion.fechaInicio":txtFechaInicio,
-			"objCotizacion.fechaFin":txtFechaFin
+			"fechaComienzaInicio":txtFechaInicio,
+			"fechaTerminaFin":txtFechaFin
 			},function(data){
 	 		$("#divTablaCotizacionModal").html(data);
 		}); 
@@ -81,28 +85,57 @@ $(document).ready(function() {
 	$('#btnAgregarDetalleOC').click(function(){
 		var idProd= $("#cod_producto").val();
 		var cantidad= $("#inputCantidad").val();
-		var codprove = $('#cod_proveedor').val();
-		console.log('ddddd:'+idProd+'|'+cantidad);
-		$.post("agregarDetalleCotizacion",{"objCotizacion.cod_proveedor":codprove,"idProd":idProd,cantidad:cantidad},function(data){
+		var idProvee = $('#cod_proveedor').val();
+		if(idProvee==null || idProvee=='' ){ 
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Proveedor correcto"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		}
+		if(idProd==null || idProd=='' ){ 
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Producto correcto"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		}
+		if(!/^([0-9])*$/.test(cantidad) || cantidad=='' || cantidad==0){  
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Cantidad Valida"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		} 
+		
+		$.post("agregarDetalleCotizacion",{"objCotizacion.cod_proveedor":idProvee,"idProd":idProd,cantidad:cantidad},function(data){
 	 		$("#idTableDetalleCotizacion").html(data);
 		}); 
 	});
 
 	$('#btnGuardar').click(function(){ 
 		var codProve = $('#cod_proveedor').val(); 
-		var codcotizacion = $('#cod_cotizacion').val(); 
-		$.post("guardarOrdenCompra",
-			{ 
+		var codcotizacion = $('#cod_cotizacion').val();
+		if(codcotizacion==null || codcotizacion=='' ){ 
+			$("#divMostrarMensaje").html(mensaje+" Ingrese Cotizacion correcto"+ "</div>");
+			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+			return;
+		} 
+		
+		$.post("guardarOrdenCompra",{ 
 		"objOrdenCompra.cod_cotizacion":codcotizacion ,
 		"objOrdenCompra.cod_proveedor":codProve
-			}
-		,
+		},
 		function(data){
-			$("#divMostrarMensaje").html(data);
-	 		$('#myOrdenCompra').modal({
-			  keyboard: false
-			}); 
-	 		setTimeout(function(){ $(location).attr('href','inicio'); }, 4000); 
+			var bien = data.indexOf("Error");  
+			if(bien<0){
+				$("#divMostrarMensajeInterno").html(data);
+		 		$('#myOrdenCompra').modal({  keyboard: false });  
+		 		setTimeout(function(){ $(location).attr('href','mainOrdenCompra'); }, 4000);
+			}else{
+				$("#divMostrarMensajeInterno").html(data);
+		 		$('#myOrdenCompra').modal({  keyboard: false });  
+			}  
+			
+// 			$("#divMostrarMensaje").html(data);
+// 	 		$('#myOrdenCompra').modal({
+// 			  keyboard: false
+// 			}); 
+// 	 		setTimeout(function(){ $(location).attr('href','inicio'); }, 4000); 
 		});
 	});
 
@@ -110,6 +143,8 @@ $(document).ready(function() {
 }); 
 </script>
 <h3>Registro Orden de Compra</h3>
+<div id="divMostrarMensaje"> 
+</div>
 <form>
 <!-- Proveedor -->
 <h5>Datos de la Cotizacion</h5>
@@ -145,7 +180,7 @@ $(document).ready(function() {
 		<input type="text" id="desc_producto" class="input-xxlarge" id="inputProducto" placeholder="Producto" disabled>
 		<label class="control-label" for="inputUMedida">U.Medida</label>
 		<input type="text"  id="unidadMedida" class="input-large" id="inputUMedida" placeholder="U.Medida" disabled>
-		<a class="btn btn-primary" href="#myBuscarProducto" id="idBuscarProducto" data-toggle="modal" >Buscar Producto</a>
+		<a class="btn btn-primary" id="idBuscarProducto" data-toggle="modal" >Buscar Producto</a>
 	</div>
 	
 </div> 
@@ -176,7 +211,7 @@ $(document).ready(function() {
 <div class="control-group"> 
 <div class="controls"  align="center">
 <a class="btn  btn-primary" id="btnGuardar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Guardar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;&nbsp;
-<a class="btn  btn-primary"  href="inicio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cancelar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<a class="btn  btn-primary"  href="mainOrdenCompra">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cancelar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 </div>
 </div>
 
@@ -192,8 +227,8 @@ $(document).ready(function() {
 </div>
 <div class="modal-body">
 	<div class="form-search"   >
-		<input type="text" id="txtFechaInicio" class="input-medium search-query" placeholder="Fecha Inicio" >
-	    <input type="text" id="txtFechaFin" class="input-medium search-query" placeholder="Fecha Fin" >
+		<input type="text" id="txtFechaInicio" class="input-medium search-query datepicker" placeholder="Fecha Inicio" >
+	    <input type="text" id="txtFechaFin" class="input-medium search-query datepicker" placeholder="Fecha Fin" >
 	    <input type="text" id="txtNombreResponsable" name="objOrdenCompra.nom_usuario" class="input-medium search-query" placeholder="Nombre de Responsable" >
 		
 	    <button type="submit" class="btn" id="idBotonBuscarCotizacion" >Buscar</button>
@@ -220,13 +255,9 @@ $(document).ready(function() {
       <div id="divDatosProdTotal"></div>  
 </div> 
 </div>
-<div id="myOrdenCompra" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalOrdenCompra" aria-hidden="true">
-<div class="modal-header"> 
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-<h3 id="myModalOrdenCompra">Resultado Orden de Compra</h3>
-</div>
+<div id="myOrdenCompra" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalCotizacion" aria-hidden="true">
 <div class="modal-body"> 
-      <div id="divMostrarMensaje">
+      <div id="divMostrarMensajeInterno">
       </div> 
 </div> 
 </div>

@@ -14,6 +14,7 @@ public class OrdenCompraDTO {
 	private Integer cod_usuario;
 	private Integer cod_cotizacion;
 	private Integer cod_proveedor;
+	private String estado_ordencompra;
 	
 	private String raz_social;
 	private String nom_usuario;
@@ -87,6 +88,12 @@ public class OrdenCompraDTO {
 	}
 	public void setFechaFin(java.sql.Date fechaFin) {
 		this.fechaFin = fechaFin;
+	}
+	public String getEstado_ordencompra() {
+		return estado_ordencompra;
+	}
+	public void setEstado_ordencompra(String estado_ordencompra) {
+		this.estado_ordencompra = estado_ordencompra;
 	} 
  
 	

@@ -4,31 +4,26 @@
 <%@ taglib   prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <%@ taglib prefix="s"  uri="/struts-tags" %>
 <script type="text/javascript"> 
-	var numeroPaginasModalPedido = $("#numeroPaginasModalPedido").val(); 
+	var numeroPaginasModalCotizacion = $("#numeroPaginasModalCotizacion").val(); 
 	var options = {
 	 currentPage: 1,
-	 totalPages: numeroPaginasModalPedido,
+	 totalPages: numeroPaginasModalCotizacion,
 	 onPageClicked: function(e,originalEvent,type,page){ 
-		    var txtNombreRespo=$("#txtNombreResponsable").val();
-			var cboArea=$("#cboArea").val();
+		 	var txtNombreRespo=$("#txtNombreResponsable").val(); 
 			var txtFechaInicio=$("#txtFechaInicio").val();
-			var txtFechaFin=$("#txtFechaFin").val();
-			var cboTipo=$("#cboTipo").val();
-				
-			$.post("buscarPedidoPagModal",{   
+			var txtFechaFin=$("#txtFechaFin").val();  
+			$.post("buscarCotizacionPagModal",{   
 				inicio:page,
-				"objPedido.nom_usuario":txtNombreRespo,
-				"objPedido.cod_area":cboArea,
-				"objPedido.fechaInicio":txtFechaInicio,
-				"objPedido.fechaFin":txtFechaFin,
-				"objPedido.tipo_pedido":cboTipo
+				"objCotizacion.nom_usuario":txtNombreRespo, 
+				"fechaComienzaInicio":txtFechaInicio,
+				"fechaTerminaFin":txtFechaFin
 				},function(data){
-		 		$("#divTablaPedidoModal").html(data);
+		 		$("#divTablaCotizacionModal").html(data);
 			}); 
 	 	} 
 	 }
 	
-	$('#divPaginadorPedido').bootstrapPaginator(options);  
+	$('#divPaginadorCotizacion').bootstrapPaginator(options);  
 </script>  
-<s:hidden id="numeroPaginasModalPedido" name="numeroPaginasModalPedido"      /> 
-<div id="divPaginadorPedido"></div>   
+<s:hidden id="numeroPaginasModalCotizacion" name="numeroPaginasModalCotizacion"      /> 
+<div id="divPaginadorCotizacion"></div>   

@@ -36,6 +36,24 @@ public class MySqlPedidoDetalleDAO implements PedidoDetalleDAO {
 			sesion.close();
 		}
 		return det;
+	} 
+	@SuppressWarnings("unchecked")
+	@Override
+	public DetallePedidoDTO getPedidoDetalle1(DetallePedidoDTO detalle) {
+		SqlSession sesion = sqlMapper.openSession();
+		 DetallePedidoDTO  det = new DetallePedidoDTO();
+		try {
+			if (detalle != null) {
+				if (detalle.getCod_detallePedido() != null) {
+					det = (DetallePedidoDTO) sesion.selectOne(
+							"pedidodetalle.SQL_getDetallePedido1",
+							detalle.getCod_detallePedido());
+				}
+			}
+		}  finally {
+			sesion.close();
+		}
+		return det;
 	}
 
 }

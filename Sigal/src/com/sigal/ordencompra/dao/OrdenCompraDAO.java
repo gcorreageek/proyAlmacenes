@@ -17,4 +17,7 @@ public interface OrdenCompraDAO {
 	
 	List<OrdenCompraDTO> buscarOCPag(OrdenCompraDTO ocViene,Integer inicio,Integer tamano) throws Exception;
 	List<OrdenCompraDTO> buscarOC(OrdenCompraDTO ocViene) throws Exception;
+	
+	List<OrdenCompraDTO> buscarOCPagEntregada(OrdenCompraDTO ocViene,Integer inicio,Integer tamano) throws Exception;
+	List<OrdenCompraDTO> buscarOCEntregada(OrdenCompraDTO ocViene) throws Exception;
 }

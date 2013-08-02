@@ -17,6 +17,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where oc.cod_ordencompra=#{cod_ordencompra}  
 		order by oc.cod_ordencompra asc
 	</select>
+	<select id="SQL_getDetalleOC1"   resultType="OrdenCompraDetalleBean"  >
+	    select * from tb_ordencompra oc inner join tb_ordencompra_detalle det
+		on det.cod_ordencompra=oc.cod_ordencompra
+		inner join tb_producto_proveedor prod_provee
+		on prod_provee.cod_producto_proveedor=det.cod_producto_proveedor
+		inner join tb_producto  prod
+		on prod.cod_producto=prod_provee.cod_producto
+		where oc.cod_detalleordencompra=#{cod_detalleordencompra}  
+		order by oc.cod_ordencompra asc
+	</select>
 	
 	 
 	

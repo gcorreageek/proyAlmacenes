@@ -43,6 +43,10 @@ public class PedidoService {
 	public void guardarEvaluacionPedido(SolicitudPedidoDTO objSolP ) {
 		objSolPDAO.actualizarPedido(objSolP);
 	} 
+	
+	
+	
+	//////////////////////////////////////////////////////////////
 	public List<SolicitudPedidoDTO> listaPedidoPaginadoSinAtender(
 			Integer inicio, Integer tamano) throws Exception {
 		return objSolPDAO.buscarPedidoPagSinAtender(null, inicio,tamano);
@@ -56,6 +60,37 @@ public class PedidoService {
 	} 
 	public Integer buscarPedidoTotalSinAtender(SolicitudPedidoDTO pedido) throws Exception {
 		return objSolPDAO.buscarPedidoSinAtender(pedido).size();
+	} 
+	
+	
+	/////////////////////////////////////////////////////////
+	public List<SolicitudPedidoDTO> listaPedidoPaginadoAprobados(
+			Integer inicio, Integer tamano) {
+		return objSolPDAO.buscarPedidoPagAprobados(null, inicio,tamano);
+	} 
+	public List<SolicitudPedidoDTO> buscarPedidoPaginadoAprobados(
+			SolicitudPedidoDTO objPedido, Integer inicio, Integer tamano) {
+		return objSolPDAO.buscarPedidoPagAprobados(objPedido, inicio, tamano);
+	} 
+	public Integer listaPedidoTotalAprobados() {
+		return objSolPDAO.buscarPedidoAprobados(null).size();
+	} 
+	public Integer buscarPedidoTotalAprobados(SolicitudPedidoDTO pedido) {
+		return objSolPDAO.buscarPedidoAprobados(pedido).size();
+	} 
+	public List<SolicitudPedidoDTO> listaPedidoPaginadoFaltanDevolver(
+			Integer comienzo, Integer filasXPagina) {
+		return objSolPDAO.buscarPedidoPagFaltanDevolver(null, comienzo,filasXPagina);
+	} 
+	public List<SolicitudPedidoDTO> buscarPedidoPaginadoFaltanDevolver(
+			SolicitudPedidoDTO objPedido, Integer comienzo, Integer filasXPagina) {
+		return objSolPDAO.buscarPedidoPagFaltanDevolver(objPedido, comienzo, filasXPagina);
+	} 
+	public Integer listaPedidoTotalFaltanDevolver() {
+		return objSolPDAO.buscarPedidoFaltanDevolver(null).size();
+	} 
+	public Integer buscarPedidoTotalFaltanDevolver(SolicitudPedidoDTO objPedido) {
+		return objSolPDAO.buscarPedidoFaltanDevolver(objPedido).size();
 	}
 	
 	

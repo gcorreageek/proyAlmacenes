@@ -11,6 +11,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
  
 
 
+
+
+
 import com.sigal.ordencompra.bean.OrdenCompraDTO;
 import com.sigal.ordencompra.bean.OrdenCompraDetalleDTO;
 import com.sigal.util.MySqlConexion;
@@ -103,6 +106,68 @@ public class MySqlOrdenCompraDAO implements OrdenCompraDAO {
 			sesion.close();
 		} 
 		return null;
+	} 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrdenCompraDTO> buscarOCPagEntregada(OrdenCompraDTO ocViene,
+			Integer inicio, Integer tamano) throws Exception {
+		SqlSession sesion = sqlMapper.openSession();
+		List<OrdenCompraDTO> lstOC = new ArrayList<OrdenCompraDTO>();
+		try {
+			if (ocViene == null) {
+				OrdenCompraDTO ocHere = new OrdenCompraDTO();
+				ocHere.setInicio(inicio);
+				ocHere.setTamano(tamano);
+				lstOC = (List<OrdenCompraDTO>) sesion.selectList(
+						"oc.SQL_listaOCPagEntregada", ocHere);
+			} else { 
+				if(!"".equals(ocViene.getNom_usuario())){
+					System.out.println("nomsuario");
+					ocViene.setNom_usuario("%"+ocViene.getNom_usuario()+"%");
+					ocViene.setInicio(inicio);
+					ocViene.setTamano(tamano);
+					lstOC= (List<OrdenCompraDTO>) sesion.selectList("oc.SQL_listaOCXNombrePagEntregada",ocViene);
+				} else if(ocViene.getFechaInicio()!=null   &&  ocViene.getFechaFin()!=null ){
+					System.out.println("fechas");
+					ocViene.setFechaInicio(ocViene.getFechaInicio());
+					ocViene.setFechaFin(ocViene.getFechaFin());
+					ocViene.setInicio(inicio);
+					ocViene.setTamano(tamano);
+					lstOC = (List<OrdenCompraDTO>) sesion.selectList("oc.SQL_listaOCXFechasPagEntregada",ocViene);
+				} 
+			}
+		} finally {
+			sesion.close();
+		}
+		return lstOC; 
+	} 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrdenCompraDTO> buscarOCEntregada(OrdenCompraDTO ocViene)
+			throws Exception {
+		SqlSession sesion = sqlMapper.openSession();
+		List<OrdenCompraDTO> lstOC = new ArrayList<OrdenCompraDTO>();
+		try {
+			if (ocViene == null) {
+				lstOC = (List<OrdenCompraDTO>) sesion.selectList("oc.SQL_listaOCEntregada");
+			} else {
+				System.out.println("nomusu:"+ocViene.getNom_usuario()); 
+				System.out.println("fecha:"+ocViene.getFechaInicio()+"|"+ocViene.getFechaFin());
+				if(!"".equals(ocViene.getNom_usuario())){
+					System.out.println("nomsuario");
+					ocViene.setNom_usuario("%"+ocViene.getNom_usuario()+"%"); 
+					lstOC = (List<OrdenCompraDTO>) sesion.selectList("oc.SQL_listaOCXNombreEntregada",ocViene);
+				} else if(ocViene.getFechaInicio()!=null  && ocViene.getFechaFin()!=null ){
+					System.out.println("fechas");
+					ocViene.setFechaInicio(ocViene.getFechaInicio());
+					ocViene.setFechaFin(ocViene.getFechaFin()); 
+					lstOC = (List<OrdenCompraDTO>) sesion.selectList("oc.SQL_listaOCXFechasEntregada",ocViene);
+				} 
+			}
+		}  finally {
+			sesion.close();
+		}
+		return lstOC;
 	}  
 
 }

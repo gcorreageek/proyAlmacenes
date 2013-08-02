@@ -19,6 +19,9 @@ public class OrdenCompraDetalleService {
 	}  
 	
 	
+	public  OrdenCompraDetalleDTO  getOrdenCompraXidOrdenCompra(OrdenCompraDetalleDTO det) throws Exception {
+		return objOrdenCompraDetDAO.getOCDetalle1(det);
+	}  
 	
 
 }

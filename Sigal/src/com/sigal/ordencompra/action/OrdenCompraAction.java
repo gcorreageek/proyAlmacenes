@@ -36,6 +36,7 @@ public class OrdenCompraAction extends ActionSupport {
 	
 	
 	private OrdenCompraDTO objOrdenCompra;
+	private Integer rsult;
 	private String mensaje;
 	private Integer inicio;
 	private List<OrdenCompraDTO> lstOrdenCompra ;
@@ -55,8 +56,20 @@ public class OrdenCompraAction extends ActionSupport {
 			System.out.println("d1:"+usuario);
 			System.out.println("d2:"+usuario.getCod_usuario());
 			objOrdenCompra.setCod_usuario(usuario.getCod_usuario()); 
+			if( objOrdenCompra.getCod_cotizacion()==null){
+				this.rsult=0;
+				this.mensaje="Agregar Cotizacion";
+				return SUCCESS;
+			}
+			
+			
 			lstDetOC = new ArrayList<>();
-			List<CotizacionDetalleDTO> lstDetCotizacion = (List<CotizacionDetalleDTO>) lasesion.get("lstDetCoti"); 
+			List<CotizacionDetalleDTO> lstDetCotizacion = (List<CotizacionDetalleDTO>) lasesion.get("lstDetCoti");
+			if(lstDetCotizacion==null || lstDetCotizacion.isEmpty() ){
+				this.rsult=0;
+				this.mensaje="Agregar Detalle";
+				return SUCCESS;
+			} 
 			for (CotizacionDetalleDTO cotizacionDetalleDTO : lstDetCotizacion) {
 				OrdenCompraDetalleDTO det = new OrdenCompraDetalleDTO();
 				det.setCantidad(cotizacionDetalleDTO.getCant_detallecotizacion());
@@ -65,10 +78,13 @@ public class OrdenCompraAction extends ActionSupport {
 			}
 			objOrdenCompraServ.registrarOrdenCompra(objOrdenCompra, lstDetOC);
 			lasesion.remove("lstDetCoti");
+			this.rsult=1;
 			this.mensaje="Se guardo correctamente!";
 		} catch (Exception e) {
 			System.out.println("Try:"+e);
 			e.printStackTrace();
+			this.rsult=0;
+			this.mensaje="Ocurrio un error al Grabar";
 		}
 		
 		return SUCCESS;
@@ -146,6 +162,70 @@ public class OrdenCompraAction extends ActionSupport {
 		} 
 		return SUCCESS;
 	}
+	
+	
+	
+	
+	//Modal
+	@Action(value = "/listarOrdenCompraPagModalEntregada", results = { @Result(name = "success", location = "/paginas/orden_compra/buscar_orden_compra.jsp") })
+	public String listarOrdenCompraPagModalEntregada() {
+		Integer comienzo = null;
+		if (inicio == null || inicio == 0) {
+			comienzo = 0;
+		} else {
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+		} 
+		try {  
+			lstOrdenCompra =   objOrdenCompraServ.listaOrdenCompraPaginado(comienzo, Constantes.FILAS_X_PAGINA);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (OrdenCompraDTO dd : lstOrdenCompra) {
+			System.out.println("ee:"+dd.getCod_proveedor()+"|"+dd.getRaz_social());
+		}
+		return SUCCESS;
+	} 
+	@Action(value = "/buscarOrdenCompraPagModalEntregada", results = { @Result(name = "success", location = "/paginas/orden_compra/buscar_orden_compra.jsp") })
+	public String buscarOrdenCompraPagModalEntregada() {
+		Integer comienzo = null;
+		if (inicio == null || inicio == 0) {
+			comienzo = 0;
+		} else {
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+		}
+		try {
+			lstOrdenCompra = objOrdenCompraServ.buscarOrdenCompraPaginado(objOrdenCompra, comienzo, Constantes.FILAS_X_PAGINA);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	@Action(value = "/listarOrdenCompraTotalEntregada", results = { @Result(name = "success", location = "/paginas/orden_compra/orden_compra_listado_total.jsp") })
+	public String listarOrdenCompraTotalEntregada() { 
+		try {
+			System.out.println("totla:"+objOrdenCompraServ.listaOrdenCompraTotal());
+			this.numeroPaginasModalOrdenCompra= UtilSigal.totalDePaginas(objOrdenCompraServ.listaOrdenCompraTotal());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("nunmeroPaginas:"+numeroPaginasModalOrdenCompra); 
+		return SUCCESS;
+	}
+	@Action(value = "/buscarOrdenCompraTotalEntregada", results = { @Result(name = "success", location = "/paginas/orden_compra/orden_compra_buscar_total.jsp") })
+	public String buscarOrdenCompraTotalEntregada() { 
+		try {
+			System.out.println("total reg:"+objOrdenCompraServ.buscarOrdenCompraTotal(objOrdenCompra));
+			this.numeroPaginasModalOrdenCompra= UtilSigal.totalDePaginas(objOrdenCompraServ.buscarOrdenCompraTotal(objOrdenCompra));
+			System.out.println("total paginas:"+numeroPaginasModalOrdenCompra);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return SUCCESS;
+	}
 	public OrdenCompraDTO getObjOrdenCompra() {
 		return objOrdenCompra;
 	}
@@ -182,6 +262,12 @@ public class OrdenCompraAction extends ActionSupport {
 	public void setNumeroPaginasModalOrdenCompra(
 			Integer numeroPaginasModalOrdenCompra) {
 		this.numeroPaginasModalOrdenCompra = numeroPaginasModalOrdenCompra;
+	}
+	public Integer getRsult() {
+		return rsult;
+	}
+	public void setRsult(Integer rsult) {
+		this.rsult = rsult;
 	}
 	
 	

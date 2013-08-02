@@ -209,8 +209,72 @@ public class PedidoAction extends ActionSupport {
 		return SUCCESS;
 	} 
 	//Modal
-	@Action(value = "/listarPedidoPagModal", results = { @Result(name = "success", location = "/paginas/pedido/buscar_pedido.jsp") })
-	public String listarPedidoPagModal() { 
+		@Action(value = "/listarPedidoPagModal", results = { @Result(name = "success", location = "/paginas/pedido/buscar_pedido.jsp") })
+		public String listarPedidoPagModal() { 
+			System.out.println("pedido1");
+			Integer comienzo = null;
+			if (inicio == null || inicio == 0) {
+				comienzo = 0;
+			} else {
+				comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+			} 
+			try {
+				lstPedido =   objPedidoServ.listaPedidoPaginadoSinAtender(comienzo, Constantes.FILAS_X_PAGINA);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return SUCCESS;
+		} 
+		@Action(value = "/buscarPedidoPagModal", results = { @Result(name = "success", location = "/paginas/pedido/buscar_pedido.jsp") })
+		public String buscarPedidoPagModal() { 
+			System.out.println("pedido2");
+			Integer comienzo = null;
+			if (inicio == null || inicio == 0) {
+				comienzo = 0;
+			} else {
+				comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+			}
+			try {
+				lstPedido = objPedidoServ.buscarPedidoPaginadoSinAtender(objPedido, comienzo, Constantes.FILAS_X_PAGINA);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return SUCCESS;
+		}
+		@Action(value = "/listarPedidoTotal", results = { @Result(name = "success", location = "/paginas/pedido/pedido_listado_total.jsp") })
+		public String listarPedidoTotal() { 
+			System.out.println("pedido3");
+			try {
+				System.out.println("totla:"+objPedidoServ.listaPedidoTotal());
+				this.numeroPaginasModalPedido= UtilSigal.totalDePaginas(objPedidoServ.listaPedidoTotalSinAtender());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("nunmeroPaginas:"+numeroPaginasModalPedido); 
+			return SUCCESS;
+		}
+		@Action(value = "/buscarPedidoTotal", results = { @Result(name = "success", location = "/paginas/pedido/pedido_buscar_total.jsp") })
+		public String buscarPedidoTotal() {  
+			System.out.println("pedido4");
+			try {
+				System.out.println("total reg:"+objPedidoServ.buscarPedidoTotal(objPedido));
+				this.numeroPaginasModalPedido = UtilSigal.totalDePaginas(objPedidoServ.buscarPedidoTotalSinAtender(objPedido));
+				System.out.println("total paginas:"+numeroPaginasModalPedido);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			return SUCCESS;
+		} 
+	
+	
+	//Modal Pedidos Aprobados
+	@Action(value = "/listarPedidoPagModalAprobados", results = { @Result(name = "success", location = "/paginas/pedido/buscar_pedido.jsp") })
+	public String listarPedidoPagModalAprobados() { 
+		System.out.println("pedido Aprobados 1");
 		Integer comienzo = null;
 		if (inicio == null || inicio == 0) {
 			comienzo = 0;
@@ -218,15 +282,16 @@ public class PedidoAction extends ActionSupport {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		} 
 		try {
-			lstPedido =   objPedidoServ.listaPedidoPaginadoSinAtender(comienzo, Constantes.FILAS_X_PAGINA);
+			lstPedido =   objPedidoServ.listaPedidoPaginadoAprobados(comienzo, Constantes.FILAS_X_PAGINA);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return SUCCESS;
 	} 
-	@Action(value = "/buscarPedidoPagModal", results = { @Result(name = "success", location = "/paginas/pedido/buscar_pedido.jsp") })
-	public String buscarPedidoPagModal() { 
+	@Action(value = "/buscarPedidoPagModalAprobados", results = { @Result(name = "success", location = "/paginas/pedido/buscar_pedido.jsp") })
+	public String buscarPedidoPagModalAprobados() { 
+		System.out.println("pedido Aprobados 2");
 		Integer comienzo = null;
 		if (inicio == null || inicio == 0) {
 			comienzo = 0;
@@ -234,18 +299,18 @@ public class PedidoAction extends ActionSupport {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
 		try {
-			lstPedido = objPedidoServ.buscarPedidoPaginadoSinAtender(objPedido, comienzo, Constantes.FILAS_X_PAGINA);
+			lstPedido = objPedidoServ.buscarPedidoPaginadoAprobados(objPedido, comienzo, Constantes.FILAS_X_PAGINA);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return SUCCESS;
 	}
-	@Action(value = "/listarPedidoTotal", results = { @Result(name = "success", location = "/paginas/pedido/pedido_listado_total.jsp") })
-	public String listarPedidoTotal() {  
-		try {
-			System.out.println("totla:"+objPedidoServ.listaPedidoTotal());
-			this.numeroPaginasModalPedido= UtilSigal.totalDePaginas(objPedidoServ.listaPedidoTotalSinAtender());
+	@Action(value = "/listarPedidoTotalAprobados", results = { @Result(name = "success", location = "/paginas/pedido/pedido_listado_total.jsp") })
+	public String listarPedidoTotalAprobados() { 
+		System.out.println("pedido Aprobados 3");
+		try { 
+			this.numeroPaginasModalPedido= UtilSigal.totalDePaginas(objPedidoServ.listaPedidoTotalAprobados());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -253,11 +318,71 @@ public class PedidoAction extends ActionSupport {
 		System.out.println("nunmeroPaginas:"+numeroPaginasModalPedido); 
 		return SUCCESS;
 	}
-	@Action(value = "/buscarPedidoTotal", results = { @Result(name = "success", location = "/paginas/pedido/pedido_buscar_total.jsp") })
-	public String buscarPedidoTotal() {  
+	@Action(value = "/buscarPedidoTotalAprobados", results = { @Result(name = "success", location = "/paginas/pedido/pedido_buscar_total.jsp") })
+	public String buscarPedidoTotalAprobados() {   
+		System.out.println("pedido Aprobados 4");
+		try { 
+			this.numeroPaginasModalPedido = UtilSigal.totalDePaginas(objPedidoServ.buscarPedidoTotalAprobados(objPedido));
+			System.out.println("total paginas:"+numeroPaginasModalPedido);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return SUCCESS;
+	} 
+	
+	//Modal Pedidos FaltanDevolver  =Falta Devolver
+	@Action(value = "/listarPedidoPagModalFaltanDevolver", results = { @Result(name = "success", location = "/paginas/pedido/buscar_pedido.jsp") })
+	public String listarPedidoPagModalFaltanDevolver() { 
+		System.out.println("pedido Aprobados 1");
+		Integer comienzo = null;
+		if (inicio == null || inicio == 0) {
+			comienzo = 0;
+		} else {
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+		} 
 		try {
-			System.out.println("total reg:"+objPedidoServ.buscarPedidoTotal(objPedido));
-			this.numeroPaginasModalPedido = UtilSigal.totalDePaginas(objPedidoServ.buscarPedidoTotalSinAtender(objPedido));
+			lstPedido =   objPedidoServ.listaPedidoPaginadoFaltanDevolver(comienzo, Constantes.FILAS_X_PAGINA);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	} 
+	@Action(value = "/buscarPedidoPagModalFaltanDevolver", results = { @Result(name = "success", location = "/paginas/pedido/buscar_pedido.jsp") })
+	public String buscarPedidoPagModalFaltanDevolver() { 
+		System.out.println("pedido Aprobados 2");
+		Integer comienzo = null;
+		if (inicio == null || inicio == 0) {
+			comienzo = 0;
+		} else {
+			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
+		}
+		try {
+			lstPedido = objPedidoServ.buscarPedidoPaginadoFaltanDevolver(objPedido, comienzo, Constantes.FILAS_X_PAGINA);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	@Action(value = "/listarPedidoTotalFaltanDevolver", results = { @Result(name = "success", location = "/paginas/pedido/pedido_listado_total.jsp") })
+	public String listarPedidoTotalFaltanDevolver() { 
+		System.out.println("pedido Aprobados 3");
+		try { 
+			this.numeroPaginasModalPedido= UtilSigal.totalDePaginas(objPedidoServ.listaPedidoTotalFaltanDevolver());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("nunmeroPaginas:"+numeroPaginasModalPedido); 
+		return SUCCESS;
+	}
+	@Action(value = "/buscarPedidoTotalFaltanDevolver", results = { @Result(name = "success", location = "/paginas/pedido/pedido_buscar_total.jsp") })
+	public String buscarPedidoTotalFaltanDevolver() {   
+		System.out.println("pedido Aprobados 4");
+		try { 
+			this.numeroPaginasModalPedido = UtilSigal.totalDePaginas(objPedidoServ.buscarPedidoTotalFaltanDevolver(objPedido));
 			System.out.println("total paginas:"+numeroPaginasModalPedido);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

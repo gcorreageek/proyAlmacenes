@@ -14,4 +14,5 @@ import com.sigal.pedido.bean.DetallePedidoDTO;
 public interface PedidoDetalleDAO {
 
 	List<DetallePedidoDTO> getPedidoDetalle(DetallePedidoDTO detalle);
+	DetallePedidoDTO getPedidoDetalle1(DetallePedidoDTO detalle);
 }

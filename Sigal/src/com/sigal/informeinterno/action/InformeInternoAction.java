@@ -33,6 +33,7 @@ public class InformeInternoAction extends ActionSupport {
 	InformeInternoService objInfInterServ = new InformeInternoService();
 	ProductoService objProdServ = new ProductoService();
 	PedidoDetalleService objPedDetServ = new PedidoDetalleService();
+	
 	ProductoDTO objProducto;
 	AreaService objAreaServ = new AreaService();
 	
@@ -83,24 +84,42 @@ public class InformeInternoAction extends ActionSupport {
 	
 	@Action(value="/guardarIIS",results={@Result(name="success",location="/paginas/pedido/pedido_evaluacion_mensaje.jsp")})
 	public String guardarIIS(){
+		System.out.println("guarda iis"+objInformeInterno.getCod_pedido());
 		try {
 			UsuarioDTO usuario =  (UsuarioDTO) lasesion.get("objUsuario");
 			objInformeInterno.setCod_usuario(usuario.getCod_usuario()); 
 			objInformeInterno.setTipo_informe_interno("Salida"); 
 			lstIIDet = new ArrayList<>();
-			DetallePedidoDTO pedDet = new DetallePedidoDTO();
+			DetallePedidoDTO pedDet = new DetallePedidoDTO(); 
+			if(objInformeInterno.getCod_pedido()==null){
+				this.mensaje = "Agrege Pedido";
+				this.rsult= 0;
+				return SUCCESS;
+			}
 			pedDet.setCod_solicitudPedido(objInformeInterno.getCod_pedido()); 
 			List<DetallePedidoDTO> lstDetPedido= objPedDetServ.listaPedidoXidPedido(pedDet);
 			for (DetallePedidoDTO detallePedidoDTO : lstDetPedido) {
 				InformeInternoDetalleDTO iiDet = new InformeInternoDetalleDTO();
-				iiDet.setCod_detalle_pedido(detallePedidoDTO.getCod_detallePedido()); 
+				iiDet.setCod_detalle_pedido(detallePedidoDTO.getCod_detallePedido());
+				ProductoDTO p = new ProductoDTO();
+				p.setCod_producto(detallePedidoDTO.getCod_producto());
+				p = objProdServ.getProducto(p);
+				if(p.getStock_producto()<detallePedidoDTO.getCantidad()){
+					this.mensaje = "No hay stock suficiente para el producto \""+p.getDesc_producto()+"\"";
+					this.rsult= 0;
+					return SUCCESS;
+				} 
 				lstIIDet.add(iiDet);
 			} 
-			objInfInterServ.registrar(objInformeInterno, lstIIDet);  
-			this.mensaje = "Se ingreso correctamente el Informe Interno Salida";
-		} catch (Exception e) {
-			System.out.println("Try:"+e);
+			Integer r = (Integer) objInfInterServ.registrar(objInformeInterno, lstIIDet); 
+			if(r>0){
+				this.mensaje = "Se ingreso correctamente el Informe Interno Salida";
+				this.rsult= 1;	
+			} 
+		} catch (Exception e) { 
 			e.printStackTrace();
+			this.mensaje = "Ocurrio un error en guardar el IIS";
+			this.rsult= 0;
 		} 
 		return SUCCESS;
 	}
@@ -112,18 +131,27 @@ public class InformeInternoAction extends ActionSupport {
 			objInformeInterno.setTipo_informe_interno("Entrada"); 
 			lstIIDet = new ArrayList<>();
 			DetallePedidoDTO pedDet = new DetallePedidoDTO();
+			if(objInformeInterno.getCod_pedido()==null){
+				this.mensaje = "Agrege Pedido";
+				this.rsult= 0;
+				return SUCCESS;
+			}
 			pedDet.setCod_solicitudPedido(objInformeInterno.getCod_pedido()); 
 			List<DetallePedidoDTO> lstDetPedido= objPedDetServ.listaPedidoXidPedido(pedDet);
 			for (DetallePedidoDTO detallePedidoDTO : lstDetPedido) {
 				InformeInternoDetalleDTO iiDet = new InformeInternoDetalleDTO();
-				iiDet.setCod_detalle_pedido(detallePedidoDTO.getCod_detallePedido()); 
+				iiDet.setCod_detalle_pedido(detallePedidoDTO.getCod_detallePedido());  
 				lstIIDet.add(iiDet);
 			} 
-			objInfInterServ.registrar(objInformeInterno, lstIIDet);  
-			this.mensaje = "Se ingreso correctamente el Informe Interno Entrada";
-		} catch (Exception e) {
-			System.out.println("Try:"+e);
+			Integer r = (Integer) objInfInterServ.registrar(objInformeInterno, lstIIDet);  
+			if(r>0){
+				this.mensaje = "Se ingreso correctamente el Informe Interno Entrada";
+				this.rsult= 1;	
+			} 
+		} catch (Exception e) { 
 			e.printStackTrace();
+			this.mensaje = "Ocurrio un error en guardar el IIE";
+			this.rsult= 0;
 		} 
 		return SUCCESS;
 	} 

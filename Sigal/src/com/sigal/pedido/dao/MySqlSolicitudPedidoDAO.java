@@ -21,20 +21,8 @@ public class MySqlSolicitudPedidoDAO implements SolicitudPedidoDAO {
 			List<DetallePedidoDTO> lstDetPed) {
 		
 		SqlSession sesion =sqlMapper.openSession();
-		try { System.out.println("registrando1");
-		    System.out.println("seee:"+objSolP.getCod_solicitudPedido());
-		    System.out.println("seee:"+objSolP.getComentario_pedido());
-		    System.out.println("seee:"+objSolP.getEstado_pedido() );
-		    System.out.println("seee:"+objSolP.getTipo_pedido());
-		    System.out.println("seee:"+objSolP.getCod_usuario());
-		    System.out.println("seee:"+objSolP.getFechaDevolucion_pedido());
-		    System.out.println("seee:"+objSolP.getFechaEntrega_pedido());
-		    System.out.println("seee:"+objSolP.getFechaRegistro_pedido());
-			Integer res = sesion.insert("pedido.SQL_registraPedido",objSolP);
-//			System.out.println("registrando2");
-			System.out.println("resp:"+res);
-			System.out.println("id:"+objSolP.getCod_solicitudPedido());
-//			Integer id = idPedidoMax();
+		try {  
+			Integer res = sesion.insert("pedido.SQL_registraPedido",objSolP); 
 			for (DetallePedidoDTO detallePedidoDTO : lstDetPed) { 
 				detallePedidoDTO.setCod_solicitudPedido(objSolP.getCod_solicitudPedido());
 				sesion.insert("pedidodetalle.SQL_registraDetallePedido",detallePedidoDTO);
@@ -245,6 +233,192 @@ public class MySqlSolicitudPedidoDAO implements SolicitudPedidoDAO {
 					System.out.println("tipo");
 					pedidoViene.setTipo_pedido(pedidoViene.getTipo_pedido()); 
 					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXTipoSinAtender",pedidoViene);
+				} 
+			}
+		}  finally {
+			sesion.close();
+		}
+		return lstPedido;
+	}
+
+
+ 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SolicitudPedidoDTO> buscarPedidoPagAprobados(
+			SolicitudPedidoDTO pedidoViene, Integer inicio, Integer tamano) {
+		SqlSession sesion = sqlMapper.openSession();
+		List<SolicitudPedidoDTO> lstPedido = new ArrayList<SolicitudPedidoDTO>();
+		try {
+			if (pedidoViene == null) {
+				SolicitudPedidoDTO pedidoHere = new SolicitudPedidoDTO();
+				pedidoHere.setInicio(inicio);
+				pedidoHere.setTamano(tamano);
+				lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList(
+						"pedido.SQL_listaPedidoPagAprobado", pedidoHere);
+			} else {
+				System.out.println("nomusu:"+pedidoViene.getNom_usuario());
+				System.out.println("area:"+pedidoViene.getCod_area());
+				System.out.println("fecha:"+pedidoViene.getFechaInicio()+"|"+pedidoViene.getFechaFin());
+				System.out.println("tipo:"+pedidoViene.getTipo_pedido()); 
+				 
+				
+				if(!"".equals(pedidoViene.getNom_usuario())){
+					System.out.println("nomsuario");
+					pedidoViene.setNom_usuario("%"+pedidoViene.getNom_usuario()+"%");
+					pedidoViene.setInicio(inicio);
+					pedidoViene.setTamano(tamano);
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXNombrePagAprobado",pedidoViene);
+				}else if(pedidoViene.getCod_area()!=0){
+					System.out.println("codarea");
+					pedidoViene.setCod_area(pedidoViene.getCod_area());
+					pedidoViene.setInicio(inicio);
+					pedidoViene.setTamano(tamano);
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXAreaPagAprobado",pedidoViene);
+				}else if(pedidoViene.getFechaInicio()!=null   &&  pedidoViene.getFechaFin()!=null ){
+					System.out.println("fechas");
+					pedidoViene.setFechaInicio(pedidoViene.getFechaInicio());
+					pedidoViene.setFechaFin(pedidoViene.getFechaFin());
+					pedidoViene.setInicio(inicio);
+					pedidoViene.setTamano(tamano);
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXFechasPagAprobado",pedidoViene);
+				}else if(!"0".equals(pedidoViene.getTipo_pedido())){
+					System.out.println("tipo");
+					pedidoViene.setTipo_pedido(pedidoViene.getTipo_pedido());
+					pedidoViene.setInicio(inicio);
+					pedidoViene.setTamano(tamano);
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXTipoPagAprobado",pedidoViene);
+				} 
+			}
+		} finally {
+			sesion.close();
+		}
+		return lstPedido; 
+	}
+
+ 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SolicitudPedidoDTO> buscarPedidoAprobados(
+			SolicitudPedidoDTO pedidoViene) {
+		SqlSession sesion = sqlMapper.openSession();
+		List<SolicitudPedidoDTO> lstPedido = new ArrayList<SolicitudPedidoDTO>();
+		try {
+			if (pedidoViene == null) {
+				lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoAprobado");
+			} else {
+				System.out.println("nomusu:"+pedidoViene.getNom_usuario());
+				System.out.println("area:"+pedidoViene.getCod_area());
+				System.out.println("fecha:"+pedidoViene.getFechaInicio()+"|"+pedidoViene.getFechaFin());
+				System.out.println("tipo:"+pedidoViene.getTipo_pedido()); 
+				if(!"".equals(pedidoViene.getNom_usuario())){
+					System.out.println("nomsuario");
+					pedidoViene.setNom_usuario("%"+pedidoViene.getNom_usuario()+"%"); 
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXNombreAprobado",pedidoViene);
+				}else if(pedidoViene.getCod_area()!=0){
+					System.out.println("codarea");
+					pedidoViene.setCod_area(pedidoViene.getCod_area()); 
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXAreaAprobado",pedidoViene);
+				}else if(pedidoViene.getFechaInicio()!=null  && pedidoViene.getFechaFin()!=null ){
+					System.out.println("fechas");
+					pedidoViene.setFechaInicio(pedidoViene.getFechaInicio());
+					pedidoViene.setFechaFin(pedidoViene.getFechaFin()); 
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXFechasAprobado",pedidoViene);
+				}else if(!"0".equals(pedidoViene.getTipo_pedido())){
+					System.out.println("tipo");
+					pedidoViene.setTipo_pedido(pedidoViene.getTipo_pedido()); 
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXTipoAprobado",pedidoViene);
+				} 
+			}
+		}  finally {
+			sesion.close();
+		}
+		return lstPedido;
+	}
+ 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SolicitudPedidoDTO> buscarPedidoPagFaltanDevolver(
+			SolicitudPedidoDTO pedidoViene, Integer inicio, Integer tamano) {
+		SqlSession sesion = sqlMapper.openSession();
+		List<SolicitudPedidoDTO> lstPedido = new ArrayList<SolicitudPedidoDTO>();
+		try {
+			if (pedidoViene == null) {
+				SolicitudPedidoDTO pedidoHere = new SolicitudPedidoDTO();
+				pedidoHere.setInicio(inicio);
+				pedidoHere.setTamano(tamano);
+				lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList(
+						"pedido.SQL_listaPedidoPagFaltaDevolver", pedidoHere);
+			} else {
+				System.out.println("nomusu:"+pedidoViene.getNom_usuario());
+				System.out.println("area:"+pedidoViene.getCod_area());
+				System.out.println("fecha:"+pedidoViene.getFechaInicio()+"|"+pedidoViene.getFechaFin());
+				System.out.println("tipo:"+pedidoViene.getTipo_pedido());  
+				
+				if(!"".equals(pedidoViene.getNom_usuario())){
+					System.out.println("nomsuario");
+					pedidoViene.setNom_usuario("%"+pedidoViene.getNom_usuario()+"%");
+					pedidoViene.setInicio(inicio);
+					pedidoViene.setTamano(tamano);
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXNombrePagFaltaDevolver",pedidoViene);
+				}else if(pedidoViene.getCod_area()!=0){
+					System.out.println("codarea");
+					pedidoViene.setCod_area(pedidoViene.getCod_area());
+					pedidoViene.setInicio(inicio);
+					pedidoViene.setTamano(tamano);
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXAreaPagFaltaDevolver",pedidoViene);
+				}else if(pedidoViene.getFechaInicio()!=null   &&  pedidoViene.getFechaFin()!=null ){
+					System.out.println("fechas");
+					pedidoViene.setFechaInicio(pedidoViene.getFechaInicio());
+					pedidoViene.setFechaFin(pedidoViene.getFechaFin());
+					pedidoViene.setInicio(inicio);
+					pedidoViene.setTamano(tamano);
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXFechasPagFaltaDevolver",pedidoViene);
+				}else if(!"0".equals(pedidoViene.getTipo_pedido())){
+					System.out.println("tipo");
+					pedidoViene.setTipo_pedido(pedidoViene.getTipo_pedido());
+					pedidoViene.setInicio(inicio);
+					pedidoViene.setTamano(tamano);
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXTipoPagFaltaDevolver",pedidoViene);
+				} 
+			}
+		} finally {
+			sesion.close();
+		}
+		return lstPedido; 
+	}
+ 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SolicitudPedidoDTO> buscarPedidoFaltanDevolver(
+			SolicitudPedidoDTO pedidoViene) {
+		SqlSession sesion = sqlMapper.openSession();
+		List<SolicitudPedidoDTO> lstPedido = new ArrayList<SolicitudPedidoDTO>();
+		try {
+			if (pedidoViene == null) {
+				lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoFaltaDevolver");
+			} else {
+				System.out.println("nomusu:"+pedidoViene.getNom_usuario());
+				System.out.println("area:"+pedidoViene.getCod_area());
+				System.out.println("fecha:"+pedidoViene.getFechaInicio()+"|"+pedidoViene.getFechaFin());
+				System.out.println("tipo:"+pedidoViene.getTipo_pedido()); 
+				if(!"".equals(pedidoViene.getNom_usuario())){
+					System.out.println("nomsuario");
+					pedidoViene.setNom_usuario("%"+pedidoViene.getNom_usuario()+"%"); 
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXNombreFaltaDevolver",pedidoViene);
+				}else if(pedidoViene.getCod_area()!=0){
+					System.out.println("codarea");
+					pedidoViene.setCod_area(pedidoViene.getCod_area()); 
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXAreaFaltaDevolver",pedidoViene);
+				}else if(pedidoViene.getFechaInicio()!=null  && pedidoViene.getFechaFin()!=null ){
+					System.out.println("fechas");
+					pedidoViene.setFechaInicio(pedidoViene.getFechaInicio());
+					pedidoViene.setFechaFin(pedidoViene.getFechaFin()); 
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXFechasFaltaDevolver",pedidoViene);
+				}else if(!"0".equals(pedidoViene.getTipo_pedido())){
+					System.out.println("tipo");
+					pedidoViene.setTipo_pedido(pedidoViene.getTipo_pedido()); 
+					lstPedido = (List<SolicitudPedidoDTO>) sesion.selectList("pedido.SQL_listaPedidoXTipoFaltaDevolver",pedidoViene);
 				} 
 			}
 		}  finally {

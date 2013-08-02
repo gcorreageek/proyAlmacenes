@@ -37,6 +37,24 @@ public class MySqlOrdenCompraDetalleDAO implements OrdenCompraDetalleDAO {
 			sesion.close();
 		}
 		return det;
+	} 
+	@SuppressWarnings("unchecked")
+	@Override
+	public OrdenCompraDetalleDTO getOCDetalle1(OrdenCompraDetalleDTO detalle) {
+		SqlSession sesion = sqlMapper.openSession();
+		OrdenCompraDetalleDTO det = new  OrdenCompraDetalleDTO();
+		try {
+			if (detalle != null) {
+				if (detalle.getCod_ordenCompra() != null) {
+					det =  (OrdenCompraDetalleDTO) sesion.selectOne(//SQL_getDetalleCotizacion 
+							"ocdetalle.SQL_getDetalleOC1",
+							detalle.getCod_ordenCompra());
+				}
+			}
+		}  finally {
+			sesion.close();
+		}
+		return det;
 	}
  
 	 

@@ -47,6 +47,8 @@ public class CotizacionAction extends ActionSupport {
 	private Integer inicio;
 	private List<CotizacionDTO> lstCotizacion ;
 	private Integer numeroPaginasModalCotizacion;
+	private String fechaComienzaInicio;
+	private String fechaTerminaFin;
 	
 	@Action(value="/mainCotizacion",results={@Result(name="success",type="tiles",location="d_maincotizacion")})
 	public String mainCotizacion(){ 
@@ -160,10 +162,7 @@ public class CotizacionAction extends ActionSupport {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		for (CotizacionDTO dd : lstCotizacion) {
-			System.out.println("ee:"+dd.getCod_proveedor()+"|"+dd.getRaz_social());
-		}
+		} 
 		return SUCCESS;
 	} 
 	@Action(value = "/buscarCotizacionPagModal", results = { @Result(name = "success", location = "/paginas/cotizacion/buscar_cotizacion.jsp") })
@@ -175,7 +174,19 @@ public class CotizacionAction extends ActionSupport {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
 		try {
-			lstCotizacion = objCotizacionServ.buscarCotizacionPaginado(objCotizacion, comienzo, Constantes.FILAS_X_PAGINA);
+			int r=0;
+			if(!"".equals(objCotizacion.getNom_usuario())){
+				r=1; 
+			}else if(!"".equals(getFechaComienzaInicio()) ||  !"".equals(getFechaTerminaFin())){
+				r=1;
+				objCotizacion.setFechaInicio(UtilSigal.fechaDateSql(getFechaComienzaInicio()));
+				objCotizacion.setFechaFin(UtilSigal.fechaDateSql(getFechaTerminaFin()));
+			}
+			if(r==0){
+				lstCotizacion =   objCotizacionServ.listaCotizacionPaginado(0, Constantes.FILAS_X_PAGINA);
+			}else{
+				lstCotizacion = objCotizacionServ.buscarCotizacionPaginado(objCotizacion, comienzo, Constantes.FILAS_X_PAGINA);
+			} 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -197,9 +208,19 @@ public class CotizacionAction extends ActionSupport {
 	@Action(value = "/buscarCotizacionTotal", results = { @Result(name = "success", location = "/paginas/cotizacion/cotizacion_buscar_total.jsp") })
 	public String buscarCotizacionTotal() { 
 		try {
-			System.out.println("total reg:"+objCotizacionServ.buscarCotizacionTotal(objCotizacion));
-			this.numeroPaginasModalCotizacion= UtilSigal.totalDePaginas(objCotizacionServ.buscarCotizacionTotal(objCotizacion));
-			System.out.println("total paginas:"+numeroPaginasModalCotizacion);
+//			int r=0;
+//			if(!"".equals(objCotizacion.getNom_usuario())){
+//				r=1; 
+//			}else if(!"".equals(getFechaComienzaInicio()) ||  !"".equals(getFechaTerminaFin())){
+//				r=1;
+				objCotizacion.setFechaInicio(UtilSigal.fechaDateSql(getFechaComienzaInicio()));
+				objCotizacion.setFechaFin(UtilSigal.fechaDateSql(getFechaTerminaFin()));
+//			}
+//			if(r==0){
+//				this.numeroPaginasModalCotizacion= UtilSigal.totalDePaginas(objCotizacionServ.listaCotizacionTotal());
+//			}else{
+				this.numeroPaginasModalCotizacion= UtilSigal.totalDePaginas(objCotizacionServ.buscarCotizacionTotal(objCotizacion));	
+//			} 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -262,6 +283,18 @@ public class CotizacionAction extends ActionSupport {
 	}
 	public void setRsult(Integer rsult) {
 		this.rsult = rsult;
+	}
+	public String getFechaComienzaInicio() {
+		return fechaComienzaInicio;
+	}
+	public void setFechaComienzaInicio(String fechaComienzaInicio) {
+		this.fechaComienzaInicio = fechaComienzaInicio;
+	}
+	public String getFechaTerminaFin() {
+		return fechaTerminaFin;
+	}
+	public void setFechaTerminaFin(String fechaTerminaFin) {
+		this.fechaTerminaFin = fechaTerminaFin;
 	} 
 
 	

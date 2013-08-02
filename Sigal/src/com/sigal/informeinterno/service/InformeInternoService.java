@@ -14,8 +14,8 @@ public class InformeInternoService {
 	DAOFactory fabrica = DAOFactory.getDAOFactory(Constantes.ORIGENDATOS);
 	InformeInternoDAO objInformeInternoDAO = fabrica.getInformeInternoDAO();
 	
-	public void registrar(InformeInternoDTO objii, List<InformeInternoDetalleDTO> lstIIDet) throws Exception {
-		objInformeInternoDAO.registrarII(objii, lstIIDet);
+	public Object registrar(InformeInternoDTO objii, List<InformeInternoDetalleDTO> lstIIDet) throws Exception {
+		return objInformeInternoDAO.registrarII(objii, lstIIDet);
 	}
 //
 //	/**

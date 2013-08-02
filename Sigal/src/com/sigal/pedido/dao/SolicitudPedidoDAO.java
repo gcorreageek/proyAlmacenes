@@ -26,6 +26,33 @@ public interface SolicitudPedidoDAO {
 	 * @return
 	 */
 	List<SolicitudPedidoDTO> buscarPedidoSinAtender(SolicitudPedidoDTO pedido);
+	/**
+	 * @param objPedido
+	 * @param inicio
+	 * @param tamano
+	 * @return
+	 */
+	List<SolicitudPedidoDTO> buscarPedidoPagAprobados(
+			SolicitudPedidoDTO objPedido, Integer inicio, Integer tamano);
+	/**
+	 * @param pedido
+	 * @return
+	 */
+	List<SolicitudPedidoDTO> buscarPedidoAprobados(SolicitudPedidoDTO pedido);
+	/**
+	 * @param objPedido
+	 * @param comienzo
+	 * @param filasXPagina
+	 * @return
+	 */
+	List<SolicitudPedidoDTO> buscarPedidoPagFaltanDevolver(
+			SolicitudPedidoDTO objPedido, Integer comienzo, Integer filasXPagina);
+	/**
+	 * @param objPedido
+	 * @return
+	 */
+	List<SolicitudPedidoDTO> buscarPedidoFaltanDevolver(
+			SolicitudPedidoDTO objPedido);
 	 
 	
 }
