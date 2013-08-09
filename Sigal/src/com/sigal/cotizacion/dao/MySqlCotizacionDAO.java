@@ -23,7 +23,7 @@ public class MySqlCotizacionDAO implements CotizacionDAO {
 
 	@Override
 	public Object insertarCotizacion(CotizacionDTO coti,
-			List<CotizacionDetalleDTO> cotiDet) {
+			List<CotizacionDetalleDTO> cotiDet) throws Exception{
 		SqlSession sesion =sqlMapper.openSession();
 		try { 
 			System.out.println("coti"+coti.getRaz_social());
@@ -34,10 +34,9 @@ public class MySqlCotizacionDAO implements CotizacionDAO {
 				sesion.insert("cotizaciondetalle.SQL_registraDetalleCotizacion",detallePedidoDTO);
 			} 
 			sesion.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			sesion.rollback();
-			sesion.close();
+		} catch (Exception e) { 
+			sesion.rollback(); 
+			throw e;
 		}finally{
 			sesion.close();
 		} 

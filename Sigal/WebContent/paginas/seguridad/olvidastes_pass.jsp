@@ -22,7 +22,7 @@
       }
 
       .form-signin {
-        max-width: 300px;
+        max-width: 500px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
         background-color: #fff;
@@ -34,17 +34,17 @@
            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
                 box-shadow: 0 1px 2px rgba(0,0,0,.05);
       }
-      .form-signin .form-signin-heading,
-      .form-signin .checkbox {
-        margin-bottom: 10px;
-      }
-      .form-signin input[type="text"],
-      .form-signin input[type="password"] {
-        font-size: 16px;
-        height: auto;
-        margin-bottom: 15px;
-        padding: 7px 9px;
-      }
+/*       .form-signin .form-signin-heading, */
+/*       .form-signin .checkbox { */
+/*         margin-bottom: 10px; */
+/*       } */
+/*       .form-signin input[type="text"], */
+/*       .form-signin input[type="password"] { */
+/*         font-size: 16px; */
+/*         height: auto; */
+/*         margin-bottom: 15px; */
+/*         padding: 7px 9px; */
+/*       } */
 
     </style>
     <link href="<%=request.getContextPath()%>/assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -58,17 +58,16 @@
   <body> 
     <div class="container">
 
-      <form class="form-signin"  action="login"  method="post"  >
-        <h2 class="form-signin-heading">Inicie sesion</h2>
-        <input type="text"  name="objUsu.usu_usuario"  class="input-block-level" placeholder="Usuario">
-        <input type="password" name="objUsu.pass_usuario" class="input-block-level" placeholder="Password">
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Record&aacute;rmelo
-        </label>
-        <a href="paginas/seguridad/olvidastes_pass.jsp" type="button" class="btn btn-link" >Olvidastes tu Contraseña</a>|
-        <a href="paginas/seguridad/registrar_usu.jsp" type="button" class="btn btn-link">Registrarme</a>
-        <p align="center" class="text-error">${requestScope.mensaje}</p> 
-        <button class="btn btn-large btn-primary" type="submit">Ingresar</button> 
+      <form class="form-signin"  action="passOlvidado"  method="post"  >
+        <h2 class="form-signin-heading">Olvidates tu Contraseña</h2>
+        <div class="control-group">
+		<label class="control-label" for="inputNombre">Correo*</label>
+		<div class="controls">
+		<input type="email" id="correo_usuario" class="span5" value="${objUsuario.correo_usuario}" name="objUsuario.correo_usuario" placeholder="Correo"  required>
+		</div>
+		</div> 
+        <button class="btn btn-large btn-primary" type="submit">Enviar</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-large btn-primary"  type="submit" href="javascript:history.go(-1)">Cancelar</a>
       </form>
 
     </div> <!-- /container -->

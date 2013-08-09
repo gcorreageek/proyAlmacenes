@@ -168,8 +168,7 @@ public class PedidoAction extends ActionSupport {
 			lasesion.remove("lstDetPed");
 			this.rsult=1;
 			this.mensaje="Se registro su Pedido!";
-		} catch (Exception e) {
-			System.out.println("Try:"+e);
+		} catch (Exception e) { 
 			e.printStackTrace();
 			this.rsult=0;
 			this.mensaje="Ocurrio un error al Grabar";

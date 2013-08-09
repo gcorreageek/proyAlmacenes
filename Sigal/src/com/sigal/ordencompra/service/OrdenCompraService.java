@@ -63,7 +63,7 @@ public class OrdenCompraService {
 	
 	
 	
-	public void registrarOrdenCompra(OrdenCompraDTO objOrdenCompraP, List<OrdenCompraDetalleDTO> lstDetOrdenCompra) {
+	public void registrarOrdenCompra(OrdenCompraDTO objOrdenCompraP, List<OrdenCompraDetalleDTO> lstDetOrdenCompra) throws Exception {
 		objOrdenCompraPDAO.insertarOC(objOrdenCompraP,lstDetOrdenCompra);
 	} 
 	

@@ -108,7 +108,11 @@ public class LogueoAction extends ActionSupport {
 		ActionContext.getContext().getSession().clear();
 		return SUCCESS;
 	}
-	
+	@Action(value="/passOlvidado",results={@Result(name="success",location="/paginas/seguridad/login.jsp")})
+	public String passOlvidado(){
+		ActionContext.getContext().getSession().clear();
+		return SUCCESS;
+	} 
 
 	
 	public UsuarioDTO getObjUsu() {

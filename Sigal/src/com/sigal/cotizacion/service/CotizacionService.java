@@ -40,7 +40,7 @@ public class CotizacionService {
 		return objSolPDAO.buscarCotizacionPag(cot, inicio, tamano);
 	}
 	
-	public void registrarCotizacion(CotizacionDTO objSolP, List<CotizacionDetalleDTO> lstDetPed) {
+	public void registrarCotizacion(CotizacionDTO objSolP, List<CotizacionDetalleDTO> lstDetPed) throws Exception  {
 		objSolPDAO.insertarCotizacion(objSolP,lstDetPed);
 	} 
 	

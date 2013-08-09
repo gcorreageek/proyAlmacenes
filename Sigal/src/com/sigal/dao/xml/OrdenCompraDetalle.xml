@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		on prod_provee.cod_producto_proveedor=det.cod_producto_proveedor
 		inner join tb_producto  prod
 		on prod.cod_producto=prod_provee.cod_producto
-		where oc.cod_detalleordencompra=#{cod_detalleordencompra}  
+		where det.cod_detalleordencompra=#{cod_detalleordencompra}  
 		order by oc.cod_ordencompra asc
 	</select>
 	

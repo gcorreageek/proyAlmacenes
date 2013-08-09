@@ -89,7 +89,7 @@ public class MySqlOrdenCompraDAO implements OrdenCompraDAO {
 	} 
 	@Override
 	public Object insertarOC(OrdenCompraDTO oc,
-			List<OrdenCompraDetalleDTO> ocDet) {
+			List<OrdenCompraDetalleDTO> ocDet) throws Exception {
 		SqlSession sesion =sqlMapper.openSession();
 		try {  
 			sesion.insert("oc.SQL_registraOC",oc);
@@ -98,10 +98,9 @@ public class MySqlOrdenCompraDAO implements OrdenCompraDAO {
 				sesion.insert("ocdetalle.SQL_registraDetalleOC",detalleOrdenCompraDTO);
 			} 
 			sesion.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			sesion.rollback();
-			sesion.close();
+		} catch (Exception e) { 
+			sesion.rollback(); 
+			throw e;
 		}finally{
 			sesion.close();
 		} 

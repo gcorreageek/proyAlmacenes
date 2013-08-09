@@ -15,7 +15,7 @@ import com.sigal.pedido.bean.SolicitudPedidoDTO;
  */
 public interface CotizacionDAO {
 
-	Object insertarCotizacion(CotizacionDTO coti, List<CotizacionDetalleDTO> cotiDet);
+	Object insertarCotizacion(CotizacionDTO coti, List<CotizacionDetalleDTO> cotiDet) throws Exception;
 	
 	List<CotizacionDTO> buscarCotizacionPag(CotizacionDTO cotizacionViene,Integer inicio,Integer tamano) throws Exception;
 	List<CotizacionDTO> buscarCotizacion(CotizacionDTO cotizacionViene) throws Exception;

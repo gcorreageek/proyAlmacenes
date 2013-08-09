@@ -16,21 +16,41 @@ function seleccionaOrdenCompra(codOrdenCompra,nomUsuario,fechaOrdenCompra,razonS
 	});  	
 } 
 function guardarIEE(){//objInformeInterno.cod_pedido  obs_informeinterno
+	var mensaje="<div class='alert alert-error'><h4>Error!</h4>";
 	var codOrdenCompra=$("#cod_OrdenCompra").val(); 
-	var obs=$("#inputObservacion").val(); 
-	$.post("guardarIEE",{"objInformeExterno.cod_ordencompra":codOrdenCompra,"objInformeExterno.obs_informeexterno":obs},function(data){
- 		$("#divMensaje").html(data);
- 		$('#myIE').modal({  keyboard: false }); 
- 		setTimeout(function(){ $(location).attr('href','inicio'); }, 4000); 
+	var observacion=$("#inputObservacion").val(); 
+	var iChars = "#$%^&*()+=-[]\\'/{}|\"<>"; 
+	if(codOrdenCompra==null || codOrdenCompra=='' ){ 
+		$("#divMostrarMensaje").html(mensaje+" Ingrese Orden de Compra correcto"+ "</div>");
+		setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+		return;
+	}
+	for (var i = 0; i < observacion.length; i++) {
+	    if (iChars.indexOf(observacion.charAt(i)) != -1) {
+	    	$("#divMostrarMensaje").html(mensaje+" Ingrese una Observacion valida"+ "</div>");
+ 			setTimeout(function(){ $('.alert').hide(1000); }, 2000); 
+ 			return;
+	    }
+	}
+	$.post("guardarIES",{"objInformeExterno.cod_ordencompra":codOrdenCompra,"objInformeExterno.obs_informeexterno":observacion},function(data){
+		var bien = data.indexOf("Error");  
+		if(bien<0){
+			$("#idMensajeInterno").html(data);
+	 		$('#myIE').modal({  keyboard: false });  
+	 		setTimeout(function(){ $(location).attr('href','mainInformeExternoSalida'); }, 4000);
+		}else{
+			$("#idMensajeInterno").html(data);
+	 		$('#myIE').modal({  keyboard: false });  
+		} 
 	}); 
 }
 $(document).ready(function() {  
 	$('#idBuscarOrdenCompra').click(function(){
 // 		$("#txtPedido").val("");
-		$.post("listarOrdenCompraTotal",function(data){
+		$.post("listarOrdenCompraTotalEntregada",function(data){
 	 		$("#divDatosOrdenCompraTotal").html(data);
 		}); 
-		$.post("listarOrdenCompraPagModal",{inicio:null},function(data){
+		$.post("listarOrdenCompraPagModalEntregada",{inicio:null},function(data){
 	 		$("#divTablaOrdenCompraModal").html(data);
 		}); 
 	});   
@@ -39,14 +59,14 @@ $(document).ready(function() {
 		var txtNombreRespo=$("#txtNombreResponsable").val(); 
 		var txtFechaInicio=$("#txtFechaInicio").val();
 		var txtFechaFin=$("#txtFechaFin").val();  
-		$.post("buscarPedidoTotal",{
+		$.post("buscarOrdenCompraTotalEntregada",{
 			"objOrdenCompra.nom_usuario":txtNombreRespo, 
 			"objOrdenCompra.fechaInicio":txtFechaInicio,
 			"objOrdenCompra.fechaFin":txtFechaFin
 			},function(data){
 	 		$("#divDatosOrdenCompraTotal").html(data);
 		}); 
-		$.post("buscarOrdenCompraPagModal",{
+		$.post("buscarOrdenCompraPagModalEntregada",{
 			"objOrdenCompra.nom_usuario":txtNombreRespo, 
 			"objOrdenCompra.fechaInicio":txtFechaInicio,
 			"objOrdenCompra.fechaFin":txtFechaFin
@@ -59,6 +79,8 @@ $(document).ready(function() {
 }); 
 </script>
 <h3>Informe Externo de Salida</h3>
+<div id="divMostrarMensaje"> 
+</div>
 <form>
 <s:hidden  name="objOrdenCompra.cod_OrdenCompra"  id="cod_OrdenCompra"    />
 <div class="control-group">
@@ -150,15 +172,10 @@ $(document).ready(function() {
       <div id="divDatosOrdenCompraTotal"></div>  
 </div> 
 </div> 
-
  
-<div id="myIE" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalIE" aria-hidden="true">
-<div class="modal-header"> 
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-<h3 id="myModalIE">Resultado Informe Externo de Salida</h3>
-</div>
-<div class="modal-body"> 
-      <div id="divMensaje">
-      </div> 
+
+<div id="myIE" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalBuscarProducto" aria-hidden="true">
+<div class="modal-body">
+<div id="idMensajeInterno"></div> 
 </div> 
 </div>

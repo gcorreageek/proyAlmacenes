@@ -23,6 +23,7 @@ public class OrdenCompraDTO {
 	private Integer tamano; 
 	private java.sql.Date fechaInicio;
 	private java.sql.Date fechaFin;
+
 	public Integer getCod_OrdenCompra() {
 		return cod_OrdenCompra;
 	}

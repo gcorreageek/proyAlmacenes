@@ -80,8 +80,7 @@ public class OrdenCompraAction extends ActionSupport {
 			lasesion.remove("lstDetCoti");
 			this.rsult=1;
 			this.mensaje="Se guardo correctamente!";
-		} catch (Exception e) {
-			System.out.println("Try:"+e);
+		} catch (Exception e) { 
 			e.printStackTrace();
 			this.rsult=0;
 			this.mensaje="Ocurrio un error al Grabar";
@@ -176,7 +175,7 @@ public class OrdenCompraAction extends ActionSupport {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		} 
 		try {  
-			lstOrdenCompra =   objOrdenCompraServ.listaOrdenCompraPaginado(comienzo, Constantes.FILAS_X_PAGINA);
+			lstOrdenCompra =   objOrdenCompraServ.listaOrdenCompraPaginadoEntregada(comienzo, Constantes.FILAS_X_PAGINA);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -195,18 +194,18 @@ public class OrdenCompraAction extends ActionSupport {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA) - Constantes.FILAS_X_PAGINA;
 		}
 		try {
-			lstOrdenCompra = objOrdenCompraServ.buscarOrdenCompraPaginado(objOrdenCompra, comienzo, Constantes.FILAS_X_PAGINA);
+			lstOrdenCompra = objOrdenCompraServ.buscarOrdenCompraPaginadoEntregada(objOrdenCompra, comienzo, Constantes.FILAS_X_PAGINA);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return SUCCESS;
 	}
-	@Action(value = "/listarOrdenCompraTotalEntregada", results = { @Result(name = "success", location = "/paginas/orden_compra/orden_compra_listado_total.jsp") })
+	@Action(value = "/listarOrdenCompraTotalEntregada", results = { @Result(name = "success", location = "/paginas/orden_compra/orden_compra_listado_total_entregado.jsp") })
 	public String listarOrdenCompraTotalEntregada() { 
 		try {
-			System.out.println("totla:"+objOrdenCompraServ.listaOrdenCompraTotal());
-			this.numeroPaginasModalOrdenCompra= UtilSigal.totalDePaginas(objOrdenCompraServ.listaOrdenCompraTotal());
+			System.out.println("totla:"+objOrdenCompraServ.listaOrdenCompraTotalEntregada());
+			this.numeroPaginasModalOrdenCompra= UtilSigal.totalDePaginas(objOrdenCompraServ.listaOrdenCompraTotalEntregada());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -214,11 +213,11 @@ public class OrdenCompraAction extends ActionSupport {
 		System.out.println("nunmeroPaginas:"+numeroPaginasModalOrdenCompra); 
 		return SUCCESS;
 	}
-	@Action(value = "/buscarOrdenCompraTotalEntregada", results = { @Result(name = "success", location = "/paginas/orden_compra/orden_compra_buscar_total.jsp") })
+	@Action(value = "/buscarOrdenCompraTotalEntregada", results = { @Result(name = "success", location = "/paginas/orden_compra/orden_compra_buscar_total_entregado.jsp") })
 	public String buscarOrdenCompraTotalEntregada() { 
 		try {
-			System.out.println("total reg:"+objOrdenCompraServ.buscarOrdenCompraTotal(objOrdenCompra));
-			this.numeroPaginasModalOrdenCompra= UtilSigal.totalDePaginas(objOrdenCompraServ.buscarOrdenCompraTotal(objOrdenCompra));
+			System.out.println("total reg:"+objOrdenCompraServ.buscarOrdenCompraTotalEntregada(objOrdenCompra));
+			this.numeroPaginasModalOrdenCompra= UtilSigal.totalDePaginas(objOrdenCompraServ.buscarOrdenCompraTotalEntregada(objOrdenCompra));
 			System.out.println("total paginas:"+numeroPaginasModalOrdenCompra);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

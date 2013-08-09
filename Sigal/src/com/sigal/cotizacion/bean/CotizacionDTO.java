@@ -10,7 +10,7 @@ package com.sigal.cotizacion.bean;
 public class CotizacionDTO { 
 	
 	private Integer cod_cotizacion;
-	private String obs_cotizacion;
+//	private String obs_cotizacion;
 	private Integer cod_usuario;
 	private java.sql.Date fecharegistro_cotizacion;
 	private Integer cod_proveedor;
@@ -29,12 +29,12 @@ public class CotizacionDTO {
 	public void setCod_cotizacion(Integer cod_cotizacion) {
 		this.cod_cotizacion = cod_cotizacion;
 	}
-	public String getObs_cotizacion() {
-		return obs_cotizacion;
-	}
-	public void setObs_cotizacion(String obs_cotizacion) {
-		this.obs_cotizacion = obs_cotizacion;
-	}
+//	public String getObs_cotizacion() {
+//		return obs_cotizacion;
+//	}
+//	public void setObs_cotizacion(String obs_cotizacion) {
+//		this.obs_cotizacion = obs_cotizacion;
+//	}
 	public Integer getCod_usuario() {
 		return cod_usuario;
 	}

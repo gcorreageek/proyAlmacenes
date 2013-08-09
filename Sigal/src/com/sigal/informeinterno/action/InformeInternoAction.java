@@ -183,69 +183,47 @@ public class InformeInternoAction extends ActionSupport {
 	} 
 	public void setCodProd(Integer codProd) {
 		this.codProd = codProd;
-	} 
-
-	
-	
-
-
+	}
 
 	public ProductoDTO getObjProducto() {
 		return objProducto;
 	}
 
-
-
 	public void setObjProducto(ProductoDTO objProducto) {
 		this.objProducto = objProducto;
 	}
-
-
 
 	public String getMensaje() {
 		return mensaje;
 	}
 
-
-
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
 
-
-
 	public Integer getRsult() {
 		return rsult;
-	} 
+	}
+
 	public void setRsult(Integer rsult) {
 		this.rsult = rsult;
 	}
-
-
 
 	public List<AreaDTO> getLstArea() {
 		return lstArea;
 	}
 
-
-
 	public void setLstArea(List<AreaDTO> lstArea) {
 		this.lstArea = lstArea;
 	}
-
-
 
 	public InformeInternoDTO getObjInformeInterno() {
 		return objInformeInterno;
 	}
 
-
-
 	public void setObjInformeInterno(InformeInternoDTO objInformeInterno) {
 		this.objInformeInterno = objInformeInterno;
 	}
-	
-	
 	
 	
 	

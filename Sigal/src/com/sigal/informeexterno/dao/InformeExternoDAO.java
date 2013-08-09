@@ -14,5 +14,5 @@ import com.sigal.informeexterno.bean.InformeExternoDetalleDTO;
  */
 public interface InformeExternoDAO {
 
-	Object registrarIE(InformeExternoDTO ie, List<InformeExternoDetalleDTO> ieDet);
+	Object registrarIE(InformeExternoDTO ie, List<InformeExternoDetalleDTO> ieDet) throws Exception;
 }

@@ -62,9 +62,9 @@ public class MySqlInformeInternoDAO implements InformeInternoDAO {
 			sesion.commit();
 			rsult=1;
 		} catch (Exception e) { 
-			sesion.rollback();
-			sesion.close(); 
+			sesion.rollback(); 
 			rsult=-1;
+			throw e;
 		}finally{
 			sesion.close();
 		} 

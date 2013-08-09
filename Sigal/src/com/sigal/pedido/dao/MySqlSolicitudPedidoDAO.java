@@ -18,7 +18,7 @@ public class MySqlSolicitudPedidoDAO implements SolicitudPedidoDAO {
 	
 	@Override
 	public Object registrarPedido(SolicitudPedidoDTO objSolP,
-			List<DetallePedidoDTO> lstDetPed) {
+			List<DetallePedidoDTO> lstDetPed) throws Exception{
 		
 		SqlSession sesion =sqlMapper.openSession();
 		try {  
@@ -29,10 +29,10 @@ public class MySqlSolicitudPedidoDAO implements SolicitudPedidoDAO {
 			} 
 			sesion.commit();	
 		} catch (Exception e) { 
-			e.printStackTrace();
+//			e.printStackTrace();
 			sesion.rollback(); 
-			sesion.close();
-			
+//			sesion.close();
+			throw e;
 		}finally{
 			sesion.close();
 		} 

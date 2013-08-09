@@ -8,7 +8,7 @@ import com.sigal.pedido.bean.SolicitudPedidoDTO;
 
 public interface SolicitudPedidoDAO {
 
-	Object registrarPedido(SolicitudPedidoDTO objSolP,List<DetallePedidoDTO> lstDetPed) ;
+	Object registrarPedido(SolicitudPedidoDTO objSolP,List<DetallePedidoDTO> lstDetPed) throws Exception;
 	List<SolicitudPedidoDTO> buscarPedidoPag(SolicitudPedidoDTO pedidoViene,Integer inicio,Integer tamano) throws Exception;
 	List<SolicitudPedidoDTO> buscarPedido(SolicitudPedidoDTO pedidoViene) throws Exception;
 	

@@ -37,7 +37,7 @@ public class PedidoService {
 		return objSolPDAO.buscarPedidoPag(productoProveedor, inicio, tamano);
 	}
 	
-	public void registrarPedido(SolicitudPedidoDTO objSolP, List<DetallePedidoDTO> lstDetPed) {
+	public void registrarPedido(SolicitudPedidoDTO objSolP, List<DetallePedidoDTO> lstDetPed) throws Exception{
 		objSolPDAO.registrarPedido(objSolP,lstDetPed);
 	}
 	public void guardarEvaluacionPedido(SolicitudPedidoDTO objSolP ) {

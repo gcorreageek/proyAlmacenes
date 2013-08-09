@@ -13,7 +13,7 @@ import com.sigal.ordencompra.bean.OrdenCompraDetalleDTO;
  *
  */
 public interface OrdenCompraDAO {
-	Object insertarOC(OrdenCompraDTO oc, List<OrdenCompraDetalleDTO> ocDet);
+	Object insertarOC(OrdenCompraDTO oc, List<OrdenCompraDetalleDTO> ocDet) throws Exception ;
 	
 	List<OrdenCompraDTO> buscarOCPag(OrdenCompraDTO ocViene,Integer inicio,Integer tamano) throws Exception;
 	List<OrdenCompraDTO> buscarOC(OrdenCompraDTO ocViene) throws Exception;

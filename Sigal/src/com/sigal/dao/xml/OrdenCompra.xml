@@ -71,12 +71,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		cod_proveedor) values(NOW(),#{cod_usuario},#{cod_cotizacion},
 		#{cod_proveedor}) 
 	</insert> 
-	<update id="SQL_actualizarOCEstado" parameterType="OrdenCompraBean"  >
+	<update id="SQL_actualizarOCEstadoDDDD" parameterType="OrdenCompraBean"  >
         update tb_ordencompra set estado_ordencompra= #{estado_ordencompra} 
-        where cod_ordencompra =  #{cod_ordencompra}  
+        where cod_OrdenCompra =  #{cod_OrdenCompra}  
     </update>
 	
-	<select id="SQL_getOC" resultType="OrdenCompraBean">
+	<select id="SQL_getOC" resultType="OrdenCompraBean" >
 		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
 		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
 		inner join tb_area area on cargo.cod_area=area.cod_area

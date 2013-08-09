@@ -26,30 +26,34 @@ public class MySqlInformeExternoDAO implements InformeExternoDAO {
  
 	@Override
 	public Object registrarIE(InformeExternoDTO ie,
-			List<InformeExternoDetalleDTO> ieDet) {
+			List<InformeExternoDetalleDTO> ieDet) throws Exception{
 		Integer rsult=0;
 		SqlSession sesion =sqlMapper.openSession();
 		try {  
 			sesion.insert("ie.SQL_registraIE",ie);
-			OrdenCompraDTO ordenc = new OrdenCompraDTO();
-			ordenc.setCod_OrdenCompra(ie.getCod_ordencompra());
+			
+			OrdenCompraDTO ordemperu = new OrdenCompraDTO();
+					
+			ordemperu = 	(OrdenCompraDTO) sesion.selectOne("oc.SQL_getOC",ie.getCod_ordencompra());
+			System.out.println("rei:"+ie.getTipo_informe_externo()); 
 			if("Entrada".equals(ie.getTipo_informe_externo())){
-				ordenc.setEstado_ordencompra("Entregada");
+				ordemperu.setEstado_ordencompra("Entregada");
 			}else{//salida
-				ordenc.setEstado_ordencompra("Pendiente");
+				ordemperu.setEstado_ordencompra("Pendiente");
 			}
-			sesion.update("oc.SQL_actualizarOCEstado",ordenc);
+			System.out.println("estado:"+ordemperu.getCod_OrdenCompra());
+			System.out.println("estado:"+ordemperu.getEstado_ordencompra());
+			sesion.update("oc.SQL_actualizarOCEstadoDDDD",ordemperu);
 			for (InformeExternoDetalleDTO  detalleInformeExternoDTO : ieDet) {  
 				detalleInformeExternoDTO.setCod_informe_externo(ie.getCod_informe_externo());
-				
-				OrdenCompraDetalleDTO ocDet =  (OrdenCompraDetalleDTO)sesion.selectOne("ocdetalle.SQL_getDetalleOC1",ie.getCod_ordencompra());
-				 
+				System.out.println("Codigo Detalle OC:"+detalleInformeExternoDTO.getCod_detalle_ordencompra());
+				OrdenCompraDetalleDTO ocDet =  (OrdenCompraDetalleDTO)sesion.selectOne("ocdetalle.SQL_getDetalleOC1",detalleInformeExternoDTO.getCod_detalle_ordencompra());
+				System.out.println("CodProductoProveedor:"+ocDet.getCod_producto_proveedor());
 				ProductoProveedorDTO prodProvee =  (ProductoProveedorDTO) sesion.selectOne("productoproveedor.SQL_getProductoProveedorXCodProductoProveedor",ocDet.getCod_producto_proveedor());
-				
-				 
-				 
-				
+				System.out.println("codProducto:"+prodProvee.getCod_producto()); 
 				ProductoDTO  objProducto = (ProductoDTO) sesion.selectOne("producto.SQL_getProductoXCodProd",prodProvee.getCod_producto()); 
+				System.out.println("Stock del Producto:"+objProducto.getStock_producto());
+				System.out.println("Cantidad del Producto:"+ocDet.getCantidad());
 				Integer stock=0; 
 				if("Entrada".equals(ie.getTipo_informe_externo())){
 					stock = objProducto.getStock_producto() +  ocDet.getCantidad();
@@ -58,21 +62,16 @@ public class MySqlInformeExternoDAO implements InformeExternoDAO {
 				}
 				
 				objProducto.setStock_producto(stock);
-				sesion.update("producto.SQL_updateProducto", objProducto);
-				
-				
-				
-				
+				sesion.update("producto.SQL_updateProducto", objProducto); 
 				sesion.insert("iedetalle.SQL_registraDetalleIE",detalleInformeExternoDTO);
 			} 
 			sesion.commit();
 			rsult=1;
 		} catch (Exception e) {
-			e.printStackTrace();
+			rsult=-1; 
 			sesion.rollback();
-			sesion.close();
-			rsult=-1;
-		}finally{
+			throw e; 
+		}finally{ 
 			sesion.close();
 		} 
 		return rsult;

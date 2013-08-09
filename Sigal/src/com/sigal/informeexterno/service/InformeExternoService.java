@@ -14,7 +14,7 @@ public class InformeExternoService {
 	DAOFactory fabrica = DAOFactory.getDAOFactory(Constantes.ORIGENDATOS);
 	InformeExternoDAO objInformeExternoDAO = fabrica.getInformeExternoDAO();
 	
-	public Object registrarOrdenCompra(InformeExternoDTO objii, List<InformeExternoDetalleDTO> lstIIDet) {
+	public Object registrarOrdenCompra(InformeExternoDTO objii, List<InformeExternoDetalleDTO> lstIIDet) throws Exception {
 		return objInformeExternoDAO.registrarIE(objii, lstIIDet);
 	} 
 	
