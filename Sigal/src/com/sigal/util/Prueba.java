@@ -103,7 +103,7 @@ public class Prueba {
 //
 //			            // Lo enviamos.
 //			            Transport t = session.getTransport("smtp");
-//			            t.connect("gcorreageek@gmail.com", "5526296CPc");
+//			            t.connect("gcorreageek@gmail.com", "d");
 //			            t.sendMessage(message, message.getAllRecipients());
 //
 //			            // Cierre.
@@ -119,10 +119,10 @@ public class Prueba {
 //		HtmlEmail email = new HtmlEmail();
 //		email.setHostName("smtp.gmail.com");
 //		email.setSmtpPort(587);
-//		email.setAuthentication("gcorreageek", "5526296CPc");
+//		email.setAuthentication("gcorreageek", "d");
 //		email.setStartTLSEnabled(true);
 //		email.setStartTLSRequired(true);
-////		email.setAuthentication("gcorreageek", "5526296CPc");
+////		email.setAuthentication("gcorreageek", "d");
 //		
 ////		 props.setProperty("mail.smtp.starttls.enable", "true");
 ////         props.setProperty("mail.smtp.port", "587");

@@ -161,7 +161,9 @@ public class UtilSigal {
 	}
 	
 
-	
+	public static void main(String[] args) {
+		EnviarCorreo();
+	}
 	public static void EnviarCorreo(){
 		try {
 			Properties prop = new Properties();
