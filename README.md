@@ -1,6 +1,6 @@
-Proyecto Ganador de la Feria de TI de Cibertec
+<h1>Proyecto Ganador de la Feria de TI de Cibertec </h1>
 =============
-Proyecto SIGAL 
+<h2>Proyecto SIGAL</h2>  
 =============
 <strong>Web Temporal:http://sigal.jelastic.servint.net/</strong><br>
 Proyecto de Almacenes para el curso de Calidad.<br>
