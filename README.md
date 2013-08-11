@@ -6,7 +6,7 @@ Proyecto SIGAL
 Proyecto de Almacenes para el curso de Calidad.<br>
 Librerias y Frameworks usados:<br>
 <ul>
-<li> <a title="Click para mas informacion" href="http://struts.apache.org/development/2.x/">Struts2(anotaciones) <a>  </li>
+<li> <a target="_blank" title="Click para mas informacion" href="http://struts.apache.org/development/2.x/">Struts2(anotaciones) <a>  </li>
 <li> <a title="Click para mas informacion" href="http://mybatis.github.io/mybatis-3/es/">  MyBatis </a> </li>
 <li> <a title="Click para mas informacion" href="https://help.github.com/">  GitHub </a></li>
 <li> <a title="Click para mas informacion" href="http://www.mysql.com/">  MySQL</a>  </li>
