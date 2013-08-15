@@ -29,19 +29,19 @@ $(document).ready(function() {
 // 	$('.alert').hide(); 
 	$('#idBuscarProducto').click(function(){
 		$("#txtProducto").val("");
-		$.post("listarProductoTotal",function(data){
+		$.post("listarProductoTotalHabilitados",function(data){
 	 		$("#divDatosProdTotal").html(data);
 		}); 
-		$.post("listarProductoPagModal",{inicio:null},function(data){
+		$.post("listarProductoPagModalHabilitados",{inicio:null},function(data){
 	 		$("#divTablaProdModal").html(data);
 		}); 
 	});  
 	$('#idBotonBuscarProducto').click(function(){
 		var txtProd=$("#txtProducto").val();
-		$.post("buscarProductoTotal",{"objProducto.desc_producto":txtProd},function(data){
+		$.post("buscarProductoTotalHabilitados",{"objProducto.desc_producto":txtProd},function(data){
 	 		$("#divDatosProdTotal").html(data);
 		}); 
-		$.post("buscarProductosXDescProdPagModal",{inicio:null,"objProducto.desc_producto":txtProd},function(data){
+		$.post("buscarProductosXDescProdPagModalHabilitados",{inicio:null,"objProducto.desc_producto":txtProd},function(data){
 	 		$("#divTablaProdModal").html(data);
 		}); 
 	}); 

@@ -68,7 +68,9 @@ function guardarEvaluacion(evaluacion){
 $(document).ready(function() {  
 	
 	$('#idBuscarPedido').click(function(){
-// 		$("#txtPedido").val("");
+		$("#txtNombreResponsable").val("");
+		$("#txtFechaInicio").val("");
+		$("#txtFechaFin").val(""); 
 		$.post("listarPedidoTotal",function(data){
 	 		$("#divDatosPedidoTotal").html(data);
 		}); 

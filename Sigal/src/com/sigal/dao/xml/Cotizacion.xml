@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
 		inner join tb_area area on cargo.cod_area=area.cod_area
 		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
-		order by cot.cod_cotizacion asc
+		order by cot.cod_cotizacion desc
 	</select>  
 	<select id="SQL_listaCotizacionXNombre" resultType="CotizacionBean" parameterType="CotizacionBean" >
 		select cot.*,usu.*,cargo.*,area.*,provee.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_area area on cargo.cod_area=area.cod_area
 		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
 		where usu.nom_usuario like #{nom_usuario}
-		order by cot.cod_cotizacion asc
+		order by cot.cod_cotizacion desc
 	</select> 
 	<select id="SQL_listaCotizacionXFechas" resultType="CotizacionBean" parameterType="CotizacionBean" >
 		select cot.*,usu.*,cargo.*,area.*,provee.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_area area on cargo.cod_area=area.cod_area
 		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
 		where cot.fecharegistro_cotizacion between #{fechaInicio} and #{fechaFin}
-		order by cot.cod_cotizacion asc
+		order by cot.cod_cotizacion desc
 	</select>  
 	 <!-- Tamano Fin  -->
 	 <!-- Paginacion Inicio -->
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
 		inner join tb_area area on cargo.cod_area=area.cod_area
 		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
-		order by cot.cod_cotizacion asc limit  #{inicio} ,  #{tamano} 
+		order by cot.cod_cotizacion desc limit  #{inicio} ,  #{tamano} 
 	</select> 
 	<select id="SQL_listaCotizacionXNombrePag" resultType="CotizacionBean" parameterType="CotizacionBean"  >
 	    select cot.*,usu.*,cargo.*,area.*,provee.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_area area on cargo.cod_area=area.cod_area
 		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
 		where usu.nom_usuario like #{nom_usuario} 
-		order by cot.cod_cotizacion asc  limit  #{inicio} ,  #{tamano}  
+		order by cot.cod_cotizacion desc  limit  #{inicio} ,  #{tamano}  
 	</select>  
 	<select id="SQL_listaCotizacionXFechasPag" resultType="CotizacionBean" parameterType="CotizacionBean"  >
 	    select cot.*,usu.*,cargo.*,area.*,provee.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_area area on cargo.cod_area=area.cod_area
 		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
 		where cot.fecharegistro_cotizacion between #{fechaInicio} and #{fechaFin}
-		order by cot.cod_cotizacion asc  limit  #{inicio} ,  #{tamano}  
+		order by cot.cod_cotizacion desc  limit  #{inicio} ,  #{tamano}  
 	</select>   
 	<!-- Paginacion Fin -->
 	 

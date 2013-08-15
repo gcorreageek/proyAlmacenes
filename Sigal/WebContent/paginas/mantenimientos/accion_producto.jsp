@@ -24,13 +24,13 @@ $(document).ready(function() {
 
 
 <c:if test="${requestScope.rsult!=null}"   >
-<c:if test="${requestScope.rsult=='0'}"   >
+<c:if test="${requestScope.rsult=='1'}"   >
 	<div class="alert alert-success"> 
 	<h4>Bien!</h4>
 	${requestScope.mensaje}
 	</div> 
 </c:if>
-<c:if test="${requestScope.rsult=='1'}"   >
+<c:if test="${requestScope.rsult=='0'}"   >
 	<div class="alert alert-error"> 
 	<h4>Error!</h4>
 	${requestScope.mensaje}

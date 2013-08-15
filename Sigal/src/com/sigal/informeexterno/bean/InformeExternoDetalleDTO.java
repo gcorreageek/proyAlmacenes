@@ -17,6 +17,11 @@ public class InformeExternoDetalleDTO implements Serializable{
 	private Integer cod_informe_externo;
 	private Integer cod_detalle_ordencompra;
 	
+	private	Integer	cantidad	;
+	private	String	desc_producto	;
+	private	String	unidadMedida	;
+	private String raz_social;
+	
 	
 	
 	public Integer getCod_detalle_informe_externo() {
@@ -36,6 +41,54 @@ public class InformeExternoDetalleDTO implements Serializable{
 	}
 	public void setCod_detalle_ordencompra(Integer cod_detalle_ordencompra) {
 		this.cod_detalle_ordencompra = cod_detalle_ordencompra;
+	}
+	/**
+	 * @return the cantidad
+	 */
+	public Integer getCantidad() {
+		return cantidad;
+	}
+	/**
+	 * @param cantidad the cantidad to set
+	 */
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+	/**
+	 * @return the desc_producto
+	 */
+	public String getDesc_producto() {
+		return desc_producto;
+	}
+	/**
+	 * @param desc_producto the desc_producto to set
+	 */
+	public void setDesc_producto(String desc_producto) {
+		this.desc_producto = desc_producto;
+	}
+	/**
+	 * @return the unidadMedida
+	 */
+	public String getUnidadMedida() {
+		return unidadMedida;
+	}
+	/**
+	 * @param unidadMedida the unidadMedida to set
+	 */
+	public void setUnidadMedida(String unidadMedida) {
+		this.unidadMedida = unidadMedida;
+	}
+	/**
+	 * @return the raz_social
+	 */
+	public String getRaz_social() {
+		return raz_social;
+	}
+	/**
+	 * @param raz_social the raz_social to set
+	 */
+	public void setRaz_social(String raz_social) {
+		this.raz_social = raz_social;
 	}
 	
 	

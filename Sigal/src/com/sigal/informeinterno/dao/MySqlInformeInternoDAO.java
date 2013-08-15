@@ -3,8 +3,11 @@
  */
 package com.sigal.informeinterno.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -20,6 +23,7 @@ import com.sigal.util.MySqlConexion;
  *
  */
 public class MySqlInformeInternoDAO implements InformeInternoDAO {
+	private final Log log = LogFactory.getLog(MySqlInformeInternoDAO.class);
 	SqlSessionFactory sqlMapper = MySqlConexion.getMapper();  
 	@Override
 	public Object registrarII(InformeInternoDTO ii,
@@ -69,6 +73,34 @@ public class MySqlInformeInternoDAO implements InformeInternoDAO {
 			sesion.close();
 		} 
 		return rsult;
+	} 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<InformeInternoDTO> buscaInformeInterno(InformeInternoDTO ii)
+			throws Exception {
+		if(log.isDebugEnabled()){
+			log.debug("Tipo:"+ii.getTipo_informe_interno());
+			log.debug("codigoII:"+ii.getCod_informe_interno());
+		} 
+		SqlSession sesion = sqlMapper.openSession();
+		List<InformeInternoDTO> det = new ArrayList<InformeInternoDTO>();
+		try {
+//			SQL_listaInformeInterno SQL_getInformeInterno
+			if (ii.getCod_informe_interno() != null) {
+				det = (List<InformeInternoDTO>) sesion.selectList(
+						"ii.SQL_getInformeInterno",
+						ii.getCod_informe_interno());
+			}else{
+				ii.setTipo_informe_interno("%"+ ii.getTipo_informe_interno() +"%");
+				det = (List<InformeInternoDTO>) sesion.selectList(
+						"ii.SQL_listaInformeInterno",
+						ii.getTipo_informe_interno());
+			}
+			 
+		}  finally {
+			sesion.close();
+		}
+		return det; 
 	}
 
 }

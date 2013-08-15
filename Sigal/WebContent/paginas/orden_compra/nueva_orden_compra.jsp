@@ -29,6 +29,9 @@ function eliminarDetalleCotizacion(idProd){
 $(document).ready(function() {  
 	var mensaje="<div class='alert alert-error'><h4>Error!</h4>";
 	$('#idBuscarCotizacion').click(function(){ 
+		$("#txtNombreResponsable").val(""); 
+		$("#txtFechaInicio").val("");
+		$("#txtFechaFin").val("");
 		$.post("listarCotizacionTotal",function(data){
 	 		$("#divDatosCotizacionTotal").html(data);
 		}); 
@@ -129,13 +132,7 @@ $(document).ready(function() {
 			}else{
 				$("#divMostrarMensajeInterno").html(data);
 		 		$('#myOrdenCompra').modal({  keyboard: false });  
-			}  
-			
-// 			$("#divMostrarMensaje").html(data);
-// 	 		$('#myOrdenCompra').modal({
-// 			  keyboard: false
-// 			}); 
-// 	 		setTimeout(function(){ $(location).attr('href','inicio'); }, 4000); 
+			}   
 		});
 	});
 

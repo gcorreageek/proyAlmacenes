@@ -93,7 +93,12 @@ public class PedidoAction extends ActionSupport {
 		DetallePedidoDTO objDetalle = new DetallePedidoDTO();
 		ProductoDTO prod = new ProductoDTO();
 		prod.setCod_producto(getIdProd());
-		prod = objProductoServ.getProducto(prod);
+		try {
+			prod = objProductoServ.getProducto(prod);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		objDetalle.setCod_producto(prod.getCod_producto());
 		objDetalle.setDesc_producto(prod.getDesc_producto());
 		objDetalle.setUnidadMedida(prod.getUnidadMedida());

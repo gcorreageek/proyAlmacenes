@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 						<property name="driver" value="com.mysql.jdbc.Driver" />
 						<property name="url" value="jdbc:mysql://localhost:3306/bd_sigal" />
 						<property name="username" value="root" /> 
-						<property name="password" value="root" /> 
+						<property name="password" value="mysql" /> 
 <!-- 						<property name="url" value="jdbc:mysql://sql3.freemysqlhosting.net:3306/sql314707" /> -->
 <!-- 						<property name="username" value="sql314707" />  -->
 <!-- 						<property name="password" value="eY3!qG4!" />  -->

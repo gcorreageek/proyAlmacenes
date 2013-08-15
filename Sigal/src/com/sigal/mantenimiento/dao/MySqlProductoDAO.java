@@ -3,27 +3,31 @@ package com.sigal.mantenimiento.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import com.mysql.jdbc.log.LogFactory;
 import com.sigal.mantenimiento.bean.ProductoDTO;
 import com.sigal.util.MySqlConexion;
 
 public class MySqlProductoDAO implements ProductoDAO {
+	private final Log log = org.apache.commons.logging.LogFactory.getLog(getClass());
 
 	SqlSessionFactory sqlMapper = MySqlConexion.getMapper();
 
 	@Override
-	public Boolean registrarProducto(ProductoDTO objProducto) {
+	public Boolean registrarProducto(ProductoDTO objProducto) throws Exception {
 		Boolean result = false;
 		SqlSession session = sqlMapper.openSession();
 		try {
 			session.insert("producto.SQL_registraProducto", objProducto);
 			session.commit();
 			result = true;
-		} catch (Exception e) {
-			System.out.println(e);
-			session.close();
+		} catch (Exception e) { 
+			result = false;
+			session.rollback();
+			throw e;
 		} finally {
 			session.close();
 		}
@@ -32,22 +36,24 @@ public class MySqlProductoDAO implements ProductoDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProductoDTO> buscarProductos(ProductoDTO producto) {
+	public List<ProductoDTO> buscarProductos(ProductoDTO producto) throws Exception  {
 		SqlSession sesion = sqlMapper.openSession();
 		List<ProductoDTO> lstProductos = new ArrayList<ProductoDTO>();
 		try {
 			if (producto == null) {
 				lstProductos = (List<ProductoDTO>) sesion.selectList("producto.SQL_listaProductos");
-			} else {
-				if (!producto.getDesc_producto().isEmpty()) {
-					lstProductos = (List<ProductoDTO>) sesion.selectList(
-							"producto.SQL_listaProductosDescProducto", "%"
-									+ producto.getDesc_producto() + "%");
+			} else { 
+				producto.setDesc_producto("%"+producto.getDesc_producto()+"%");
+				producto.setUnidadMedida("%"+producto.getUnidadMedida()+"%");
+				if(log.isDebugEnabled()){
+				log.debug("producto desproducto:"+producto.getDesc_producto());
+				log.debug("producto umedida:"+producto.getUnidadMedida());
 				}
+
+					lstProductos = (List<ProductoDTO>) sesion.selectList(
+							"producto.SQL_listaProductosDescProducto", producto  );
 			}
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
+		}  finally {
 			sesion.close();
 		}
 		return lstProductos;
@@ -55,9 +61,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProductoDTO> buscarProductosPaginados(ProductoDTO producto,
-			Integer inicio, Integer tamano) {
-
+	public List<ProductoDTO> buscarProductosPaginados(ProductoDTO producto, Integer inicio, Integer tamano)throws Exception  {
 		SqlSession sesion = sqlMapper.openSession();
 		List<ProductoDTO> lstProductos = new ArrayList<ProductoDTO>();
 		try {
@@ -67,20 +71,18 @@ public class MySqlProductoDAO implements ProductoDAO {
 				prod.setTamano(tamano);
 				lstProductos = (List<ProductoDTO>) sesion.selectList(
 						"producto.SQL_listaProductosPaginados", prod);
-			} else {
-				if (!producto.getDesc_producto().isEmpty()) {
+			} else {   
+				    producto.setUnidadMedida("%" + producto.getUnidadMedida()
+						+ "%");
 					producto.setDesc_producto("%" + producto.getDesc_producto()
 							+ "%");
 					producto.setInicio(inicio);
 					producto.setTamano(tamano);
 					lstProductos = (List<ProductoDTO>) sesion.selectList(
 							"producto.SQL_listaProductosDescProductoPaginados",
-							producto);
-				}
+							producto); 
 			}
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
+		}   finally {
 			sesion.close();
 		}
 		return lstProductos;
@@ -90,7 +92,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 	
 
 	@Override
-	public ProductoDTO getProducto(ProductoDTO productoViene) {
+	public ProductoDTO getProducto(ProductoDTO productoViene) throws Exception {
 		SqlSession sesion = sqlMapper.openSession();
 		ProductoDTO producto = new ProductoDTO();
 		try {
@@ -101,33 +103,31 @@ public class MySqlProductoDAO implements ProductoDAO {
 							productoViene.getCod_producto());
 				}
 			}
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
+		}  finally {
 			sesion.close();
 		}
 		return producto;
 	}
 
 	@Override
-	public Boolean actualizarProducto(ProductoDTO objProducto) {
+	public Boolean actualizarProducto(ProductoDTO objProducto)throws Exception {
 		Boolean result = false;
 		SqlSession session = sqlMapper.openSession();
 		try {
 			session.update("producto.SQL_updateProducto", objProducto);
 			session.commit();
 			result = true;
-		} catch (Exception e) {
-			System.out.println(e);
-			session.close();
-		} finally {
+		} catch (Exception e) { 
+			session.rollback();
+			throw e;
+		} finally { 
 			session.close();
 		}
 		return result;
 	}
 
 	@Override
-	public Boolean eliminarProducto(ProductoDTO objProducto) {
+	public Boolean eliminarProducto(ProductoDTO objProducto) throws Exception {
 		Boolean result = false;
 		SqlSession session = sqlMapper.openSession();
 		try {
@@ -135,9 +135,10 @@ public class MySqlProductoDAO implements ProductoDAO {
 					objProducto.getCod_producto());
 			session.commit();
 			result = true;
-		} catch (Exception e) {
-			System.out.println(e);
-			session.close();
+		} catch (Exception e) { 
+			result = false;
+			session.rollback();
+			throw e;
 		} finally {
 			session.close();
 		}
@@ -148,7 +149,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 	@Override
 	public List<ProductoDTO> buscarProductosIdProveePaginados(
 			ProductoDTO producto, Integer idProvee, Integer inicio,
-			Integer tamano) {
+			Integer tamano) throws Exception {
 		SqlSession sesion = sqlMapper.openSession();
 		List<ProductoDTO> lstProductos = new ArrayList<ProductoDTO>();
 		try {
@@ -160,7 +161,6 @@ public class MySqlProductoDAO implements ProductoDAO {
 				lstProductos = (List<ProductoDTO>) sesion.selectList(
 						"producto.SQL_listaProductosPaginadosIdProvee", prod);
 			} else {
-				if (!producto.getDesc_producto().isEmpty()) {
 					producto.setCod_proveedor(idProvee);
 					producto.setDesc_producto("%" + producto.getDesc_producto()
 							+ "%");
@@ -169,11 +169,8 @@ public class MySqlProductoDAO implements ProductoDAO {
 					lstProductos = (List<ProductoDTO>) sesion.selectList(
 							"producto.SQL_listaProductosDescProductoPaginadosIdProvee",
 							producto);
-				}
 			}
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
+		}  finally {
 			sesion.close();
 		}
 		return lstProductos;
@@ -182,7 +179,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductoDTO> buscarProductosIdProvee(ProductoDTO producto,
-			Integer idProvee) {
+			Integer idProvee)throws Exception  {
 		SqlSession sesion = sqlMapper.openSession();
 		List<ProductoDTO> lstProductos = new ArrayList<ProductoDTO>();
 		try {
@@ -191,15 +188,11 @@ public class MySqlProductoDAO implements ProductoDAO {
 				prod.setCod_proveedor(idProvee);
 				lstProductos = (List<ProductoDTO>) sesion.selectList("producto.SQL_listaProductosIdProvee",prod);
 			} else {
-				if (!producto.getDesc_producto().isEmpty()) {
 					producto.setCod_proveedor(idProvee);
 					lstProductos = (List<ProductoDTO>) sesion.selectList(
 							"producto.SQL_listaProductosDescProductoIdProvee", "%"
 									+ producto.getDesc_producto() + "%");
-				}
 			}
-		} catch (Exception e) {
-			System.out.println(e);
 		} finally {
 			sesion.close();
 		}
@@ -208,7 +201,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductoDTO> buscarHabilitadosProductosPaginados(
-			ProductoDTO producto, Integer inicio, Integer tamano) {
+			ProductoDTO producto, Integer inicio, Integer tamano)throws Exception  {
 		SqlSession sesion = sqlMapper.openSession();
 		List<ProductoDTO> lstProductos = new ArrayList<ProductoDTO>();
 		try {
@@ -218,8 +211,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 				prod.setTamano(tamano);
 				lstProductos = (List<ProductoDTO>) sesion.selectList(
 						"producto.SQL_listaProductosPaginadosHabilitados", prod);
-			} else {
-				if (!producto.getDesc_producto().isEmpty()) {
+			} else { 
 					producto.setDesc_producto("%" + producto.getDesc_producto()
 							+ "%");
 					producto.setInicio(inicio);
@@ -227,10 +219,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 					lstProductos = (List<ProductoDTO>) sesion.selectList(
 							"producto.SQL_listaProductosDescProductoPaginadosHabilitados",
 							producto);
-				}
 			}
-		} catch (Exception e) {
-			System.out.println(e);
 		} finally {
 			sesion.close();
 		}
@@ -238,21 +227,17 @@ public class MySqlProductoDAO implements ProductoDAO {
 	} 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProductoDTO> buscarHabilitadosProductos(ProductoDTO producto) {
+	public List<ProductoDTO> buscarHabilitadosProductos(ProductoDTO producto)throws Exception {
 		SqlSession sesion = sqlMapper.openSession();
 		List<ProductoDTO> lstProductos = new ArrayList<ProductoDTO>();
 		try {
 			if (producto == null) {
 				lstProductos = (List<ProductoDTO>) sesion.selectList("producto.SQL_listaProductosHabilitados");
-			} else {
-				if (!producto.getDesc_producto().isEmpty()) {
+			} else { 
 					lstProductos = (List<ProductoDTO>) sesion.selectList(
 							"producto.SQL_listaProductosDescProductoHabilitados", "%"
 									+ producto.getDesc_producto() + "%");
-				}
 			}
-		} catch (Exception e) {
-			System.out.println(e);
 		} finally {
 			sesion.close();
 		}
@@ -261,9 +246,9 @@ public class MySqlProductoDAO implements ProductoDAO {
  
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProductoDTO> buscarHabilitadosProductosIdProveePaginados(
+	public List<ProductoDTO> buscarHabilitadosProductosIdProveePaginados  (
 			Object  producto2, Integer idProvee, Integer inicio,
-			Integer tamano) {
+			Integer tamano) throws Exception{
 		ProductoDTO producto = (ProductoDTO) producto2;
 		SqlSession sesion = sqlMapper.openSession();
 		List<ProductoDTO> lstProductos = new ArrayList<ProductoDTO>();
@@ -275,8 +260,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 				prod.setTamano(tamano);
 				lstProductos = (List<ProductoDTO>) sesion.selectList(
 						"producto.SQL_listaProductosPaginadosIdProveeHabilitados", prod);
-			} else {
-				if (!producto.getDesc_producto().isEmpty()) {
+			} else { 
 					producto.setCod_proveedor(idProvee);
 					producto.setDesc_producto("%" + producto.getDesc_producto()
 							+ "%");
@@ -284,21 +268,19 @@ public class MySqlProductoDAO implements ProductoDAO {
 					producto.setTamano(tamano);
 					lstProductos = (List<ProductoDTO>) sesion.selectList(
 							"producto.SQL_listaProductosDescProductoPaginadosIdProveeHabilitados",
-							producto);
-				}
+							producto); 
 			}
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
+		}  finally {
 			sesion.close();
 		}
 		return lstProductos;
 	}
 
  
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductoDTO> buscarHabilitadosProductosIdProvee(Object object,
-			Integer idProvee) {
+			Integer idProvee) throws Exception {
 		ProductoDTO producto = (ProductoDTO) object;
 		SqlSession sesion = sqlMapper.openSession();
 		List<ProductoDTO> lstProductos = new ArrayList<ProductoDTO>();
@@ -307,17 +289,13 @@ public class MySqlProductoDAO implements ProductoDAO {
 				ProductoDTO prod = new ProductoDTO();
 				prod.setCod_proveedor(idProvee);
 				lstProductos = (List<ProductoDTO>) sesion.selectList("producto.SQL_listaProductosIdProveeHabilitados",prod);
-			} else {
-				if (!producto.getDesc_producto().isEmpty()) {
+			} else { 
 					producto.setCod_proveedor(idProvee);
+					producto.setDesc_producto( "%"+ producto.getDesc_producto() + "%");
 					lstProductos = (List<ProductoDTO>) sesion.selectList(
-							"producto.SQL_listaProductosDescProductoIdProveeHabilitados", "%"
-									+ producto.getDesc_producto() + "%");
-				}
+							"producto.SQL_listaProductosDescProductoIdProveeHabilitados",producto);
 			}
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
+		}  finally {
 			sesion.close();
 		}
 		return lstProductos;

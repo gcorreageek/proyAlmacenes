@@ -60,6 +60,9 @@ function guardarIIS(){//objInformeInterno.cod_pedido  obs_informeinterno
 
 $(document).ready(function() {   
 	$('#idBuscarPedido').click(function(){ 
+		 $("#txtNombreResponsable").val("");
+		 $("#txtFechaInicio").val("");
+		 $("#txtFechaFin").val("");
 		$.post("listarPedidoTotalFaltanDevolver",function(data){
 	 		$("#divDatosPedidoTotal").html(data);
 		}); 

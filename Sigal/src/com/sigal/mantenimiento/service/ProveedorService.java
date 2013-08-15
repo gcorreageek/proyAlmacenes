@@ -45,17 +45,17 @@ public class ProveedorService {
 		return objProveeDAO.getProveedor(proveedor);
 	} 
 	public List<ProveedorDTO> listaProveedorPaginadoHabilitado(
-			Integer comienzo, Integer filasXPagina) {
+			Integer comienzo, Integer filasXPagina) throws Exception{
 		return objProveeDAO.buscarProveedorPaginadosHabilitado(null, comienzo,filasXPagina);
 	} 
 	public List<ProveedorDTO> buscarProveedorXDescPaginadoHabilitado(
-			ProveedorDTO objProveedor, Integer comienzo, Integer filasXPagina) {
+			ProveedorDTO objProveedor, Integer comienzo, Integer filasXPagina) throws Exception{
 		return objProveeDAO.buscarProveedorPaginadosHabilitado(objProveedor, comienzo, filasXPagina);
 	} 
-	public Integer listaProveedorTotalHabilitado() {
+	public Integer listaProveedorTotalHabilitado()throws Exception {
 		return objProveeDAO.buscarProveedorHabilitado(null).size();
 	} 
-	public Integer buscarProveedorXDescTotalHabilitado(ProveedorDTO objProveedor) {
+	public Integer buscarProveedorXDescTotalHabilitado(ProveedorDTO objProveedor)throws Exception {
 		return objProveeDAO.buscarProveedorHabilitado(objProveedor).size();
 	}
 	

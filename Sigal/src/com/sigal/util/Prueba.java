@@ -6,15 +6,6 @@ package com.sigal.util;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -37,7 +28,7 @@ public class Prueba {
 	        
 	        try {
 				Class.forName("com.mysql.jdbc.Driver");
-				 conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_sigal", "root", "root");  
+				 conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_sigal", "root", "mysql");  
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -46,17 +37,67 @@ public class Prueba {
 				e.printStackTrace();
 			}  
 	        
-	        try {
-				JasperReport reporte = (JasperReport) JRLoader.loadObject("report2.jasper");
-				JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, conexion);
-				JRExporter exporter = new JRPdfExporter();
-				exporter.setParameter(JRExporterParameter.JASPER_PRINT,jasperPrint); 
-				exporter.setParameter(JRExporterParameter.OUTPUT_FILE,new java.io.File("reportePDF.pdf"));
-				exporter.exportReport();
-			} catch (JRException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//	        try {
+//				JasperReport reporte = (JasperReport) JRLoader.loadObject("report2.jasper");
+//				JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, conexion);
+//				JRExporter exporter = new JRPdfExporter();
+//				exporter.setParameter(JRExporterParameter.JASPER_PRINT,jasperPrint); 
+//				exporter.setParameter(JRExporterParameter.OUTPUT_FILE,new java.io.File("reportePDF.pdf"));
+//				exporter.exportReport();
+//			} catch (JRException e) { 
+//				e.printStackTrace();
+//			}
+	        
+	        
+
+//	        response.setHeader("Content-Disposition", "attachment; filename=\"reporte.pdf\";");
+//	        response.setHeader("Cache-Control", "no-cache");
+//	        response.setHeader("Pragma", "no-cache");
+//	        response.setDateHeader("Expires", 0); 
+//	        response.setContentType("application/pdf"); 
+//	        ServletOutputStream out = response.getOutputStream(); 
+//	        List listaPariticipantes = new ArrayList(); 
+//	        try
+//	        {
+//	            JasperReport reporte = (JasperReport) JRLoader.loadObject(getServletContext().getRealPath("WEB-INF/reporte2.jasper"));
+//
+//	            Map parametros = new HashMap();
+//	            parametros.put("autor", "Juan");
+//	            parametros.put("titulo", "Reporte");
+//
+//	            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, new JRBeanCollectionDataSource(listaPariticipantes));
+//
+//	            JRExporter exporter = new JRPdfExporter();
+//	            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+//	            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+//	            exporter.exportReport();
+//	        }
+//	        catch (Exception e)
+//	            {
+//	            e.printStackTrace();
+//	        }
+	        
+	        
+	        
+
+//	        JasperReport reporte;
+//			try {
+//				reporte = (JasperReport) JRLoader.loadObject("rpt_productos5.jasper");
+//				Map<String, Object> parametros = new HashMap<String, Object>();
+//		        parametros.put("PRODUCTO", "");
+//		        parametros.put("UMEDIDA", ""); 
+//		        JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros,conexion );
+//		        JRExporter exporter = new JRPdfExporter();
+//		        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+////	            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+//		        exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reporte3PDF.pdf"));
+//		        exporter.exportReport();
+//			} catch (JRException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+
+	       
 	        
 	        log.info("Paso x aqui!");
 	        

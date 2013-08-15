@@ -29,19 +29,26 @@ $(document).ready(function() {
      currentPage: 1,
      totalPages: numeroPaginas,
      onPageClicked: function(e,originalEvent,type,page){ 
+    	 var txt = $("#idBuscarProducto").val();
     	if($("#tagTipoListado").val()==1){
     		$.post("listarProductoPag",{inicio:page},function(data){
          		$("#divTablaPag").html(data);
      		}); 	
     	}else{
-    		$.post("buscarProductosXDescProdPag",{inicio:page},function(data){
+    		$.post("buscarProductosXDescProdPag",{inicio:page,"objProducto.desc_producto":txt},function(data){
          		$("#divTablaPag").html(data);
      		}); 	
     	}
      	
      } 
  	};
-
+// 	$("#idButonProducto").click(function(){ 
+//  		var txt = $("#idBuscarProducto").val();
+// 		$.post("buscarProductosXDescProdPag",{inicio:null,"objProducto.desc_producto":txt},function(data){
+//      		$("#divTablaPag").html(data);
+//  		});  
+// 	});
+    
     $('#divPaginador').bootstrapPaginator(options); 
 	setTimeout(function(){ $('.alert').hide(1000); }, 2000);
 	
@@ -52,13 +59,13 @@ $(document).ready(function() {
 <body>  
 <h3>Mantenimiento Producto</h3>
 <c:if test="${requestScope.rsult!=null}"   >
-<c:if test="${requestScope.rsult=='0'}"   >
+<c:if test="${requestScope.rsult=='1'}"   >
 	<div class="alert alert-success"> 
 	<h4>Bien!</h4>
 	${requestScope.mensaje}
 	</div> 
 </c:if>
-<c:if test="${requestScope.rsult=='1'}"   >
+<c:if test="${requestScope.rsult=='0'}"   >
 	<div class="alert alert-error"> 
 	<h4>Error!</h4>
 	${requestScope.mensaje}
@@ -67,8 +74,8 @@ $(document).ready(function() {
 
 </c:if>
 	<form class="form-search"  action="buscarProductosXDescProd" method="post">
-	    <input type="text" name="objProducto.desc_producto" class="input-medium search-query" placeholder="Producto" >
-	    <button type="submit" class="btn">Buscar</button>
+	    <input type="text" id="idBuscarProducto" name="objProducto.desc_producto" value="${objProducto.desc_producto}" class="input-medium search-query" placeholder="Producto" >
+	    <button type="submit" class="btn" id="idButonProducto">Buscar</button>
     </form>
     
      

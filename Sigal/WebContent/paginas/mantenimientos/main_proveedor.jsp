@@ -21,13 +21,16 @@ $(document).ready(function() {
          		$("#divTablaPag").html(data);
      		}); 	
     	}else{
-    		$.post("buscarProveedorXRazonSocialPag",{inicio:page},function(data){
+    		var txt = $("#txtProveedorBuscar").val();
+    		$.post("buscarProveedorXRazonSocialPag",{inicio:page,"objProveedor.raz_social":txt},function(data){
          		$("#divTablaPag").html(data);
      		}); 	
     	}
      	
      } 
  	}
+//     ost:8082/Sigal/buscarProveedorXRazonSocialPag
+	
 
     $('#divPaginador').bootstrapPaginator(options); 
 	setTimeout(function(){ $('.alert').hide(1000); }, 3000); 
@@ -37,13 +40,13 @@ $(document).ready(function() {
 <body>  
 <h3>Mantenimiento Proveedor</h3>
 <c:if test="${requestScope.rsult!=null}"   >
-<c:if test="${requestScope.rsult=='0'}"   >
+<c:if test="${requestScope.rsult=='1'}"   >
 	<div class="alert alert-success"> 
 	<h4>Bien!</h4>
 	${requestScope.mensaje}
 	</div> 
 </c:if>
-<c:if test="${requestScope.rsult=='1'}"   >
+<c:if test="${requestScope.rsult=='0'}"   >
 	<div class="alert alert-error"> 
 	<h4>Error!</h4>
 	${requestScope.mensaje}
@@ -52,7 +55,7 @@ $(document).ready(function() {
 
 </c:if>
 	<form class="form-search"  action="buscarProveedorXRazonSocial" method="post">
-	    <input type="text" name="objProveedor.raz_social" class="input-medium search-query" placeholder="Proveedor" >
+	    <input type="text" id="txtProveedorBuscar" name="objProveedor.raz_social"  value="${objProveedor.raz_social}" class="input-medium search-query" placeholder="Proveedor" >
 	    <button type="submit" class="btn">Buscar</button>
     </form>
     

@@ -6,13 +6,10 @@ package com.sigal.ordencompra.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
- 
-
-
-
-
 
 import com.sigal.ordencompra.bean.OrdenCompraDTO;
 import com.sigal.ordencompra.bean.OrdenCompraDetalleDTO;
@@ -23,6 +20,7 @@ import com.sigal.util.MySqlConexion;
  *
  */
 public class MySqlOrdenCompraDAO implements OrdenCompraDAO {
+	private final Log log =  LogFactory.getLog(MySqlOrdenCompraDAO.class);
 	SqlSessionFactory sqlMapper = MySqlConexion.getMapper(); 
 	
 	@SuppressWarnings("unchecked")
@@ -92,6 +90,9 @@ public class MySqlOrdenCompraDAO implements OrdenCompraDAO {
 			List<OrdenCompraDetalleDTO> ocDet) throws Exception {
 		SqlSession sesion =sqlMapper.openSession();
 		try {  
+			if(log.isDebugEnabled()){
+				log.debug("estado:"+oc.getEstado_ordencompra());
+			}
 			sesion.insert("oc.SQL_registraOC",oc);
 			for (OrdenCompraDetalleDTO  detalleOrdenCompraDTO : ocDet) {  
 				detalleOrdenCompraDTO.setCod_ordenCompra(oc.getCod_OrdenCompra());//  

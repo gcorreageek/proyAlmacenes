@@ -7,10 +7,9 @@
 <table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr> 
-                  <th>Producto</th>
-                  <th>Categoria</th>
-                  <th>Marca</th>
-                  <th>U.Medida</th> 
+                  <th>Producto</th> 
+                  <th>U.Medida</th>
+                  <th>Proveedor</th> 
                   <th>Modificar</th>
                   <th>Eliminar</th>
                 </tr>

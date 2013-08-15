@@ -13,81 +13,81 @@ public class ProductoService {
 	ProductoDAO objProDAO = fabrica.getProductoDAO();
 	
 	
-	public List<ProductoDTO> buscarProductosXDesc(ProductoDTO producto) {
+	public List<ProductoDTO> buscarProductosXDesc(ProductoDTO producto)throws Exception {
 		return objProDAO.buscarProductos(producto);
 	} 
-	public List<ProductoDTO> listaProductos() {
+	public List<ProductoDTO> listaProductos()throws Exception {
 		return objProDAO.buscarProductos(null);
 	}
 	//Modal
-	public List<ProductoDTO> buscarProductosXDescPaginado(ProductoDTO producto,Integer inicio,Integer tamano) {
+	public List<ProductoDTO> buscarProductosXDescPaginado(ProductoDTO producto,Integer inicio,Integer tamano)throws Exception {
 		return objProDAO.buscarProductosPaginados(producto, inicio, tamano);//Se cambio
 	}
-	public List<ProductoDTO> listaProductosPaginado(Integer inicio,Integer tamano) {
+	public List<ProductoDTO> listaProductosPaginado(Integer inicio,Integer tamano) throws Exception{
 		return objProDAO.buscarProductosPaginados(null, inicio,tamano);//se cambio
 	}
-	public Integer buscarProductosXDescTotal(ProductoDTO producto ) {
+	public Integer buscarProductosXDescTotal(ProductoDTO producto ) throws Exception{
 		return objProDAO.buscarProductos(producto).size();
-	}
-	public Integer listaProductosTotal() {
+	} 
+	public Integer listaProductosTotal() throws Exception{
 		return objProDAO.buscarProductos(null).size();
 	}
 	//Modal idProvee
-	public List<ProductoDTO> buscarProductosIdProveeXDescPaginado(ProductoDTO producto,Integer idProvee,Integer inicio,Integer tamano) {
+	public List<ProductoDTO> buscarProductosIdProveeXDescPaginado(ProductoDTO producto,Integer idProvee,Integer inicio,Integer tamano)throws Exception {
 		return objProDAO.buscarProductosIdProveePaginados(producto,idProvee, inicio, tamano);
 	}
-	public List<ProductoDTO> listaProductosIdProveePaginado(Integer idProvee,Integer inicio,Integer tamano) {
+	public List<ProductoDTO> listaProductosIdProveePaginado(Integer idProvee,Integer inicio,Integer tamano)throws Exception {
 		return objProDAO.buscarProductosIdProveePaginados(null,idProvee, inicio,tamano);
 	}
-	public Integer buscarProductosIdProveeXDescTotal(ProductoDTO producto,Integer idProvee) {
+	public Integer buscarProductosIdProveeXDescTotal(ProductoDTO producto,Integer idProvee)throws Exception {
 		return objProDAO.buscarProductosIdProvee(producto,idProvee).size();
 	}
-	public Integer listaProductosIdProveeTotal(Integer idProvee) {
+	public Integer listaProductosIdProveeTotal(Integer idProvee)throws Exception {
 		return objProDAO.buscarProductosIdProvee(null,idProvee).size();
 	}
 	//------------------------------------
 	
-	public Boolean registrarProducto(ProductoDTO objProducto) {
+	public Boolean registrarProducto(ProductoDTO objProducto)throws Exception {
 		return objProDAO.registrarProducto(objProducto);
 	}
-	public ProductoDTO getProducto(ProductoDTO producto) {
+	public ProductoDTO getProducto(ProductoDTO producto) throws Exception{
 		return objProDAO.getProducto(producto);
 	}
-	public Boolean actualizarProducto(ProductoDTO objProducto) {
+	public Boolean actualizarProducto(ProductoDTO objProducto)throws Exception {
 		return objProDAO.actualizarProducto(objProducto);
 	}
-	public Boolean eliminarProducto(ProductoDTO objProducto) {
+	public Boolean eliminarProducto(ProductoDTO objProducto) throws Exception{
 		return objProDAO.eliminarProducto(objProducto);
 	} 
 	
 	public List<ProductoDTO> listaProductosPaginadoHabilitados(
-			Integer comienzo, Integer filasXPagina) {
+			Integer comienzo, Integer filasXPagina) throws Exception{
 		return objProDAO.buscarHabilitadosProductosPaginados(null, comienzo,filasXPagina);//se cambio
 	} 
 	public List<ProductoDTO> buscarProductosXDescPaginadoHabilitados(
-			ProductoDTO objProducto, Integer comienzo, Integer filasXPagina) {
+			ProductoDTO objProducto, Integer comienzo, Integer filasXPagina) throws Exception{
 		return objProDAO.buscarHabilitadosProductosPaginados(objProducto, comienzo, filasXPagina);//Se cambio
 	} 
-	public Integer listaProductosTotalHabilitados() {
+	public Integer listaProductosTotalHabilitados()throws Exception {
 		return objProDAO.buscarHabilitadosProductos(null).size();
 	} 
-	public Integer buscarProductosXDescTotalHabilitados(ProductoDTO objProducto) {
+	public Integer buscarProductosXDescTotalHabilitados(ProductoDTO objProducto) throws Exception{
 		return objProDAO.buscarHabilitadosProductos(objProducto).size();
 	} 
 	public List<ProductoDTO> listaProductosIdProveePaginadoHabilitados(
-			Integer idProve, Integer comienzo, Integer filasXPagina) {
+			Integer idProve, Integer comienzo, Integer filasXPagina)throws Exception {
 		return objProDAO.buscarHabilitadosProductosIdProveePaginados(null,idProve, comienzo,filasXPagina);
 	} 
 	public List<ProductoDTO> buscarProductosIdProveeXDescPaginadoHabilitados(
 			ProductoDTO objProducto, Integer idProve, Integer comienzo,
-			Integer filasXPagina) {
+			Integer filasXPagina)throws Exception {
 		return objProDAO.buscarHabilitadosProductosIdProveePaginados(objProducto,idProve, comienzo, filasXPagina);
 	} 
-	public Integer listaProductosIdProveeTotalHabilitados(Integer idProve) {
+	public Integer listaProductosIdProveeTotalHabilitados(Integer idProve) throws Exception{
 		return objProDAO.buscarHabilitadosProductosIdProvee(null,idProve).size();
 	} 
 	public Integer buscarProductosIdProveeXDescTotalHabilitados(
-			ProductoDTO objProducto, Integer idProve) {
+			ProductoDTO objProducto, Integer idProve) throws Exception{
 		return objProDAO.buscarHabilitadosProductosIdProvee(objProducto,idProve).size();
 	}
 	

@@ -46,7 +46,9 @@ function guardarIEE(){//objInformeInterno.cod_pedido  obs_informeinterno
 }
 $(document).ready(function() {  
 	$('#idBuscarOrdenCompra').click(function(){
-// 		$("#txtPedido").val("");
+		$("#txtNombreResponsable").val(""); 
+		$("#txtFechaInicio").val("");
+		$("#txtFechaFin").val(""); 
 		$.post("listarOrdenCompraTotal",function(data){
 	 		$("#divDatosOrdenCompraTotal").html(data);
 		}); 
@@ -59,7 +61,7 @@ $(document).ready(function() {
 		var txtNombreRespo=$("#txtNombreResponsable").val(); 
 		var txtFechaInicio=$("#txtFechaInicio").val();
 		var txtFechaFin=$("#txtFechaFin").val();  
-		$.post("buscarPedidoTotal",{
+		$.post("buscarOrdenCompraTotal",{
 			"objOrdenCompra.nom_usuario":txtNombreRespo, 
 			"objOrdenCompra.fechaInicio":txtFechaInicio,
 			"objOrdenCompra.fechaFin":txtFechaFin
@@ -108,13 +110,7 @@ $(document).ready(function() {
 		<label class="control-label" for="inputProveedor">Proveedor</label>
 		<input type="text" id="inputProveedor" class="input-xxlarge" placeholder="Proveedor" disabled> 
 	</div> 
-</div>  
-<div class="control-group">
-	<div  class="form-inline ">
-		<label class="control-label" for="inputObservacionOrdenCompra">Observaci&oacute;n de la Orden de Compra</label>
-		<textarea rows="1" class="span9"  id="inputObservacionOrdenCompra" placeholder="Observaci&oacute;n de la Orden de Compra"   disabled></textarea>  
-	</div>
-</div>  
+</div>    
 <div id="idTableDetalleOrdenCompra">
     <table class="table table-striped table-bordered table-hover">
       <thead>
@@ -159,9 +155,9 @@ $(document).ready(function() {
 <h3 id="myModalBuscarOrdenCompra">Buscar OrdenCompra</h3>
 </div>
 <div class="modal-body">
-	<div class="form-search"   >
-		<input type="text" id="txtFechaInicio" class="input-medium search-query" placeholder="Fecha Inicio" >
-	    <input type="text" id="txtFechaFin" class="input-medium search-query" placeholder="Fecha Fin" >
+	<div class="form-search"   > 
+		<input type="text" id="txtFechaInicio" class="input-medium search-query datepicker" placeholder="Fecha Inicio" >
+	    <input type="text" id="txtFechaFin" class="input-medium search-query datepicker" placeholder="Fecha Fin" >
 	    <input type="text" id="txtNombreResponsable" name="objOrdenCompra.nom_usuario" class="input-medium search-query" placeholder="Nombre de Responsable" >
 		
 	    <button type="submit" class="btn" id="idBotonBuscarOrdenCompra" >Buscar</button>

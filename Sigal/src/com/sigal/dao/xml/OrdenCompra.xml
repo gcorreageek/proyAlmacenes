@@ -68,8 +68,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="SQL_registraOC"  parameterType="OrdenCompraBean" useGeneratedKeys="true"
       keyProperty="cod_OrdenCompra"   > 
 		insert into tb_ordencompra(fecharegistro_ordencompra,cod_usuario,cod_cotizacion,
-		cod_proveedor) values(NOW(),#{cod_usuario},#{cod_cotizacion},
-		#{cod_proveedor}) 
+		cod_proveedor,estado_ordencompra) values(NOW(),#{cod_usuario},#{cod_cotizacion},
+		#{cod_proveedor},#{estado_ordencompra}) 
 	</insert> 
 	<update id="SQL_actualizarOCEstadoDDDD" parameterType="OrdenCompraBean"  >
         update tb_ordencompra set estado_ordencompra= #{estado_ordencompra} 

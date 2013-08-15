@@ -57,7 +57,12 @@ public class InformeInternoAction extends ActionSupport {
 		System.out.println("CodProd:"+getCodProd());
 		ProductoDTO prod = new ProductoDTO();
 		prod.setCod_producto(getCodProd());
-		prod = objProdServ.getProducto(prod);
+		try {
+			prod = objProdServ.getProducto(prod);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(prod==null){
 			this.setMensaje("No es un producto Valido!");
 			this.setRsult(-1);
@@ -72,12 +77,12 @@ public class InformeInternoAction extends ActionSupport {
 	@Action(value="/mainInformeInternoSalida",results={@Result(name="success",type="tiles",location="d_maininformeinternosalida")})
 	public String mainInformeInternoSalida(){
 		System.out.println("entra1");
-		Object[] obj =  (Object[]) lasesion.get("DatosQR"); 
-		if(obj!=null){
-			if("Salida".equals(obj[1])){
-				codProd = (Integer) obj[0];
-			} 
-		}
+//		Object[] obj =  (Object[]) lasesion.get("DatosQR"); 
+//		if(obj!=null){
+//			if("Salida".equals(obj[1])){
+//				codProd = (Integer) obj[0];
+//			} 
+//		}
 		lstArea = objAreaServ.listaArea();
 		return SUCCESS;
 	}
@@ -158,12 +163,12 @@ public class InformeInternoAction extends ActionSupport {
 	@Action(value="/mainInformeInternoEntrada",results={@Result(name="success",type="tiles",location="d_maininformeinternoentrada")})
 	public String mainInformeInternoEntrada(){ 
 		lstArea = objAreaServ.listaArea();
-		Object[] obj =  (Object[]) lasesion.get("DatosQR");
-		if(obj!=null){
-			if("Entrada".equals(obj[1])){
-				codProd = (Integer) obj[0];
-			} 
-		} 
+//		Object[] obj =  (Object[]) lasesion.get("DatosQR");
+//		if(obj!=null){
+//			if("Entrada".equals(obj[1])){
+//				codProd = (Integer) obj[0];
+//			} 
+//		} 
 		return SUCCESS;
 	}
 

@@ -15,4 +15,7 @@ import com.sigal.informeinterno.bean.InformeInternoDetalleDTO;
 public interface InformeInternoDAO {
 
 	Object registrarII(InformeInternoDTO ii, List<InformeInternoDetalleDTO> iiDet) throws Exception;
+	
+	List<InformeInternoDTO> buscaInformeInterno(InformeInternoDTO ii) throws Exception; 
+	
 }

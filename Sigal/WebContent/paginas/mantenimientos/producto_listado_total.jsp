@@ -9,7 +9,7 @@
      currentPage: 1,
      totalPages: numeroPaginasModalProducto,
      onPageClicked: function(e,originalEvent,type,page){ 
-    	$.post("listarProductoPagModal",{inicio:page},function(data){
+    	$.post("listarProductoPagModalHabilitados",{inicio:page},function(data){
  	 		$("#divTablaProdModal").html(data);
  		});
      } 

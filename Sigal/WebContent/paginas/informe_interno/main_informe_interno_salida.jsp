@@ -61,13 +61,15 @@ function guardarIIS(){//objInformeInterno.cod_pedido  obs_informeinterno
 }
 
 $(document).ready(function() {  
-	var idProd= $('#cod_producto').val();
-	if(idProd!=''){ 
-		alert('Tienes un producto para darle salida:'+idProd);
-	}
+// 	var idProd= $('#cod_producto').val();
+// 	if(idProd!=''){ 
+// 		alert('Tienes un producto para darle salida:'+idProd);
+// 	}
 	
 	$('#idBuscarPedido').click(function(){
-// 		$("#txtPedido").val("");
+		 $("#txtNombreResponsable").val("");
+		 $("#txtFechaInicio").val("");
+		 $("#txtFechaFin").val("");
 		$.post("listarPedidoTotalAprobados",function(data){
 	 		$("#divDatosPedidoTotal").html(data);
 		}); 
@@ -81,8 +83,7 @@ $(document).ready(function() {
 		var cboArea=$("#cboArea").val();
 		var txtFechaInicio=$("#txtFechaInicio").val();
 		var txtFechaFin=$("#txtFechaFin").val();
-		var cboTipo=$("#cboTipo").val();
-// 		objPedido.fechaRegistro_pedido objPedido.cod_area objPedido.nom_usuario objPedido.tipo_pedido
+		var cboTipo=$("#cboTipo").val(); 
 		$.post("buscarPedidoTotalAprobados",{
 			"objPedido.nom_usuario":txtNombreRespo,
 			"objPedido.cod_area":cboArea,

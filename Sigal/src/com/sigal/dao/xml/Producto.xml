@@ -6,14 +6,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="SQL_listaProductos" resultType="ProductoBean">
 	    select prod.* from tb_producto	prod  order by prod.cod_producto
 	</select>  
-	<select id="SQL_listaProductosDescProducto" resultType="ProductoBean">
-	    select prod.* from tb_producto	prod where prod.desc_producto like  #{desc_producto}	  order by prod.cod_producto
+	<select id="SQL_listaProductosDescProducto" resultType="ProductoBean" parameterType="ProductoBean" >
+	    select prod.* from tb_producto	prod where prod.desc_producto like  #{desc_producto} and prod.unidadMedida like #{unidadMedida} order by prod.cod_producto
 	</select> 
 	<select id="SQL_listaProductosPaginados" resultType="ProductoBean" parameterType="ProductoBean"  >
 	    select prod.* from tb_producto	prod  order by prod.cod_producto  limit  #{inicio} ,  #{tamano}
 	</select>
 	<select id="SQL_listaProductosDescProductoPaginados" resultType="ProductoBean" parameterType="ProductoBean"  >
-	    select prod.* from tb_producto	prod where prod.desc_producto like  #{desc_producto}	  order by prod.cod_producto  limit  #{inicio} ,  #{tamano}
+	    select prod.* from tb_producto	prod where prod.desc_producto like  #{desc_producto} and prod.unidadMedida like #{unidadMedida}  order by prod.cod_producto  limit  #{inicio} ,  #{tamano}
 	</select>  
 	 
 	<select id="SQL_listaProductosIdProvee" resultType="ProductoBean" parameterType="ProductoBean" > 

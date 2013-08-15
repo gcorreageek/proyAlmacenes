@@ -65,8 +65,8 @@
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Record&aacute;rmelo
         </label>
-        <a href="paginas/seguridad/olvidastes_pass.jsp" type="button" class="btn btn-link" >Olvidastes tu Contraseña</a>|
-        <a href="paginas/seguridad/registrar_usu.jsp" type="button" class="btn btn-link">Registrarme</a>
+<!--         <a href="paginas/seguridad/olvidastes_pass.jsp" type="button" class="btn btn-link" >Olvidastes tu Contraseña</a>| -->
+<!--         <a href="paginas/seguridad/registrar_usu.jsp" type="button" class="btn btn-link">Registrarme</a> -->
         <p align="center" class="text-error">${requestScope.mensaje}</p> 
         <button class="btn btn-large btn-primary" type="submit">Ingresar</button> 
       </form>

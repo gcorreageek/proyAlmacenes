@@ -3,13 +3,18 @@
  */
 package com.sigal.informeexterno.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.sigal.informeexterno.bean.InformeExternoDTO;
 import com.sigal.informeexterno.bean.InformeExternoDetalleDTO;
+import com.sigal.informeinterno.bean.InformeInternoDTO;
+import com.sigal.informeinterno.dao.MySqlInformeInternoDAO;
 import com.sigal.mantenimiento.bean.ProductoDTO;
 import com.sigal.mantenimiento.bean.ProductoProveedorDTO;
 import com.sigal.ordencompra.bean.OrdenCompraDTO;
@@ -22,6 +27,7 @@ import com.sigal.util.MySqlConexion;
  *
  */
 public class MySqlInformeExternoDAO implements InformeExternoDAO {
+	private final Log log = LogFactory.getLog(MySqlInformeExternoDAO.class);
 	SqlSessionFactory sqlMapper = MySqlConexion.getMapper();  
  
 	@Override
@@ -55,10 +61,12 @@ public class MySqlInformeExternoDAO implements InformeExternoDAO {
 				System.out.println("Stock del Producto:"+objProducto.getStock_producto());
 				System.out.println("Cantidad del Producto:"+ocDet.getCantidad());
 				Integer stock=0; 
+				if(objProducto.getStock_producto()==null)
+					objProducto.setStock_producto(0); 
 				if("Entrada".equals(ie.getTipo_informe_externo())){
-					stock = objProducto.getStock_producto() +  ocDet.getCantidad();
+					stock =  objProducto.getStock_producto() +  ocDet.getCantidad();
 				}else{
-					stock = objProducto.getStock_producto() -   ocDet.getCantidad();
+					stock =  objProducto.getStock_producto() -  ocDet.getCantidad();
 				}
 				
 				objProducto.setStock_producto(stock);
@@ -75,6 +83,35 @@ public class MySqlInformeExternoDAO implements InformeExternoDAO {
 			sesion.close();
 		} 
 		return rsult;
+	} 
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<InformeExternoDTO> buscaInformeExterno(InformeExternoDTO ie)
+			throws Exception { 
+		if(log.isDebugEnabled()){
+			log.debug("Tipo:"+ie.getTipo_informe_externo());
+			log.debug("codigoie:"+ie.getCod_informe_externo());
+		} 
+		SqlSession sesion = sqlMapper.openSession();
+		List<InformeExternoDTO> det = new ArrayList<InformeExternoDTO>();
+		try {
+//			SQL_listaInformeInterno SQL_getInformeInterno
+			if (ie.getCod_informe_externo() != null) {
+				det = (List<InformeExternoDTO>) sesion.selectList(
+						"ie.SQL_getInformeExterno",
+						ie.getCod_informe_externo());
+			}else{
+				ie.setTipo_informe_externo("%"+ ie.getTipo_informe_externo() +"%");
+				det = (List<InformeExternoDTO>) sesion.selectList(
+						"ie.SQL_listaInformeExterno",
+						ie.getTipo_informe_externo());
+			}
+			 
+		}  finally {
+			sesion.close();
+		}
+		return det;
 	}
 
  

@@ -45,7 +45,10 @@ public class LogueoAction extends ActionSupport {
 	 * @return success = exito , error=fracaso 
 	 */
 	@SuppressWarnings("unused")
-	@Action(value="/login",results={@Result(name="success",type="tiles",location="d_index"),@Result(name="error",location="/paginas/seguridad/login.jsp")})
+	@Action(value="/login",results={
+			@Result(name="success",type="tiles",location="d_index"),
+			@Result(name="error",location="/paginas/seguridad/login.jsp") 
+	})
 	public String Login(){ 
 		System.out.println("Mira1:"+objUsu.getUsu_usuario());
 		System.out.println("Mira2:"+objUsu.getPass_usuario());
@@ -85,6 +88,21 @@ public class LogueoAction extends ActionSupport {
 				lasesion.put("objCargo", objCargo);
 				AreaDTO objArea = objAreaServ.getArea(objCargo.getCod_area());
 				lasesion.put("objArea", objArea); 
+				
+//				Object[] obj = null;
+//				obj = (Object[]) lasesion.get("DatosQR");
+//				if(obj!=null){
+//					ir="movilInterno";
+//					String tipo=   obj[1].toString();
+//					if("Salida".equals(tipo)){
+//						
+//						
+//					}else{
+//						
+//					}
+//				} 
+				
+				
 			}
 			else {
 				ir=ERROR;

@@ -5,6 +5,8 @@ package com.sigal.mantenimiento.action;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -21,6 +23,7 @@ import com.sigal.util.UtilSigal;
  */
 @ParentPackage("proy_calidad_SIGAL2")
 public class ProveedorAction extends ActionSupport {
+	private final Log log = LogFactory.getLog(getClass());
 	ProveedorService objProServ = new ProveedorService();
 	private ProveedorDTO objProveedor;
 	private List<ProveedorDTO> lstProveedor;
@@ -44,9 +47,9 @@ public class ProveedorAction extends ActionSupport {
 		}
 		try {  
 			lstProveedor = objProServ.listaProveedorPaginado(comienzo, Constantes.FILAS_X_PAGINA);
-			System.out.println("dddPaginacion:"+lstProveedor.size());
+			log.debug("dddPaginacion:"+lstProveedor.size());
 		} catch (Exception e) { 
-			System.out.println(""+e.getMessage());
+			log.error("",e);
 		}
 		return SUCCESS;
 	}
@@ -58,7 +61,7 @@ public class ProveedorAction extends ActionSupport {
 			this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.listaProveedorTotal());
 			this.tagTipoListado = 1;
 		} catch (Exception e) { 
-			e.printStackTrace();
+			log.error("",e);
 		}
 		return SUCCESS;
 	}
@@ -71,12 +74,16 @@ public class ProveedorAction extends ActionSupport {
 		} else {
 			comienzo = (inicio * Constantes.FILAS_X_PAGINA)
 					- Constantes.FILAS_X_PAGINA;
-		}
+		} 
+		
 		try {
+			String raz = objProveedor.getRaz_social().trim();
+			objProveedor.setRaz_social(raz);
 			lstProveedor = objProServ.buscarProveedorXDescPaginado(objProveedor,
 					comienzo, Constantes.FILAS_X_PAGINA);
+			objProveedor.setRaz_social(raz);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("",e);
 		}
 		return SUCCESS;
 	}
@@ -84,12 +91,15 @@ public class ProveedorAction extends ActionSupport {
 	@Action(value = "/buscarProveedorXRazonSocial", results = { @Result(name = "success", type = "tiles", location = "d_mainproveedor") })
 	public String buscarProveedorXRazonSocial() {
 		try {
+			String raz = objProveedor.getRaz_social().trim();
+			objProveedor.setRaz_social(raz);
 			lstProveedor = objProServ.buscarProveedorXDescPaginado(objProveedor, 0,
 					Constantes.FILAS_X_PAGINA);
 			this.numeroPaginas = UtilSigal.totalDePaginas(objProServ
 					.buscarProveedorXDescTotal(objProveedor));
+			objProveedor.setRaz_social(raz);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("",e);
 		}
 		this.tagTipoListado = 2;
 		return SUCCESS;
@@ -103,7 +113,7 @@ public class ProveedorAction extends ActionSupport {
 			try {
 				this.objProveedor = objProServ.getProveedor(provee);
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error("",e);
 			}
 		}
 		return SUCCESS;
@@ -116,15 +126,22 @@ public class ProveedorAction extends ActionSupport {
 		Boolean rsultado=false;
 		try {
 			rsultado = objProServ.eliminarProveedor(provee);
-		}  
-		catch (Exception  e ) { 
-			e.printStackTrace();
+		} catch (Exception  e ) { 
+			String errorMessage = e.getMessage(); 
+			if(errorMessage.indexOf("fk_codproveedor_proveedor")!=-1){
+				this.rsult = 0;
+				this.mensaje = "No se puede eliminar, se encuentra en una transacción; elimine las transacciones"; 
+				mainProveedor();
+				return SUCCESS;
+			}
+			rsultado=false; 
+			log.error("",e);
 		}
 		if (rsultado) {
-			this.rsult = 0;
+			this.rsult = 1;
 			this.mensaje = "Se Elimino Correctamente";
 		} else {
-			this.rsult = 1;
+			this.rsult = 0;
 			this.mensaje = "Ocurrio un Problema";
 		}
 		mainProveedor();
@@ -133,12 +150,20 @@ public class ProveedorAction extends ActionSupport {
 
 	@Action(value = "/actuarProveedor", results = { @Result(name = "success", type = "tiles", location = "d_actuarproveedor") })
 	public String actuarProveedor() { 
-		Boolean rsultado = false;
+		Boolean rsultado = true;
 		objProveedor.setRaz_social(objProveedor.getRaz_social().trim());
 		objProveedor.setCorreo(objProveedor.getCorreo().trim());
-		if(!"".equals(objProveedor.getRaz_social()) &&  !"".equals(objProveedor.getCorreo())){
-			rsultado = true;
+		if("".equals(objProveedor.getRaz_social()) ){
+			this.rsult = 0;
+			this.mensaje = "Ingrese razon social valida";
+			return SUCCESS;
+		}
+		if("".equals(objProveedor.getCorreo())){
+			this.rsult = 0;
+			this.mensaje = "Ingrese correo valido";
+			return SUCCESS;
 		} 
+		
 		if (rsultado) {
 			try {
 				if (objProveedor.getCod_proveedor() == null) {
@@ -147,15 +172,21 @@ public class ProveedorAction extends ActionSupport {
 					rsultado = objProServ.actualizarProveedor(objProveedor);
 				}
 			} catch (Exception e) {
+				String errorMessage = e.getMessage(); 
+				if(errorMessage.indexOf("raz_social_UNIQUE")!=-1){
+					this.rsult = 0;
+					this.mensaje = "Proveedor ya registrado, ingrese otro"; 
+					return SUCCESS;
+				}
 				rsultado=false;
-				e.printStackTrace();
+				log.error("",e);
 			}
 		}
 		if (rsultado) {
-			this.rsult = 0;
+			this.rsult = 1;
 			this.mensaje = "Todo Correctamente";
 		} else {
-			this.rsult = 1;
+			this.rsult = 0;
 			this.mensaje = "Ocurrio un Problema";
 		}
 
@@ -174,7 +205,7 @@ public class ProveedorAction extends ActionSupport {
 		try {
 			lstProveedor = objProServ.listaProveedorPaginadoHabilitado(comienzo, Constantes.FILAS_X_PAGINA);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("",e);
 		}
 		return SUCCESS;
 	} 
@@ -189,8 +220,7 @@ public class ProveedorAction extends ActionSupport {
 		try {
 			lstProveedor = objProServ.buscarProveedorXDescPaginadoHabilitado(objProveedor, comienzo, Constantes.FILAS_X_PAGINA);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("",e);
 		}
 		return SUCCESS;
 	}
@@ -199,7 +229,7 @@ public class ProveedorAction extends ActionSupport {
 		try {
 			this.numeroPaginasModalProveedor = UtilSigal.totalDePaginas(objProServ.listaProveedorTotalHabilitado());
 		} catch (Exception e) { 
-			e.printStackTrace();
+			log.error("",e);
 		} 
 		return SUCCESS;
 	}
@@ -208,7 +238,7 @@ public class ProveedorAction extends ActionSupport {
 		try {
 			this.numeroPaginasModalProveedor = UtilSigal.totalDePaginas(objProServ.buscarProveedorXDescTotalHabilitado(objProveedor));
 		} catch (Exception e) { 
-			e.printStackTrace();
+			log.error("",e);
 		}
 		return SUCCESS;
 	} 

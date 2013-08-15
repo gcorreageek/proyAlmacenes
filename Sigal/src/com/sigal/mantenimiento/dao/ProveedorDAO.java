@@ -19,8 +19,8 @@ public interface ProveedorDAO {
 	Boolean actualizarProveedor(ProveedorDTO objProveedor) throws Exception;
 	Boolean eliminarProveedor(ProveedorDTO objProveedor) throws Exception;
  
-	List<ProveedorDTO> buscarProveedorPaginadosHabilitado(Object object,Integer comienzo, Integer filasXPagina);
-	List<ProveedorDTO> buscarProveedorHabilitado(Object object);
+	List<ProveedorDTO> buscarProveedorPaginadosHabilitado(Object object,Integer comienzo, Integer filasXPagina) throws Exception;
+	List<ProveedorDTO> buscarProveedorHabilitado(Object object) throws Exception;
 	
 	
 }

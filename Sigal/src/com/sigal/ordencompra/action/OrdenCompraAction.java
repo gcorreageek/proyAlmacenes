@@ -56,6 +56,7 @@ public class OrdenCompraAction extends ActionSupport {
 			System.out.println("d1:"+usuario);
 			System.out.println("d2:"+usuario.getCod_usuario());
 			objOrdenCompra.setCod_usuario(usuario.getCod_usuario()); 
+			objOrdenCompra.setEstado_ordencompra("Pendiente");
 			if( objOrdenCompra.getCod_cotizacion()==null){
 				this.rsult=0;
 				this.mensaje="Agregar Cotizacion";

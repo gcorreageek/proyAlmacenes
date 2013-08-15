@@ -5,6 +5,8 @@ package com.sigal.mantenimiento.action;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -23,6 +25,7 @@ import com.sigal.util.UtilSigal;
  */
 @ParentPackage("proy_calidad_SIGAL2")
 public class ProductoProveedorAction extends ActionSupport {
+	private final Log log = LogFactory.getLog(getClass());
 	ProductoProveedorService objProServ = new ProductoProveedorService();
 	ProductoService objProductoServ = new ProductoService();
 	private ProductoProveedorDTO objProductoProveedor;
@@ -36,8 +39,9 @@ public class ProductoProveedorAction extends ActionSupport {
 	private Integer numeroPaginas;
 	private Integer tagTipoListado;
 
-	@Action(value = "/listarProductoProveedorPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_producto_provedor.jsp") })
+	@Action(value = "/listarProductoProveedorPag", results = { @Result(name = "success", location = "/paginas/mantenimientos/paginacion_producto_proveedor.jsp") })
 	public String listarProductoProveedorPag() {
+		log.debug("paso:"+inicio);
 		Integer comienzo = null;
 		if (inicio == null || inicio == 0) {
 			comienzo = 0;
@@ -48,7 +52,7 @@ public class ProductoProveedorAction extends ActionSupport {
 		try {
 			lstProductoProveedor = objProServ.listaProductosProveedorPaginado(comienzo, Constantes.FILAS_X_PAGINA);
 		} catch (Exception e) { 
-			e.printStackTrace();
+			log.error("",e);
 		}
 		return SUCCESS;
 	}
@@ -60,7 +64,7 @@ public class ProductoProveedorAction extends ActionSupport {
 			this.numeroPaginas = UtilSigal.totalDePaginas(objProServ.listaProductosProveedorTotal());
 			this.tagTipoListado = 1;
 		} catch (Exception e) { 
-			e.printStackTrace();
+			log.error("",e);
 		}
 		return SUCCESS;
 	}
@@ -77,7 +81,7 @@ public class ProductoProveedorAction extends ActionSupport {
 			lstProductoProveedor = objProServ.buscarProductosProveedorXRazonSocialAndDescProdPaginado(objProductoProveedor, comienzo, Constantes.FILAS_X_PAGINA);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("",e);
 		}
 		return SUCCESS;
 	}
@@ -136,6 +140,7 @@ public class ProductoProveedorAction extends ActionSupport {
 
 	@Action(value = "/actuarProductoProveedor", results = { @Result(name = "success", type = "tiles", location = "d_actuarproductoproveedor") })
 	public String actuarProductoProveedor() {
+		log.debug("mra:"+objProductoProveedor.getDesc_producto());
 		Boolean rsultado = false;
 		try {
 			if (objProductoProveedor.getCod_producto_proveedor() == null) {
@@ -147,6 +152,7 @@ public class ProductoProveedorAction extends ActionSupport {
 			rsultado=false;
 			e.printStackTrace();
 		}
+		log.debug("mra:"+objProductoProveedor.getDesc_producto());
 		if (rsultado) {
 			this.rsult = 0;
 			this.mensaje = "Todo Correctamente";

@@ -11,6 +11,9 @@
 <script type="text/javascript">
 $(document).ready(function() { 
 	 setTimeout(function(){ $('.alert').hide(1000); }, 3000); 
+	 
+	 
+	 
 }); 
 </script>
 </head>
@@ -24,13 +27,13 @@ $(document).ready(function() {
 
 
 <c:if test="${requestScope.rsult!=null}"   >
-<c:if test="${requestScope.rsult=='0'}"   >
+<c:if test="${requestScope.rsult=='1'}"   >
 	<div class="alert alert-success"> 
 	<h4>Bien!</h4>
 	${requestScope.mensaje}
 	</div> 
 </c:if>
-<c:if test="${requestScope.rsult=='1'}"   >
+<c:if test="${requestScope.rsult=='0'}"   >
 	<div class="alert alert-error"> 
 	<h4>Error!</h4>
 	${requestScope.mensaje}
@@ -62,7 +65,7 @@ $(document).ready(function() {
 <div class="control-group">
 <label class="control-label" for="inputCorreo">Correo*</label>
 <div class="controls">
-<input type="text" id="inputCorreo"  name="objProveedor.correo" value="${objProveedor.correo}" placeholder="Correo">
+<input type="email" id="inputCorreo"  name="objProveedor.correo" value="${objProveedor.correo}" placeholder="Correo">
 </div>
 </div>
 <div class="control-group">

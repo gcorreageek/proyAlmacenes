@@ -10,7 +10,7 @@
 	 totalPages: numeroPaginasModalProducto,
 	 onPageClicked: function(e,originalEvent,type,page){ 
 		    var txtProd=$("#txtProducto").val();
-			$.post("buscarProductosXDescProdPagModal",{inicio:page,"objProducto.desc_producto":txtProd},function(data){
+			$.post("buscarProductosXDescProdPagModalHabilitados",{inicio:page,"objProducto.desc_producto":txtProd},function(data){
 		 		$("#divTablaProdModal").html(data);
 			}); 
 	 	} 
