@@ -1,4 +1,4 @@
-<h1>Proyecto Ganador de la Feria de TI de Cibertec </h1>
+<h1>Proyecto Feria de TI de Cibertec </h1>
 =============
 <h2>Proyecto SIGAL</h2>  
 =============
