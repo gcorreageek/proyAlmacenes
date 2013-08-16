@@ -2,7 +2,7 @@
 =============
 <h2>Proyecto SIGAL</h2>  
 =============
-<strong>Web Temporal:http://sigal.jelastic.servint.net/</strong><br>
+<strong>Web Temporal:http://cibertecsigal.perzc-david.cloudbees.net/</strong><br>
 Proyecto de Almacenes para el curso de Calidad.<br>
 Librerias y Frameworks usados:<br>
 <ul> 
@@ -18,6 +18,6 @@ Librerias y Frameworks usados:<br>
 <h3>Lista de Integrantes </h3> 
 -----------------------
 <a target="_blank"   title="Click para mas informacion" href="https://docs.google.com/spreadsheet/ccc?key=0Ak6E08W3jQJodHN4c0FnLU1OSEtuNGpYOEhJUlFPYXc#gid=0
-">  Ver  </a>
+">  Integrantes  </a>
 
 
