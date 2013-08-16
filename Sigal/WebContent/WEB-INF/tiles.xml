@@ -11,7 +11,8 @@
 		<put-attribute name="menu" value="/templates/menu.jsp"/> 
 		<put-attribute name="body" value="/paginas/inicio/index.jsp"/>
 		<put-attribute name="pie" value="/templates/pie.jsp"/>	
-	</definition>
+	</definition> 
+	
 	<!-- Reportes -->
 	<definition name="d_mainreportesinforme" extends="d_index">
  		<put-attribute name="body" value="/paginas/reportes/informes.jsp"/>

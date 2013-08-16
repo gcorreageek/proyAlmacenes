@@ -3,6 +3,8 @@ package com.sigal.seguridad.action;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -24,14 +26,16 @@ import com.sigal.util.UtilSigal;
  */
 @ParentPackage("proy_calidad_SIGAL2")
 public class LogueoAction extends ActionSupport {
-	
-	LogueoService objLogServ = new LogueoService();
-	AreaService objAreaServ = new AreaService();
-	CargoService objCargoServ = new CargoService();
+	private final Log log = LogFactory.getLog(getClass());
+	private final LogueoService objLogServ = new LogueoService();
+	private final AreaService objAreaServ = new AreaService();
+	CargoService objCargoServ = new CargoService(); 
 	
 	private UsuarioDTO objUsu; 
 	
 	private String mensaje;
+	private List<AreaDTO> lstArea;  
+	private Integer codProd;
 	
 	
 	@Action(value="/inicio",results={@Result(name="success",type="tiles",location="d_index")})
@@ -47,14 +51,14 @@ public class LogueoAction extends ActionSupport {
 	@SuppressWarnings("unused")
 	@Action(value="/login",results={
 			@Result(name="success",type="tiles",location="d_index"),
-			@Result(name="error",location="/paginas/seguridad/login.jsp") 
+			@Result(name="error",location="/paginas/seguridad/login.jsp"),
+			@Result(name="movilsalida",type="tiles",location="d_maininformeinternosalida"),
+			@Result(name="movilentrada",type="tiles",location="d_maininformeinternoentrada"),
 	})
 	public String Login(){ 
 		System.out.println("Mira1:"+objUsu.getUsu_usuario());
 		System.out.println("Mira2:"+objUsu.getPass_usuario());
-		String ir=SUCCESS;
-		
-		 
+		String ir=SUCCESS; 
 		 
 		UsuarioDTO objUsuario=null;
 		
@@ -89,24 +93,27 @@ public class LogueoAction extends ActionSupport {
 				AreaDTO objArea = objAreaServ.getArea(objCargo.getCod_area());
 				lasesion.put("objArea", objArea); 
 				
-//				Object[] obj = null;
-//				obj = (Object[]) lasesion.get("DatosQR");
-//				if(obj!=null){
-//					ir="movilInterno";
-//					String tipo=   obj[1].toString();
-//					if("Salida".equals(tipo)){
-//						
-//						
-//					}else{
-//						
-//					}
-//				} 
+				
+				
+				Object[] obj = null;
+				obj = (Object[]) lasesion.get("DatosQR");
+				if(obj!=null){
+					lstArea = objAreaServ.listaArea();
+					this.codProd= (Integer) obj[0];
+					String tipo=   obj[1].toString();
+					if("Salida".equals(tipo)){
+						ir="movilsalida"; 
+					}else{
+						ir="movilentrada";
+					}
+					lasesion.remove("DatosQR");
+				} 
 				
 				
 			}
 			else {
 				ir=ERROR;
-				mensaje="La contraseña es incorrecta";System.out.println("la contraeña es incorrecta");
+				mensaje="La contraseña es incorrecta"; 
 			}
 		}
 		else{
@@ -114,6 +121,7 @@ public class LogueoAction extends ActionSupport {
 			mensaje="Usuario no existe";
 			System.out.println("Usuario no existe");
 		}
+		log.debug("mensaje:"+ir);
 		return ir; 
 	}
 	/**
@@ -149,6 +157,34 @@ public class LogueoAction extends ActionSupport {
 
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
+	}
+
+	/**
+	 * @return the lstArea
+	 */
+	public List<AreaDTO> getLstArea() {
+		return lstArea;
+	}
+
+	/**
+	 * @param lstArea the lstArea to set
+	 */
+	public void setLstArea(List<AreaDTO> lstArea) {
+		this.lstArea = lstArea;
+	}
+
+	/**
+	 * @return the codProd
+	 */
+	public Integer getCodProd() {
+		return codProd;
+	}
+
+	/**
+	 * @param codProd the codProd to set
+	 */
+	public void setCodProd(Integer codProd) {
+		this.codProd = codProd;
 	}
  
 	

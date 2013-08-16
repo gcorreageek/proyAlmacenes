@@ -4,6 +4,7 @@
 package com.sigal.mantenimiento.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,9 +12,11 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sigal.mantenimiento.bean.ProveedorDTO;
 import com.sigal.mantenimiento.service.ProveedorService;
+import com.sigal.seguridad.bean.UsuarioDTO;
 import com.sigal.util.Constantes;
 import com.sigal.util.UtilSigal;
 
@@ -23,6 +26,7 @@ import com.sigal.util.UtilSigal;
  */
 @ParentPackage("proy_calidad_SIGAL2")
 public class ProveedorAction extends ActionSupport {
+	private final Map<String, Object> lasesion = ActionContext.getContext().getSession(); 
 	private final Log log = LogFactory.getLog(getClass());
 	ProveedorService objProServ = new ProveedorService();
 	private ProveedorDTO objProveedor;
@@ -121,30 +125,33 @@ public class ProveedorAction extends ActionSupport {
 
 	@Action(value = "/eliminarProveedor", results = { @Result(name = "success", type = "tiles", location = "d_mainproveedor") })
 	public String eliminarProveedor() {
-		ProveedorDTO provee = new ProveedorDTO();
-		provee.setCod_proveedor(this.codProvee);
-		Boolean rsultado=false;
-		try {
-			rsultado = objProServ.eliminarProveedor(provee);
-		} catch (Exception  e ) { 
-			String errorMessage = e.getMessage(); 
-			if(errorMessage.indexOf("fk_codproveedor_proveedor")!=-1){
-				this.rsult = 0;
-				this.mensaje = "No se puede eliminar, se encuentra en una transacción; elimine las transacciones"; 
-				mainProveedor();
-				return SUCCESS;
+		UsuarioDTO usuario =  (UsuarioDTO) lasesion.get("objUsuario");
+		if(usuario!=null){
+			ProveedorDTO provee = new ProveedorDTO();
+			provee.setCod_proveedor(this.codProvee);
+			Boolean rsultado=false;
+			try {
+				rsultado = objProServ.eliminarProveedor(provee);
+			} catch (Exception  e ) { 
+				String errorMessage = e.getMessage(); 
+				if(errorMessage.indexOf("fk_codproveedor_proveedor")!=-1){
+					this.rsult = 0;
+					this.mensaje = "No se puede eliminar, se encuentra en una transacción; elimine las transacciones"; 
+					mainProveedor();
+					return SUCCESS;
+				}
+				rsultado=false; 
+				log.error("",e);
 			}
-			rsultado=false; 
-			log.error("",e);
-		}
-		if (rsultado) {
-			this.rsult = 1;
-			this.mensaje = "Se Elimino Correctamente";
-		} else {
-			this.rsult = 0;
-			this.mensaje = "Ocurrio un Problema";
-		}
-		mainProveedor();
+			if (rsultado) {
+				this.rsult = 1;
+				this.mensaje = "Se Elimino Correctamente";
+			} else {
+				this.rsult = 0;
+				this.mensaje = "Ocurrio un Problema";
+			}
+			mainProveedor();	
+		} 
 		return SUCCESS;
 	}
 

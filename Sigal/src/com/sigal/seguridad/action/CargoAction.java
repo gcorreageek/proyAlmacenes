@@ -5,14 +5,19 @@ package com.sigal.seguridad.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sigal.seguridad.bean.AreaDTO;
 import com.sigal.seguridad.bean.CargoDTO;
+import com.sigal.seguridad.bean.UsuarioDTO;
 import com.sigal.seguridad.service.AreaService;
 import com.sigal.seguridad.service.CargoService;
 import com.sigal.util.Constantes;
@@ -24,6 +29,8 @@ import com.sigal.util.UtilSigal;
  */
 @ParentPackage("proy_calidad_SIGAL2")
 public class CargoAction extends ActionSupport {
+	private final Map<String, Object> lasesion = ActionContext.getContext().getSession();
+	private final Log log = LogFactory.getLog(getClass());
 	CargoService objCargoServ = new CargoService();
 	AreaService objAreaServ = new AreaService();
 	
@@ -114,22 +121,25 @@ public class CargoAction extends ActionSupport {
 
 	@Action(value = "/eliminarCargo", results = { @Result(name = "success", type = "tiles", location = "d_maincargo") })
 	public String eliminarCargo() {
-		CargoDTO provee = new CargoDTO();
-		provee.setCod_cargo(this.codCargo);
-		Boolean rsultado=false;
-		try {
-			rsultado = objCargoServ.eliminarCargo(provee);
-		} catch (Exception  e ) {  
-			e.printStackTrace();
-		}
-		if (rsultado) {
-			this.rsult = 0;
-			this.mensaje = "Se Elimino Correctamente";
-		} else {
-			this.rsult = 1;
-			this.mensaje = "Ocurrio un Problema";
-		}
-		mainCargo();
+		UsuarioDTO usuario =  (UsuarioDTO) lasesion.get("objUsuario");
+		if(usuario!=null){
+			CargoDTO provee = new CargoDTO();
+			provee.setCod_cargo(this.codCargo);
+			Boolean rsultado=false;
+			try {
+				rsultado = objCargoServ.eliminarCargo(provee);
+			} catch (Exception  e ) {  
+				e.printStackTrace();
+			}
+			if (rsultado) {
+				this.rsult = 0;
+				this.mensaje = "Se Elimino Correctamente";
+			} else {
+				this.rsult = 1;
+				this.mensaje = "Ocurrio un Problema";
+			}
+			mainCargo();
+		} 
 		return SUCCESS;
 	}
 

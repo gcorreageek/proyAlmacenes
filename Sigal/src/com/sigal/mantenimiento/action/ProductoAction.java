@@ -13,6 +13,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sigal.mantenimiento.bean.ProductoDTO;
 import com.sigal.mantenimiento.service.ProductoService;
+import com.sigal.seguridad.bean.UsuarioDTO;
 import com.sigal.util.Constantes;
 import com.sigal.util.UtilSigal;
 
@@ -118,30 +119,33 @@ public class ProductoAction extends ActionSupport {
 
 	@Action(value = "/eliminarProducto", results = { @Result(name = "success", type = "tiles", location = "d_mainproducto") })
 	public String eliminarProducto() {
-		ProductoDTO prod = new ProductoDTO();
-		prod.setCod_producto(this.codProd);
-		Boolean rsultado= false;
-		try {
-			rsultado = objProServ.eliminarProducto(prod);
-		} catch (Exception e) {
-			
-			String errorMessage = e.getMessage(); 
-			if(errorMessage.indexOf("fk_codproducto_producto")!=-1){
+//		lasesion
+		UsuarioDTO usuario =  (UsuarioDTO) lasesion.get("objUsuario");
+		if(usuario!=null){
+			ProductoDTO prod = new ProductoDTO();
+			prod.setCod_producto(this.codProd);
+			Boolean rsultado= false;
+			try {
+				rsultado = objProServ.eliminarProducto(prod);
+			} catch (Exception e) { 
+				String errorMessage = e.getMessage(); 
+				if(errorMessage.indexOf("fk_codproducto_producto")!=-1){
+					this.rsult = 0;
+					this.mensaje = "No se puede eliminar, se encuentra en una transacción; elimine as transacciones";
+					mainProducto();
+					return SUCCESS;
+				} 
+				log.error("",e);
+			}
+			if (rsultado) {
+				this.rsult = 1;
+				this.mensaje = "Se Elimino Correctamente";
+			} else {
 				this.rsult = 0;
-				this.mensaje = "No se puede eliminar, se encuentra en una transacción; elimine as transacciones";
-				mainProducto();
-				return SUCCESS;
-			} 
-			log.error("",e);
-		}
-		if (rsultado) {
-			this.rsult = 1;
-			this.mensaje = "Se Elimino Correctamente";
-		} else {
-			this.rsult = 0;
-			this.mensaje = "Ocurrio un Problema";
-		}
-		mainProducto();
+				this.mensaje = "Ocurrio un Problema";
+			}
+			mainProducto();	
+		} 
 		return SUCCESS;
 	}
 

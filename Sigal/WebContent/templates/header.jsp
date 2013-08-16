@@ -35,6 +35,9 @@
  	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/bootstrap/js/bootstrap-paginator.min.js"></script>
  	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/bootstrap/js/bootbox.js"></script>
  	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/bootstrap/js/jqBootstrapValidation.js"></script>
+<%--  	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/bootstrap/js/bootstrap-dropdown.js"></script> --%>
+<!--  	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script> -->
+
  
  	<script type="text/javascript"  >
 

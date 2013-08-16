@@ -5,11 +5,15 @@ package com.sigal.seguridad.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sigal.seguridad.bean.AreaDTO;
 import com.sigal.seguridad.bean.CargoDTO;
@@ -26,6 +30,8 @@ import com.sigal.util.UtilSigal;
  */
 @ParentPackage("proy_calidad_SIGAL2")
 public class UsuarioAction extends ActionSupport {
+	private final Map<String, Object> lasesion = ActionContext.getContext().getSession();
+	private final Log log = LogFactory.getLog(getClass());
 	UsuarioService objUsuarioServ = new UsuarioService();
 	AreaService objAreaServ = new AreaService();
 	CargoService objCargoServ = new CargoService();
@@ -121,23 +127,25 @@ public class UsuarioAction extends ActionSupport {
 
 	@Action(value = "/eliminarUsuario", results = { @Result(name = "success", type = "tiles", location = "d_mainusuario") })
 	public String eliminarUsuario() {
-		UsuarioDTO provee = new UsuarioDTO();
-		provee.setCod_usuario(this.codUsuario);
-		Boolean rsultado=false;
-		try {
-			rsultado = objUsuarioServ.eliminarUsuario(provee);
-		}  
-		catch (Exception  e ) { 
-			e.printStackTrace();
-		}
-		if (rsultado) {
-			this.rsult = 0;
-			this.mensaje = "Se Elimino Correctamente";
-		} else {
-			this.rsult = 1;
-			this.mensaje = "Ocurrio un Problema";
-		}
-		mainUsuario();
+		UsuarioDTO usuario =  (UsuarioDTO) lasesion.get("objUsuario");
+		if(usuario!=null){
+			UsuarioDTO provee = new UsuarioDTO();
+			provee.setCod_usuario(this.codUsuario);
+			Boolean rsultado=false;
+			try {
+				rsultado = objUsuarioServ.eliminarUsuario(provee);
+			}catch (Exception  e ) { 
+				e.printStackTrace();
+			}
+			if (rsultado) {
+				this.rsult = 0;
+				this.mensaje = "Se Elimino Correctamente";
+			} else {
+				this.rsult = 1;
+				this.mensaje = "Ocurrio un Problema";
+			}
+			mainUsuario();
+		} 
 		return SUCCESS;
 	}
 

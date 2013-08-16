@@ -16,7 +16,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </button>
+          </button> 
           <a class="brand" href="#"><strong style="color:white;">Sigal</strong></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
@@ -31,12 +31,12 @@
 			   			<% }else if(lista.get(i).getMaster_menu()==1){ 
 			   				if( lista.get(i).getTipo_menu()==1 ){ %>
 			   				<li class="dropdown">
-				                <a href="<%=lista.get(i).getUrl_menu() %>" class="dropdown-toggle" data-toggle="dropdown"><%=lista.get(i).getNom_menu() %> <b class="caret"></b></a>
-				                <ul class="dropdown-menu">
+				                <a  role="button" href="<%=lista.get(i).getUrl_menu() %>" class="dropdown-toggle" data-toggle="dropdown"><%=lista.get(i).getNom_menu() %> <b class="caret"></b></a>
+				                <ul class="dropdown-menu"  role="menu" >
 			   				
 			   					
 			   				<% }else{ %>
-			   					<li><a href="<%=request.getContextPath()%>/<%=lista.get(i).getUrl_menu() %>"><%=lista.get(i).getNom_menu() %></a></li>
+			   					<li role="presentation" ><a role="menuitem" tabindex="-1" href="<%=request.getContextPath()%>/<%=lista.get(i).getUrl_menu() %>"><%=lista.get(i).getNom_menu() %></a></li>
 			   					
 			   					
 			   				<%}

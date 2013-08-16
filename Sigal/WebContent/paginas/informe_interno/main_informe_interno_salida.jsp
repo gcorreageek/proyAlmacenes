@@ -73,7 +73,7 @@ $(document).ready(function() {
 		$.post("listarPedidoTotalAprobados",function(data){
 	 		$("#divDatosPedidoTotal").html(data);
 		}); 
-		$.post("listarPedidoPagModalAprobados",{inicio:null},function(data){
+		$.post("listarPedidoPagModalAprobados",{inicio:null,"codProd":$("#cod_producto").val()},function(data){
 	 		$("#divTablaPedidoModal").html(data);
 		}); 
 	});  
@@ -98,7 +98,8 @@ $(document).ready(function() {
 			"objPedido.cod_area":cboArea,
 			"objPedido.fechaInicio":txtFechaInicio,
 			"objPedido.fechaFin":txtFechaFin,
-			"objPedido.tipo_pedido":cboTipo
+			"objPedido.tipo_pedido":cboTipo,
+			"codProd":$("#cod_producto").val()
 			},function(data){
 	 		$("#divTablaPedidoModal").html(data);
 		}); 
@@ -210,7 +211,7 @@ $(document).ready(function() {
 <div class="modal-body">
 	<div class="form-search"   >
 	    <input type="text" id="txtNombreResponsable" name="objPedido.nom_usuario" class="input-medium search-query" placeholder="Nombre de Responsable" >
-		  
+		<c:if test="${requestScope.codProd==null}"   >
 		<s:select headerKey="0" headerValue="Seleccionar"  list="lstArea" listValue="desc_area" listKey="cod_area" id="cboArea" />  
     
 		<input type="text" id="txtFechaInicio" class="input-medium search-query datepicker" placeholder="Fecha Inicio" >
@@ -220,6 +221,7 @@ $(document).ready(function() {
 		name="objPedido.tipo_pedido"  value="objPedido.tipo_pedido" 
 		id="cboTipo"
 		 />
+		 </c:if>
 	    <button type="submit" class="btn" id="idBotonBuscarPedido" >Buscar</button>
     </div> 
       <div id="divTablaPedidoModal"></div>

@@ -4,6 +4,7 @@
 package com.sigal.mantenimiento.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,11 +12,13 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sigal.mantenimiento.bean.ProductoDTO;
 import com.sigal.mantenimiento.bean.ProductoProveedorDTO;
 import com.sigal.mantenimiento.service.ProductoProveedorService;
 import com.sigal.mantenimiento.service.ProductoService;
+import com.sigal.seguridad.bean.UsuarioDTO;
 import com.sigal.util.Constantes;
 import com.sigal.util.UtilSigal;
 
@@ -25,6 +28,7 @@ import com.sigal.util.UtilSigal;
  */
 @ParentPackage("proy_calidad_SIGAL2")
 public class ProductoProveedorAction extends ActionSupport {
+	private final Map<String, Object> lasesion = ActionContext.getContext().getSession();
 	private final Log log = LogFactory.getLog(getClass());
 	ProductoProveedorService objProServ = new ProductoProveedorService();
 	ProductoService objProductoServ = new ProductoService();
@@ -119,22 +123,25 @@ public class ProductoProveedorAction extends ActionSupport {
 
 	@Action(value = "/eliminarProductoProveedor", results = { @Result(name = "success", type = "tiles", location = "d_mainproductoproveedor") })
 	public String eliminarProductoProveedor() {
-		ProductoProveedorDTO productProve = new ProductoProveedorDTO();
-		productProve.setCod_producto_proveedor(this.codProdProvee);
-		Boolean rsultado=false;
-		try {
-			rsultado = objProServ.eliminarProductoProveedor(productProve);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (rsultado) {
-			this.rsult = 0;
-			this.mensaje = "Se Elimino Correctamente";
-		} else {
-			this.rsult = 1;
-			this.mensaje = "Ocurrio un Problema";
-		}
-		mainProductoProveedor();
+		UsuarioDTO usuario =  (UsuarioDTO) lasesion.get("objUsuario");
+		if(usuario!=null){
+			ProductoProveedorDTO productProve = new ProductoProveedorDTO();
+			productProve.setCod_producto_proveedor(this.codProdProvee);
+			Boolean rsultado=false;
+			try {
+				rsultado = objProServ.eliminarProductoProveedor(productProve);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (rsultado) {
+				this.rsult = 0;
+				this.mensaje = "Se Elimino Correctamente";
+			} else {
+				this.rsult = 1;
+				this.mensaje = "Ocurrio un Problema";
+			}
+			mainProductoProveedor();	
+		} 
 		return SUCCESS;
 	}
 

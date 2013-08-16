@@ -9,7 +9,7 @@
      currentPage: 1,
      totalPages: numeroPaginasModalPedido,
      onPageClicked: function(e,originalEvent,type,page){ 
-    	$.post("listarPedidoPagModal",{inicio:page,"codProd":$("#cod_producto").val()},function(data){
+    	$.post("listarPedidoPagModalFaltanDevolver",{inicio:page,"codProd":$("#cod_producto").val()},function(data){
  	 		$("#divTablaPedidoModal").html(data);
  		});
      } 

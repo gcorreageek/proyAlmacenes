@@ -15,13 +15,14 @@
 			var txtFechaFin=$("#txtFechaFin").val();
 			var cboTipo=$("#cboTipo").val();
 				
-			$.post("buscarPedidoPagModal",{   
+			$.post("buscarPedidoPagModalAprobados",{   
 				inicio:page,
 				"objPedido.nom_usuario":txtNombreRespo,
 				"objPedido.cod_area":cboArea,
 				"objPedido.fechaInicio":txtFechaInicio,
 				"objPedido.fechaFin":txtFechaFin,
-				"objPedido.tipo_pedido":cboTipo 
+				"objPedido.tipo_pedido":cboTipo,
+				"codProd":$("#cod_producto").val()
 				},function(data){
 		 		$("#divTablaPedidoModal").html(data);
 			}); 

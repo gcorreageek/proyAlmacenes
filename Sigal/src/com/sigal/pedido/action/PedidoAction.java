@@ -71,6 +71,7 @@ public class PedidoAction extends ActionSupport {
 	
 	Integer cod_area;
 	String desc_area; 
+	private Integer codProd;
 	 
 	
 	
@@ -310,19 +311,18 @@ public class PedidoAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
-	@Action(value = "/listarPedidoTotalAprobados", results = { @Result(name = "success", location = "/paginas/pedido/pedido_listado_total.jsp") })
+	@Action(value = "/listarPedidoTotalAprobados", results = { @Result(name = "success", location = "/paginas/pedido/pedido_listado_total_aprobados.jsp") })
 	public String listarPedidoTotalAprobados() { 
 		System.out.println("pedido Aprobados 3");
 		try { 
 			this.numeroPaginasModalPedido= UtilSigal.totalDePaginas(objPedidoServ.listaPedidoTotalAprobados());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) { 
 			e.printStackTrace();
 		}
 		System.out.println("nunmeroPaginas:"+numeroPaginasModalPedido); 
 		return SUCCESS;
 	}
-	@Action(value = "/buscarPedidoTotalAprobados", results = { @Result(name = "success", location = "/paginas/pedido/pedido_buscar_total.jsp") })
+	@Action(value = "/buscarPedidoTotalAprobados", results = { @Result(name = "success", location = "/paginas/pedido/pedido_buscar_total_aprobados.jsp") })
 	public String buscarPedidoTotalAprobados() {   
 		System.out.println("pedido Aprobados 4");
 		try { 
@@ -370,7 +370,7 @@ public class PedidoAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
-	@Action(value = "/listarPedidoTotalFaltanDevolver", results = { @Result(name = "success", location = "/paginas/pedido/pedido_listado_total.jsp") })
+	@Action(value = "/listarPedidoTotalFaltanDevolver", results = { @Result(name = "success", location = "/paginas/pedido/pedido_listado_total_faltadevolver.jsp") })
 	public String listarPedidoTotalFaltanDevolver() { 
 		System.out.println("pedido Aprobados 3");
 		try { 
@@ -382,7 +382,7 @@ public class PedidoAction extends ActionSupport {
 		System.out.println("nunmeroPaginas:"+numeroPaginasModalPedido); 
 		return SUCCESS;
 	}
-	@Action(value = "/buscarPedidoTotalFaltanDevolver", results = { @Result(name = "success", location = "/paginas/pedido/pedido_buscar_total.jsp") })
+	@Action(value = "/buscarPedidoTotalFaltanDevolver", results = { @Result(name = "success", location = "/paginas/pedido/pedido_buscar_total_faltadevolver.jsp") })
 	public String buscarPedidoTotalFaltanDevolver() {   
 		System.out.println("pedido Aprobados 4");
 		try { 
@@ -500,6 +500,18 @@ public class PedidoAction extends ActionSupport {
 	}
 	public void setRsult(Integer rsult) {
 		this.rsult = rsult;
+	}
+	/**
+	 * @return the codProd
+	 */
+	public Integer getCodProd() {
+		return codProd;
+	}
+	/**
+	 * @param codProd the codProd to set
+	 */
+	public void setCodProd(Integer codProd) {
+		this.codProd = codProd;
 	}
 	
  
