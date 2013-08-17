@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where oc.estado_ordencompra='Pendiente'
-		order by oc.cod_ordencompra asc
+		order by oc.cod_ordencompra desc
 	</select>  
 	<select id="SQL_listaOCXNombre" resultType="OrdenCompraBean" parameterType="OrdenCompraBean" >
 		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where usu.nom_usuario like #{nom_usuario} and oc.estado_ordencompra='Pendiente'
-		order by oc.cod_ordencompra asc
+		order by oc.cod_ordencompra desc
 	</select> 
 	<select id="SQL_listaOCXFechas" resultType="OrdenCompraBean" parameterType="OrdenCompraBean" >
 		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where oc.fecharegistro_ordencompra between #{fechaInicio} and #{fechaFin} and oc.estado_ordencompra='Pendiente'
-		order by oc.cod_ordencompra asc
+		order by oc.cod_ordencompra desc
 	</select>  
 	 <!-- Tamano Fin  -->
 	 <!-- Paginacion Inicio -->
@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where oc.estado_ordencompra='Pendiente'
-		order by oc.cod_ordencompra asc limit  #{inicio} ,  #{tamano} 
+		order by oc.cod_ordencompra desc limit  #{inicio} ,  #{tamano} 
 	</select> 
 	<select id="SQL_listaOCXNombrePag" resultType="OrdenCompraBean" parameterType="OrdenCompraBean"  >
 	    select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where usu.nom_usuario like #{nom_usuario} and oc.estado_ordencompra='Pendiente'
-		order by oc.cod_ordencompra asc  limit  #{inicio} ,  #{tamano}  
+		order by oc.cod_ordencompra desc  limit  #{inicio} ,  #{tamano}  
 	</select>  
 	<select id="SQL_listaOCXFechasPag" resultType="OrdenCompraBean" parameterType="OrdenCompraBean"  >
 	    select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where oc.fecharegistro_ordencompra between #{fechaInicio} and #{fechaFin} 
 		and oc.estado_ordencompra='Pendiente'
-		order by oc.cod_ordencompra asc  limit  #{inicio} ,  #{tamano}  
+		order by oc.cod_ordencompra desc  limit  #{inicio} ,  #{tamano}  
 	</select>   
 	<!-- Paginacion Fin -->
 	 
@@ -98,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where oc.estado_ordencompra='Entregada'
-		order by oc.cod_ordencompra asc
+		order by oc.cod_ordencompra desc
 	</select>  
 	<select id="SQL_listaOCXNombreEntregada" resultType="OrdenCompraBean" parameterType="OrdenCompraBean" >
 		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
@@ -107,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where usu.nom_usuario like #{nom_usuario} and oc.estado_ordencompra='Entregada'
-		order by oc.cod_ordencompra asc
+		order by oc.cod_ordencompra desc
 	</select> 
 	<select id="SQL_listaOCXFechasEntregada" resultType="OrdenCompraBean" parameterType="OrdenCompraBean" >
 		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
@@ -116,7 +116,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where oc.fecharegistro_ordencompra between #{fechaInicio} and #{fechaFin} and oc.estado_ordencompra='Entregada'
-		order by oc.cod_ordencompra asc
+		order by oc.cod_ordencompra desc
 	</select>  
 	 <!-- Tamano Fin  -->
 	 <!-- Paginacion Inicio -->
@@ -127,7 +127,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where oc.estado_ordencompra='Entregada'
-		order by oc.cod_ordencompra asc limit  #{inicio} ,  #{tamano} 
+		order by oc.cod_ordencompra desc limit  #{inicio} ,  #{tamano} 
 	</select> 
 	<select id="SQL_listaOCXNombrePagEntregada" resultType="OrdenCompraBean" parameterType="OrdenCompraBean"  >
 	    select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
@@ -136,7 +136,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where usu.nom_usuario like #{nom_usuario} and oc.estado_ordencompra='Entregada'
-		order by oc.cod_ordencompra asc  limit  #{inicio} ,  #{tamano}  
+		order by oc.cod_ordencompra desc  limit  #{inicio} ,  #{tamano}  
 	</select>  
 	<select id="SQL_listaOCXFechasPagEntregada" resultType="OrdenCompraBean" parameterType="OrdenCompraBean"  >
 	    select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
@@ -146,7 +146,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
 		where oc.fecharegistro_ordencompra between #{fechaInicio} and #{fechaFin} 
 		and oc.estado_ordencompra='Entregada'
-		order by oc.cod_ordencompra asc  limit  #{inicio} ,  #{tamano}  
+		order by oc.cod_ordencompra desc  limit  #{inicio} ,  #{tamano}  
 	</select>   
 	<!-- Paginacion Fin -->
 

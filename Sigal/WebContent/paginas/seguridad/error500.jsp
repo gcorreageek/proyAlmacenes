@@ -5,23 +5,24 @@
 <head>
 <link href='http://fonts.googleapis.com/css?family=Pathway+Gothic+One' rel='stylesheet' type='text/css'>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Error 404</title>
+<title>Error 500</title>
 <script language="JavaScript" type="text/javascript">
 
-var pagina="<%=request.getContextPath()%>"+"/inicio"; 
-function redireccionar() 
-{
-location.href=pagina;
-} 
-setTimeout ("redireccionar()", 2000);
+<%-- var pagina="<%=request.getContextPath()%>"+"/inicio";  --%>
+// function redireccionar() 
+// {
+// location.href=pagina;
+// } 
+// setTimeout ("redireccionar()", 2000);
 
 </script>
 </head>
 <body  >
 <div align="center">
 <br><br>
-<img align="top" alt="404" src="<%=request.getContextPath()%>/assets/megamix/images/error404.png">
-<h2  style="font-family: 'Pathway Gothic One', sans-serif;font-size:70px;">Errar es humano! Perdonar es divino!</h2>
+<%-- <img align="top" alt="404" src="<%=request.getContextPath()%>/assets/megamix/images/error404.png"> --%>
+<h2  style="font-family: 'Pathway Gothic One', sans-serif;font-size:200px;">500</h2>
+<!-- <h2  style="font-family: 'Pathway Gothic One', sans-serif;font-size:70px;">Errar es humano! Perdonar es divino!</h2> -->
 </div>
 
 

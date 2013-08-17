@@ -59,7 +59,7 @@
     <div class="container">
 
       <form class="form-signin"  action="login"  method="post"  >
-        <h2 class="form-signin-heading">Inicie sesion</h2>
+        <h2 class="form-signin-heading">Inicie sesi&oacute;n</h2>
         <input type="text"  name="objUsu.usu_usuario"  class="input-block-level" placeholder="Usuario">
         <input type="password" name="objUsu.pass_usuario" class="input-block-level" placeholder="Password">
         <label class="checkbox">

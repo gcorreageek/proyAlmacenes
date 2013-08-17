@@ -25,7 +25,7 @@ import com.sigal.mantenimiento.service.ProductoService;
  */
 @SuppressWarnings("serial")
 @ParentPackage("proy_calidad_SIGAL2")
-public class Reportes extends ActionSupport {
+public class ReportesAction extends ActionSupport {
 	private final Log log = org.apache.commons.logging.LogFactory.getLog(getClass());
 	private final ProductoService objProServ = new ProductoService();
 	private final InformeInternoService  objInfInternoServ = new InformeInternoService();
@@ -49,7 +49,7 @@ public class Reportes extends ActionSupport {
 	}  
 	@Action(value="/reporteProductos",results={@Result(name="success",type="jasper",
 			params= {"format","PDF","contentDisposition","attachment;filename=\"reportes_productos.pdf\"","dataSource","lstProductos"}, 
-			location = "reportes/report1.jasper")})
+			location = "reportes/rpt_productos.jasper")})
 	public String reporteProductos(){  
 		objProducto.setDesc_producto(objProducto.getDesc_producto().trim());
 		if("Seleccionar".equals(objProducto.getUnidadMedida())){
@@ -70,7 +70,7 @@ public class Reportes extends ActionSupport {
 	@Action(value="/reporteInformeInterno",results={@Result(name="success",type="jasper",
 			params= {"format","PDF","contentDisposition","attachment;filename=\"reportes_informes_interno.pdf\"","dataSource","lstInformeInterno"}, 
 			location = "reportes/report2.jasper")})
-	public String reporteInforme(){  
+	public String reporteInforme(){  //rpt_informe_interno.jrxml
 		log.error("Tipo:"+this.tipo);
 		InformeInternoDTO ii = new InformeInternoDTO();
 		if("Seleccionar".equals(this.tipo)){
