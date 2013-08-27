@@ -1,8 +1,9 @@
 <h1>Proyecto Feria de TI de Cibertec </h1>
+<a target="_blank" >http://gcorreageek.github.io/proyAlmacenes</a>
 =============
 <h2>Proyecto SIGAL</h2>  
 =============
-<strong>Web Temporal:http://cibertecsigal.perzc-david.cloudbees.net/</strong><br>
+<strong>Web Temporal:<a target="_blank" >http://presentacioncibertecsigal.perzc-david.cloudbees.net/</a> </strong><br>
 Proyecto de Almacenes para el curso de Calidad.<br>
 Librerias y Frameworks usados:<br>
 <ul> 
