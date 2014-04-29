@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>	
+ 
+	<definition name="d_index" template="/templates/templateBootStrap.jsp">
+		<put-attribute name="header" value="/templates/header.jsp"/>
+		<put-attribute name="menu" value="/templates/menu.jsp"/> 
+		<put-attribute name="body" value="/paginas/inicio/index.jsp"/>
+		<put-attribute name="pie" value="/templates/pie.jsp"/>	
+	</definition> 
+	
+	<!-- Reportes -->
+	<definition name="d_mainreportesinforme" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/reportes/informes.jsp"/>
+ 	</definition>
+	<definition name="d_mainreportesproductos" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/reportes/productos.jsp"/>
+ 	</definition>
+ 	
+ 	
+	<!-- Acceso -->
+	<definition name="d_mainacceso" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_acceso.jsp"/>
+ 	</definition>
+	<!-- Usuario -->
+	<definition name="d_mainusuario" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_usuario.jsp"/>
+ 	</definition>
+ 	<definition name="d_actuarusuario" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_usuario.jsp"/>
+ 	</definition>
+	<!-- 	Cargo -->
+	<definition name="d_maincargo" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_cargo.jsp"/>
+ 	</definition>
+ 	<definition name="d_actuarcargo" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_cargo.jsp"/>
+ 	</definition>
+	<!-- Area -->
+	<definition name="d_mainarea" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_area.jsp"/>
+ 	</definition>
+ 	<definition name="d_actuararea" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_area.jsp"/>
+ 	</definition>
+	<!-- Producto -->
+	<definition name="d_mainproducto" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_producto.jsp"/>
+ 	</definition>
+	<definition name="d_actuarproducto" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_producto.jsp"/>
+ 	</definition> 
+ 	<definition name="leerQR" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/leer_qr.jsp"/>
+ 	</definition>
+ 	<!-- Proveedor -->
+ 	<definition name="d_mainproveedor" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_proveedor.jsp"/>
+ 	</definition>
+	<definition name="d_actuarproveedor" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_proveedor.jsp"/>
+ 	</definition> 
+ 	<!-- ProductoProveedor -->
+ 	<definition name="d_mainproductoproveedor" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/main_producto_proveedor.jsp"/>
+ 	</definition>
+	<definition name="d_actuarproductoproveedor" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/mantenimientos/accion_producto_proveedor.jsp"/>
+ 	</definition>
+ 	<!-- Pedido -->
+ 	<definition name="d_mainpedido" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/pedido/nuevo_pedido.jsp"/>
+ 	</definition>
+	<definition name="d_evaluarPedido" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/pedido/evaluar_pedido.jsp"/>
+ 	</definition>
+ 	<!-- Cotizacion -->
+ 	<definition name="d_maincotizacion" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/cotizacion/nueva_cotizacion.jsp"/>
+ 	</definition>
+ 	<!-- Orden de Compra -->
+ 	<definition name="d_mainordencompra" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/orden_compra/nueva_orden_compra.jsp"/>
+ 	</definition>
+	<!-- Informe Interno -->
+ 	<definition name="d_maininformeinternosalida" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/informe_interno/main_informe_interno_salida.jsp"/>
+ 	</definition>
+ 	<definition name="d_maininformeinternoentrada" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/informe_interno/main_informe_interno_entrada.jsp"/>
+ 	</definition>
+ 	<!-- Informe Externo -->
+ 	<definition name="d_maininformeexternoentrada" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/informe_externo/main_informe_externo_entrada.jsp"/>
+ 	</definition> 
+ 	<definition name="d_maininformeexternosalida" extends="d_index">
+ 		<put-attribute name="body" value="/paginas/informe_externo/main_informe_externo_salida.jsp"/>
+ 	</definition> 
+ 	
+ 	
+ 	
+</tiles-definitions>

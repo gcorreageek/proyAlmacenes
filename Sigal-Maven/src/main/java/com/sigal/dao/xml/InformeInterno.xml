@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ii"> 
+<!--    select cod_informe_interno,fecha_informe_interno, -->
+<!-- tipo_informe_interno, cod_usuario, cod_pedido from tb_informe_interno -->
+    
+	 
+    
+	<insert id="SQL_registraII"  parameterType="InformeInternoBean" useGeneratedKeys="true"
+      keyProperty="cod_informe_interno"   > 
+		insert into tb_informe_interno(fecha_informe_interno,tipo_informe_interno,
+		cod_usuario,cod_pedido,obs_informeinterno) values(NOW(),#{tipo_informe_interno},
+		#{cod_usuario},#{cod_pedido},#{obs_informeinterno}) 
+	</insert> 
+	
+ 	<select id="SQL_listaInformeInterno" resultType="InformeInternoBean"   >
+	    select * from tb_informe_interno inf_int
+		inner join tb_usuario usu on usu.cod_usuario=inf_int.cod_usuario
+		inner join tb_cargo cargo on cargo.cod_cargo= usu.cod_cargo
+		inner join tb_area area on area.cod_area = cargo.cod_area
+		inner join tb_pedido ped on inf_int.cod_pedido=ped.cod_solicitudpedido
+		inner join tb_informe_interno_detalle inf_int_det on inf_int_det.cod_informe_interno=inf_int.cod_informe_interno
+		inner join tb_pedido_detalle ped_det on ped_det.cod_detallepedido=inf_int_det.cod_detalle_pedido
+		inner join tb_producto prod on prod.cod_producto=ped_det.cod_producto
+		where inf_int.tipo_informe_interno like  #{tipo_informe_interno} 
+		order by inf_int.cod_informe_interno desc ;
+	</select> 
+	<select id="SQL_getInformeInterno" resultType="InformeInternoBean"   >
+	    select * from tb_informe_interno inf_int
+		inner join tb_usuario usu on usu.cod_usuario=inf_int.cod_usuario
+		inner join tb_cargo cargo on cargo.cod_cargo= usu.cod_cargo
+		inner join tb_area area on area.cod_area = cargo.cod_area
+		inner join tb_pedido ped on inf_int.cod_pedido=ped.cod_solicitudpedido
+		inner join tb_informe_interno_detalle inf_int_det on inf_int_det.cod_informe_interno=inf_int.cod_informe_interno
+		inner join tb_pedido_detalle ped_det on ped_det.cod_detallepedido=inf_int_det.cod_detalle_pedido
+		inner join tb_producto prod on prod.cod_producto=ped_det.cod_producto
+		where inf_int.cod_informe_interno =  #{cod_informe_interno} 
+		order by inf_int.cod_informe_interno desc ;
+	</select> 
+
+	
+</mapper>

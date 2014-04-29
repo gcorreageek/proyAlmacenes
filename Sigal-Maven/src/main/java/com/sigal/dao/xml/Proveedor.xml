@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="proveedor">
+	<select id="SQL_listaProveedor" resultType="ProveedorBean">
+	    select provee.* from tb_proveedor	provee  order by provee.cod_proveedor
+	</select>  
+	<select id="SQL_listaProveedorRazonSocial" resultType="ProveedorBean">
+	    select provee.* from tb_proveedor	provee where provee.raz_social like  #{raz_social}	  order by provee.cod_proveedor
+	</select> 
+	<select id="SQL_listaProveedorPaginados" resultType="ProveedorBean" parameterType="ProveedorBean"  >
+	    select provee.* from tb_proveedor	provee  order by provee.cod_proveedor  limit  #{inicio} ,  #{tamano}
+	</select>
+	<select id="SQL_listaProveedorRazonSocialPaginados" resultType="ProveedorBean" parameterType="ProveedorBean"  >
+	    select provee.* from tb_proveedor	provee where provee.raz_social like  #{raz_social}	  order by provee.cod_proveedor  limit  #{inicio} ,  #{tamano}
+	</select> 
+	
+	
+	
+	<!-- 	aparte -->
+	<select id="SQL_registraProveedor"  parameterType="ProveedorBean" >
+		insert into tb_proveedor(raz_social,ruc,telefono,correo,habilitado) values(#{raz_social},#{ruc},#{telefono},#{correo},#{habilitado})
+	</select> 
+	<select id="SQL_getProveedorXCodProveedor" resultType="ProveedorBean">
+	    select provee.* from tb_proveedor	provee where provee.cod_proveedor =  #{cod_proveedor}	   
+	</select>
+	<select id="SQL_deleteProveedor"  parameterType="ProveedorBean" >
+	delete from tb_proveedor where cod_proveedor = #{cod_proveedor}  
+	</select> 
+	<select id="SQL_updateProveedor"  parameterType="ProveedorBean" >
+	update tb_proveedor set raz_social=#{raz_social} , correo=#{correo},ruc=#{ruc}, telefono=#{telefono},habilitado=#{habilitado}
+	where cod_proveedor = #{cod_proveedor} 
+	</select> 
+	
+	
+	
+	
+	
+	<select id="SQL_listaProveedorPaginadosHabilitados" resultType="ProveedorBean" parameterType="ProveedorBean"  >
+	    select provee.* from tb_proveedor	provee where provee.habilitado='Habilitado' order by provee.cod_proveedor  limit  #{inicio} ,  #{tamano}
+	</select>
+	<select id="SQL_listaProveedorRazonSocialPaginadosHabilitados" resultType="ProveedorBean" parameterType="ProveedorBean"  >
+	    select provee.* from tb_proveedor	provee where provee.habilitado='Habilitado'  and provee.raz_social like  #{raz_social}	  order by provee.cod_proveedor  limit  #{inicio} ,  #{tamano}
+	</select> 
+	<select id="SQL_listaProveedorHabilitados" resultType="ProveedorBean">
+	    select provee.* from tb_proveedor	provee  where provee.habilitado='Habilitado' order by provee.cod_proveedor
+	</select> 
+	<select id="SQL_listaProveedorRazonSocialHabilitados" resultType="ProveedorBean">
+	    select provee.* from tb_proveedor	provee where provee.habilitado='Habilitado'  and provee.raz_social like  #{raz_social}	  order by provee.cod_proveedor
+	</select> 
+	
+</mapper>

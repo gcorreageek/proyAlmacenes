@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ie"> 
+<!-- select cod_informe_externo,fecha_informe_externo, -->
+<!-- tipo_informe_externo,cod_usuario,cod_ordencompra,obs_informeexterno -->
+<!--  from tb_informe_externo; --> 
+	<insert id="SQL_registraIE"  parameterType="InformeExternoBean" useGeneratedKeys="true"
+      keyProperty="cod_informe_externo"   > 
+		insert into tb_informe_externo(fecha_informe_externo,tipo_informe_externo,
+		cod_usuario,cod_ordencompra,obs_informeexterno) values(NOW(),#{tipo_informe_externo},
+		#{cod_usuario},#{cod_ordencompra},#{obs_informeexterno}) 
+	</insert> 
+	<select id="SQL_listaInformeExterno" resultType="InformeExternoBean"   > 
+		SELECT * FROM tb_informe_externo inf_ext
+		inner join tb_usuario usu on inf_ext.cod_usuario = usu.cod_usuario
+		inner join tb_cargo cargo on cargo.cod_cargo= usu.cod_cargo
+		inner join tb_area area on area.cod_area = cargo.cod_area
+		inner join tb_ordencompra orden on orden.cod_OrdenCompra=inf_ext.cod_ordencompra
+		inner join tb_cotizacion cot on cot.cod_cotizacion=orden.cod_cotizacion
+		inner join tb_informe_externo_detalle inf_ext_det on inf_ext_det.cod_informe_externo=inf_ext.cod_informe_externo
+		inner join tb_ordencompra_detalle orden_det on orden_det.cod_DetalleOrdenCompra=inf_ext_det.cod_detalle_ordencompra
+		inner join tb_producto_proveedor prod_provee on prod_provee.cod_producto_proveedor=orden_det.cod_producto_proveedor
+		inner join tb_producto prod on prod.cod_producto=prod_provee.cod_producto
+		inner join tb_proveedor provee on provee.cod_proveedor=prod_provee.cod_proveedor
+		where inf_ext.tipo_informe_externo like #{tipo_informe_externo} 
+		order by inf_ext.cod_informe_externo desc
+	</select> 
+	<select id="SQL_getInformeExterno" resultType="InformeExternoBean"   >
+	    SELECT * FROM tb_informe_externo inf_ext
+		inner join tb_usuario usu on inf_ext.cod_usuario = usu.cod_usuario
+		inner join tb_cargo cargo on cargo.cod_cargo= usu.cod_cargo
+		inner join tb_area area on area.cod_area = cargo.cod_area
+		inner join tb_ordencompra orden on orden.cod_OrdenCompra=inf_ext.cod_ordencompra
+		inner join tb_cotizacion cot on cot.cod_cotizacion=orden.cod_cotizacion
+		inner join tb_informe_externo_detalle inf_ext_det on inf_ext_det.cod_informe_externo=inf_ext.cod_informe_externo
+		inner join tb_ordencompra_detalle orden_det on orden_det.cod_DetalleOrdenCompra=inf_ext_det.cod_detalle_ordencompra
+		inner join tb_producto_proveedor prod_provee on prod_provee.cod_producto_proveedor=orden_det.cod_producto_proveedor
+		inner join tb_producto prod on prod.cod_producto=prod_provee.cod_producto
+		inner join tb_proveedor provee on provee.cod_proveedor=prod_provee.cod_proveedor
+		where inf_ext.cod_informe_externo = #{cod_informe_externo} 
+		order by inf_ext.cod_informe_externo desc
+	</select>
+ 
+
+	
+</mapper>

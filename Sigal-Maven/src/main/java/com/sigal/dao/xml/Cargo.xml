@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cargo">
+	
+	<select id="SQL_listaCod_area" resultType="CargoBean">
+	    select cargo.* from tb_cargo cargo where cargo.cod_area=#{cod_area}	 order by 	cargo.cod_cargo desc
+	</select>
+	
+<!-- 	dd -->
+	<select id="SQL_listaCargo" resultType="CargoBean">
+	    select cargo.*,area.* from tb_cargo	cargo inner join tb_area area on cargo.cod_area=area.cod_area	 order by 	cargo.cod_cargo desc
+	</select> 
+	<select id="SQL_listaDesc_cargo" resultType="CargoBean">
+	    select cargo.*,area.* from tb_cargo	cargo inner join tb_area area on cargo.cod_area=area.cod_area where cargo.desc_cargo like  #{desc_cargo}	  order by cargo.cod_cargo
+	</select> 
+	<select id="SQL_listaCargoPaginados" resultType="CargoBean" parameterType="CargoBean"  >
+	    select cargo.*,area.* from tb_cargo	cargo inner join tb_area area on cargo.cod_area=area.cod_area  order by cargo.cod_cargo  limit  #{inicio} ,  #{tamano}
+	</select>
+	<select id="SQL_listaCargoDesc_cargoPaginados" resultType="CargoBean" parameterType="CargoBean"  >
+	    select cargo.*,area.* from tb_cargo	cargo inner join tb_area area on cargo.cod_area=area.cod_area where cargo.desc_cargo like  #{desc_cargo}	  order by cargo.cod_cargo  limit  #{inicio} ,  #{tamano}
+	</select> 
+<!-- 	dd -->
+	
+	
+	
+	
+	<select id="SQL_registraCargo"  parameterType="CargoBean" >
+		insert into tb_cargo(desc_cargo,cod_area) values(#{desc_cargo},#{cod_area})
+	</select>  
+	<select id="SQL_deleteCargo"  parameterType="CargoBean" >
+	delete from tb_cargo where cod_cargo = #{cod_cargo}  
+	</select> 
+	<select id="SQL_updateCargo"  parameterType="CargoBean" >
+	update tb_cargo set desc_cargo=#{desc_cargo} ,cod_area=#{cod_area} 
+	where cod_cargo = #{cod_cargo} 
+	</select> 
+	 
+	<select id="SQL_getCargo" resultType="CargoBean">
+	    select car.* from tb_cargo	car	where car.cod_cargo=#{cod_cargo}	
+	</select> 
+	        
+</mapper>

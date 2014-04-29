@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cotizacion"> 
+     
+    <!-- Tamano Inicio  -->
+	<select id="SQL_listaCotizacion" resultType="CotizacionBean">
+	    select cot.*,usu.*,cargo.*,area.*,provee.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
+		order by cot.cod_cotizacion desc
+	</select>  
+	<select id="SQL_listaCotizacionXNombre" resultType="CotizacionBean" parameterType="CotizacionBean" >
+		select cot.*,usu.*,cargo.*,area.*,provee.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
+		where usu.nom_usuario like #{nom_usuario}
+		order by cot.cod_cotizacion desc
+	</select> 
+	<select id="SQL_listaCotizacionXFechas" resultType="CotizacionBean" parameterType="CotizacionBean" >
+		select cot.*,usu.*,cargo.*,area.*,provee.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
+		where cot.fecharegistro_cotizacion between #{fechaInicio} and #{fechaFin}
+		order by cot.cod_cotizacion desc
+	</select>  
+	 <!-- Tamano Fin  -->
+	 <!-- Paginacion Inicio -->
+	<select id="SQL_listaCotizacionPag" resultType="CotizacionBean" parameterType="CotizacionBean"  >
+		select cot.*,usu.*,cargo.*,area.*,provee.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
+		order by cot.cod_cotizacion desc limit  #{inicio} ,  #{tamano} 
+	</select> 
+	<select id="SQL_listaCotizacionXNombrePag" resultType="CotizacionBean" parameterType="CotizacionBean"  >
+	    select cot.*,usu.*,cargo.*,area.*,provee.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
+		where usu.nom_usuario like #{nom_usuario} 
+		order by cot.cod_cotizacion desc  limit  #{inicio} ,  #{tamano}  
+	</select>  
+	<select id="SQL_listaCotizacionXFechasPag" resultType="CotizacionBean" parameterType="CotizacionBean"  >
+	    select cot.*,usu.*,cargo.*,area.*,provee.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
+		where cot.fecharegistro_cotizacion between #{fechaInicio} and #{fechaFin}
+		order by cot.cod_cotizacion desc  limit  #{inicio} ,  #{tamano}  
+	</select>   
+	<!-- Paginacion Fin -->
+	 
+    
+	<insert id="SQL_registraCotizacion"  parameterType="CotizacionBean" useGeneratedKeys="true"
+      keyProperty="cod_cotizacion"   > 
+		insert into tb_cotizacion(cod_usuario,fecharegistro_cotizacion,
+		cod_proveedor) values(#{cod_usuario},NOW(),
+		#{cod_proveedor}) 
+	</insert> 
+	
+	<select id="SQL_getPedido" resultType="CotizacionBean">
+		select cot.*,usu.*,cargo.*,area.*,provee.* from tb_cotizacion cot inner join tb_usuario usu on cot.cod_usuario=usu.cod_usuario 
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=cot.cod_proveedor
+		where cot.cod_cotizacion =  #{cod_cotizacion} 	   
+	</select>
+
+	
+</mapper>

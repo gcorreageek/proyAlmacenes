@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menu">
+	 
+	<select id="SQL_listaMenuXCargo" resultType="MenuBean" parameterType="String">
+	    select menu.* from tb_menu menu,tb_acceso_menu acceso
+		where menu.cod_menu = acceso.cod_menu and acceso.cod_cargo=#{codigo}  order by menu.orden_menu				
+	</select> 
+	 <select id="SQL_listaMenuConTipo1" resultType="MenuBean" parameterType="String">
+	    select * from tb_menu where tipo_menu=1  order by orden_menu				
+	</select>
+	<select id="SQL_listaMenuConTipo2XSubMenu" resultType="MenuBean" parameterType="Integer">
+	    select * from tb_menu where tipo_menu=2
+		and id_submenu=#{codigo}  order by orden_menu				
+	</select> 
+	<select id="SQL_getMenu" resultType="MenuBean" parameterType="Integer">
+	    select * from tb_menu where cod_menu=#{cod_menu}  order by orden_menu				
+	</select>     
+</mapper>

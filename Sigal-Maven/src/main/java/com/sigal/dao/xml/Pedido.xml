@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pedido"> 
+     
+    <!-- Tamano Inicio  -->
+	<select id="SQL_listaPedido" resultType="PedidoBean">
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu
+		on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo
+		on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area
+		on cargo.cod_area= area.cod_area
+		order by ped.cod_solicitudPedido desc
+	</select>  
+	<select id="SQL_listaPedidoXNombre" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where usu.nom_usuario like #{nom_usuario}
+		order by ped.cod_solicitudPedido desc
+	</select>
+	<select id="SQL_listaPedidoXArea" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where area.cod_area=#{cod_area}
+		order by ped.cod_solicitudPedido desc
+	</select> 
+	<select id="SQL_listaPedidoXFechas" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.fechaRegistro_pedido between #{fechaInicio} and #{fechaFin}
+		order by ped.cod_solicitudPedido desc
+	</select> 
+	<select id="SQL_listaPedidoXTipo" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.tipo_pedido=#{tipo_pedido}
+		order by ped.cod_solicitudPedido desc
+	</select> 
+<!-- 	<select id="SQL_listaPedidoXIdProducto" resultType="PedidoBean" parameterType="PedidoBean" > -->
+<!-- 		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario -->
+<!-- 		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo -->
+<!-- 		inner join tb_area area on cargo.cod_area= area.cod_area -->
+<!-- 		inner join tb_pedido_detalle det on ped.cod_solicitudpedido=det.cod_solicitudpedido -->
+		
+<!-- 		where ped.tipo_pedido=#{tipo_pedido} -->
+<!-- 		order by ped.cod_solicitudPedido desc -->
+<!-- 	</select>  -->
+	 <!-- Tamano Fin  -->
+	 <!-- Paginacion Inicio -->
+	<select id="SQL_listaPedidoPag" resultType="PedidoBean" parameterType="PedidoBean"  >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu
+		on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo
+		on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area
+		on cargo.cod_area= area.cod_area
+		order by ped.cod_solicitudPedido desc limit  #{inicio} ,  #{tamano} 
+	</select> 
+	<select id="SQL_listaPedidoXNombrePag" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where usu.nom_usuario like #{nom_usuario} 
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+	<select id="SQL_listaPedidoXAreaPag" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where area.cod_area=#{cod_area}
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+	<select id="SQL_listaPedidoXFechasPag" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.fechaRegistro_pedido between #{fechaInicio} and #{fechaFin}
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+	<select id="SQL_listaPedidoXTipoPag" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.tipo_pedido=#{tipo_pedido}
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+	<!-- Paginacion Fin -->
+	
+	
+    
+    
+    <update id="SQL_actualizarPedido" parameterType="PedidoBean" >
+        update tb_pedido set estado_pedido= #{estado_pedido}, comentarioevaluacion_pedido=#{comentarioevaluacion_pedido},
+        fechaEvaluacion_pedido= NOW()
+        where cod_solicitudPedido =  #{cod_solicitudPedido}  
+    </update>
+    <update id="SQL_actualizarPedidoEstado" parameterType="PedidoBean"  >
+        update tb_pedido set estado_pedido= #{estado_pedido} 
+        where cod_solicitudPedido =  #{cod_solicitudPedido}  
+    </update>
+    
+    
+	<insert id="SQL_registraPedido"  parameterType="PedidoBean" useGeneratedKeys="true"
+      keyProperty="cod_solicitudPedido"   >
+		insert into tb_pedido(cod_usuario,comentario_pedido,tipo_pedido,
+		fechaDevolucion_pedido,fechaRegistro_pedido,fechaEntrega_pedido,
+		estado_pedido) values(#{cod_usuario},#{comentario_pedido},#{tipo_pedido},
+		#{fechaDevolucion_pedido},NOW(),#{fechaEntrega_pedido},
+		#{estado_pedido}) 
+	</insert> 
+	
+	<select id="SQL_getPedido" resultType="PedidoBean">
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu
+		on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo
+		on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area
+		on cargo.cod_area= area.cod_area
+		where ped.cod_solicitudPedido =  #{cod_solicitudPedido} 	   
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="SQL_listaPedidoPagSinAtender" resultType="PedidoBean" parameterType="PedidoBean"  >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu
+		on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo
+		on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area
+		on cargo.cod_area= area.cod_area
+		where ped.estado_pedido='Sin Atender'
+		order by ped.cod_solicitudPedido desc limit  #{inicio} ,  #{tamano} 
+	</select> 
+	<select id="SQL_listaPedidoXNombrePagSinAtender" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where usu.nom_usuario like #{nom_usuario} and ped.estado_pedido='Sin Atender'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+		<select id="SQL_listaPedidoXAreaPagSinAtender" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where area.cod_area=#{cod_area} and ped.estado_pedido='Sin Atender'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+	<select id="SQL_listaPedidoXFechasPagSinAtender" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.fechaRegistro_pedido between #{fechaInicio} and #{fechaFin} and ped.estado_pedido='Sin Atender'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+	<select id="SQL_listaPedidoXTipoPagSinAtender" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.tipo_pedido=#{tipo_pedido} and ped.estado_pedido='Sin Atender'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select>
+	
+	
+	
+	<select id="SQL_listaPedidoSinAtender" resultType="PedidoBean">
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu
+		on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo
+		on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area
+		on cargo.cod_area= area.cod_area
+		where ped.estado_pedido='Sin Atender'
+		order by ped.cod_solicitudPedido desc
+	</select>  
+	<select id="SQL_listaPedidoXNombreSinAtender" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where usu.nom_usuario like #{nom_usuario} and ped.estado_pedido='Sin Atender'
+		order by ped.cod_solicitudPedido desc
+	</select>
+	<select id="SQL_listaPedidoXAreaSinAtender" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where area.cod_area=#{cod_area} and ped.estado_pedido='Sin Atender'
+		order by ped.cod_solicitudPedido desc
+	</select> 
+	<select id="SQL_listaPedidoXFechasSinAtender" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.fechaRegistro_pedido between #{fechaInicio} and #{fechaFin} and ped.estado_pedido='Sin Atender'
+		order by ped.cod_solicitudPedido desc
+	</select> 
+	<select id="SQL_listaPedidoXTipoSinAtender" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.tipo_pedido=#{tipo_pedido} and ped.estado_pedido='Sin Atender'
+		order by ped.cod_solicitudPedido desc
+	</select> 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="SQL_listaPedidoPagAprobado" resultType="PedidoBean" parameterType="PedidoBean"  >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu
+		on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo
+		on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area
+		on cargo.cod_area= area.cod_area
+		where ped.estado_pedido='Aprobado'
+		order by ped.cod_solicitudPedido desc limit  #{inicio} ,  #{tamano} 
+	</select> 
+	<select id="SQL_listaPedidoXNombrePagAprobado" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where usu.nom_usuario like #{nom_usuario} and ped.estado_pedido='Aprobado'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+		<select id="SQL_listaPedidoXAreaPagAprobado" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where area.cod_area=#{cod_area} and ped.estado_pedido='Aprobado'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+	<select id="SQL_listaPedidoXFechasPagAprobado" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.fechaRegistro_pedido between #{fechaInicio} and #{fechaFin} and ped.estado_pedido='Aprobado'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+	<select id="SQL_listaPedidoXTipoPagAprobado" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.tipo_pedido=#{tipo_pedido} and ped.estado_pedido='Aprobado'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select>
+	
+	
+	
+	<select id="SQL_listaPedidoAprobado" resultType="PedidoBean">
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu
+		on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo
+		on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area
+		on cargo.cod_area= area.cod_area
+		where ped.estado_pedido='Aprobado'
+		order by ped.cod_solicitudPedido desc
+	</select>  
+	<select id="SQL_listaPedidoXNombreAprobado" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where usu.nom_usuario like #{nom_usuario} and ped.estado_pedido='Aprobado'
+		order by ped.cod_solicitudPedido desc
+	</select>
+	<select id="SQL_listaPedidoXAreaAprobado" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where area.cod_area=#{cod_area} and ped.estado_pedido='Aprobado'
+		order by ped.cod_solicitudPedido desc
+	</select> 
+	<select id="SQL_listaPedidoXFechasAprobado" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.fechaRegistro_pedido between #{fechaInicio} and #{fechaFin} and ped.estado_pedido='Aprobado'
+		order by ped.cod_solicitudPedido desc
+	</select> 
+	<select id="SQL_listaPedidoXTipoAprobado" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.tipo_pedido=#{tipo_pedido} and ped.estado_pedido='Aprobado'
+		order by ped.cod_solicitudPedido desc
+	</select> 
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- 	falta devolver -->
+
+	<select id="SQL_listaPedidoPagFaltaDevolver" resultType="PedidoBean" parameterType="PedidoBean"  >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu
+		on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo
+		on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area
+		on cargo.cod_area= area.cod_area
+		where ped.estado_pedido='Falta Devolver'
+		order by ped.cod_solicitudPedido desc limit  #{inicio} ,  #{tamano} 
+	</select> 
+	<select id="SQL_listaPedidoXNombrePagFaltaDevolver" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where usu.nom_usuario like #{nom_usuario} and ped.estado_pedido='Falta Devolver'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+		<select id="SQL_listaPedidoXAreaPagFaltaDevolver" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where area.cod_area=#{cod_area} and ped.estado_pedido='Falta Devolver'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+	<select id="SQL_listaPedidoXFechasPagFaltaDevolver" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.fechaRegistro_pedido between #{fechaInicio} and #{fechaFin} and ped.estado_pedido='Falta Devolver'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select> 
+	<select id="SQL_listaPedidoXTipoPagFaltaDevolver" resultType="PedidoBean" parameterType="PedidoBean"  >
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.tipo_pedido=#{tipo_pedido} and ped.estado_pedido='Falta Devolver'
+		order by ped.cod_solicitudPedido desc  limit  #{inicio} ,  #{tamano}  
+	</select>
+	
+	
+	
+	<select id="SQL_listaPedidoFaltaDevolver" resultType="PedidoBean">
+	    select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu
+		on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo
+		on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area
+		on cargo.cod_area= area.cod_area
+		where ped.estado_pedido='Falta Devolver'
+		order by ped.cod_solicitudPedido desc
+	</select>  
+	<select id="SQL_listaPedidoXNombreFaltaDevolver" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where usu.nom_usuario like #{nom_usuario} and ped.estado_pedido='Falta Devolver'
+		order by ped.cod_solicitudPedido desc
+	</select>
+	<select id="SQL_listaPedidoXAreaFaltaDevolver" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where area.cod_area=#{cod_area} and ped.estado_pedido='Falta Devolver'
+		order by ped.cod_solicitudPedido desc
+	</select> 
+	<select id="SQL_listaPedidoXFechasFaltaDevolver" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.fechaRegistro_pedido between #{fechaInicio} and #{fechaFin} and ped.estado_pedido='Falta Devolver'
+		order by ped.cod_solicitudPedido desc
+	</select> 
+	<select id="SQL_listaPedidoXTipoFaltaDevolver" resultType="PedidoBean" parameterType="PedidoBean" >
+		select ped.*,usu.*,cargo.*,area.* from tb_pedido ped inner join tb_usuario usu on ped.cod_usuario=usu.cod_usuario
+		inner join tb_cargo  cargo on usu.cod_cargo= cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area= area.cod_area
+		where ped.tipo_pedido=#{tipo_pedido} and ped.estado_pedido='Falta Devolver'
+		order by ped.cod_solicitudPedido desc
+	</select> 
+
+	
+</mapper>

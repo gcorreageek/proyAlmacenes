@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8feaf61-2b55-4de8-b380-bb9125636119">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<field name="fecha_informe_externo" class="java.sql.Date">
+		<fieldDescription><![CDATA[fecha_informe_externo]]></fieldDescription>
+	</field>
+	<field name="nom_usuario" class="java.lang.String">
+		<fieldDescription><![CDATA[nom_usuario]]></fieldDescription>
+	</field>
+	<field name="estado_ordencompra" class="java.lang.String">
+		<fieldDescription><![CDATA[estado_ordencompra]]></fieldDescription>
+	</field>
+	<field name="cod_usuario" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cod_usuario]]></fieldDescription>
+	</field>
+	<field name="tamano" class="java.lang.Integer">
+		<fieldDescription><![CDATA[tamano]]></fieldDescription>
+	</field>
+	<field name="cod_ordencompra" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cod_ordencompra]]></fieldDescription>
+	</field>
+	<field name="desc_area" class="java.lang.String">
+		<fieldDescription><![CDATA[desc_area]]></fieldDescription>
+	</field>
+	<field name="cod_informe_externo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cod_informe_externo]]></fieldDescription>
+	</field>
+	<field name="obs_informeexterno" class="java.lang.String">
+		<fieldDescription><![CDATA[obs_informeexterno]]></fieldDescription>
+	</field>
+	<field name="desc_cargo" class="java.lang.String">
+		<fieldDescription><![CDATA[desc_cargo]]></fieldDescription>
+	</field>
+	<field name="fecharegistro_ordencompra" class="java.sql.Date">
+		<fieldDescription><![CDATA[fecharegistro_ordencompra]]></fieldDescription>
+	</field>
+	<field name="tipo_informe_externo" class="java.lang.String">
+		<fieldDescription><![CDATA[tipo_informe_externo]]></fieldDescription>
+	</field>
+	<field name="detalle" class="net.sf.jasperreports.engine.JRDataSource">
+		<fieldDescription><![CDATA[detalle]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="cbaa66df-6dd5-4220-9dbe-1d6c213c0a34" x="102" y="6" width="341" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Informe Externo]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e2fb4f67-5019-4b79-85ea-5a6afb2badab" x="455" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Sigal]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="1" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8699464f-3aca-4994-a337-722e2f597068" x="3" y="5" width="59" height="20"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="01f4e8ab-0846-43d3-9f2a-a5bf369572f7" x="62" y="5" width="149" height="20"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{nom_usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a4add95b-71c7-41c0-8a49-ad68908d4eee" x="211" y="5" width="44" height="20"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="7d8877cd-5a1d-4518-a910-8abfc25f386a" x="255" y="5" width="83" height="20"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{desc_cargo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="bbbd60b4-8e1e-4fe2-8475-bf92e7c58adf" x="338" y="5" width="32" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Area:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="0df4d4b9-9cb1-4744-b787-6304b663ccaf" x="370" y="5" width="75" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{desc_area}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5ce6ac88-3049-4e93-83eb-276676ac554e" x="494" y="5" width="61" height="20"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{fecha_informe_externo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3571cd09-d60c-424c-a5d0-d25e7b61a8d1" x="455" y="5" width="39" height="20"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e9af658f-eeb3-4e10-8539-a1bca28879c0" x="3" y="22" width="30" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b00a10a7-6eee-4655-b5ba-54d7fac3be2d" x="33" y="22" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tipo_informe_externo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1839259e-c8b6-4b76-bab6-4c5558b43bb2" x="102" y="22" width="62" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha OC:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="72ab7126-05bb-424f-b6a7-13c03f73770d" x="164" y="22" width="64" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecharegistro_ordencompra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3de95872-b1f7-4b46-b999-34321e043a10" x="228" y="22" width="68" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado OC:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="4dd1fd6b-d4f6-4d0f-ad6d-4f16ab03356d" x="296" y="22" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{estado_ordencompra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c4096d77-ec35-4230-8bbd-a04fd5db41fc" x="3" y="42" width="77" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observacion:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="e6eaf9c1-6bb7-41da-9c0d-3ebbd081ab05" x="80" y="42" width="475" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{obs_informeexterno}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="e9377f6d-62f6-4c51-b052-8efed67c7053" x="11" y="62" width="523" height="33"/>
+				<dataSourceExpression><![CDATA[$F{detalle}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["report3_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="productoproveedor">
+    <!-- Tamano Inicio  -->
+	<select id="SQL_listaProductoProveedor" resultType="ProductoProveedorBean">
+	    select prod_provee.*,provee.*,prod.*
+		from tb_proveedor provee inner join tb_producto_proveedor prod_provee  
+		on provee.cod_proveedor=prod_provee.cod_proveedor
+		inner join  tb_producto prod
+		on prod.cod_producto=prod_provee.cod_producto
+		order by prod_provee.cod_producto_proveedor
+	</select>  
+	<select id="SQL_listaProductoProveedorRazonSocialAndDescProducto" resultType="ProductoProveedorBean">
+		select prod_provee.*,provee.*,prod.*
+		from tb_proveedor provee inner join tb_producto_proveedor prod_provee  
+		on provee.cod_proveedor=prod_provee.cod_proveedor
+		inner join  tb_producto prod
+		on prod.cod_producto=prod_provee.cod_producto
+		where provee.raz_social like  #{raz_social} || prod.desc_producto like   #{desc_producto}
+		order by prod_provee.cod_producto_proveedor 
+	</select> 
+	 <!-- Tamano Fin  -->
+	 <!-- Paginacion Inicio -->
+	<select id="SQL_listaProductoProveedorPaginados" resultType="ProductoProveedorBean" parameterType="ProductoProveedorBean"  >
+		select prod_provee.*,provee.*,prod.*
+		from tb_proveedor provee inner join tb_producto_proveedor prod_provee  
+		on provee.cod_proveedor=prod_provee.cod_proveedor
+		inner join  tb_producto prod
+		on prod.cod_producto=prod_provee.cod_producto 
+		order by prod_provee.cod_producto_proveedor limit  #{inicio} ,  #{tamano} 
+	</select>
+	<select id="SQL_listaProductoProveedorRazonSocialDescProductoPaginados" resultType="ProductoProveedorBean" parameterType="ProductoProveedorBean"  >
+	    select prod_provee.*,provee.*,prod.*
+		from tb_proveedor provee inner join tb_producto_proveedor prod_provee  
+		on provee.cod_proveedor=prod_provee.cod_proveedor
+		inner join  tb_producto prod
+		on prod.cod_producto=prod_provee.cod_producto 
+		where provee.raz_social like  #{raz_social} and  prod.desc_producto like   #{desc_producto}
+		order by prod_provee.cod_producto_proveedor  limit  #{inicio} ,  #{tamano}  
+	</select> 
+	<!-- Paginacion Fin -->
+	
+	
+	
+	<select id="SQL_registraProductoProveedor"  parameterType="ProductoProveedorBean" >
+		insert into tb_producto_proveedor(cod_producto,cod_proveedor) values(#{cod_producto},#{cod_proveedor})
+	</select>  
+	<select id="SQL_deleteProductoProveedor"  parameterType="ProductoProveedorBean" >
+	delete from tb_producto_proveedor where  cod_producto_proveedor =  #{cod_producto_proveedor}  
+	</select> 
+	<select id="SQL_updateProductoProveedor"  parameterType="ProductoProveedorBean" >
+	update tb_producto_proveedor set cod_producto=#{cod_producto} , cod_proveedor=#{cod_proveedor}
+	where  cod_producto_proveedor =  #{cod_producto_proveedor}  
+	</select> 
+	<select id="SQL_getProductoProveedorXCodProductoProveedor" resultType="ProductoProveedorBean">
+		select prod_provee.*,provee.*,prod.*
+		from tb_proveedor provee inner join tb_producto_proveedor prod_provee  
+		on provee.cod_proveedor=prod_provee.cod_proveedor
+		inner join  tb_producto prod
+		on prod.cod_producto=prod_provee.cod_producto
+		where prod_provee.cod_producto_proveedor =  #{cod_producto_proveedor} 	   
+	</select>
+	<select id="SQL_getProductoProveedorXcodProdAndCodProvee" resultType="ProductoProveedorBean" parameterType="ProductoProveedorBean">
+		select prod_provee.*,provee.*,prod.*
+		from tb_proveedor provee inner join tb_producto_proveedor prod_provee  
+		on provee.cod_proveedor=prod_provee.cod_proveedor
+		inner join  tb_producto prod
+		on prod.cod_producto=prod_provee.cod_producto
+		where prod_provee.cod_proveedor =  #{cod_proveedor} and prod_provee.cod_producto=#{cod_producto} 	   
+	</select>
+	
+</mapper>

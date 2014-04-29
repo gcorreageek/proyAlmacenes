@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d1ad32fe-52d1-48d3-ad07-eca4727bea9f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Calibri" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<field name="cod_usuario" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cod_usuario]]></fieldDescription>
+	</field>
+	<field name="nom_usuario" class="java.lang.String">
+		<fieldDescription><![CDATA[nom_usuario]]></fieldDescription>
+	</field>
+	<field name="obs_informeinterno" class="java.lang.String">
+		<fieldDescription><![CDATA[obs_informeinterno]]></fieldDescription>
+	</field>
+	<field name="cod_informe_interno" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cod_informe_interno]]></fieldDescription>
+	</field>
+	<field name="tipo_informe_interno" class="java.lang.String">
+		<fieldDescription><![CDATA[tipo_informe_interno]]></fieldDescription>
+	</field>
+	<field name="fecha_informe_interno" class="java.sql.Date">
+		<fieldDescription><![CDATA[fecha_informe_interno]]></fieldDescription>
+	</field>
+	<field name="detalle" class="net.sf.jasperreports.engine.JRDataSource">
+		<fieldDescription><![CDATA[detalle]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="cdf91464-31df-4afc-9d3d-362bf66106e7" style="Title" x="54" y="10" width="440" height="35" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Informe Interno]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1377d2ef-b195-4df1-b210-ef01ee51df3d" x="455" y="2" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Sigal]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="7" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="168" splitType="Stretch">
+			<textField>
+				<reportElement uuid="d2e9921a-79ec-474a-80b5-86237d99bc2e" x="54" y="0" width="328" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nom_usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bf92331e-a611-4518-a8db-b88bce58be84" x="54" y="20" width="121" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tipo_informe_interno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="89776e6a-b4ce-41cb-aa50-9b72772f2773" x="425" y="0" width="130" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha_informe_interno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c40c6519-6c70-444d-be8e-7b55b6642378" x="0" y="60" width="555" height="33"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{obs_informeinterno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="6815de7c-f3f0-4aff-9d48-daadc7d9573d" x="0" y="0" width="54" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b445dc9b-44f5-4d63-944e-19fce2045d37" x="0" y="20" width="54" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4a72cd79-0030-4511-ac36-c47e436e037d" x="0" y="40" width="87" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observacion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="20ba2bdb-4ccb-4a0f-8137-c116ae33bacc" x="382" y="0" width="43" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="34bb7b7e-ebff-4525-80d3-9e8af853b7b0" key="subreport-1" x="9" y="93" width="536" height="75"/>
+				<dataSourceExpression><![CDATA[$F{detalle}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["report2_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

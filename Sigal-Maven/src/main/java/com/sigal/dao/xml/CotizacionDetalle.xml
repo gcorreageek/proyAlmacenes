@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cotizaciondetalle">  
+	<insert id="SQL_registraDetalleCotizacion"  parameterType="CotizacionDetalleBean"   >
+		insert into tb_cotizacion_detalle(cant_detallecotizacion,cod_cotizacion,cod_producto_proveedor) 
+		values(#{cant_detallecotizacion},#{cod_cotizacion},#{cod_producto_proveedor})
+	</insert> 
+	<select id="SQL_getDetalleCotizacion"  parameterType="CotizacionDetalleBean" resultType="CotizacionDetalleBean"  >
+	    select cot.*,det.*,prod_provee.*,prod.* from tb_cotizacion cot inner join tb_cotizacion_detalle det
+		on det.cod_cotizacion=cot.cod_cotizacion
+		inner join tb_producto_proveedor prod_provee
+		on prod_provee.cod_producto_proveedor=det.cod_producto_proveedor
+		inner join tb_producto  prod
+		on prod.cod_producto=prod_provee.cod_producto 
+		where cot.cod_cotizacion=#{cod_solicitudPedido}  
+		order by cot.cod_cotizacion desc
+	</select>
+	
+	 
+	
+</mapper>

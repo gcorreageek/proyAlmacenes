@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iedetalle">  
+<!--     select cod_detalle_informe_externo,cod_informe_externo,cod_detalle_ordencompra -->
+<!-- from tb_informe_externo_detalle -->
+	<insert id="SQL_registraDetalleIE"  parameterType="InformeExternoDetalleBean"   >
+		insert into tb_informe_externo_detalle(cod_informe_externo,cod_detalle_ordencompra) 
+		values(#{cod_informe_externo},#{cod_detalle_ordencompra})
+	</insert>  
+	 
+	
+</mapper>

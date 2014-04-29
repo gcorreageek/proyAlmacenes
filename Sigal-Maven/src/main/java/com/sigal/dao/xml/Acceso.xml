@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="acceso">  
+<!-- select cod_menu,nom_menu,url_menu,icono_menu,tipo_menu,id_submenu,orden_menu,master_menu from tb_menu; -->
+<!--     select cod_accesomenu,cod_menu,cod_cargo,habilitado from tb_acceso_menu; -->
+    
+	<select id="SQL_registraAcceso" parameterType="AccesoBean">
+		insert into tb_acceso_menu(cod_menu,cod_cargo,habilitado) values(#{cod_menu},#{cod_cargo},#{habilitado})
+	</select> 
+	<select id="SQL_updateAcceso" parameterType="AccesoBean">
+		update tb_acceso_menu set habilitado=#{habilitado} where cod_accesomenu = #{cod_accesomenu}
+	</select> 
+	<select id="SQL_listaAcceso" resultType="AccesoBean">
+		select menu.*,acceso.*,cargo.* from tb_menu menu 
+		inner join tb_acceso_menu acceso on acceso.cod_menu=menu.cod_menu 
+		inner join tb_cargo cargo on cargo.cod_cargo=acceso.cod_cargo
+		where acceso.cod_cargo=#{cod_cargo} order by menu.orden_menu
+	</select> 
+	<select id="SQL_getAcceso" resultType="AccesoBean">
+		select menu.*,acceso.*,cargo.* from tb_menu menu 
+		inner join tb_acceso_menu acceso on acceso.cod_menu=menu.cod_menu 
+		inner join tb_cargo cargo on cargo.cod_cargo=acceso.cod_cargo
+		where acceso.cod_accesomenu=#{cod_accesomenu} order by menu.orden_menu
+	</select> 
+	<select id="SQL_getAccesoXIdMenu" resultType="AccesoBean">
+		select menu.*,acceso.*,cargo.* from tb_menu menu 
+		inner join tb_acceso_menu acceso on acceso.cod_menu=menu.cod_menu 
+		inner join tb_cargo cargo on cargo.cod_cargo=acceso.cod_cargo
+		where acceso.cod_menu=#{cod_menu} order by menu.orden_menu
+	</select>
+	<select id="SQL_getAccesoXIdCargoIdMenu" resultType="AccesoBean"  parameterType="AccesoBean">
+		select menu.*,acceso.*,cargo.* from tb_menu menu 
+		inner join tb_acceso_menu acceso on acceso.cod_menu=menu.cod_menu 
+		inner join tb_cargo cargo on cargo.cod_cargo=acceso.cod_cargo
+		where acceso.cod_menu=#{cod_menu} and acceso.cod_cargo=#{cod_cargo} order by menu.orden_menu
+	</select>
+	        
+</mapper>

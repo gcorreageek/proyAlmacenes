@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="area"> 
+	<select id="SQL_listaArea" resultType="AreaBean">
+	    select area.* from tb_area	area	 order by 	area.cod_area desc
+	</select>  
+	<select id="SQL_listaDesc_area" resultType="AreaBean">
+	    select area.* from tb_area	area where area.desc_area like  #{desc_area}	  order by area.cod_area
+	</select> 
+	<select id="SQL_listaAreaPaginados" resultType="AreaBean" parameterType="AreaBean"  >
+	    select area.* from tb_area	area  order by area.cod_area  limit  #{inicio} ,  #{tamano}
+	</select>
+	<select id="SQL_listaAreaDesc_areaPaginados" resultType="AreaBean" parameterType="AreaBean"  >
+	    select area.* from tb_area	area where area.desc_area like  #{desc_area}	  order by area.cod_area  limit  #{inicio} ,  #{tamano}
+	</select>
+
+
+
+
+	<select id="SQL_registraArea" parameterType="AreaBean">
+		insert into tb_area(desc_area) values(#{desc_area})
+	</select>
+	<select id="SQL_deleteArea" parameterType="AreaBean">
+		delete from tb_area where cod_area = #{cod_area}
+	</select>
+	<select id="SQL_updateArea" parameterType="AreaBean">
+		update tb_area set desc_area=#{desc_area} where cod_area = #{cod_area}
+	</select> 
+	<select id="SQL_getArea" resultType="AreaBean">
+		select area.* from tb_area area where area.cod_area=#{cod_area}
+	</select> 
+	        
+</mapper>

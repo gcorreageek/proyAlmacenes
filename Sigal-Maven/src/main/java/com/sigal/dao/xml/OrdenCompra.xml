@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oc"> 
+     
+    <!-- Tamano Inicio  -->
+	<select id="SQL_listaOC" resultType="OrdenCompraBean">
+	    select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where oc.estado_ordencompra='Pendiente'
+		order by oc.cod_ordencompra desc
+	</select>  
+	<select id="SQL_listaOCXNombre" resultType="OrdenCompraBean" parameterType="OrdenCompraBean" >
+		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where usu.nom_usuario like #{nom_usuario} and oc.estado_ordencompra='Pendiente'
+		order by oc.cod_ordencompra desc
+	</select> 
+	<select id="SQL_listaOCXFechas" resultType="OrdenCompraBean" parameterType="OrdenCompraBean" >
+		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where oc.fecharegistro_ordencompra between #{fechaInicio} and #{fechaFin} and oc.estado_ordencompra='Pendiente'
+		order by oc.cod_ordencompra desc
+	</select>  
+	 <!-- Tamano Fin  -->
+	 <!-- Paginacion Inicio -->
+	<select id="SQL_listaOCPag" resultType="OrdenCompraBean" parameterType="OrdenCompraBean"  >
+		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where oc.estado_ordencompra='Pendiente'
+		order by oc.cod_ordencompra desc limit  #{inicio} ,  #{tamano} 
+	</select> 
+	<select id="SQL_listaOCXNombrePag" resultType="OrdenCompraBean" parameterType="OrdenCompraBean"  >
+	    select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where usu.nom_usuario like #{nom_usuario} and oc.estado_ordencompra='Pendiente'
+		order by oc.cod_ordencompra desc  limit  #{inicio} ,  #{tamano}  
+	</select>  
+	<select id="SQL_listaOCXFechasPag" resultType="OrdenCompraBean" parameterType="OrdenCompraBean"  >
+	    select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where oc.fecharegistro_ordencompra between #{fechaInicio} and #{fechaFin} 
+		and oc.estado_ordencompra='Pendiente'
+		order by oc.cod_ordencompra desc  limit  #{inicio} ,  #{tamano}  
+	</select>   
+	<!-- Paginacion Fin -->
+	 
+    
+	<insert id="SQL_registraOC"  parameterType="OrdenCompraBean" useGeneratedKeys="true"
+      keyProperty="cod_OrdenCompra"   > 
+		insert into tb_ordencompra(fecharegistro_ordencompra,cod_usuario,cod_cotizacion,
+		cod_proveedor,estado_ordencompra) values(NOW(),#{cod_usuario},#{cod_cotizacion},
+		#{cod_proveedor},#{estado_ordencompra}) 
+	</insert> 
+	<update id="SQL_actualizarOCEstadoDDDD" parameterType="OrdenCompraBean"  >
+        update tb_ordencompra set estado_ordencompra= #{estado_ordencompra} 
+        where cod_OrdenCompra =  #{cod_OrdenCompra}  
+    </update>
+	
+	<select id="SQL_getOC" resultType="OrdenCompraBean" >
+		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where oc.cod_ordencompra =  #{cod_ordencompra} 	   
+	</select>
+	
+	
+	
+	
+	
+	
+	<!-- Tamano Inicio  -->
+	<select id="SQL_listaOCEntregada" resultType="OrdenCompraBean">
+	    select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where oc.estado_ordencompra='Entregada'
+		order by oc.cod_ordencompra desc
+	</select>  
+	<select id="SQL_listaOCXNombreEntregada" resultType="OrdenCompraBean" parameterType="OrdenCompraBean" >
+		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where usu.nom_usuario like #{nom_usuario} and oc.estado_ordencompra='Entregada'
+		order by oc.cod_ordencompra desc
+	</select> 
+	<select id="SQL_listaOCXFechasEntregada" resultType="OrdenCompraBean" parameterType="OrdenCompraBean" >
+		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where oc.fecharegistro_ordencompra between #{fechaInicio} and #{fechaFin} and oc.estado_ordencompra='Entregada'
+		order by oc.cod_ordencompra desc
+	</select>  
+	 <!-- Tamano Fin  -->
+	 <!-- Paginacion Inicio -->
+	<select id="SQL_listaOCPagEntregada" resultType="OrdenCompraBean" parameterType="OrdenCompraBean"  >
+		select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where oc.estado_ordencompra='Entregada'
+		order by oc.cod_ordencompra desc limit  #{inicio} ,  #{tamano} 
+	</select> 
+	<select id="SQL_listaOCXNombrePagEntregada" resultType="OrdenCompraBean" parameterType="OrdenCompraBean"  >
+	    select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where usu.nom_usuario like #{nom_usuario} and oc.estado_ordencompra='Entregada'
+		order by oc.cod_ordencompra desc  limit  #{inicio} ,  #{tamano}  
+	</select>  
+	<select id="SQL_listaOCXFechasPagEntregada" resultType="OrdenCompraBean" parameterType="OrdenCompraBean"  >
+	    select oc.*, usu.*,cargo.*,area.*,provee.*,cot.* from tb_ordencompra oc inner join tb_usuario usu on oc.cod_usuario=usu.cod_usuario
+		inner join tb_cargo cargo on usu.cod_cargo=cargo.cod_cargo 
+		inner join tb_area area on cargo.cod_area=area.cod_area
+		inner join tb_proveedor provee on provee.cod_proveedor=oc.cod_proveedor
+		inner join tb_cotizacion cot on cot.cod_cotizacion=oc.cod_cotizacion
+		where oc.fecharegistro_ordencompra between #{fechaInicio} and #{fechaFin} 
+		and oc.estado_ordencompra='Entregada'
+		order by oc.cod_ordencompra desc  limit  #{inicio} ,  #{tamano}  
+	</select>   
+	<!-- Paginacion Fin -->
+
+	
+</mapper>

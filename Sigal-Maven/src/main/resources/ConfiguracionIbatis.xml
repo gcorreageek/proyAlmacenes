@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="UsuarioBean" type="com.sigal.seguridad.bean.UsuarioDTO" />
+		<typeAlias alias="AreaBean" type="com.sigal.seguridad.bean.AreaDTO" />
+		<typeAlias alias="CargoBean" type="com.sigal.seguridad.bean.CargoDTO" />		    
+	 	<typeAlias alias="MenuBean" type="com.sigal.seguridad.bean.MenuDTO" /> 
+	 	<typeAlias alias="AccesoBean" type="com.sigal.seguridad.bean.AccesoMenuDTO" /> 
+	 	<typeAlias alias="ProductoBean" type="com.sigal.mantenimiento.bean.ProductoDTO" /> 
+	 	<typeAlias alias="ProveedorBean" type="com.sigal.mantenimiento.bean.ProveedorDTO" /> 
+	 	<typeAlias alias="ProductoProveedorBean" type="com.sigal.mantenimiento.bean.ProductoProveedorDTO" /> 
+	 	<typeAlias alias="PedidoBean" type="com.sigal.pedido.bean.SolicitudPedidoDTO" /> 
+	 	<typeAlias alias="PedidoDetalleBean" type="com.sigal.pedido.bean.DetallePedidoDTO" />
+	 	<typeAlias alias="CotizacionBean" type="com.sigal.cotizacion.bean.CotizacionDTO" />
+	 	<typeAlias alias="CotizacionDetalleBean" type="com.sigal.cotizacion.bean.CotizacionDetalleDTO" /> 
+	 	<typeAlias alias="OrdenCompraBean" type="com.sigal.ordencompra.bean.OrdenCompraDTO" />
+	 	<typeAlias alias="OrdenCompraDetalleBean" type="com.sigal.ordencompra.bean.OrdenCompraDetalleDTO" /> 
+	 	<typeAlias alias="InformeInternoBean" type="com.sigal.informeinterno.bean.InformeInternoDTO" />
+	 	<typeAlias alias="InformeInternoDetalleBean" type="com.sigal.informeinterno.bean.InformeInternoDetalleDTO" /> 
+	 	<typeAlias alias="InformeExternoBean" type="com.sigal.informeexterno.bean.InformeExternoDTO" />
+	 	<typeAlias alias="InformeExternoDetalleBean" type="com.sigal.informeexterno.bean.InformeExternoDetalleDTO" /> 
+	</typeAliases> 
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />			
+			<dataSource type="UNPOOLED"> 
+						<property name="driver" value="com.mysql.jdbc.Driver" />
+						<property name="url" value="jdbc:mysql://localhost:3306/bd_sigal" />
+						<property name="username" value="root" /> 
+						<property name="password" value="root" /> 
+<!-- 						<property name="url" value="jdbc:mysql://ec2-23-21-211-172.compute-1.amazonaws.com:3306/sigalbd" /> -->
+<!-- 						<property name="username" value="daviddavid" />  -->
+<!-- 						<property name="password" value="david" />  -->
+			</dataSource>
+		</environment>
+	</environments>
+	 
+	<mappers>					
+		 <mapper resource="com/sigal/dao/xml/Usuario.xml" />
+		 <mapper resource="com/sigal/dao/xml/Menu.xml" /> 
+		 <mapper resource="com/sigal/dao/xml/Acceso.xml" /> 
+		 <mapper resource="com/sigal/dao/xml/Cargo.xml" /> 
+		 <mapper resource="com/sigal/dao/xml/Area.xml" /> 
+		 <mapper resource="com/sigal/dao/xml/Producto.xml" /> 
+		 <mapper resource="com/sigal/dao/xml/Proveedor.xml" /> 
+		 <mapper resource="com/sigal/dao/xml/ProductoProveedor.xml" />
+		 <mapper resource="com/sigal/dao/xml/Pedido.xml" />
+		 <mapper resource="com/sigal/dao/xml/PedidoDetalle.xml" />
+		 <mapper resource="com/sigal/dao/xml/Cotizacion.xml" />
+		 <mapper resource="com/sigal/dao/xml/CotizacionDetalle.xml" />
+		 <mapper resource="com/sigal/dao/xml/OrdenCompra.xml" />
+		 <mapper resource="com/sigal/dao/xml/OrdenCompraDetalle.xml" />
+		 <mapper resource="com/sigal/dao/xml/InformeInterno.xml" />
+		 <mapper resource="com/sigal/dao/xml/InformeInternoDetalle.xml" />
+		 <mapper resource="com/sigal/dao/xml/InformeExterno.xml" />
+		 <mapper resource="com/sigal/dao/xml/InformeExternoDetalle.xml" />
+	</mappers>
+</configuration>
+

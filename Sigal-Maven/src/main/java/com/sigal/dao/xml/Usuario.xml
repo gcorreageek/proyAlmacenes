@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="usuario">
+	<select id="SQL_getUsuarioLogueo" resultType="UsuarioBean">
+	    select usu.* from tb_usuario	usu	where usu.usu_usuario=#{usu_usuario}	
+	</select>
+
+	<select id="SQL_listaUsuario" resultType="UsuarioBean">
+	    select usuario.*,cargo.*,area.* from tb_usuario usuario 
+		inner join tb_cargo cargo on usuario.cod_cargo=cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area=area.cod_area	 
+		order by 	usuario.cod_usuario desc
+	</select>  
+	<select id="SQL_listaNom_usuario" resultType="UsuarioBean">
+	    select usuario.*,cargo.*,area.* from tb_usuario usuario 
+		inner join tb_cargo cargo on usuario.cod_cargo=cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area=area.cod_area	  where usuario.nom_usuario like  #{nom_usuario}	  order by usuario.cod_usuario
+	</select> 
+	<select id="SQL_listaUsuarioPaginados" resultType="UsuarioBean" parameterType="UsuarioBean"  >
+	    select usuario.*,cargo.*,area.* from tb_usuario usuario 
+		inner join tb_cargo cargo on usuario.cod_cargo=cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area=area.cod_area	   order by usuario.cod_usuario  limit  #{inicio} ,  #{tamano}
+	</select>
+	<select id="SQL_listaUsuarioNom_usuarioPaginados" resultType="UsuarioBean" parameterType="UsuarioBean"  >
+	    select usuario.*,cargo.*,area.* from tb_usuario usuario 
+		inner join tb_cargo cargo on usuario.cod_cargo=cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area=area.cod_area	  where usuario.nom_usuario like  #{nom_usuario}	  order by usuario.cod_usuario  limit  #{inicio} ,  #{tamano}
+	</select>
+
+
+
+<!-- cod_usuario,nom_usuario,correo_usuario,cod_cargo,usu_usuario,pass_usuario -->
+	<select id="SQL_registraUsuario" parameterType="UsuarioBean">
+		insert into tb_usuario(nom_usuario,correo_usuario,cod_cargo,usu_usuario,pass_usuario,habilitado) 
+		values(#{nom_usuario},#{correo_usuario},#{cod_cargo},#{usu_usuario},#{pass_usuario},#{habilitado})
+	</select>
+	<select id="SQL_deleteUsuario" parameterType="UsuarioBean">
+		delete from tb_usuario where cod_usuario = #{cod_usuario}
+	</select>
+	<select id="SQL_updateUsuario" parameterType="UsuarioBean">
+		update tb_usuario set nom_usuario=#{nom_usuario},correo_usuario=#{correo_usuario},
+		cod_cargo=#{cod_cargo},usu_usuario=#{usu_usuario},pass_usuario=#{pass_usuario},
+		habilitado=#{habilitado} where cod_usuario = #{cod_usuario}
+	</select> 
+	<select id="SQL_getUsuario" resultType="UsuarioBean">
+		select usuario.*,cargo.*,area.* from tb_usuario usuario 
+		inner join tb_cargo cargo on usuario.cod_cargo=cargo.cod_cargo
+		inner join tb_area area on cargo.cod_area=area.cod_area	 
+		 where usuario.cod_usuario=#{cod_usuario}
+	</select>  
+	
+	
+	
+	
+</mapper>
